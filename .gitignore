@@ -5,13 +5,15 @@
 *.classpath
 
 # IDE Files #
-.idea
+*.idea
+.idea/
 *.iml
 *.project
 .settings/
+src/main/xtend-gen/
 
 # Build Files #
-/target
+*target/
 *.class
 *.log
 
