@@ -2,10 +2,10 @@ package ar.edu.unq.epers.model
 
 import org.junit.Test
 import ar.edu.unq.epers.aterrizar.model.Usuario
-import org.joda.time.DateTime
 import org.junit.Before
 import ar.edu.unq.epers.aterrizar.persistencia.Repositorio
 import org.junit.Assert
+import java.sql.Date
 
 /**
  * Created by damian on 4/2/16.
@@ -23,7 +23,7 @@ class UsuarioTest {
             contrasenia = "12345"
             email = "foo@bar.com"
             codigoDeEmail = "abc123"
-            nacimiento = new DateTime(new Long(3500))
+            nacimiento = new Date(3000)
             estaRegistradoEmail = false
         ]
 
@@ -33,8 +33,9 @@ class UsuarioTest {
     @Test
     def void registrarUsuario(){
         repositorio.guardarUsuario(usuario1)
-        val Usuario user = repositorio.obtenerPorNombreDeUsuario("foobar16")
+        val Usuario user = repositorio.obtenerUsuarioPorNombreDeUsuario("foobar16")
         Assert.assertEquals("foobar16", user.getNombreDeUsuario)
+        Assert.assertFalse(user.estaRegistradoEmail)
 
         repositorio.tirarTablaConNombreDeUsuario("foobar16")
     }

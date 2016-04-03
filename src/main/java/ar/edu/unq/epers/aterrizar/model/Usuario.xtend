@@ -1,7 +1,8 @@
 package ar.edu.unq.epers.aterrizar.model
 
-import org.joda.time.DateTime
+
 import org.eclipse.xtend.lib.annotations.Accessors
+import java.sql.Date
 
 /**
  * Created by damian on 4/2/16.
@@ -14,7 +15,7 @@ class Usuario {
     private var String email
     private var String contrasenia
     private var String codigoDeEmail
-    private var DateTime nacimiento
+    private var Date nacimiento
     private var boolean estaRegistradoEmail
 
 }

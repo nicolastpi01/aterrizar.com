@@ -47,24 +47,30 @@ class Repositorio {
 
 
 
-    def Usuario obtenerPorNombreDeUsuario(String nomDeUsuario){
+    def Usuario obtenerUsuarioPorNombreDeUsuario(String nomDeUsuario){
         excecute[conn|
-            val ps = conn.prepareStatement("SELECT nombreDeUsuario FROM usuario")
+            val ps = conn.prepareStatement("SELECT * FROM usuario WHERE nombreDeUsuario=?")
+            ps.setString(1, nomDeUsuario)
 
             val ResultSet rs = ps.executeQuery
-            var Usuario userRes2 = new Usuario =>[nombreDeUsuario = "none"];
+            var Usuario userResult = new Usuario =>[nombreDeUsuario = "none"];
 
 
             while(rs.next()){
                 val nDeUs = rs.getString("nombreDeUsuario")
                 if(nDeUs == nomDeUsuario )
-                    userRes2 => [
-                        setNombreDeUsuario = nomDeUsuario
+                    userResult => [
+                        setNombreDeUsuario = rs.getString("nombreDeUsuario")
+                        nombreYApellido = rs.getString("nombreYApellido")
+                        email = rs.getString("email")
+                        contrasenia = rs.getString("contrasenia")
+                        nacimiento = rs.getDate("nacimiento")
+                        estaRegistradoEmail = rs.getBoolean("estaRegistradoEmail")
                     ]
             }
             ps.close();
 
-            userRes2
+            userResult
         ]
 
 

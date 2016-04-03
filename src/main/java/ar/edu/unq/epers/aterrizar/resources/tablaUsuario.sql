@@ -7,7 +7,7 @@ CREATE TABLE `usuario` (
   `contrasenia` varchar(45) DEFAULT NULL,
   `codigoDeEmail` varchar(45) DEFAULT NULL,
   `estaRegistradoEmail` tinyint(1) DEFAULT '0',
-  `nacimiento` varchar(45) DEFAULT NULL,
+  `nacimiento` DATE DEFAULT NULL,
   PRIMARY KEY (`idusuario`),
   UNIQUE KEY `nombreDeUsuario_UNIQUE` (`nombreDeUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
