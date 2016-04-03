@@ -28,10 +28,24 @@ class Repositorio {
             null
         ]
     }
-    def getConnection() {
-        Class.forName("com.mysql.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/aterrizar?user=root&password=drl")
+
+    def void tirarTablaConNombreDeUsuario(String nombreDeUsuario){
+
+        excecute[conn|
+            val ps = conn.prepareStatement("DELETE FROM usuario WHERE nombreDeUsuario = ?")
+            ps.setString(1, nombreDeUsuario)
+
+            ps.execute()
+
+            ps.close
+
+            null
+
+        ]
+
     }
+
+
 
     def Usuario obtenerPorNombreDeUsuario(String nomDeUsuario){
         excecute[conn|
@@ -69,6 +83,10 @@ class Repositorio {
         }
     }
 
+    def getConnection() {
+        Class.forName("com.mysql.jdbc.Driver");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/aterrizar?user=root&password=drl")
+    }
 
 
 

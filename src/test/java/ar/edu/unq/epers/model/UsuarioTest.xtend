@@ -11,24 +11,32 @@ import org.junit.Assert
  * Created by damian on 4/2/16.
  */
 class UsuarioTest {
+    var Repositorio repositorio
+    var Usuario usuario1
 
-    var Repositorio repositorio = new Repositorio
-    var Usuario usuario1  = new Usuario() => [
-        nombreYApellido = "foo bar"
-        nombreDeUsuario = "foobar1"
-        contrasenia = "12345"
-        email = "foo@bar.com"
-        codigoDeEmail = "abc123"
-        nacimiento = new DateTime(new Long(3500))
-        estaRegistradoEmail = false
-    ]
+    @Before
+    def void setUp(){
+        repositorio = new Repositorio
+        usuario1  = new Usuario() => [
+            nombreYApellido = "foo bar"
+            nombreDeUsuario = "foobar16"
+            contrasenia = "12345"
+            email = "foo@bar.com"
+            codigoDeEmail = "abc123"
+            nacimiento = new DateTime(new Long(3500))
+            estaRegistradoEmail = false
+        ]
+
+    }
+
 
     @Test
     def void registrarUsuario(){
-
         repositorio.guardarUsuario(usuario1)
-        val Usuario user = repositorio.obtenerPorNombreDeUsuario("foobar1")
-        Assert.assertEquals("foobar1", user.getNombreDeUsuario)
+        val Usuario user = repositorio.obtenerPorNombreDeUsuario("foobar16")
+        Assert.assertEquals("foobar16", user.getNombreDeUsuario)
+
+        repositorio.tirarTablaConNombreDeUsuario("foobar16")
     }
 
 }
