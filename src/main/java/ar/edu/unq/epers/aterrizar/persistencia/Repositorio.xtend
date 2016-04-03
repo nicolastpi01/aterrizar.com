@@ -4,15 +4,32 @@ import java.sql.DriverManager;
 import ar.edu.unq.epers.aterrizar.model.Usuario
 import java.util.Set
 import java.sql.ResultSet
+import ar.edu.unq.epers.aterrizar.exceptions.YaExisteUsuarioConEseNombreException
 
 /**
  * Created by damian on 4/2/16.
  */
 class Repositorio {
 
-    def void guardarUsuario(Usuario usuario){
+    def void guardarUsuario(Usuario usuario) throws YaExisteUsuarioConEseNombreException{
         excecute[conn|
+
+            val ps = conn.prepareStatement("SELECT * FROM usuario WHERE nombreDeUsuario = ?")
+
+            ps.setString(1,usuario.getNombreDeUsuario)
+
+            var rs = ps.executeQuery
+
+            while(rs.next){
+                throw new YaExisteUsuarioConEseNombreException
+            }
+        ]
+
+        excecute[conn|
+
             val ps = conn.prepareStatement("INSERT INTO usuario (nombreDeUsuario, nombreYApellido, email, contrasenia, codigoDeEmail, nacimiento, estaRegistradoEmail) VALUES (?,?,?,?,?,?,?)")
+
+
             ps.setString(1, usuario.nombreDeUsuario)
             ps.setString(2, usuario.getNombreYApellido)
             ps.setString(3, usuario.getEmail)
@@ -21,11 +38,19 @@ class Repositorio {
             ps.setString(6, usuario.getNacimiento.toString)
             ps.setBoolean(7, usuario.estaRegistradoEmail)
 
-
             ps.execute()
+
+
 
             ps.close()
             null
+        ]
+    }
+
+    def void borrarTodosLosUsuario(){
+        excecute[ conn |
+            val ps = conn.prepareStatement("DELETE FROM usuario;")
+            ps.execute()
         ]
     }
 
