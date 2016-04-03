@@ -16,7 +16,7 @@ class DummyTest {
     }
 
     @Test
-    def void MustBe42(){
+    def void mustBe42(){
         Assert.assertEquals(42,dummyValue)
     }
 
