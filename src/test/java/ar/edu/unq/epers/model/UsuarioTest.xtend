@@ -9,6 +9,10 @@ import static org.junit.Assert.*
 import java.sql.Date
 import ar.edu.unq.epers.aterrizar.exceptions.YaExisteUsuarioConEseNombreException
 import org.junit.After
+import ar.edu.unq.epers.aterrizar.exceptions.NoExisteUsuarioConEseNombreException
+import ar.edu.unq.epers.aterrizar.persistencia.ServiciosDelUsuario
+import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
+import org.mockito.Mockito
 
 /**
  * Created by damian on 4/2/16.
@@ -16,31 +20,35 @@ import org.junit.After
 class UsuarioTest {
     var Repositorio repositorio
     var Usuario usuario1
+    var ServiciosDelUsuario serviciosDelUsuario
+    var EnviadorDeMails enviador
 
     @Before
     def void setUp(){
         repositorio = new Repositorio
         usuario1  = new Usuario() => [
             nombreYApellido = "foo bar"
-            nombreDeUsuario = "foobar16"
+            nombreDeUsuario = "foobar11"
             contrasenia = "12345"
             email = "foo@bar.com"
             codigoDeEmail = 12345
             nacimiento = new Date(3000)
             estaRegistradoEmail = false
         ]
+        enviador = Mockito.mock(typeof(EnviadorDeMails))
+        serviciosDelUsuario = new ServiciosDelUsuario(repositorio, enviador)
 
     }
 
 
     @Test
     def void testRegistrarUsuarioTest(){
-        repositorio.guardarUsuario(usuario1)
-        val Usuario user = repositorio.obtenerUsuarioPorNombreDeUsuario("foobar16")
-        assertEquals("foobar16", user.getNombreDeUsuario)
+        serviciosDelUsuario.registrarUsuario(usuario1)
+        val Usuario user = serviciosDelUsuario.obtenerUsuarioSiExiste("foobar11")
+        assertEquals("foobar11", user.getNombreDeUsuario)
         assertFalse(user.estaRegistradoEmail)
 
-        repositorio.tirarTablaConNombreDeUsuario("foobar16")
+        repositorio.tirarTablaConNombreDeUsuario("foobar11")
     }
 
     @After
@@ -50,8 +58,13 @@ class UsuarioTest {
 
     @Test(expected = YaExisteUsuarioConEseNombreException)
     def void testRegistrarUsuarioConMismoNombreDosVecesTest(){
-        repositorio.guardarUsuario(usuario1)
-        repositorio.guardarUsuario(usuario1)
+        serviciosDelUsuario.registrarUsuario(usuario1)
+        serviciosDelUsuario.registrarUsuario(usuario1)
+    }
+
+    @Test(expected = NoExisteUsuarioConEseNombreException)
+    def void testPedirUsuarioInexistente(){
+        serviciosDelUsuario.obtenerUsuarioSiExiste("nadie")
     }
 
 }

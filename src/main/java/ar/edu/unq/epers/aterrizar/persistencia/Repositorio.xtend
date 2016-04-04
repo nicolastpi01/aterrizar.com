@@ -5,25 +5,14 @@ import ar.edu.unq.epers.aterrizar.model.Usuario
 import java.util.Set
 import java.sql.ResultSet
 import ar.edu.unq.epers.aterrizar.exceptions.YaExisteUsuarioConEseNombreException
+import ar.edu.unq.epers.aterrizar.exceptions.NoExisteUsuarioConEseNombreException
 
 /**
  * Created by damian on 4/2/16.
  */
 class Repositorio {
 
-    def void guardarUsuario(Usuario usuario) throws YaExisteUsuarioConEseNombreException{
-        excecute[conn|
-
-            val ps = conn.prepareStatement("SELECT * FROM usuario WHERE nombreDeUsuario = ?")
-
-            ps.setString(1,usuario.getNombreDeUsuario)
-
-            var rs = ps.executeQuery
-
-            while(rs.next){
-                throw new YaExisteUsuarioConEseNombreException
-            }
-        ]
+    def void guardarUsuario(Usuario usuario){
 
         excecute[conn|
 
@@ -78,25 +67,24 @@ class Repositorio {
             ps.setString(1, nomDeUsuario)
 
             val ResultSet rs = ps.executeQuery
-            var Usuario userResult = new Usuario =>[nombreDeUsuario = "none"];
 
 
-            while(rs.next()){
+            if(rs.next()){
                 val nDeUs = rs.getString("nombreDeUsuario")
                 if(nDeUs == nomDeUsuario )
-                    userResult => [
+                    new Usuario => [
                         setNombreDeUsuario = rs.getString("nombreDeUsuario")
                         nombreYApellido = rs.getString("nombreYApellido")
                         email = rs.getString("email")
                         contrasenia = rs.getString("contrasenia")
                         nacimiento = rs.getDate("nacimiento")
                         estaRegistradoEmail = rs.getBoolean("estaRegistradoEmail")
-                        codigoDeEmail = rs.getInt("codigoDeEmail")
                     ]
+            }else{
+                ps.close();
+                return null
             }
-            ps.close();
 
-            userResult
         ]
 
 
