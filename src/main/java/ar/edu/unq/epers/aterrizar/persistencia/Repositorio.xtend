@@ -59,7 +59,7 @@ class Repositorio {
         ]
     }
 
-    def void tirarTablaConNombreDeUsuario(String nombreDeUsuario){
+    def void borrarUsuario(String nombreDeUsuario){
 
         excecute[conn|
             val ps = conn.prepareStatement("DELETE FROM usuario WHERE nombreDeUsuario = ?")
