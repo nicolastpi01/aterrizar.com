@@ -16,16 +16,15 @@ class Repositorio {
 
         excecute[conn|
 
-            val ps = conn.prepareStatement("INSERT INTO usuario (nombreDeUsuario, nombreYApellido, email, contrasenia, codigoDeEmail, nacimiento, estaRegistradoEmail) VALUES (?,?,?,?,?,?,?)")
+            val ps = conn.prepareStatement("INSERT INTO usuario (nombreDeUsuario, nombreYApellido, email, contrasenia, nacimiento, validado) VALUES (?,?,?,?,?,?)")
 
 
             ps.setString(1, usuario.nombreDeUsuario)
             ps.setString(2, usuario.getNombreYApellido)
             ps.setString(3, usuario.getEmail)
             ps.setString(4, usuario.getContrasenia)
-            ps.setInt(5, usuario.getCodigoDeEmail)
-            ps.setString(6, usuario.getNacimiento.toString)
-            ps.setBoolean(7, usuario.estaRegistradoEmail)
+            ps.setDate(5, usuario.getNacimiento)
+            ps.setBoolean(6, usuario.validado)
 
             ps.execute()
 
@@ -33,6 +32,14 @@ class Repositorio {
 
             ps.close()
             null
+        ]
+    }
+
+    def void validarUsuario(String nombreDeUsuario){
+        excecute[ conn |
+            val ps = conn.prepareStatement("UPDATE usuario SET validado=TRUE WHERE nombreDeUsuario=?;")
+            ps.setString(1, nombreDeUsuario)
+            ps.execute()
         ]
     }
 
@@ -87,7 +94,7 @@ class Repositorio {
                         email = rs.getString("email")
                         contrasenia = rs.getString("contrasenia")
                         nacimiento = rs.getDate("nacimiento")
-                        estaRegistradoEmail = rs.getBoolean("estaRegistradoEmail")
+                        validado = rs.getBoolean("validado")
                     ]
             }else{
                 ps.close();

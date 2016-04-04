@@ -33,9 +33,8 @@ class UsuarioTest {
             nombreDeUsuario = "foobar11"
             contrasenia = "12345"
             email = "foo@bar.com"
-            codigoDeEmail = 12345
             nacimiento = new Date(3000)
-            estaRegistradoEmail = false
+            validado = false
         ]
         enviador = Mockito.mock(typeof(EnviadorDeMails))
         serviciosDelUsuario = new ServiciosDelUsuario(repositorio, enviador)
@@ -48,7 +47,7 @@ class UsuarioTest {
         serviciosDelUsuario.registrarUsuario(usuario1)
         val Usuario user = serviciosDelUsuario.obtenerUsuarioSiExiste("foobar11")
         assertEquals("foobar11", user.getNombreDeUsuario)
-        assertFalse(user.estaRegistradoEmail)
+        assertFalse(user.validado)
 
         repositorio.tirarTablaConNombreDeUsuario("foobar11")
     }
@@ -100,7 +99,11 @@ class UsuarioTest {
         assertFalse(serviciosDelUsuario.login(usuario1.nombreDeUsuario, "incorrecta"))
     }
 
-
+    @Test
+    def void testUsuarioValidadoCorrectamente() {
+        serviciosDelUsuario.registrarUsuario(usuario1)
+        assertTrue(serviciosDelUsuario.validarUsuario(usuario1.nombreDeUsuario, usuario1.nombreDeUsuario.hashCode))
+    }
 
 
 }

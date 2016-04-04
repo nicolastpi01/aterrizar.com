@@ -5,8 +5,7 @@ CREATE TABLE `usuario` (
   `usuariocol2` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
   `contrasenia` varchar(45) DEFAULT NULL,
-  `codigoDeEmail` varchar(45) DEFAULT NULL,
-  `estaRegistradoEmail` tinyint(1) DEFAULT '0',
+  `validado` tinyint(1) DEFAULT '0',
   `nacimiento` DATE DEFAULT NULL,
   PRIMARY KEY (`idusuario`),
   UNIQUE KEY `nombreDeUsuario_UNIQUE` (`nombreDeUsuario`)

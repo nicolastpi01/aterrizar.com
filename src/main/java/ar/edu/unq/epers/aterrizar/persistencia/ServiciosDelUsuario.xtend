@@ -50,6 +50,17 @@ class ServiciosDelUsuario {
             throw new ContraseniaIncorrectaException
     }
 
+    def validarUsuario(String nombreDeUsuario, int hashCode){
+
+        val usuario = this.obtenerUsuarioSiExiste(nombreDeUsuario)
+        if (usuario.getCodigoDeEmail() == hashCode && (! usuario.validado)) {
+            repositorio.validarUsuario(nombreDeUsuario)
+            usuario.setValidado(true)
+        }
+        usuario.isValidado
+
+    }
+
 
 
 }
