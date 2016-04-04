@@ -81,6 +81,12 @@ class UsuarioTest {
         serviciosDelUsuario.cambiarContrasenia(usuario1.nombreDeUsuario, "12345")
     }
 
+    @Test
+    def testAUserLoginsSuccessfully() {
+        serviciosDelUsuario.registrarUsuario(usuario1)
+        assertTrue(serviciosDelUsuario.login(usuario1.nombreDeUsuario, usuario1.contrasenia))
+    }
+
 
 
 

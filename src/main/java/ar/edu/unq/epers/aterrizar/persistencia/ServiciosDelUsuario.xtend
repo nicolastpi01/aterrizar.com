@@ -41,6 +41,10 @@ class ServiciosDelUsuario {
         else repositorio.cambiarContrasenia(nombreDeUsuario, password)
     }
 
+    def boolean login(String nombreDeUsuario, String password){
+        repositorio.obtenerUsuarioPorNombreDeUsuario(nombreDeUsuario).contrasenia == password
+    }
+
 
 
 }
