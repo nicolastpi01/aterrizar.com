@@ -1,4 +1,4 @@
-package ar.edu.unq.epers.aterrizar.persistencia
+package ar.edu.unq.epers.aterrizar.servicios
 
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.model.Usuario
@@ -7,6 +7,7 @@ import ar.edu.unq.epers.aterrizar.exceptions.NoExisteUsuarioConEseNombreExceptio
 import ar.edu.unq.epers.aterrizar.exceptions.ContraseniaIgualALaAnteriorException
 import ar.edu.unq.epers.aterrizar.exceptions.ContraseniaIncorrectaException
 import org.mockito.internal.stubbing.answers.ThrowsException
+import ar.edu.unq.epers.aterrizar.persistencia.Repositorio
 
 /**
  * Created by damian on 4/3/16.
@@ -55,8 +56,9 @@ class ServiciosDelUsuario {
         val usuario = this.obtenerUsuarioSiExiste(nombreDeUsuario)
         if (usuario.getCodigoDeEmail() == hashCode && (! usuario.validado)) {
             repositorio.validarUsuario(nombreDeUsuario)
-            usuario.setValidado(true)
+            usuario.validado = true
         }
+        val x = usuario.nacimiento
         usuario.isValidado
 
     }
