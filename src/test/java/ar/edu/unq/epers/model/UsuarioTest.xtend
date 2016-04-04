@@ -14,6 +14,7 @@ import ar.edu.unq.epers.aterrizar.persistencia.ServiciosDelUsuario
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import org.mockito.Mockito
 import ar.edu.unq.epers.aterrizar.exceptions.ContraseniaIgualALaAnteriorException
+import ar.edu.unq.epers.aterrizar.exceptions.ContraseniaIncorrectaException
 
 /**
  * Created by damian on 4/2/16.
@@ -91,6 +92,12 @@ class UsuarioTest {
     def void testUsuarioLoginFallaPorNoExistir() {
         serviciosDelUsuario.registrarUsuario(usuario1)
         serviciosDelUsuario.login("nadie", "nada")
+    }
+
+    @Test(expected = ContraseniaIncorrectaException)
+    def void testUsuarioLoginFallaPorContraseniaInvalida() {
+        serviciosDelUsuario.registrarUsuario(usuario1)
+        assertFalse(serviciosDelUsuario.login(usuario1.nombreDeUsuario, "incorrecta"))
     }
 
 

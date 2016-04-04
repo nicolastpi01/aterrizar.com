@@ -5,6 +5,8 @@ import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.exceptions.YaExisteUsuarioConEseNombreException
 import ar.edu.unq.epers.aterrizar.exceptions.NoExisteUsuarioConEseNombreException
 import ar.edu.unq.epers.aterrizar.exceptions.ContraseniaIgualALaAnteriorException
+import ar.edu.unq.epers.aterrizar.exceptions.ContraseniaIncorrectaException
+import org.mockito.internal.stubbing.answers.ThrowsException
 
 /**
  * Created by damian on 4/3/16.
@@ -29,10 +31,10 @@ class ServiciosDelUsuario {
     }
 
     def Usuario obtenerUsuarioSiExiste(String nombreDeUs){
-        if(repositorio.obtenerUsuarioPorNombreDeUsuario(nombreDeUs) == null)
-            throw new NoExisteUsuarioConEseNombreException
-        else
+        if(repositorio.obtenerUsuarioPorNombreDeUsuario(nombreDeUs) != null)
             repositorio.obtenerUsuarioPorNombreDeUsuario(nombreDeUs)
+        else
+            throw new NoExisteUsuarioConEseNombreException
     }
 
     def cambiarContrasenia(String nombreDeUsuario, String password){
@@ -42,7 +44,10 @@ class ServiciosDelUsuario {
     }
 
     def boolean login(String nombreDeUsuario, String password){
-        this.obtenerUsuarioSiExiste(nombreDeUsuario).contrasenia == password
+        if(this.obtenerUsuarioSiExiste(nombreDeUsuario).contrasenia == password)
+            return true
+        else
+            throw new ContraseniaIncorrectaException
     }
 
 

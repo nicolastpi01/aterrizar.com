@@ -9,5 +9,4 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class YaExisteUsuarioConEseNombreException extends Exception{}
 class NoExisteUsuarioConEseNombreException extends Exception{}
 class ContraseniaIgualALaAnteriorException extends Exception{}
-
-
+class ContraseniaIncorrectaException extends Exception{}
