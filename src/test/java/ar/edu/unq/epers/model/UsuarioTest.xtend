@@ -15,6 +15,8 @@ import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import org.mockito.Mockito
 import ar.edu.unq.epers.aterrizar.exceptions.ContraseniaIgualALaAnteriorException
 import ar.edu.unq.epers.aterrizar.exceptions.ContraseniaIncorrectaException
+import ar.edu.unq.epers.aterrizar.exceptions.EnviarMailException
+import ar.edu.unq.epers.aterrizar.utils.Mail
 
 /**
  * Created by damian on 4/2/16.
@@ -103,6 +105,22 @@ class UsuarioTest {
     def void testUsuarioValidadoCorrectamente() {
         serviciosDelUsuario.registrarUsuario(usuario1)
         assertTrue(serviciosDelUsuario.validarUsuario(usuario1.nombreDeUsuario, usuario1.nombreDeUsuario.hashCode))
+    }
+
+    /**
+    Este test está a pedido de la cátedra mockeado
+    **/
+    @Test(expected=EnviarMailException)
+    def void testRevisarQueSeEnvieEmail() {
+        var mail = new Mail() => [
+            cuerpo = "Codigo para foo bar:" + "foo bar".hashCode
+            motivo = "bienvenido!"
+            para = "foo22@bar.com"
+            de = "nonReply@test.com"
+        ]
+        Mockito.doThrow(EnviarMailException).when(enviador).enviarMail(mail)
+        serviciosDelUsuario.registrarUsuario(usuario1)
+        enviador.enviarMail(mail)
     }
 
 

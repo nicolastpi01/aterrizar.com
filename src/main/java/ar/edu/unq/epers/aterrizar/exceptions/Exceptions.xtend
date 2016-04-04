@@ -10,3 +10,4 @@ class YaExisteUsuarioConEseNombreException extends Exception{}
 class NoExisteUsuarioConEseNombreException extends Exception{}
 class ContraseniaIgualALaAnteriorException extends Exception{}
 class ContraseniaIncorrectaException extends Exception{}
+class EnviarMailException extends Exception{}
