@@ -13,7 +13,16 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.hbm2ddl.auto">validate</property>
         <property name="show_sql">true</property>
+        
+        
+        
+        <property name="connection.pool_size">1</property>
+        <property name="current_session_context_class">thread</property>
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+        
+        
         <!--<mapping resource=""></mapping>-->
+        <mapping resource="resources.ar.edu.unq.epers.aterrizar.Usuario.hbm.xml"></mapping>
 		
     </session-factory>
 </hibernate-configuration>

@@ -4,13 +4,33 @@
  
 <hibernate-mapping>
     <class name="ar.edu.unq.epers.aterrizar.model.Usuario" table="usuario" >
-        <id name="id" type="java.lang.Integer">
-            <column name="J_ID" />
-            <generator class="identity" />
-        </id>
-
+       
+         <id column="idusuario" name="idusuario" type="string">
+   		<generator class="assigned"/>
+  		</id>
+		<property column="nombreDeUsuario" generated="never" lazy="false" length="45"
+   name="nombreDeUsuario" type="string" unique="true"/>
+   
         <property name="nombreYApellido" type="string">
-            <column name="U_NOMBRE" length="20" not-null="true" unique="false" />
+            <column name="nombreYApellido" length="45" not-null="true" unique="false" />
         </property>
+        
+   <property column="email" generated="never" lazy="false" length="45"
+   name="email" type="string"/>
+   
+   <property column="contrasenia" generated="never" lazy="false" length="45"
+   name="contrasenia" type="string"/>
+   
+   <property column="validado" generated="never" lazy="false" length="1"
+   name="validado" type="tinyint"/>
+   
+   <property column="nacimiento" generated="never" lazy="false"
+   name="nacimiento" type="date"/>
+   
+   
+   
+   
+        
+        
     </class>
 </hibernate-mapping>
