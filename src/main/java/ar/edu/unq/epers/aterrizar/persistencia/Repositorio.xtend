@@ -20,10 +20,10 @@ class Repositorio {
 
 
             ps.setString(1, usuario.nombreDeUsuario)
-            ps.setString(2, usuario.getNombreYApellido)
-            ps.setString(3, usuario.getEmail)
-            ps.setString(4, usuario.getContrasenia)
-            ps.setDate(5, usuario.getNacimiento)
+            ps.setString(2, usuario.nombreYApellido)
+            ps.setString(3, usuario.email)
+            ps.setString(4, usuario.contrasenia)
+            ps.setDate(5, usuario.nacimiento)
             ps.setBoolean(6, usuario.validado)
 
             ps.execute()

@@ -48,7 +48,7 @@ class UsuarioTest {
     def void testRegistrarUsuarioTest(){
         serviciosDelUsuario.registrarUsuario(usuario1)
         val Usuario user = serviciosDelUsuario.obtenerUsuarioSiExiste("foobar11")
-        assertEquals("foobar11", user.getNombreDeUsuario)
+        assertEquals("foobar11", user.nombreDeUsuario)
         assertFalse(user.validado)
 
         repositorio.borrarUsuario("foobar11")
