@@ -10,13 +10,13 @@ import java.sql.Date
 import ar.edu.unq.epers.aterrizar.exceptions.YaExisteUsuarioConEseNombreException
 import org.junit.After
 import ar.edu.unq.epers.aterrizar.exceptions.NoExisteUsuarioConEseNombreException
-import ar.edu.unq.epers.aterrizar.persistencia.ServiciosDelUsuario
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import org.mockito.Mockito
 import ar.edu.unq.epers.aterrizar.exceptions.ContraseniaIgualALaAnteriorException
 import ar.edu.unq.epers.aterrizar.exceptions.ContraseniaIncorrectaException
 import ar.edu.unq.epers.aterrizar.exceptions.EnviarMailException
 import ar.edu.unq.epers.aterrizar.utils.Mail
+import ar.edu.unq.epers.aterrizar.servicios.ServiciosDelUsuario
 
 /**
  * Created by damian on 4/2/16.

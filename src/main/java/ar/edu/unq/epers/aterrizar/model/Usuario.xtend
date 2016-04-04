@@ -10,12 +10,12 @@ import java.sql.Date
 @Accessors
 class Usuario {
 
-    private var String nombreDeUsuario
-    private var String nombreYApellido
-    private var String email
-    private var String contrasenia
-    private var Date nacimiento
-    private var boolean validado
+    var String nombreDeUsuario
+    var String nombreYApellido
+    var String email
+    var String contrasenia
+    var Date nacimiento
+    var boolean validado
 
     def getCodigoDeEmail(){
         nombreDeUsuario.hashCode
