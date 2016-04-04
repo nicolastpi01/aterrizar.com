@@ -36,6 +36,15 @@ class Repositorio {
         ]
     }
 
+    def void cambiarContrasenia(String nombDeUs, String password){
+        excecute[ conn |
+            val ps = conn.prepareStatement("UPDATE usuario SET contrasenia=? WHERE nombreDeUsuario=?;")
+            ps.setString(1, password)
+            ps.setString(2, nombDeUs)
+            ps.execute()
+        ]
+    }
+
     def void borrarTodosLosUsuario(){
         excecute[ conn |
             val ps = conn.prepareStatement("DELETE FROM usuario;")

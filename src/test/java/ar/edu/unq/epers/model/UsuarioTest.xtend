@@ -67,4 +67,11 @@ class UsuarioTest {
         serviciosDelUsuario.obtenerUsuarioSiExiste("nadie")
     }
 
+    @Test
+    def void testAPasswordChanges() {
+        serviciosDelUsuario.registrarUsuario(usuario1)
+        serviciosDelUsuario.cambiarContrasenia(usuario1.nombreDeUsuario, "abcd")
+        assertEquals(serviciosDelUsuario.obtenerUsuarioSiExiste(usuario1.nombreDeUsuario).contrasenia, "abcd")
+    }
+
 }

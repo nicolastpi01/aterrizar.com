@@ -4,6 +4,7 @@ import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.exceptions.YaExisteUsuarioConEseNombreException
 import ar.edu.unq.epers.aterrizar.exceptions.NoExisteUsuarioConEseNombreException
+import ar.edu.unq.epers.aterrizar.exceptions.ContraseniaIgualALaAnteriorException
 
 /**
  * Created by damian on 4/3/16.
@@ -32,6 +33,12 @@ class ServiciosDelUsuario {
             throw new NoExisteUsuarioConEseNombreException
         else
             repositorio.obtenerUsuarioPorNombreDeUsuario(nombreDeUs)
+    }
+
+    def cambiarContrasenia(String nombreDeUsuario, String password){
+        if(obtenerUsuarioSiExiste(nombreDeUsuario).contrasenia == password)
+            throw new ContraseniaIgualALaAnteriorException
+        else repositorio.cambiarContrasenia(nombreDeUsuario, password)
     }
 
 
