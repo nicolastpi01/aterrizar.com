@@ -13,6 +13,7 @@ import ar.edu.unq.epers.aterrizar.exceptions.NoExisteUsuarioConEseNombreExceptio
 import ar.edu.unq.epers.aterrizar.persistencia.ServiciosDelUsuario
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 import org.mockito.Mockito
+import ar.edu.unq.epers.aterrizar.exceptions.ContraseniaIgualALaAnteriorException
 
 /**
  * Created by damian on 4/2/16.
@@ -68,10 +69,19 @@ class UsuarioTest {
     }
 
     @Test
-    def void testAPasswordChanges() {
+    def void testCambiarContrasenia() {
         serviciosDelUsuario.registrarUsuario(usuario1)
         serviciosDelUsuario.cambiarContrasenia(usuario1.nombreDeUsuario, "abcd")
         assertEquals(serviciosDelUsuario.obtenerUsuarioSiExiste(usuario1.nombreDeUsuario).contrasenia, "abcd")
     }
+
+    @Test(expected = ContraseniaIgualALaAnteriorException )
+    def void testCambiarContraseniaPorLaMisma() {
+        serviciosDelUsuario.registrarUsuario(usuario1)
+        serviciosDelUsuario.cambiarContrasenia(usuario1.nombreDeUsuario, "12345")
+    }
+
+
+
 
 }
