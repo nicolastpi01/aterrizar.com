@@ -82,9 +82,15 @@ class UsuarioTest {
     }
 
     @Test
-    def testAUserLoginsSuccessfully() {
+    def testUsuarioLoginCorrecto() {
         serviciosDelUsuario.registrarUsuario(usuario1)
         assertTrue(serviciosDelUsuario.login(usuario1.nombreDeUsuario, usuario1.contrasenia))
+    }
+
+    @Test(expected=NoExisteUsuarioConEseNombreException)
+    def void testUsuarioLoginFallaPorNoExistir() {
+        serviciosDelUsuario.registrarUsuario(usuario1)
+        serviciosDelUsuario.login("nadie", "nada")
     }
 
 

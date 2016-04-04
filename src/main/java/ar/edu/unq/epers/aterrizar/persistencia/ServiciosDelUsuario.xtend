@@ -42,7 +42,7 @@ class ServiciosDelUsuario {
     }
 
     def boolean login(String nombreDeUsuario, String password){
-        repositorio.obtenerUsuarioPorNombreDeUsuario(nombreDeUsuario).contrasenia == password
+        this.obtenerUsuarioSiExiste(nombreDeUsuario).contrasenia == password
     }
 
 
