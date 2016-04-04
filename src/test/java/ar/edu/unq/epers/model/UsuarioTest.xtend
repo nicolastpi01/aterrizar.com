@@ -51,7 +51,7 @@ class UsuarioTest {
         assertEquals("foobar11", user.getNombreDeUsuario)
         assertFalse(user.validado)
 
-        repositorio.tirarTablaConNombreDeUsuario("foobar11")
+        repositorio.borrarUsuario("foobar11")
     }
 
     @After
