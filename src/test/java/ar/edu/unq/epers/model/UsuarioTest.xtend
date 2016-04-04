@@ -25,7 +25,7 @@ class UsuarioTest {
             nombreDeUsuario = "foobar16"
             contrasenia = "12345"
             email = "foo@bar.com"
-            codigoDeEmail = "abc123"
+            codigoDeEmail = 12345
             nacimiento = new Date(3000)
             estaRegistradoEmail = false
         ]
@@ -50,6 +50,7 @@ class UsuarioTest {
 
     @Test(expected = YaExisteUsuarioConEseNombreException)
     def void testRegistrarUsuarioConMismoNombreDosVecesTest(){
+        repositorio.guardarUsuario(usuario1)
         repositorio.guardarUsuario(usuario1)
     }
 

@@ -14,7 +14,7 @@ class Usuario {
     private var String nombreYApellido
     private var String email
     private var String contrasenia
-    private var String codigoDeEmail
+    private var int codigoDeEmail
     private var Date nacimiento
     private var boolean estaRegistradoEmail
 

@@ -34,7 +34,7 @@ class Repositorio {
             ps.setString(2, usuario.getNombreYApellido)
             ps.setString(3, usuario.getEmail)
             ps.setString(4, usuario.getContrasenia)
-            ps.setString(5, usuario.getCodigoDeEmail)
+            ps.setInt(5, usuario.getCodigoDeEmail)
             ps.setString(6, usuario.getNacimiento.toString)
             ps.setBoolean(7, usuario.estaRegistradoEmail)
 
@@ -91,6 +91,7 @@ class Repositorio {
                         contrasenia = rs.getString("contrasenia")
                         nacimiento = rs.getDate("nacimiento")
                         estaRegistradoEmail = rs.getBoolean("estaRegistradoEmail")
+                        codigoDeEmail = rs.getInt("codigoDeEmail")
                     ]
             }
             ps.close();
