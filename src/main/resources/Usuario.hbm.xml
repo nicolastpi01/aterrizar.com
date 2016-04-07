@@ -5,11 +5,12 @@
 <hibernate-mapping>
     <class name="ar.edu.unq.epers.aterrizar.model.Usuario" table="usuario" >
        
-         <id column="idusuario" name="idusuario" type="string">
-   		<generator class="assigned"/>
-  		</id>
-		<property column="nombreDeUsuario" generated="never" lazy="false" length="45"
-   name="nombreDeUsuario" type="string" unique="true"/>
+        
+  		 
+  	<id column="nombreDeUsuario"
+   name="nombreDeUsuario" type="string">
+   </id>
+		
    
         <property name="nombreYApellido" type="string">
             <column name="nombreYApellido" length="45" not-null="true" unique="false" />
@@ -22,7 +23,7 @@
    name="contrasenia" type="string"/>
    
    <property column="validado" generated="never" lazy="false" length="1"
-   name="validado" type="tinyint"/>
+   name="validado" type="boolean"/>
    
    <property column="nacimiento" generated="never" lazy="false"
    name="nacimiento" type="date"/>

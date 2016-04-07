@@ -22,7 +22,7 @@
         
         
         <!--<mapping resource=""></mapping>-->
-        <mapping resource="resources.ar.edu.unq.epers.aterrizar.Usuario.hbm.xml"></mapping>
+        <mapping resource="Usuario.hbm.xml"></mapping>
 		
     </session-factory>
 </hibernate-configuration>

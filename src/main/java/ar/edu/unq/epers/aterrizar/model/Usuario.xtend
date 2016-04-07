@@ -4,6 +4,8 @@ package ar.edu.unq.epers.aterrizar.model
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.sql.Date
 
+//import java.sql.Date
+
 /**
  * Created by damian on 4/2/16.
  */

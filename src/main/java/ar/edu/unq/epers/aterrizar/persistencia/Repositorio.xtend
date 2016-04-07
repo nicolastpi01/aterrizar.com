@@ -1,11 +1,12 @@
 package ar.edu.unq.epers.aterrizar.persistencia
-import java.sql.Connection;
-import java.sql.DriverManager;
+
 import ar.edu.unq.epers.aterrizar.model.Usuario
-import java.util.Set
+import java.sql.Connection
+import java.sql.DriverManager
 import java.sql.ResultSet
-import ar.edu.unq.epers.aterrizar.exceptions.YaExisteUsuarioConEseNombreException
-import ar.edu.unq.epers.aterrizar.exceptions.NoExisteUsuarioConEseNombreException
+import java.util.Date
+import java.sql.DatabaseMetaData
+import org.joda.time.DateTime
 
 /**
  * Created by damian on 4/2/16.
@@ -108,7 +109,7 @@ class Repositorio {
 
     }
 
-    def <A> excecute(org.eclipse.xtext.xbase.lib.Functions.Function1<Connection, A> closure){
+    def <A> excecute(Functions.Function1<Connection, A> closure){
         var Connection conn = null
         try{
             conn = getConnection()
