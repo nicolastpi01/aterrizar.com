@@ -17,7 +17,6 @@ class UsuarioService {
 		def consultarUsuario(String user) {
 		SessionManager.runInSession([
 			new UsuarioHome().getUsuario(user)
-			Usuario
 		]);
 	
 }

@@ -1,4 +1,4 @@
-package ar.edu.unq.epers.aterrizar.hibernateTesting
+package ar.edu.unq.epers.hibernate
 
 import ar.edu.unq.epers.aterrizar.home.SessionManager
 import ar.edu.unq.epers.aterrizar.model.Usuario
@@ -112,5 +112,18 @@ class TestUsuario {
 		
 	}
 	 */
+	
+	@Test
+	def void consultarUsuarioEnLaDB(){
+	service.crearUsuario(user)
+	val consulta = service.consultarUsuario(user.nombreDeUsuario)
+	Assert.assertEquals(consulta.nombreDeUsuario, user.nombreDeUsuario)
+	Assert.assertEquals(consulta.contrasenia, user.contrasenia)
+	Assert.assertEquals(consulta.email, user.email)
+	Assert.assertEquals(consulta.nacimiento, user.nacimiento)
+	
+	
+		
+	}
 	
 }
