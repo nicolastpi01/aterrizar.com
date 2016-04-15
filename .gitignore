@@ -11,6 +11,7 @@
 *.project
 .settings/
 src/main/xtend-gen/
+src/test/xtend-gen/
 
 # Build Files #
 *target/
