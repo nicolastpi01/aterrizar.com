@@ -9,5 +9,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class Asiento {
     String codigo
     Usuario reservadoPorUsuario
+    Usuario vendidoAUsuario
     Categoria categoria
 }

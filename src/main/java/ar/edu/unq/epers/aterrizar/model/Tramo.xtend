@@ -21,9 +21,15 @@ class Tramo {
         asientos.add(asiento)
     }
 
-    def reservarAsientoParaUsuarioEnTramo(String codigo, Usuario user){
-        var Asiento asientoAReservar = asientos.filter[asiento | asiento.codigo == codigo].get(0)
+    def reservarAsientoParaUsuarioEnTramo(Asiento asiento, Usuario user){
+        var Asiento asientoAReservar = asientos.filter[asient | asient.codigo == asiento.codigo].get(0)
 
         asientoAReservar.reservadoPorUsuario = user
+    }
+
+    def comprarAsientoParaUsuarioEnTramo(Asiento asiento, Usuario user){
+        var Asiento asientoAComprar = asientos.filter[asient | asient.codigo == asiento.codigo].get(0)
+
+        asientoAComprar.vendidoAUsuario = user
     }
 }

@@ -14,6 +14,8 @@ import ar.edu.unq.epers.aterrizar.model.Tramo
 import ar.edu.unq.epers.aterrizar.model.Asiento
 import ar.edu.unq.epers.aterrizar.model.Primera
 import ar.edu.unq.epers.aterrizar.servicios.TramoService
+import java.util.ArrayList
+import java.util.List
 
 class TestUsuario {
 
@@ -23,6 +25,10 @@ class TestUsuario {
 
     SessionFactory sessionFactory;
     Session session = null;
+    Asiento asiento1
+    Asiento asiento2
+    Asiento asiento3
+    Tramo tramo
 
 
     @Before
@@ -37,6 +43,28 @@ class TestUsuario {
         ]
         service = new UsuarioService
         serviceTramo = new TramoService
+
+        asiento1 = new Asiento => [
+            codigo = "c 1"
+            categoria = new Primera
+        ]
+        asiento2 = new Asiento => [
+            codigo = "c 2"
+            categoria = new Primera
+        ]
+        asiento3 = new Asiento => [
+            codigo = "c 3"
+            categoria = new Primera
+        ]
+
+        tramo = new Tramo => [
+
+            origen = "Buenos Aires"
+            destino = "Chubut"
+            llegada = new Date(1000)
+            salida = new Date(1500)
+            precioBase = 1500
+        ]
 
 
     }
@@ -66,25 +94,35 @@ class TestUsuario {
 
     @Test
     def void reservarAsientoEnTramo(){
-        var asiento = new Asiento => [
-            codigo = "c 12"
-            categoria = new Primera
-        ]
-        var tramo = new Tramo => [
 
-            origen = "Buenos Aires"
-            destino = "Chubut"
-            llegada = new Date(1000)
-            salida = new Date(1500)
-            precioBase = 1500
-        ]
-
-        tramo.agregarAsiento(asiento)
+        tramo.agregarAsiento(asiento1)
 
         serviceTramo.guardarTramo(tramo)
-        serviceTramo.reservarAsientoParaUsuarioEnTramo(asiento.codigo, user, tramo)
+        serviceTramo.reservarAsientoParaUsuarioEnTramo(asiento1, user, tramo)
 
-        Assert.assertEquals(user, asiento.reservadoPorUsuario)
+        Assert.assertEquals(user, asiento1.reservadoPorUsuario)
+    }
+
+    @Test
+    def void reservarVariosAsientosYComprarTodos(){
+
+        tramo.agregarAsiento(asiento1)
+        tramo.agregarAsiento(asiento2)
+        tramo.agregarAsiento(asiento3)
+
+        var List listaAReservar = new ArrayList<Asiento>
+        listaAReservar.add(asiento1)
+        listaAReservar.add(asiento2)
+        listaAReservar.add(asiento3)
+
+        serviceTramo.reservarAsientosParaUsuario(listaAReservar, user, tramo)
+        var listaAComprar = listaAReservar
+        serviceTramo.comprarAsientosParaUsuario(listaAComprar,user , tramo)
+
+        Assert.assertEquals(user, asiento1.vendidoAUsuario)
+        Assert.assertEquals(user, asiento2.vendidoAUsuario)
+        Assert.assertEquals(user, asiento3.vendidoAUsuario)
+
     }
 
 }
