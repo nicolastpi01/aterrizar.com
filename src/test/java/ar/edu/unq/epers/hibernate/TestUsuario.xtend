@@ -116,6 +116,7 @@ class TestUsuario {
         listaAReservar.add(asiento3)
 
         serviceTramo.reservarAsientosParaUsuario(listaAReservar, user, tramo)
+
         var listaAComprar = listaAReservar
         serviceTramo.comprarAsientosParaUsuario(listaAComprar,user , tramo)
 
@@ -142,11 +143,17 @@ class TestUsuario {
         listaAComprar.add(asiento1)
         listaAComprar.add(asiento3)
 
+
+        Assert.assertEquals(user, asiento1.reservadoPorUsuario)
+        Assert.assertEquals(user, asiento2.reservadoPorUsuario)
+        Assert.assertEquals(user, asiento3.reservadoPorUsuario)
+
+
         serviceTramo.comprarAsientosParaUsuario(listaAComprar,user , tramo)
 
         Assert.assertEquals(user, asiento1.vendidoAUsuario)
         Assert.assertEquals(null, asiento2.vendidoAUsuario)
-        Assert.assertEquals(user, asiento2.reservadoPorUsuario)
+        Assert.assertEquals(null, asiento2.reservadoPorUsuario)
         Assert.assertEquals(user, asiento3.vendidoAUsuario)
 
     }

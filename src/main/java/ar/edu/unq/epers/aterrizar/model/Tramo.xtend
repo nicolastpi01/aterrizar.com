@@ -32,4 +32,11 @@ class Tramo {
 
         asientoAComprar.vendidoAUsuario = user
     }
+
+    def liberarAsientosNoCompradosDeUsuario(Usuario user){
+        asientos.forEach[asiento |
+            if(asiento.reservadoPorUsuario == user && !(asiento.vendidoAUsuario == user))
+                asiento.reservadoPorUsuario = null
+        ]
+    }
 }

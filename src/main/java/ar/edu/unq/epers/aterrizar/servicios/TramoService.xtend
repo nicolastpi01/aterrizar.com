@@ -25,10 +25,15 @@ class TramoService {
 
     def comprarAsientosParaUsuario(List<Asiento> listaAComprar, Usuario user, Tramo tramo){
         listaAComprar.forEach[asiento | this.comprarAsientoParaUsuarioEnTramo(asiento,user,tramo)]
+        this.liberarAsientosNoCompradosDeUsuario(tramo, user)
     }
 
     def comprarAsientoParaUsuarioEnTramo(Asiento asiento,Usuario user,Tramo tramo){
         tramo.comprarAsientoParaUsuarioEnTramo(asiento,user)
+    }
+
+    def liberarAsientosNoCompradosDeUsuario(Tramo tramo, Usuario user){
+        tramo.liberarAsientosNoCompradosDeUsuario(user)
     }
 
 }
