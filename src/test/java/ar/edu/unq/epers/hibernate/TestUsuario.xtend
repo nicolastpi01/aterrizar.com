@@ -81,8 +81,7 @@ class TestUsuario {
         tramo.agregarAsiento(asiento)
 
         serviceTramo.guardarTramo(tramo)
-
-
+        serviceTramo.
 
     }
 
