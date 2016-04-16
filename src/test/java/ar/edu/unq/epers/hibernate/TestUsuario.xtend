@@ -189,4 +189,27 @@ class TestUsuario {
 
     }
 
+    @Test
+    def void consultarAsientosDisponiblesParaUnTramo(){
+
+        tramo.agregarAsiento(asiento1)
+        tramo.agregarAsiento(asiento2)
+        tramo.agregarAsiento(asiento3)
+
+        var List listaAReservar = new ArrayList<Asiento>
+        listaAReservar.add(asiento1)
+        listaAReservar.add(asiento3)
+
+        serviceTramo.reservarAsientosParaUsuario(listaAReservar, user, tramo)
+
+        var List<Asiento> asientosDisponibles = serviceTramo.asientosDisponibles(tramo)
+
+        var List<Asiento> asientosEsperados = new ArrayList
+
+        asientosEsperados.add(asiento2)
+
+        Assert.assertEquals(asientosDisponibles, asientosEsperados)
+
+    }
+
 }

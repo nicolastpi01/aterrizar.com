@@ -39,4 +39,8 @@ class Tramo {
                 asiento.reservadoPorUsuario = null
         ]
     }
+
+    def List<Asiento> asientosDisponibles(){
+        asientos.filter[asiento | asiento.reservadoPorUsuario == null].toList
+    }
 }

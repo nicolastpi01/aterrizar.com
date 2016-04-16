@@ -36,4 +36,7 @@ class TramoService {
         tramo.liberarAsientosNoCompradosDeUsuario(user)
     }
 
+    def asientosDisponibles(Tramo tramo){
+        tramo.asientosDisponibles
+    }
 }
