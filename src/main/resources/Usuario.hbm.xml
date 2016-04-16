@@ -1,37 +1,32 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
- 
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
 <hibernate-mapping>
-    <class name="ar.edu.unq.epers.aterrizar.model.Usuario" table="usuario" >
-       
-        
-  		 
-  	<id column="nombreDeUsuario"
-   name="nombreDeUsuario" type="string">
-   </id>
-		
-   
+    <class name="ar.edu.unq.epers.aterrizar.model.Usuario" table="usuario">
+
+
+        <id column="nombreDeUsuario"
+            name="nombreDeUsuario" type="string">
+        </id>
+
+
         <property name="nombreYApellido" type="string">
-            <column name="nombreYApellido" length="45" not-null="true" unique="false" />
+            <column name="nombreYApellido" length="45" not-null="true" unique="false"/>
         </property>
-        
-   <property column="email" generated="never" lazy="false" length="45"
-   name="email" type="string"/>
-   
-   <property column="contrasenia" generated="never" lazy="false" length="45"
-   name="contrasenia" type="string"/>
-   
-   <property column="validado" generated="never" lazy="false" length="1"
-   name="validado" type="boolean"/>
-   
-   <property column="nacimiento" generated="never" lazy="false"
-   name="nacimiento" type="date"/>
-   
-   
-   
-   
-        
-        
+
+        <property column="email" generated="never" lazy="false" length="45"
+                  name="email" type="string"/>
+
+        <property column="contrasenia" generated="never" lazy="false" length="45"
+                  name="contrasenia" type="string"/>
+
+        <property column="validado" generated="never" lazy="false" length="1"
+                  name="validado" type="boolean"/>
+
+        <property column="nacimiento" generated="never" lazy="false"
+                  name="nacimiento" type="date"/>
+
+
     </class>
 </hibernate-mapping>
