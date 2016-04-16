@@ -125,4 +125,30 @@ class TestUsuario {
 
     }
 
+    @Test
+    def void reservarAsientosYComprarAlgunos(){
+        tramo.agregarAsiento(asiento1)
+        tramo.agregarAsiento(asiento2)
+        tramo.agregarAsiento(asiento3)
+
+        var List listaAReservar = new ArrayList<Asiento>
+        listaAReservar.add(asiento1)
+        listaAReservar.add(asiento2)
+        listaAReservar.add(asiento3)
+
+        serviceTramo.reservarAsientosParaUsuario(listaAReservar, user, tramo)
+
+        var List listaAComprar = new ArrayList<Asiento>
+        listaAComprar.add(asiento1)
+        listaAComprar.add(asiento3)
+
+        serviceTramo.comprarAsientosParaUsuario(listaAComprar,user , tramo)
+
+        Assert.assertEquals(user, asiento1.vendidoAUsuario)
+        Assert.assertEquals(null, asiento2.vendidoAUsuario)
+        Assert.assertEquals(user, asiento2.reservadoPorUsuario)
+        Assert.assertEquals(user, asiento3.vendidoAUsuario)
+
+    }
+
 }
