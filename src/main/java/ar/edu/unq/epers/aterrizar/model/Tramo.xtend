@@ -20,4 +20,10 @@ class Tramo {
     def agregarAsiento(Asiento asiento){
         asientos.add(asiento)
     }
+
+    def reservarAsientoParaUsuarioEnTramo(String codigo, Usuario user){
+        var Asiento asientoAReservar = asientos.filter[asiento | asiento.codigo == codigo].get(0)
+
+        asientoAReservar.reservadoPorUsuario = user
+    }
 }

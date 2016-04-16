@@ -67,6 +67,7 @@ class TestUsuario {
     @Test
     def void reservarAsientoEnTramo(){
         var asiento = new Asiento => [
+            codigo = "c 12"
             categoria = new Primera
         ]
         var tramo = new Tramo => [
@@ -81,8 +82,9 @@ class TestUsuario {
         tramo.agregarAsiento(asiento)
 
         serviceTramo.guardarTramo(tramo)
-        serviceTramo.
+        serviceTramo.reservarAsientoParaUsuarioEnTramo(asiento.codigo, user, tramo)
 
+        Assert.assertEquals(user, asiento.reservadoPorUsuario)
     }
 
 }
