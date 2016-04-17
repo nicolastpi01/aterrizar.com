@@ -7,7 +7,7 @@
 <id column="id" name="id" type="string"> 
 <generator class="assigned"/>
 </id>
-	<property column="precio" generated="never" lazy="false" length="45" name="precio" type="float"/>
+	<property column="precioBase" generated="never" lazy="false" length="45" name="precioBase" type="float"/>
 	 <joined-subclass  name="ar.edu.unq.epers.aterrizar.model.Primera" extends="ar.edu.unq.epers.aterrizar.model.Categoria">
 	 <key column="id"/>
 	 </joined-subclass> 

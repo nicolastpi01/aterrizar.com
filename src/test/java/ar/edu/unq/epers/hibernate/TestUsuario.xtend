@@ -49,15 +49,15 @@ class TestUsuario {
 
         asiento1 = new Asiento => [
             codigo = "c 1"
-            categoria = new Primera
+            categoria = new Primera(1000)
         ]
         asiento2 = new Asiento => [
             codigo = "c 2"
-            categoria = new Primera
+            categoria = new Primera(1000)
         ]
         asiento3 = new Asiento => [
             codigo = "c 3"
-            categoria = new Primera
+            categoria = new Primera(1000)
         ]
 
         tramo = new Tramo => [

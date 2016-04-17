@@ -6,7 +6,12 @@ package ar.edu.unq.epers.aterrizar.model
 class Business extends Categoria{
 
     override precio() {
-        throw new UnsupportedOperationException()
+        precioBase + 1000
     }
+
+    new (float precio) {
+        super(precio)
+    }
+
 
 }

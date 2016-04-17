@@ -6,7 +6,12 @@ package ar.edu.unq.epers.aterrizar.model
 class Turista extends Categoria {
 
     override precio() {
-        throw new UnsupportedOperationException()
+        precioBase
     }
+
+    new (float precio) {
+        super(precio)
+    }
+
 
 }

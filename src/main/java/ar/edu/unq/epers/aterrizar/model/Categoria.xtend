@@ -7,11 +7,17 @@ import org.eclipse.xtend.lib.annotations.Accessors
  */
 
 @Accessors
-class Categoria {
-	String id
-	float precio
-    def float precio(){
-    	return precio
+abstract class Categoria {
+
+    String id
+    float precioBase
+
+    new(float precio){
+        this.precioBase = precio
     }
+
+
+    abstract def float precio()
+
 
 }

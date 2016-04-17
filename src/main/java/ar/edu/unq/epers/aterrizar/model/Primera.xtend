@@ -6,7 +6,12 @@ package ar.edu.unq.epers.aterrizar.model
 class Primera extends Categoria{
 
     override precio() {
-        throw new UnsupportedOperationException()
+        precioBase + 2000
     }
+
+    new (float precio) {
+        super(precio)
+    }
+
 
 }
