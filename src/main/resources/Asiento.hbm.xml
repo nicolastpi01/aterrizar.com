@@ -4,7 +4,7 @@
 
 <hibernate-mapping>
 <class 
-name="ar.edu.unq.epers.aterrizar.model.Asiento" table="tramo">
+name="ar.edu.unq.epers.aterrizar.model.Asiento" table="asiento">
 <id column="codigo" name="codigo" type="string"> 
 <generator class="assigned"/>
 </id>

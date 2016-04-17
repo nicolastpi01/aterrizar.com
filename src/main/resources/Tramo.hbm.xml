@@ -5,7 +5,10 @@
 <hibernate-mapping>
 <class 
 name="ar.edu.unq.epers.aterrizar.model.Tramo" table="tramo">
-<id column="id" name="id" type="string"> </id>
+<id column="id" name="id" type="string"> 
+<generator class="increment"/>
+</id>
+	
 	<property column="origen" generated="never" lazy="false" length="45" name="destino" type="string"/>
 	<property column="destino" generated="never" lazy="false" length="45" name="destino" type="string"/>
 	<property column="horaLlegada" generated="never" lazy="false" length="45" name="horaLlegada" type="date"/>
