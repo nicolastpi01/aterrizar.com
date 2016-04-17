@@ -43,4 +43,12 @@ class Tramo {
     def List<Asiento> asientosDisponibles(){
         asientos.filter[asiento | asiento.reservadoPorUsuario == null].toList
     }
+
+    def hayUnAsientoDisponible(){
+        asientos.fold(false) [result, asiento |
+
+            asiento.reservadoPorUsuario == null || result
+
+        ]
+    }
 }
