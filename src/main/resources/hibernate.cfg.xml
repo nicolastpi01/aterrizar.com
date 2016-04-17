@@ -11,7 +11,7 @@
         <property name="hibernate.connection.password">root</property>
 
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hibernate.hbm2ddl.auto">validate</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
         <property name="show_sql">true</property>
         
         
@@ -23,6 +23,9 @@
         
         <!--<mapping resource=""></mapping>-->
         <mapping resource="Usuario.hbm.xml"></mapping>
+        <mapping resource="Tramo.hbm.xml"></mapping>
+        <mapping resource="Asiento.hbm.xml"></mapping>
+        <mapping resource="Categoria.hbm.xml"></mapping>
 		
     </session-factory>
 </hibernate-configuration>
