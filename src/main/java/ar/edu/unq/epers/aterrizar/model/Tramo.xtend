@@ -10,6 +10,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
  */
 @Accessors
 class Tramo {
+	String id
     List<Asiento> asientos = new ArrayList
     var String origen
     var String destino
