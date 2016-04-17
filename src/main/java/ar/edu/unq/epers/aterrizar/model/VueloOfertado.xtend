@@ -9,10 +9,11 @@ import org.eclipse.xtend.lib.annotations.Accessors
  */
 @Accessors
 class VueloOfertado {
-
+	String id
     var List<Tramo> tramos = new ArrayList
 
-    new (List<Tramo> tramos){
+    new (String id, List<Tramo> tramos){
+    	this.id = id
         this.tramos = tramos
     }
 
