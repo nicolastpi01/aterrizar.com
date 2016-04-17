@@ -1,21 +1,22 @@
 package ar.edu.unq.epers.hibernate
 
 import ar.edu.unq.epers.aterrizar.home.SessionManager
+import ar.edu.unq.epers.aterrizar.model.Asiento
+import ar.edu.unq.epers.aterrizar.model.Primera
+import ar.edu.unq.epers.aterrizar.model.Tramo
 import ar.edu.unq.epers.aterrizar.model.Usuario
+import ar.edu.unq.epers.aterrizar.model.VueloOfertado
+import ar.edu.unq.epers.aterrizar.servicios.TramoService
 import ar.edu.unq.epers.aterrizar.servicios.UsuarioService
 import java.sql.Date
+import java.util.ArrayList
+import java.util.List
 import org.hibernate.Session
 import org.hibernate.SessionFactory
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import ar.edu.unq.epers.aterrizar.model.Tramo
-import ar.edu.unq.epers.aterrizar.model.Asiento
-import ar.edu.unq.epers.aterrizar.model.Primera
-import ar.edu.unq.epers.aterrizar.servicios.TramoService
-import java.util.ArrayList
-import java.util.List
 
 class TestUsuario {
 
@@ -29,6 +30,8 @@ class TestUsuario {
     Asiento asiento2
     Asiento asiento3
     Tramo tramo
+    Tramo tramo2
+    Tramo tramo3
 
 
     @Before
@@ -59,12 +62,41 @@ class TestUsuario {
 
         tramo = new Tramo => [
 
-            origen = "Buenos Aires"
-            destino = "Chubut"
+            origen = "Chile"
+            destino = "Buenos Aires"
             llegada = new Date(1000)
             salida = new Date(1500)
             precioBase = 1500
         ]
+
+        tramo.agregarAsiento(asiento1)
+        tramo.agregarAsiento(asiento2)
+        tramo.agregarAsiento(asiento3)
+
+        tramo2 = new Tramo => [
+
+            origen = "Buenos Aires"
+            destino = "Brasil"
+            llegada = new Date(1000)
+            salida = new Date(1500)
+            precioBase = 1500
+        ]
+
+        tramo2.agregarAsiento(asiento1)
+        tramo2.agregarAsiento(asiento2)
+        tramo2.agregarAsiento(asiento3)
+
+        tramo3 = new Tramo => [
+
+            origen = "Brasil"
+            destino = "Mexico"
+            llegada = new Date(1000)
+            salida = new Date(1500)
+            precioBase = 1500
+        ]
+        tramo3.agregarAsiento(asiento1)
+        tramo3.agregarAsiento(asiento2)
+        tramo3.agregarAsiento(asiento3)
 
 
     }
@@ -106,9 +138,7 @@ class TestUsuario {
     @Test
     def void reservarVariosAsientosYComprarTodos(){
 
-        tramo.agregarAsiento(asiento1)
-        tramo.agregarAsiento(asiento2)
-        tramo.agregarAsiento(asiento3)
+
 
         var List listaAReservar = new ArrayList<Asiento>
         listaAReservar.add(asiento1)
@@ -128,9 +158,6 @@ class TestUsuario {
 
     @Test
     def void reservarAsientosYComprarAlgunos(){
-        tramo.agregarAsiento(asiento1)
-        tramo.agregarAsiento(asiento2)
-        tramo.agregarAsiento(asiento3)
 
         var List listaAReservar = new ArrayList<Asiento>
         listaAReservar.add(asiento1)
@@ -160,9 +187,6 @@ class TestUsuario {
 
     @Test
     def void reservarAsientosYNoComprarNinguno(){
-        tramo.agregarAsiento(asiento1)
-        tramo.agregarAsiento(asiento2)
-        tramo.agregarAsiento(asiento3)
 
         var List listaAReservar = new ArrayList<Asiento>
         listaAReservar.add(asiento1)
@@ -192,10 +216,6 @@ class TestUsuario {
     @Test
     def void consultarAsientosDisponiblesParaUnTramo(){
 
-        tramo.agregarAsiento(asiento1)
-        tramo.agregarAsiento(asiento2)
-        tramo.agregarAsiento(asiento3)
-
         var List listaAReservar = new ArrayList<Asiento>
         listaAReservar.add(asiento1)
         listaAReservar.add(asiento3)
@@ -212,4 +232,16 @@ class TestUsuario {
 
     }
 
+    @Test
+    def void saberSiUnVueloEstaDisponible(){
+
+        var List tramos = new ArrayList<Tramo>
+        tramos.add(tramo)
+        tramos.add(tramo2)
+        tramos.add(tramo3)
+
+        var VueloOfertado vuelo = new VueloOfertado(tramos)
+
+        Assert.assertTrue(vuelo.estaDisponible)
+    }
 }
