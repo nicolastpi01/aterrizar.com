@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<class 
+name="ar.edu.unq.epers.aterrizar.model.Asiento" table="tramo">
+<id column="codigo" name="codigo" type="string"> 
+<generator class="assigned"/>
+</id>
+	<many-to-one cascade="all" column="reservadoPorUsuario" name="reservadoPorUsuario" class="ar.edu.unq.epers.aterrizar.model.Usuario"/>
+	<many-to-one cascade="all" column="vendidoAlUsuario" name="vendidoAlUsuario" class="ar.edu.unq.epers.aterrizar.model.Usuario"/>
+	<many-to-one cascade="all" column="categoria" name="categoria" class="ar.edu.unq.epers.aterrizar.model.CategoriaAsiento"/>
+</class>
+</hibernate-mapping>
