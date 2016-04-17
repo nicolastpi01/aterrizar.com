@@ -5,9 +5,7 @@ import java.util.List
 /**
  * Created by damian on 4/17/16.
  */
-class OperadorLogico {
+abstract class OperadorLogico {
 
-    def operar(List<VueloOfertado> vuelos1, List<VueloOfertado> vuelos2){
-        vuelos1
-    }
+    def abstract List<VueloOfertado> operar(List<VueloOfertado> l1, List<VueloOfertado> l2)
 }
