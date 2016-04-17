@@ -26,6 +26,7 @@
         <mapping resource="Tramo.hbm.xml"></mapping>
         <mapping resource="Asiento.hbm.xml"></mapping>
         <mapping resource="Categoria.hbm.xml"></mapping>
+        <mapping resource="VueloOfertado.hbm.xml"></mapping>
 		
     </session-factory>
 </hibernate-configuration>

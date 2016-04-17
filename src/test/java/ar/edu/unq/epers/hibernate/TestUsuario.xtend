@@ -232,6 +232,7 @@ class TestUsuario {
 
     }
 
+/*
     @Test
     def void saberSiUnVueloEstaDisponible(){
 
@@ -244,4 +245,6 @@ class TestUsuario {
 
         Assert.assertTrue(vuelo.estaDisponible)
     }
+    * 
+    */
 }
