@@ -9,10 +9,10 @@ name="ar.edu.unq.epers.aterrizar.model.Tramo" table="tramo">
 <generator class="increment"/>
 </id>
 	
-	<property column="origen" generated="never" lazy="false" length="45" name="destino" type="string"/>
+	<property column="origen" generated="never" lazy="false" length="45" name="origen" type="string"/>
 	<property column="destino" generated="never" lazy="false" length="45" name="destino" type="string"/>
-	<property column="horaLlegada" generated="never" lazy="false" length="45" name="horaLlegada" type="date"/>
-	<property column="horaSalida" generated="never" lazy="false" length="45" name="horaSalida" type="date"/>
+	<property column="llegada" generated="never" lazy="false" length="45" name="llegada" type="date"/>
+	<property column="salida" generated="never" lazy="false" length="45" name="salida" type="date"/>
 	<property column="precioBase" generated="never" lazy="false" length="45" name="precioBase" type="float"/>
 	<bag fetch="select" inverse="true" lazy="true" name="asientos" table="asientos">
 	<key><column name="id" not-null="true"/></key><one-to-many class="ar.edu.unq.epers.aterrizar.model.Asiento"/>
