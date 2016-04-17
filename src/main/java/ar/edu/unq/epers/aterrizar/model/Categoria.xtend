@@ -9,10 +9,15 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 abstract class Categoria {
 
-    String id
+    int id
     float precioBase
 
     new(float precio){
+        this.precioBase = precio
+    }
+    
+    new(int id, float precio){
+    	this.id = id
         this.precioBase = precio
     }
 

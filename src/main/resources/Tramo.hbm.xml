@@ -15,6 +15,10 @@ name="ar.edu.unq.epers.aterrizar.model.Tramo" table="tramo">
 	<property column="salida" generated="never" lazy="false" length="45" name="salida" type="date"/>
 	<property column="precioBase" generated="never" lazy="false" length="45" name="precioBase" type="float"/>
 	<bag fetch="select" inverse="true" lazy="true" name="asientos" table="asientos">
-	<key><column name="id" not-null="true"/></key><one-to-many class="ar.edu.unq.epers.aterrizar.model.Asiento"/>
-	</bag></class>
+		<key>
+			<column name="id" not-null="true"/>
+		</key>
+		<one-to-many class="ar.edu.unq.epers.aterrizar.model.Asiento"/>
+	</bag>
+	</class>
 </hibernate-mapping>

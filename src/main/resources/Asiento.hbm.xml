@@ -5,8 +5,8 @@
 <hibernate-mapping>
 <class 
 name="ar.edu.unq.epers.aterrizar.model.Asiento" table="asiento">
-<id column="codigo" name="codigo" type="string"> 
-<generator class="assigned"/>
+<id column="id" name="id" type="integer"> 
+<generator class="increment"/>
 </id>
 	<many-to-one cascade="all" column="reservadoPorUsuario" name="reservadoPorUsuario" class="ar.edu.unq.epers.aterrizar.model.Usuario"/>
 	<many-to-one cascade="all" column="vendidoAUsuario" name="vendidoAUsuario" class="ar.edu.unq.epers.aterrizar.model.Usuario"/>

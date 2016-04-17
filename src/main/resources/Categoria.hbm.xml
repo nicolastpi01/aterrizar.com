@@ -4,18 +4,23 @@
 
 <hibernate-mapping>
 <class name="ar.edu.unq.epers.aterrizar.model.Categoria" table="categoria" >
-<id column="id" name="id" type="string"> 
-<generator class="assigned"/>
+
+<id column="id" name="id" type="integer"> 
+<generator class="increment"/>
 </id>
-	<property column="precioBase" generated="never" lazy="false" length="45" name="precioBase" type="float"/>
-	 <joined-subclass  name="ar.edu.unq.epers.aterrizar.model.Primera" extends="ar.edu.unq.epers.aterrizar.model.Categoria">
-	 <key column="id"/>
+
+
+  	<property column="precioBase"  lazy="false" generated="never" length="45" name="precioBase" type="float" /> 
+	 <joined-subclass  name="ar.edu.unq.epers.aterrizar.model.Primera" extends="ar.edu.unq.epers.aterrizar.model.Categoria"> 
+	 <key column="cid" />
 	 </joined-subclass> 
 	 <joined-subclass  name="ar.edu.unq.epers.aterrizar.model.Turista" extends="ar.edu.unq.epers.aterrizar.model.Categoria" >
-	 <key column="id"/>
+	 <key column="cid" />
 	 </joined-subclass>  
 	 <joined-subclass  name="ar.edu.unq.epers.aterrizar.model.Business" extends="ar.edu.unq.epers.aterrizar.model.Categoria" >
-	 <key column="id"/>
+	 <key column="cid" />
 	 </joined-subclass>  
+	 
+
 </class>
 </hibernate-mapping>

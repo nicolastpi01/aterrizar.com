@@ -23,13 +23,13 @@ class Tramo {
     }
 
     def reservarAsientoParaUsuarioEnTramo(Asiento asiento, Usuario user){
-        var Asiento asientoAReservar = asientos.filter[asient | asient.codigo == asiento.codigo].get(0)
+        var Asiento asientoAReservar = asientos.filter[asient | asient.id == asiento.id].get(0)
 
         asientoAReservar.reservadoPorUsuario = user
     }
 
     def comprarAsientoParaUsuarioEnTramo(Asiento asiento, Usuario user){
-        var Asiento asientoAComprar = asientos.filter[asient | asient.codigo == asiento.codigo].get(0)
+        var Asiento asientoAComprar = asientos.filter[asient | asient.id == asiento.id].get(0)
 
         asientoAComprar.vendidoAUsuario = user
     }

@@ -1,16 +1,13 @@
 package ar.edu.unq.epers.hibernate
 
+import ar.edu.unq.epers.aterrizar.home.AsientoHome
 import ar.edu.unq.epers.aterrizar.home.SessionManager
 import ar.edu.unq.epers.aterrizar.model.Asiento
+import ar.edu.unq.epers.aterrizar.model.Categoria
 import ar.edu.unq.epers.aterrizar.model.Primera
-import ar.edu.unq.epers.aterrizar.model.Tramo
 import ar.edu.unq.epers.aterrizar.model.Usuario
-import ar.edu.unq.epers.aterrizar.model.VueloOfertado
-import ar.edu.unq.epers.aterrizar.servicios.TramoService
-import ar.edu.unq.epers.aterrizar.servicios.UsuarioService
+import ar.edu.unq.epers.aterrizar.servicios.AsientoService
 import java.sql.Date
-import java.util.ArrayList
-import java.util.List
 import org.hibernate.Session
 import org.hibernate.SessionFactory
 import org.junit.After
@@ -18,20 +15,18 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-class TestUsuario {
+class TestAsiento {
 
     var Usuario user
-    var UsuarioService service
-    var TramoService serviceTramo
+    var Usuario user2
+    var AsientoService service
 
     SessionFactory sessionFactory;
     Session session = null;
     Asiento asiento1
     Asiento asiento2
     Asiento asiento3
-    Tramo tramo
-    Tramo tramo2
-    Tramo tramo3
+    Categoria unaCategoria
 
 
     @Before
@@ -44,61 +39,29 @@ class TestUsuario {
             email = "abc@123.com"
             nacimiento = new Date(2015,10,1)
         ]
-        service = new UsuarioService
-        serviceTramo = new TramoService
-
+        user2 = new Usuario => [
+            nombreDeUsuario = "piter23"
+            nombreYApellido = "piter castro"
+            email = "abcd@123.com"
+            nacimiento = new Date(2015,10,1)
+        ]
+        service = new AsientoService
+        
+		unaCategoria = new Primera(1000)
         asiento1 = new Asiento => [
             //id = "c 1"
-            categoria = new Primera(1000)
+            categoria = unaCategoria
         ]
         asiento2 = new Asiento => [
             //id = "c 2"
-            categoria = new Primera(1000)
+            categoria = unaCategoria
         ]
         asiento3 = new Asiento => [
             //id = "c 3"
-            categoria = new Primera(1000)
+            categoria = unaCategoria
         ]
 
-        tramo = new Tramo => [
-
-            origen = "Chile"
-            destino = "Buenos Aires"
-            llegada = new Date(1000)
-            salida = new Date(1500)
-            precioBase = 1500
-        ]
-
-        tramo.agregarAsiento(asiento1)
-        tramo.agregarAsiento(asiento2)
-        tramo.agregarAsiento(asiento3)
-
-        tramo2 = new Tramo => [
-
-            origen = "Buenos Aires"
-            destino = "Brasil"
-            llegada = new Date(1000)
-            salida = new Date(1500)
-            precioBase = 1500
-        ]
-
-        tramo2.agregarAsiento(asiento1)
-        tramo2.agregarAsiento(asiento2)
-        tramo2.agregarAsiento(asiento3)
-
-        tramo3 = new Tramo => [
-
-            origen = "Brasil"
-            destino = "Mexico"
-            llegada = new Date(1000)
-            salida = new Date(1500)
-            precioBase = 1500
-        ]
-        tramo3.agregarAsiento(asiento1)
-        tramo3.agregarAsiento(asiento2)
-        tramo3.agregarAsiento(asiento3)
-
-
+        
     }
 
 
@@ -108,12 +71,21 @@ class TestUsuario {
     }
 
 
+
     @Test
-    def void guardoUnUsuarioEnLaDB(){
-        service.guardarUsuario(user)
+    def void guardoUnAsientoEnLaDB(){
+    	Assert.assertEquals(service.todosLosAsientos.length, 0)
+    	
+    	service.guardarAsiento(asiento1)
+    	service.guardarAsiento(asiento2)
+    	service.guardarAsiento(asiento3)
+        //new AsientoHome().guardarAsiento(asiento2)
+        //new AsientoHome().guardarAsiento(asiento3)
+        //Assert.assertEquals(service.todosLosAsientos.length, 1)
     }
 
 
+	/*
     @Test
     def void consultarUsuarioEnLaDB(){
         service.guardarUsuario(user)
@@ -123,6 +95,19 @@ class TestUsuario {
         Assert.assertEquals(consulta.email, user.email)
         Assert.assertEquals(consulta.nacimiento, user.nacimiento)
     }
+     */
+     
+    /*
+    @Test
+    def void consultarAsientoEnLaDB(){
+        service.guardarUsuario(user)
+        val consulta = service.consultarUsuario(user.nombreDeUsuario)
+        Assert.assertEquals(consulta.nombreDeUsuario, user.nombreDeUsuario)
+        Assert.assertEquals(consulta.contrasenia, user.contrasenia)
+        Assert.assertEquals(consulta.email, user.email)
+        Assert.assertEquals(consulta.nacimiento, user.nacimiento)
+    }
+    
 
     @Test
     def void reservarAsientoEnTramo(){
@@ -231,6 +216,6 @@ class TestUsuario {
         Assert.assertEquals(asientosDisponibles, asientosEsperados)
 
     }
-
+ */
 
 }
