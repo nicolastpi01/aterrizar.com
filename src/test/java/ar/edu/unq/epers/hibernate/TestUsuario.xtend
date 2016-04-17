@@ -232,19 +232,5 @@ class TestUsuario {
 
     }
 
-/*
-    @Test
-    def void saberSiUnVueloEstaDisponible(){
 
-        var List tramos = new ArrayList<Tramo>
-        tramos.add(tramo)
-        tramos.add(tramo2)
-        tramos.add(tramo3)
-
-        var VueloOfertado vuelo = new VueloOfertado(tramos)
-
-        Assert.assertTrue(vuelo.estaDisponible)
-    }
-    * 
-    */
 }
