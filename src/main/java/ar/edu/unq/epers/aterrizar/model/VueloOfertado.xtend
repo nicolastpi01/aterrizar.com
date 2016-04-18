@@ -21,11 +21,16 @@ class VueloOfertado {
         tramos.fold(true)[ result, tramo|
             tramo.hayUnAsientoDisponible() && result
         ]
-
     }
 
     def esDirecto(){
         tramos.size == 1
+    }
+
+    def tieneCategoriaDeAsientoEnCadaTramo(Categoria cat){
+        tramos.fold(true)[result, tramo |
+            tramo.tieneCategoriaDeAsiento(cat) && result
+        ]
     }
 
 }
