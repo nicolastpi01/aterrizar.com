@@ -86,8 +86,6 @@ class TestAsiento {
     }
 
 
-
-
     @Test(expected = AsientoReservadoException)
     def void reservarUnAsientoYFalle(){
 
@@ -100,12 +98,5 @@ class TestAsiento {
         Assert.assertEquals(service.buscarAsiento(asiento1).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
     }
 
-
-    def borrarTodo() {
-        SessionManager.runInSession([
-            new AsientoHome().borrarAsientos()
-            Asiento
-        ]);
-    }
 
 }

@@ -30,11 +30,10 @@ class TramoHome {
 
 
 	def asientosDisponiblesEnTramo(Tramo t){
-		var q = "select tramo.asientos from Tramo tramo"
+		var q = "select asientos from Tramo tramo join tramo.asientos as asientos where asientos.reservadoPorUsuario = null"
 		var query = SessionManager.getSession().createQuery(q) as Query
 
-		var asientos = query.list as List<Asiento>
-		asientos.filter[asiento | !asiento.estaReservado]
+		query.list as List<Asiento>
 
 	}
 
