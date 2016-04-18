@@ -3,22 +3,22 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-<class 
-name="ar.edu.unq.epers.aterrizar.model.Tramo" table="tramo">
-<id column="id" name="id" type="integer">
-<generator class="increment"/>
-</id>
-	
-	<property column="origen" generated="never" lazy="false" length="45" name="origen" type="string"/>
-	<property column="destino" generated="never" lazy="false" length="45" name="destino" type="string"/>
-	<property column="llegada" generated="never" lazy="false" length="45" name="llegada" type="date"/>
-	<property column="salida" generated="never" lazy="false" length="45" name="salida" type="date"/>
-	<property column="precioBase" generated="never" lazy="false" length="45" name="precioBase" type="float"/>
-	<bag fetch="select" inverse="true" lazy="true" name="asientos" table="asientos">
-		<key>
-			<column name="id" not-null="true"/>
-		</key>
-		<one-to-many class="ar.edu.unq.epers.aterrizar.model.Asiento"/>
-	</bag>
-	</class>
+    <class
+            name="ar.edu.unq.epers.aterrizar.model.Tramo" table="tramo">
+        <id column="id" name="id" type="integer">
+            <generator class="identity"/>
+        </id>
+
+        <property column="origen" generated="never" lazy="false" length="45" name="origen" type="string"/>
+        <property column="destino" generated="never" lazy="false" length="45" name="destino" type="string"/>
+        <property column="llegada" generated="never" lazy="false" length="45" name="llegada" type="date"/>
+        <property column="salida" generated="never" lazy="false" length="45" name="salida" type="date"/>
+        <property column="precioBase" generated="never" lazy="false" length="45" name="precioBase" type="float"/>
+        <bag fetch="select" lazy="true" name="asientos" table="asientos" cascade="all">
+            <key>
+                <column name="tramo_id" />
+            </key>
+            <one-to-many class="ar.edu.unq.epers.aterrizar.model.Asiento"/>
+        </bag>
+    </class>
 </hibernate-mapping>

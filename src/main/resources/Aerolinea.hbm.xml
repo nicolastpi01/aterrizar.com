@@ -3,15 +3,15 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-<class name="ar.edu.unq.epers.aterrizar.model.Aerolinea" table="aerolinea">
-<id column="id" name="id" type="string">
-<generator class="assigned"/>
-   </id>
-   	<bag fetch="select" inverse="true" lazy="true" name="vuelosOfertados" table="vuelosOfertados">
-   		<key>
-   		<column name="id" not-null="true"/>
-   		</key>
-   		<one-to-many class="ar.edu.unq.epers.aterrizar.model.VueloOfertado"/>
-   	</bag>
-   </class>
+    <class name="ar.edu.unq.epers.aterrizar.model.Aerolinea" table="aerolinea">
+        <id column="id" name="id" type="string">
+            <generator class="identity"/>
+        </id>
+        <bag fetch="select" inverse="true" lazy="true" name="vuelosOfertados" table="vuelosOfertados">
+            <key>
+                <column name="id" not-null="true"/>
+            </key>
+            <one-to-many class="ar.edu.unq.epers.aterrizar.model.VueloOfertado"/>
+        </bag>
+    </class>
 </hibernate-mapping>

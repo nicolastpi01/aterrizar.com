@@ -51,15 +51,12 @@ class TestUsuario {
         serviceAsiento = new AsientoService
 
         asiento1 = new Asiento => [
-            id = 1
             categoria = new Primera(1000)
         ]
         asiento2 = new Asiento => [
-            id = 2
             categoria = new Primera(1000)
         ]
         asiento3 = new Asiento => [
-            id = 3
             categoria = new Primera(1000)
         ]
 
@@ -70,11 +67,8 @@ class TestUsuario {
             llegada = new Date(1000)
             salida = new Date(1500)
             precioBase = 1500
+            asientos = #[asiento1, asiento2, asiento3]
         ]
-
-
-        tramo.agregarAsiento(asiento2)
-        tramo.agregarAsiento(asiento3)
 
         tramo2 = new Tramo => [
 
@@ -83,11 +77,16 @@ class TestUsuario {
             llegada = new Date(1000)
             salida = new Date(1500)
             precioBase = 1500
+            asientos = #[
+                new Asiento => [
+                    categoria = new Primera(1000)
+                ],
+                new Asiento => [
+                    categoria = new Primera(1000)
+                ]
+            ]
         ]
 
-        tramo2.agregarAsiento(asiento1)
-        tramo2.agregarAsiento(asiento2)
-        tramo2.agregarAsiento(asiento3)
 
         tramo3 = new Tramo => [
 
@@ -97,17 +96,13 @@ class TestUsuario {
             salida = new Date(1500)
             precioBase = 1500
         ]
-        tramo3.agregarAsiento(asiento1)
-        tramo3.agregarAsiento(asiento2)
-        tramo3.agregarAsiento(asiento3)
-
 
     }
 
 
     @After
-    def limpiar() {
-        SessionManager::resetSessionFactory
+    def void limpiar() {
+//        SessionManager::resetSessionFactory
     }
 
 
@@ -129,7 +124,6 @@ class TestUsuario {
 
     @Test
     def void reservarAsientoEnTramo(){
-        serviceAsiento.guardarAsiento(asiento1)
         serviceTramo.guardarTramo(tramo)
         serviceTramo.reservarAsientoParaUsuarioEnTramo(asiento1, user, tramo)
 

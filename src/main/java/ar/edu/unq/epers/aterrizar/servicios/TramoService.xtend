@@ -23,10 +23,9 @@ class TramoService {
 
     def reservarAsientoParaUsuarioEnTramo(Asiento asiento, Usuario usuario,Tramo tramo){
         SessionManager.runInSession([
-        	var Tramo t = new TramoHome().getTramo(tramo.id)
-			var Asiento a = new AsientoHome().getAsiento(asiento)
-			var Usuario u = new UsuarioHome().getUsuario(usuario.nombreDeUsuario)
-        	new TramoHome().reservarAsientoEnTramo(t,a,u) 
+        	tramo.reservarAsientoParaUsuarioEnTramo(asiento,usuario)
+        	new AsientoHome().guardarAsiento(asiento)
+			null
         ]);
         
     }

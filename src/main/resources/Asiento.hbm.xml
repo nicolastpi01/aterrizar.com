@@ -3,31 +3,33 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-<class 
-name="ar.edu.unq.epers.aterrizar.model.Asiento" table="asiento">
-<id column="id" name="id" type="integer"> 
-<generator class="assigned"/>
-</id>
+    <class
+            name="ar.edu.unq.epers.aterrizar.model.Asiento" table="asiento">
+        <id column="id" name="id" type="integer">
+            <generator class="identity"/>
+        </id>
 
-	<property name="reservado" type="boolean">
-            <column name="reservado" />
+        <property name="reservado" type="boolean">
+            <column name="reservado"/>
         </property>
-	<many-to-one cascade="all" column="reservadoPorUsuario" name="reservadoPorUsuario" class="ar.edu.unq.epers.aterrizar.model.Usuario"/>
-	<many-to-one cascade="all" column="vendidoAUsuario" name="vendidoAUsuario" class="ar.edu.unq.epers.aterrizar.model.Usuario"/>
-	<many-to-one cascade="all" column="categoria" name="categoria" class="ar.edu.unq.epers.aterrizar.model.Categoria" lazy="false" fetch="select"/>
-	
-	
-	<!-- 
-	<any name="categoria" meta-type="string" id-type="integer">
-    <meta-value value="PRIMERA" class="ar.edu.unq.epers.aterrizar.model.Primera"/>
-    <meta-value value="TURISTA" class="ar.edu.unq.epers.aterrizar.model.Turista"/>
-    <meta-value value="BUSINESS" class="ar.edu.unq.epers.aterrizar.model.Business"/>
-    <column name="clase_categoria"/>
-    <column name="categoria_id"/>
-	</any>
- -->
+        <many-to-one cascade="all" column="reservadoPorUsuario" name="reservadoPorUsuario"
+                     class="ar.edu.unq.epers.aterrizar.model.Usuario"/>
+        <many-to-one cascade="all" column="vendidoAUsuario" name="vendidoAUsuario"
+                     class="ar.edu.unq.epers.aterrizar.model.Usuario"/>
+        <many-to-one cascade="all" column="categoria" name="categoria"
+                     class="ar.edu.unq.epers.aterrizar.model.Categoria" lazy="false" fetch="select"/>
 
-	
-	
-</class>
+
+        <!--
+        <any name="categoria" meta-type="string" id-type="integer">
+        <meta-value value="PRIMERA" class="ar.edu.unq.epers.aterrizar.model.Primera"/>
+        <meta-value value="TURISTA" class="ar.edu.unq.epers.aterrizar.model.Turista"/>
+        <meta-value value="BUSINESS" class="ar.edu.unq.epers.aterrizar.model.Business"/>
+        <column name="clase_categoria"/>
+        <column name="categoria_id"/>
+        </any>
+     -->
+
+
+    </class>
 </hibernate-mapping>

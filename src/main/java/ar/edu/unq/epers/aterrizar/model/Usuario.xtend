@@ -11,6 +11,7 @@ import java.sql.Date
  */
 @Accessors
 class Usuario {
+    int id
 
     var String nombreDeUsuario
     var String nombreYApellido

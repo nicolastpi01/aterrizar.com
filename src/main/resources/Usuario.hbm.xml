@@ -4,12 +4,13 @@
 
 <hibernate-mapping>
     <class name="ar.edu.unq.epers.aterrizar.model.Usuario" table="usuario">
-
-
-        <id column="nombreDeUsuario"
-            name="nombreDeUsuario" type="string">
+        <id column="id" name="id" type="integer">
+            <generator class="identity"/>
         </id>
 
+        <property name="nombreDeUsuario" type="string">
+            <column name="nombreDeUsuario" length="45" not-null="true" unique="true"/>
+        </property>
 
         <property name="nombreYApellido" type="string">
             <column name="nombreYApellido" length="45" not-null="true" unique="false"/>

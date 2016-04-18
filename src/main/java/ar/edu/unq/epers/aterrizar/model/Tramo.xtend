@@ -32,19 +32,19 @@ class Tramo {
     }
 
     def reservarAsientoParaUsuarioEnTramo(Asiento asiento, Usuario user){
-        var asientosConId = asientos.filter[asient | asient.id == asiento.id]
-        if(asientosConId.isEmpty)
+        var res = asientos.findFirst[asient | asient.id == asiento.id]
+        if(res == null)
             throw new NoHayAsientoConEsaIdException
         else
-            asientosConId.get(0).reservadoPorUsuario = user
+            res.reservadoPorUsuario = user
     }
 
     def comprarAsientoParaUsuarioEnTramo(Asiento asiento, Usuario user){
-        var asientosConId = asientos.filter[asient | asient.id == asiento.id]
-        if(asientosConId.isEmpty)
+        var Asiento res = asientos.findFirst[asient | asient.id == asiento.id]
+        if(res == null)
             throw new NoHayAsientoConEsaIdException
         else
-            asientosConId.get(0).
+            res.vendidoAUsuario = user
     }
 
     def liberarAsientosNoCompradosDeUsuario(Usuario user){
