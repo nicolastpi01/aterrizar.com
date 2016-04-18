@@ -1,18 +1,18 @@
 package ar.edu.unq.epers.hibernate
 
-import org.junit.Before
-import org.junit.After
-import org.junit.Test
-import ar.edu.unq.epers.aterrizar.model.CriterioPorAerolinea
 import ar.edu.unq.epers.aterrizar.model.Busqueda
-import org.junit.Assert
+import ar.edu.unq.epers.aterrizar.model.CriterioPorAerolinea
 import ar.edu.unq.epers.aterrizar.model.CriterioPorCategoriaDeAsiento
-import ar.edu.unq.epers.aterrizar.model.Primera
-import ar.edu.unq.epers.aterrizar.model.CriterioPorFechaDeSalida
-import java.sql.Date
-import ar.edu.unq.epers.aterrizar.model.CriterioPorFechaDeLlegada
-import ar.edu.unq.epers.aterrizar.model.CriterioPorOrigen
 import ar.edu.unq.epers.aterrizar.model.CriterioPorDestino
+import ar.edu.unq.epers.aterrizar.model.CriterioPorFechaDeLlegada
+import ar.edu.unq.epers.aterrizar.model.CriterioPorFechaDeSalida
+import ar.edu.unq.epers.aterrizar.model.CriterioPorOrigen
+import ar.edu.unq.epers.aterrizar.model.Primera
+import java.sql.Date
+import org.junit.After
+import org.junit.Assert
+import org.junit.Before
+import org.junit.Test
 
 /**
  * Created by damian on 4/18/16.
@@ -94,6 +94,18 @@ class TestCriterio {
         Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where vuelo.tramos as tramo where tramo.destino = Chubut", busqueda.getHQL)
 
     }
+
+    @Test
+    def void combinarFiltrosConAndYOr(){
+
+        busqueda = new Busqueda() => [criterio = criterio1.and(criterio3.or(criterio4.and(criterio6)))]
+
+        Assert.assertEquals('select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where aerolinea.nombre = L.A.N. and vuelo.tramos as tramo join tramo.asientos as asiento where asiento.categoria.getCategoria = Primera or vuelo.tramos as tramo where tramo.salida = 2016-07-16 and vuelo.tramos as tramo where tramo.origen = Buenos Aires', busqueda.getHQL)
+
+
+    }
+
+
 
 
 
