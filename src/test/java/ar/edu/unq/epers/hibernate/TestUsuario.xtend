@@ -135,6 +135,8 @@ class TestUsuario {
         Assert.assertEquals(user, asiento1.reservadoPorUsuario)
     }
 
+
+/*
     @Test
     def void reservarVariosAsientosYComprarTodos(){
 
@@ -212,6 +214,7 @@ class TestUsuario {
         Assert.assertEquals(null, asiento3.reservadoPorUsuario)
 
     }
+    */
 
     @Test
     def void consultarAsientosDisponiblesParaUnTramo(){
