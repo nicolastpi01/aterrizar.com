@@ -47,7 +47,7 @@ class TramoService {
         //listaAReservar.forEach[asiento | this.reservarAsientoParaUsuarioEnTramo(asiento,user,tramo)]
     }
 
-	/*
+
     def comprarAsientosParaUsuario(List<Asiento> listaAComprar, Usuario user, Tramo tramo){
         listaAComprar.forEach[asiento | this.comprarAsientoParaUsuarioEnTramo(asiento,user,tramo)]
         this.liberarAsientosNoCompradosDeUsuario(tramo, user)
@@ -60,7 +60,7 @@ class TramoService {
     def liberarAsientosNoCompradosDeUsuario(Tramo tramo, Usuario user){
         tramo.liberarAsientosNoCompradosDeUsuario(user)
     }
-    */
+
 
     def asientosDisponibles(Tramo tramo){
     	

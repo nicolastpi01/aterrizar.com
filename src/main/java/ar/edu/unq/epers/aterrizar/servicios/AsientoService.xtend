@@ -26,7 +26,7 @@ class AsientoService {
     def guardarAsiento(Asiento asiento){
         SessionManager.runInSession([
             new AsientoHome().guardarAsiento(asiento)
-            Asiento
+            asiento
         ]);
     }
 
