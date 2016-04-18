@@ -4,11 +4,11 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-class CriterioPorOrigenODestino extends Criterio {
-    String origenODestino
+class CriterioPorOrigen extends Criterio {
+    String origen
 
     override getHQL() {
-        "vuelo.tramos as tramo where tramo.salida = " + origenODestino
+        "vuelo.tramos as tramo where tramo.origen = " + origen
     }
 
 }

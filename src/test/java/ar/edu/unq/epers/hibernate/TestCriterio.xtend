@@ -11,7 +11,8 @@ import ar.edu.unq.epers.aterrizar.model.Primera
 import ar.edu.unq.epers.aterrizar.model.CriterioPorFechaDeSalida
 import java.sql.Date
 import ar.edu.unq.epers.aterrizar.model.CriterioPorFechaDeLlegada
-import ar.edu.unq.epers.aterrizar.model.CriterioPorOrigenODestino
+import ar.edu.unq.epers.aterrizar.model.CriterioPorOrigen
+import ar.edu.unq.epers.aterrizar.model.CriterioPorDestino
 
 /**
  * Created by damian on 4/18/16.
@@ -23,7 +24,8 @@ class TestCriterio {
     val criterio3 = new CriterioPorCategoriaDeAsiento() => [categoriaAsiento = new Primera]
     val criterio4 = new CriterioPorFechaDeSalida() => [fechaSalida = new Date(116,6,16)]
     val criterio5 = new CriterioPorFechaDeLlegada() => [fechaLlegada = new Date(116,07,01)]
-    val criterio6 = new CriterioPorOrigenODestino() => [origenODestino = "Buenos Aires"]
+    val criterio6 = new CriterioPorOrigen() => [origen = "Buenos Aires"]
+    val criterio7 = new CriterioPorDestino() => [destino = "Chubut"]
     var Busqueda busqueda
 
     @Before
@@ -82,6 +84,14 @@ class TestCriterio {
 
         busqueda = new Busqueda() => [criterio = criterio6]
         Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where vuelo.tramos as tramo where tramo.origen = Buenos Aires", busqueda.getHQL)
+
+    }
+
+    @Test
+    def void filtrarPorDestino(){
+
+        busqueda = new Busqueda() => [criterio = criterio7]
+        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where vuelo.tramos as tramo where tramo.destino = Chubut", busqueda.getHQL)
 
     }
 
