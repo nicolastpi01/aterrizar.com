@@ -29,38 +29,13 @@ class TramoHome {
 	}
 
 
-
-	def reservarAsientoEnTramo(Tramo t, Asiento a, Usuario u){
-		//considerar que esta todo actualizado
-
-		t.reservarAsientoParaUsuarioEnTramo(a,u)
-		this.guardarTramo(t)
-		t
-
-	}
-
-	def reservarVariosAsientosEnTramo(Tramo t, List<Asiento> asientos, Usuario u){
-		//Considerar que todo está actualizado
-
-		var Asiento asiento
-		var service = new AsientoService
-		for(Asiento a : asientos) {
-			t.reservarAsientoParaUsuarioEnTramo(a, u)
-		}
-
-		this.guardarTramo(t)
-		t
-	}
-
 	def asientosDisponiblesEnTramo(Tramo t){
-		var Tramo tramo = this.getTramo(t.id)
-		var List<Asiento> asientos = newArrayList
-		for(Asiento each : tramo.asientos) {
-			if(each.estaDisponible) {
-				asientos.add(each)
-			}
-			return asientos
-		}
+		var q = "select tramo.asientos from Tramo tramo"
+		var query = SessionManager.getSession().createQuery(q) as Query
+
+		var asientos = query.list as List<Asiento>
+		asientos.filter[asiento | !asiento.estaReservado]
+
 	}
 
 
