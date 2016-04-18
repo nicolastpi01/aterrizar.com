@@ -19,4 +19,9 @@ class Business extends Categoria{
     
     new(){}
 
+    override getCategoria() {
+        "Business"
+    }
+
+
 }

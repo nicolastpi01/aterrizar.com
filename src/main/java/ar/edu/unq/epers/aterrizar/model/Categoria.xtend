@@ -12,8 +12,8 @@ abstract class Categoria {
     int id
     float precioBase
 
-
     abstract def float precio()
 
+    abstract def String getCategoria()
 
 }
