@@ -17,4 +17,6 @@ class OR extends OperadorLogico {
 
     }
 
+    def sarasa(){}
+
 }

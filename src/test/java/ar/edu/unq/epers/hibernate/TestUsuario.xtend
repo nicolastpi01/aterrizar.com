@@ -132,7 +132,7 @@ class TestUsuario {
     }
 
 
-/*
+
     @Test
     def void reservarVariosAsientosYComprarTodos(){
 
@@ -153,63 +153,63 @@ class TestUsuario {
         Assert.assertEquals(user, asiento3.vendidoAUsuario)
 
     }
+    /*
+        @Test
+        def void reservarAsientosYComprarAlgunos(){
 
-    @Test
-    def void reservarAsientosYComprarAlgunos(){
+            var List listaAReservar = new ArrayList<Asiento>
+            listaAReservar.add(asiento1)
+            listaAReservar.add(asiento2)
+            listaAReservar.add(asiento3)
 
-        var List listaAReservar = new ArrayList<Asiento>
-        listaAReservar.add(asiento1)
-        listaAReservar.add(asiento2)
-        listaAReservar.add(asiento3)
+            serviceTramo.reservarAsientosParaUsuario(listaAReservar, user, tramo)
 
-        serviceTramo.reservarAsientosParaUsuario(listaAReservar, user, tramo)
-
-        var List listaAComprar = new ArrayList<Asiento>
-        listaAComprar.add(asiento1)
-        listaAComprar.add(asiento3)
-
-
-        Assert.assertEquals(user, asiento1.reservadoPorUsuario)
-        Assert.assertEquals(user, asiento2.reservadoPorUsuario)
-        Assert.assertEquals(user, asiento3.reservadoPorUsuario)
+            var List listaAComprar = new ArrayList<Asiento>
+            listaAComprar.add(asiento1)
+            listaAComprar.add(asiento3)
 
 
-        serviceTramo.comprarAsientosParaUsuario(listaAComprar,user , tramo)
-
-        Assert.assertEquals(user, asiento1.vendidoAUsuario)
-        Assert.assertEquals(null, asiento2.vendidoAUsuario)
-        Assert.assertEquals(null, asiento2.reservadoPorUsuario)
-        Assert.assertEquals(user, asiento3.vendidoAUsuario)
-
-    }
-
-    @Test
-    def void reservarAsientosYNoComprarNinguno(){
-
-        var List listaAReservar = new ArrayList<Asiento>
-        listaAReservar.add(asiento1)
-        listaAReservar.add(asiento2)
-        listaAReservar.add(asiento3)
-
-        serviceTramo.reservarAsientosParaUsuario(listaAReservar, user, tramo)
-
-        var List listaAComprar = new ArrayList<Asiento>
-
-        Assert.assertEquals(user, asiento1.reservadoPorUsuario)
-        Assert.assertEquals(user, asiento2.reservadoPorUsuario)
-        Assert.assertEquals(user, asiento3.reservadoPorUsuario)
+            Assert.assertEquals(user, asiento1.reservadoPorUsuario)
+            Assert.assertEquals(user, asiento2.reservadoPorUsuario)
+            Assert.assertEquals(user, asiento3.reservadoPorUsuario)
 
 
-        serviceTramo.comprarAsientosParaUsuario(listaAComprar,user , tramo)
+            serviceTramo.comprarAsientosParaUsuario(listaAComprar,user , tramo)
 
-        Assert.assertEquals(null, asiento1.vendidoAUsuario)
-        Assert.assertEquals(null, asiento2.vendidoAUsuario)
-        Assert.assertEquals(null, asiento3.vendidoAUsuario)
-        Assert.assertEquals(null, asiento1.reservadoPorUsuario)
-        Assert.assertEquals(null, asiento2.reservadoPorUsuario)
-        Assert.assertEquals(null, asiento3.reservadoPorUsuario)
+            Assert.assertEquals(user, asiento1.vendidoAUsuario)
+            Assert.assertEquals(null, asiento2.vendidoAUsuario)
+            Assert.assertEquals(null, asiento2.reservadoPorUsuario)
+            Assert.assertEquals(user, asiento3.vendidoAUsuario)
 
-    }
+        }
+
+        @Test
+        def void reservarAsientosYNoComprarNinguno(){
+
+            var List listaAReservar = new ArrayList<Asiento>
+            listaAReservar.add(asiento1)
+            listaAReservar.add(asiento2)
+            listaAReservar.add(asiento3)
+
+            serviceTramo.reservarAsientosParaUsuario(listaAReservar, user, tramo)
+
+            var List listaAComprar = new ArrayList<Asiento>
+
+            Assert.assertEquals(user, asiento1.reservadoPorUsuario)
+            Assert.assertEquals(user, asiento2.reservadoPorUsuario)
+            Assert.assertEquals(user, asiento3.reservadoPorUsuario)
+
+
+            serviceTramo.comprarAsientosParaUsuario(listaAComprar,user , tramo)
+
+            Assert.assertEquals(null, asiento1.vendidoAUsuario)
+            Assert.assertEquals(null, asiento2.vendidoAUsuario)
+            Assert.assertEquals(null, asiento3.vendidoAUsuario)
+            Assert.assertEquals(null, asiento1.reservadoPorUsuario)
+            Assert.assertEquals(null, asiento2.reservadoPorUsuario)
+            Assert.assertEquals(null, asiento3.reservadoPorUsuario)
+
+        }
     */
 
 //    @Test
