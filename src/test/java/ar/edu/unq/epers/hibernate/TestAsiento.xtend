@@ -93,18 +93,14 @@ class TestAsiento {
 
     @Test(expected = AsientoReservadoException)
     def void reservarUnAsientoYFalle(){
-        //Assert.assertEquals(service.todosLosAsientos.length, 0)
 
         service.guardarAsiento(asiento1)
         service.guardarAsiento(asiento2)
         service.guardarAsiento(asiento3)
-        //new AsientoHome().guardarAsiento(asiento2)
-        //new AsientoHome().guardarAsiento(asiento3)
-        //var a = service.todosLosAsientos
 
         service.reservarAsiento(user, service.buscarAsiento(asiento1))
         service.reservarAsiento(user, service.buscarAsiento(asiento1))
-        //Assert.assertEquals(service.buscarAsiento(asiento1).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
+        Assert.assertEquals(service.buscarAsiento(asiento1).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
     }
 
 
