@@ -17,6 +17,8 @@ class Tramo {
     var Date llegada
     var Date salida
     var float precioBase
+    
+    new(){}
 
     def agregarAsiento(Asiento asiento){
         asientos.add(asiento)
@@ -48,7 +50,7 @@ class Tramo {
     def hayUnAsientoDisponible(){
         asientos.fold(false) [result, asiento |
 
-            asiento.reservadoPorUsuario == null || result
+            asiento.reservado || result
 
         ]
     }

@@ -26,7 +26,7 @@ class Asiento {
     }
     
     def estaDisponible(){
-    	return reservadoPorUsuario.equals(null)
+    	return reservado
     }
 	
 	def chequear() {

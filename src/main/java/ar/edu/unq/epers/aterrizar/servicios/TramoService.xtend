@@ -4,6 +4,10 @@ import ar.edu.unq.epers.aterrizar.model.Tramo
 import ar.edu.unq.epers.aterrizar.model.Usuario
 import java.util.List
 import ar.edu.unq.epers.aterrizar.model.Asiento
+import ar.edu.unq.epers.aterrizar.home.TramoHome
+import ar.edu.unq.epers.aterrizar.home.SessionManager
+import ar.edu.unq.epers.aterrizar.home.AsientoHome
+import ar.edu.unq.epers.aterrizar.home.UsuarioHome
 
 /**
  * Created by damian on 4/16/16.
@@ -11,18 +15,40 @@ import ar.edu.unq.epers.aterrizar.model.Asiento
 class TramoService {
 
     def guardarTramo(Tramo tramo){
-        //TODO
+        	SessionManager.runInSession([
+        	new TramoHome().guardarTramo(tramo)
+            Usuario
+        ]);
     }
 
-    def reservarAsientoParaUsuarioEnTramo(Asiento asiento, Usuario user,Tramo tramo){
-        //TODO
-        tramo.reservarAsientoParaUsuarioEnTramo(asiento,user)
+    def reservarAsientoParaUsuarioEnTramo(Asiento asiento, Usuario usuario,Tramo tramo){
+        SessionManager.runInSession([
+        	var Tramo t = new TramoHome().getTramo(tramo.id)
+			var Asiento a = new AsientoHome().getAsiento(asiento)
+			var Usuario u = new UsuarioHome().getUsuario(usuario.nombreDeUsuario)
+        	new TramoHome().reservarAsientoEnTramo(t,a,u) 
+        ]);
+        
     }
 
     def reservarAsientosParaUsuario(List<Asiento> listaAReservar, Usuario user, Tramo tramo){
-        listaAReservar.forEach[asiento | this.reservarAsientoParaUsuarioEnTramo(asiento,user,tramo)]
+    	SessionManager.runInSession([
+    		var List<Asiento> disponibles = this.asientosDisponibles(tramo)
+    		var asientosActualizados = new AsientoHome().asientosDeLista(listaAReservar)
+    		for(Asiento a : asientosActualizados){
+    			if(!disponibles.contains(a))
+    			{
+    			return Asiento
+    			}
+    		}
+    		var Tramo t = new TramoHome().getTramo(tramo.id)
+    		var Usuario u = new UsuarioHome().getUsuario(user.nombreDeUsuario)
+    		new TramoHome().reservarVariosAsientosEnTramo(t, asientosActualizados, u) 
+        ]);
+        //listaAReservar.forEach[asiento | this.reservarAsientoParaUsuarioEnTramo(asiento,user,tramo)]
     }
 
+	/*
     def comprarAsientosParaUsuario(List<Asiento> listaAComprar, Usuario user, Tramo tramo){
         listaAComprar.forEach[asiento | this.comprarAsientoParaUsuarioEnTramo(asiento,user,tramo)]
         this.liberarAsientosNoCompradosDeUsuario(tramo, user)
@@ -35,8 +61,16 @@ class TramoService {
     def liberarAsientosNoCompradosDeUsuario(Tramo tramo, Usuario user){
         tramo.liberarAsientosNoCompradosDeUsuario(user)
     }
+    */
 
     def asientosDisponibles(Tramo tramo){
-        tramo.asientosDisponibles
+    	
+    	SessionManager.runInSession([
+        	new TramoHome().asientosDisponiblesEnTramo(tramo) 
+        ]);
+		//tramo.asientosDisponibles
     }
+    
+    
+    
 }

@@ -3,8 +3,9 @@ package ar.edu.unq.epers.aterrizar.home
 import ar.edu.unq.epers.aterrizar.model.Asiento
 import ar.edu.unq.epers.aterrizar.model.Usuario
 import org.hibernate.Query
-import org.hibernate.mapping.List
+
 import ar.edu.unq.epers.aterrizar.exceptions.AsientoReservadoException
+import java.util.List
 
 class AsientoHome {
 
@@ -44,12 +45,27 @@ class AsientoHome {
 	}
 	
 	def borrarAsientos(){
+		this.borrarCategorias()
 		var q = "delete from Asiento "
+		
+		SessionManager.getSession().createQuery(q) as Query
+		
+	}
+	
+	def borrarCategorias(){
+		var q = "delete from Categoria "
 		
 		SessionManager.getSession().createQuery(q) as Query
 	}
 	
 	
+	def asientosDeLista(List<Asiento> asientos){
+		var List<Asiento> aRetornar
+		for(Asiento a : asientos){
+			aRetornar.add(this.getAsiento(a))
+		}
+		return aRetornar
+	}
 	
 	
 }
