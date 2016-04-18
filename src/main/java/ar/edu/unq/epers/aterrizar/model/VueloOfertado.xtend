@@ -36,6 +36,10 @@ class VueloOfertado {
         ]
     }
 
+    def tieneOrigen(String origen){
+        tramos.last.origen == origen
+    }
+
     def esDirecto(){
         tramos.size == 1
     }
