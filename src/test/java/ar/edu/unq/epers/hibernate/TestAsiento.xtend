@@ -51,15 +51,12 @@ class TestAsiento {
         unaCategoria = new Primera(1000)
         asiento1 = new Asiento => [
             categoria = new Primera(1000)
-            reservado = false
         ]
         asiento2 = new Asiento => [
             categoria = new Primera(1000)
-            reservado = false
         ]
         asiento3 = new Asiento => [
             categoria = new Primera(1000)
-            reservado = false
         ]
 
 

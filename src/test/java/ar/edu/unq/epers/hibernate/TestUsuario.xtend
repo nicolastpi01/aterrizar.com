@@ -126,7 +126,7 @@ class TestUsuario {
     @Test
     def void reservarAsientoEnTramo(){
         serviceTramo.guardarTramo(tramo)
-        serviceTramo.reservarAsientoParaUsuarioEnTramo(asiento1, user, tramo)
+        serviceTramo.reservarAsientosParaUsuario(user, tramo, asiento1)
 
         Assert.assertEquals(user, asiento1.reservadoPorUsuario)
     }
@@ -143,7 +143,7 @@ class TestUsuario {
         listaAReservar.add(asiento2)
         listaAReservar.add(asiento3)
 
-        serviceTramo.reservarAsientosParaUsuario(listaAReservar, user, tramo)
+        serviceTramo.reservarAsientosParaUsuario(user, tramo, listaAReservar)
 
         var listaAComprar = listaAReservar
         serviceTramo.comprarAsientosParaUsuario(listaAComprar,user , tramo)

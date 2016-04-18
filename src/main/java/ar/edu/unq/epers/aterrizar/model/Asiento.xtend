@@ -12,21 +12,10 @@ class Asiento {
     Usuario reservadoPorUsuario
     Usuario vendidoAUsuario
     Categoria categoria
-    boolean reservado
-    
     
     def reservarAsiento(Usuario u){
-    	
-    	
-    	
+        chequearSiEstaReservado
     	reservadoPorUsuario = u
-    	reservado = true
-    	
-    	 
-    }
-    
-    def estaDisponible(){
-    	return reservado
     }
 	
 	def chequearSiEstaReservado() {
