@@ -9,7 +9,7 @@ import ar.edu.unq.epers.aterrizar.model.Usuario
 class AsientoService {
 	
        def reservarAsiento(Usuario user, Asiento asiento){
-       	asiento.chequear
+       	asiento.chequearSiEstaReservado
        	SessionManager.runInSession([
             new AsientoHome().reservarAsiento(user, asiento)
             Asiento

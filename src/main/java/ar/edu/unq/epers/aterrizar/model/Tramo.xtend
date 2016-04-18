@@ -24,6 +24,12 @@ class Tramo {
         asientos.add(asiento)
     }
 
+    def tieneCategoriaDeAsiento(Categoria cat){
+        asientos.fold(false)[result, asiento |
+            asiento.categoria.getClass == cat.getClass || result
+        ]
+    }
+
     def reservarAsientoParaUsuarioEnTramo(Asiento asiento, Usuario user){
         var Asiento asientoAReservar = asientos.filter[asient | asient.id == asiento.id].get(0)
 

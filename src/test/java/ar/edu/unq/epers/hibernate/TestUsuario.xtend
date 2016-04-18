@@ -48,15 +48,15 @@ class TestUsuario {
         serviceTramo = new TramoService
 
         asiento1 = new Asiento => [
-            //id = "c 1"
+            id = 1
             categoria = new Primera(1000)
         ]
         asiento2 = new Asiento => [
-            //id = "c 2"
+            id = 2
             categoria = new Primera(1000)
         ]
         asiento3 = new Asiento => [
-            //id = "c 3"
+            id = 3
             categoria = new Primera(1000)
         ]
 
