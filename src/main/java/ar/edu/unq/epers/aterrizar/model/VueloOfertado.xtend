@@ -26,6 +26,10 @@ class VueloOfertado {
         tramos.last.llegada == fechaDeLlegada
     }
 
+    def tieneFechaSalida(Date fechaSalida){
+        tramos.last.salida == fechaSalida
+    }
+
     def estaDisponible(){
         tramos.fold(true)[ result, tramo|
             tramo.hayUnAsientoDisponible() && result
