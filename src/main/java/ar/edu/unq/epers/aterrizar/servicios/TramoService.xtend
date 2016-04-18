@@ -37,19 +37,11 @@ class TramoService {
 	}
 
 
-
-
-	def liberarAsientosNoCompradosDeUsuario(Tramo tramo, Usuario user){
-		tramo.liberarAsientosNoCompradosDeUsuario(user)
-	}
-
-
 	def asientosDisponibles(Tramo tramo){
 
 		SessionManager.runInSession([
 			new TramoHome().asientosDisponiblesEnTramo(tramo)
 		]);
-		//tramo.asientosDisponibles
 	}
 
 

@@ -1,7 +1,7 @@
 package ar.edu.unq.epers.aterrizar.model
 
-import org.eclipse.xtend.lib.annotations.Accessors
 import ar.edu.unq.epers.aterrizar.exceptions.AsientoReservadoException
+import org.eclipse.xtend.lib.annotations.Accessors
 
 /**
  * Created by damian on 4/16/16.
@@ -9,21 +9,22 @@ import ar.edu.unq.epers.aterrizar.exceptions.AsientoReservadoException
 @Accessors
 class Asiento {
     int id
+    String nombre
     Usuario reservadoPorUsuario
     Categoria categoria
-    
+
     def reservarAsiento(Usuario u){
         chequearSiEstaReservado
-    	reservadoPorUsuario = u
+        reservadoPorUsuario = u
     }
-	
-	def chequearSiEstaReservado() {
-		if(this.estaReservado)
-		    throw new AsientoReservadoException
-	}
+
+    def chequearSiEstaReservado() {
+        if(this.estaReservado)
+            throw new AsientoReservadoException
+    }
 
     def estaReservado(){
         this.reservadoPorUsuario != null
     }
-	
+
 }

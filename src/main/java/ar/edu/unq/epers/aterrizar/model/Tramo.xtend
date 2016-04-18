@@ -32,7 +32,7 @@ class Tramo {
     }
 
     def validarAsiento(Asiento asiento){
-        val valido = asientos.exists[asient | asient.id == asiento.id]
+        val valido = asientos.exists[asient | asient.nombre == asiento.nombre]
         if(!valido){
             throw new NoHayAsientoConEsaIdException
         }
