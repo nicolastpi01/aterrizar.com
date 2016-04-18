@@ -3,6 +3,7 @@ package ar.edu.unq.epers.aterrizar.model
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import java.sql.Date
 
 /**
  * Created by damian on 4/16/16.
@@ -19,6 +20,10 @@ class VueloOfertado {
 
     def destino(){
         tramos.last.destino
+    }
+
+    def tieneFechaLlegada(Date fechaDeLlegada){
+        tramos.last.llegada == fechaDeLlegada
     }
 
     def estaDisponible(){
