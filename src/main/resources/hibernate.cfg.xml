@@ -23,7 +23,7 @@
         
         <!--<mapping resource=""></mapping>-->
          <mapping resource="Usuario.hbm.xml"></mapping>
-        <!-- <mapping resource="Tramo.hbm.xml"></mapping>  -->
+         <mapping resource="Tramo.hbm.xml"></mapping>
         <mapping resource="Asiento.hbm.xml"></mapping>
         <mapping resource="Categoria.hbm.xml"></mapping>
         <!-- <mapping resource="VueloOfertado.hbm.xml"></mapping> -->

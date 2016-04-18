@@ -4,13 +4,14 @@ import java.sql.Date
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import ar.edu.unq.epers.aterrizar.exceptions.NoHayAsientoConEsaIdException
 
 /**
  * Created by damian on 4/16/16.
  */
 @Accessors
 class Tramo {
-	String id
+	int id
     List<Asiento> asientos = new ArrayList
     var String origen
     var String destino
@@ -31,15 +32,19 @@ class Tramo {
     }
 
     def reservarAsientoParaUsuarioEnTramo(Asiento asiento, Usuario user){
-        var Asiento asientoAReservar = asientos.filter[asient | asient.id == asiento.id].get(0)
-
-        asientoAReservar.reservadoPorUsuario = user
+        var asientosConId = asientos.filter[asient | asient.id == asiento.id]
+        if(asientosConId.isEmpty)
+            throw new NoHayAsientoConEsaIdException
+        else
+            asientosConId.get(0).reservadoPorUsuario = user
     }
 
     def comprarAsientoParaUsuarioEnTramo(Asiento asiento, Usuario user){
-        var Asiento asientoAComprar = asientos.filter[asient | asient.id == asiento.id].get(0)
-
-        asientoAComprar.vendidoAUsuario = user
+        var asientosConId = asientos.filter[asient | asient.id == asiento.id]
+        if(asientosConId.isEmpty)
+            throw new NoHayAsientoConEsaIdException
+        else
+            asientosConId.get(0).
     }
 
     def liberarAsientosNoCompradosDeUsuario(Usuario user){

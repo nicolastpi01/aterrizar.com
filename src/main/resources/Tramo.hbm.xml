@@ -5,8 +5,8 @@
 <hibernate-mapping>
 <class 
 name="ar.edu.unq.epers.aterrizar.model.Tramo" table="tramo">
-<id column="id" name="id" type="string"> 
-<generator class="assigned"/>
+<id column="id" name="id" type="integer">
+<generator class="increment"/>
 </id>
 	
 	<property column="origen" generated="never" lazy="false" length="45" name="origen" type="string"/>
