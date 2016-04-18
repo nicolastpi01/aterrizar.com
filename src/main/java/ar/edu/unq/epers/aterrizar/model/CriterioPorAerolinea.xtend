@@ -1,13 +1,17 @@
 package ar.edu.unq.epers.aterrizar.model
 
 import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class CriterioPorAerolinea extends Criterio {
 
-    Aerolinea aerolinea
+    String aerolinea
 
-    override validarVuelos(List<VueloOfertado> vuelos) {
-        vuelos.filter[this.aerolinea.nombre == aerolinea.nombre].toList
+    override getHQL() {
+        "aerolinea.nombre = " + aerolinea
     }
+
+
 
 }

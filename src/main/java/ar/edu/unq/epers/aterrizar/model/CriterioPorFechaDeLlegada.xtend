@@ -7,8 +7,9 @@ import java.sql.Date
 class CriterioPorFechaDeLlegada extends Criterio {
     Date fechaLlegada
 
-    override validarVuelos(List<VueloOfertado> vuelos) {
-        vuelos.filter[vuelo | vuelo.tieneFechaLlegada(fechaLlegada)].toList
+    override getHQL() {
+        throw new UnsupportedOperationException()
     }
+
 
 }

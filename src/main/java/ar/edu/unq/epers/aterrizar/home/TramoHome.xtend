@@ -6,6 +6,8 @@ import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.servicios.AsientoService
 import java.util.List
 import org.hibernate.Query
+import ar.edu.unq.epers.aterrizar.model.VueloOfertado
+import javax.sound.midi.Track
 
 /**
  * Created by damian on 4/16/16.
@@ -26,6 +28,10 @@ class TramoHome {
 
 	def guardarTramo(Tramo a) {
 		SessionManager.getSession().saveOrUpdate(a)
+	}
+
+	def guardarVuelo(VueloOfertado vuelo){
+		SessionManager.getSession().saveOrUpdate(vuelo)
 	}
 
 

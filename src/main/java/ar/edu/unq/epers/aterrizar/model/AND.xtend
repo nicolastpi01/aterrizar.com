@@ -5,19 +5,9 @@ import java.util.List
 
 class AND extends OperadorLogico {
 
-
-    override operar(List<VueloOfertado> vuelos1, List<VueloOfertado> vuelos2) {
-
-        var List<VueloOfertado> retList = new ArrayList
-
-        vuelos1.fold(retList)[ result, vuelo |
-            if(this.existeVuelo(vuelo, vuelos2))
-                result.add(vuelo)
-            result
-        ]
-
+    override unirCriterios(List<Criterio> criteriosSeleccionados) {
+        criteriosSeleccionados.map[it.getHQL].join(" and ")
     }
-
 
 
 }

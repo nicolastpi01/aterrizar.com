@@ -6,8 +6,10 @@ import java.util.List
 class CriterioPorOrigen extends Criterio {
     String origen
 
-    override validarVuelos(List<VueloOfertado> vuelos) {
-        vuelos.filter[vuelo | vuelo.tieneOrigen(origen)] as List<VueloOfertado>
+    override getHQL() {
+        throw new UnsupportedOperationException()
     }
+
+
 
 }

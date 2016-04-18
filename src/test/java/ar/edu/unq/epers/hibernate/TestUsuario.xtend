@@ -17,6 +17,8 @@ import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import ar.edu.unq.epers.aterrizar.model.VueloOfertado
+import ar.edu.unq.epers.aterrizar.home.TramoHome
 
 class TestUsuario {
 
@@ -177,5 +179,11 @@ class TestUsuario {
 
     }
 
+    @Test
+    def void guardarYTraerVuelo(){
+        var VueloOfertado vuelo = new VueloOfertado()
+        serviceTramo.guardarTramosEnVuelo(vuelo,tramo,tramo2)
+
+    }
 
 }

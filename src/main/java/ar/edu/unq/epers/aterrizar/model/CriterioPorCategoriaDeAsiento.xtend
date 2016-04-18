@@ -6,7 +6,9 @@ import java.util.List
 class CriterioPorCategoriaDeAsiento extends Criterio {
     Categoria categoriaAsiento
 
-    override validarVuelos(List<VueloOfertado> vuelos) {
-        vuelos.filter[vuelo | vuelo.tieneCategoriaDeAsientoEnCadaTramo(categoriaAsiento)].toList
+    override getHQL() {
+        throw new UnsupportedOperationException()
     }
+
+
 }
