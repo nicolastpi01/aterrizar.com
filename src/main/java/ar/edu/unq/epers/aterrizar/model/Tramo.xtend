@@ -31,27 +31,11 @@ class Tramo {
         ]
     }
 
-    def reservarAsientoParaUsuarioEnTramo(Asiento asiento, Usuario user){
-        var res = asientos.findFirst[asient | asient.id == asiento.id]
-        if(res == null)
+    def validarAsiento(Asiento asiento){
+        val valido = asientos.exists[asient | asient.id == asiento.id]
+        if(!valido){
             throw new NoHayAsientoConEsaIdException
-        else
-            res.reservadoPorUsuario = user
-    }
-
-    def comprarAsientoParaUsuarioEnTramo(Asiento asiento, Usuario user){
-        var Asiento res = asientos.findFirst[asient | asient.id == asiento.id]
-        if(res == null)
-            throw new NoHayAsientoConEsaIdException
-        else
-            res.vendidoAUsuario = user
-    }
-
-    def liberarAsientosNoCompradosDeUsuario(Usuario user){
-        asientos.forEach[asiento |
-            if(asiento.reservadoPorUsuario == user && !(asiento.vendidoAUsuario == user))
-                asiento.reservadoPorUsuario = null
-        ]
+        }
     }
 
     def List<Asiento> asientosDisponibles(){
@@ -61,7 +45,7 @@ class Tramo {
     def hayUnAsientoDisponible(){
         asientos.fold(false) [result, asiento |
 
-            asiento.reservado || result
+            asiento.estaReservado || result
 
         ]
     }

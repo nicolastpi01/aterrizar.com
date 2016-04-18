@@ -9,12 +9,8 @@
             <generator class="identity"/>
         </id>
 
-        <property name="reservado" type="boolean">
-            <column name="reservado"/>
-        </property>
+
         <many-to-one cascade="all" column="reservadoPorUsuario" name="reservadoPorUsuario"
-                     class="ar.edu.unq.epers.aterrizar.model.Usuario"/>
-        <many-to-one cascade="all" column="vendidoAUsuario" name="vendidoAUsuario"
                      class="ar.edu.unq.epers.aterrizar.model.Usuario"/>
         <many-to-one cascade="all" column="categoria" name="categoria"
                      class="ar.edu.unq.epers.aterrizar.model.Categoria" lazy="false" fetch="select"/>
