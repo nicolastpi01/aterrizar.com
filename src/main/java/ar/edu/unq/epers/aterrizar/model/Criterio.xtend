@@ -20,4 +20,11 @@ abstract class Criterio {
         ]
     }
 
+    def or(Criterio criterio){
+        new CriterioCompuesto =>[
+            operador = new OR
+            criteriosSeleccionados = #[this, criterio]
+        ]
+    }
+
 }

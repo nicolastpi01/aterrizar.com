@@ -6,7 +6,7 @@ import java.util.ArrayList
 class OR extends OperadorLogico {
 
     override unirCriterios(List<Criterio> criteriosSeleccionados) {
-        throw new UnsupportedOperationException()
+        criteriosSeleccionados.map[it.getHQL].join(" or ")
     }
 
 }
