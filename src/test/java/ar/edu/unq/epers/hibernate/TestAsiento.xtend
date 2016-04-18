@@ -1,5 +1,6 @@
 package ar.edu.unq.epers.hibernate
 
+import ar.edu.unq.epers.aterrizar.exceptions.AsientoReservadoException
 import ar.edu.unq.epers.aterrizar.home.AsientoHome
 import ar.edu.unq.epers.aterrizar.home.SessionManager
 import ar.edu.unq.epers.aterrizar.model.Asiento
@@ -14,7 +15,6 @@ import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import ar.edu.unq.epers.aterrizar.exceptions.AsientoReservadoException
 
 class TestAsiento {
 
@@ -32,7 +32,7 @@ class TestAsiento {
 
     @Before
     def void setUp(){
-		
+
         SessionManager::getSessionFactory().openSession()
         user = new Usuario => [
             nombreDeUsuario = "alan75"
@@ -47,31 +47,27 @@ class TestAsiento {
             nacimiento = new Date(2015,10,1)
         ]
         service = new AsientoService
-        
-		unaCategoria = new Primera(1000)
+
+        unaCategoria = new Primera(1000)
         asiento1 = new Asiento => [
-            id = 1
             categoria = new Primera(1000)
             reservado = false
         ]
         asiento2 = new Asiento => [
-            id = 2
             categoria = new Primera(1000)
             reservado = false
         ]
         asiento3 = new Asiento => [
-            id = 3
             categoria = new Primera(1000)
             reservado = false
         ]
 
-        
+
     }
 
 
     @After
     def limpiar() {
- 		this.borrarTodo
         SessionManager::resetSessionFactory
     }
 
@@ -79,60 +75,44 @@ class TestAsiento {
 
     @Test
     def void guardoUnAsientoEnLaDB(){
-    	Assert.assertEquals(service.todosLosAsientos.length, 0)
-    	
-    	service.guardarAsiento(asiento1)
-    	service.guardarAsiento(asiento2)
-    	service.guardarAsiento(asiento3)
-        //new AsientoHome().guardarAsiento(asiento2)
-        //new AsientoHome().guardarAsiento(asiento3)
-        //var a = service.todosLosAsientos
-        
+        Assert.assertEquals(service.todosLosAsientos.length, 0)
+
+        service.guardarAsiento(asiento1)
+        service.guardarAsiento(asiento2)
+        service.guardarAsiento(asiento3)
+
         var Asiento a = service.buscarAsiento(asiento1)
         Assert.assertEquals(a.categoria.precioBase, asiento1.categoria.precioBase, 0.002)
         Assert.assertEquals(a.categoria.precio, asiento1.categoria.precio, 0.002)
-        
+
         Assert.assertEquals(service.todosLosAsientos.length, 3)
     }
-    
-    
-    @Test
-    def void reservarUnAsiento(){
-    	Assert.assertEquals(service.todosLosAsientos.length, 0)
-    	
-    	service.guardarAsiento(asiento1)
-    	service.guardarAsiento(asiento2)
-    	service.guardarAsiento(asiento3)
-        //new AsientoHome().guardarAsiento(asiento2)
-        //new AsientoHome().guardarAsiento(asiento3)
-        //var a = service.todosLosAsientos
-        
-        service.reservarAsiento(user, asiento1)
-        Assert.assertEquals(service.buscarAsiento(asiento1).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
-    }
-    
+
+
+
+
     @Test(expected = AsientoReservadoException)
     def void reservarUnAsientoYFalle(){
-    	//Assert.assertEquals(service.todosLosAsientos.length, 0)
-    	
-    	service.guardarAsiento(asiento1)
-    	service.guardarAsiento(asiento2)
-    	service.guardarAsiento(asiento3)
+        //Assert.assertEquals(service.todosLosAsientos.length, 0)
+
+        service.guardarAsiento(asiento1)
+        service.guardarAsiento(asiento2)
+        service.guardarAsiento(asiento3)
         //new AsientoHome().guardarAsiento(asiento2)
         //new AsientoHome().guardarAsiento(asiento3)
         //var a = service.todosLosAsientos
-        
+
         service.reservarAsiento(user, service.buscarAsiento(asiento1))
         service.reservarAsiento(user, service.buscarAsiento(asiento1))
         //Assert.assertEquals(service.buscarAsiento(asiento1).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
     }
-    
-    
+
+
     def borrarTodo() {
-       	SessionManager.runInSession([
+        SessionManager.runInSession([
             new AsientoHome().borrarAsientos()
             Asiento
         ]);
-       }
+    }
 
 }

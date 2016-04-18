@@ -102,13 +102,14 @@ class TestUsuario {
 
     @After
     def void limpiar() {
-//        SessionManager::resetSessionFactory
+        SessionManager::resetSessionFactory
     }
 
 
     @Test
     def void guardoUnUsuarioEnLaDB(){
         serviceUsuario.guardarUsuario(user)
+
     }
 
 
