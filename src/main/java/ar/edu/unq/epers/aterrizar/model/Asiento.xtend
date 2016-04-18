@@ -29,9 +29,13 @@ class Asiento {
     	return reservadoPorUsuario.equals(null)
     }
 	
-	def chequear() {
-		if(reservado)
-		throw new AsientoReservadoException
+	def chequearSiEstaReservado() {
+		if(this.estaReservado)
+		    throw new AsientoReservadoException
 	}
+
+    def estaReservado(){
+        this.reservadoPorUsuario != null
+    }
 	
 }
