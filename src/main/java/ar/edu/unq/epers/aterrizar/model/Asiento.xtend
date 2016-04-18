@@ -10,7 +10,6 @@ import ar.edu.unq.epers.aterrizar.exceptions.AsientoReservadoException
 class Asiento {
     int id
     Usuario reservadoPorUsuario
-    Usuario vendidoAUsuario
     Categoria categoria
     
     def reservarAsiento(Usuario u){

@@ -145,12 +145,10 @@ class TestUsuario {
 
         serviceTramo.reservarAsientosParaUsuario(user, tramo, listaAReservar)
 
-        var listaAComprar = listaAReservar
-        serviceTramo.comprarAsientosParaUsuario(listaAComprar,user , tramo)
 
-        Assert.assertEquals(user, asiento1.vendidoAUsuario)
-        Assert.assertEquals(user, asiento2.vendidoAUsuario)
-        Assert.assertEquals(user, asiento3.vendidoAUsuario)
+        Assert.assertEquals(user, asiento1.reservadoPorUsuario)
+        Assert.assertEquals(user, asiento2.reservadoPorUsuario)
+        Assert.assertEquals(user, asiento3.reservadoPorUsuario)
 
     }
     /*

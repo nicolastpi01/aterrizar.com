@@ -38,21 +38,6 @@ class Tramo {
         }
     }
 
-    def comprarAsientoParaUsuarioEnTramo(Asiento asiento, Usuario user){
-        var Asiento res = asientos.findFirst[asient | asient.id == asiento.id]
-        if(res == null)
-            throw new NoHayAsientoConEsaIdException
-        else
-            res.vendidoAUsuario = user
-    }
-
-    def liberarAsientosNoCompradosDeUsuario(Usuario user){
-        asientos.forEach[asiento |
-            if(asiento.reservadoPorUsuario == user && !(asiento.vendidoAUsuario == user))
-                asiento.reservadoPorUsuario = null
-        ]
-    }
-
     def List<Asiento> asientosDisponibles(){
         asientos.filter[asiento | asiento.reservadoPorUsuario == null].toList
     }
