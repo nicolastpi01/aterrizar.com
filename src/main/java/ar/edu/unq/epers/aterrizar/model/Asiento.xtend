@@ -12,16 +12,26 @@ class Asiento {
     Usuario reservadoPorUsuario
     Usuario vendidoAUsuario
     Categoria categoria
+    boolean reservado
     
     
     def reservarAsiento(Usuario u){
-    	if(estaDisponible)
+    	
+    	
+    	
     	reservadoPorUsuario = u
-    	else
-    	throw new AsientoReservadoException() 
+    	reservado = true
+    	
+    	 
     }
     
     def estaDisponible(){
     	return reservadoPorUsuario.equals(null)
     }
+	
+	def chequear() {
+		if(reservado)
+		throw new AsientoReservadoException
+	}
+	
 }

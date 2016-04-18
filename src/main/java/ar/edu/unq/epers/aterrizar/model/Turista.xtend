@@ -8,17 +8,15 @@ import org.eclipse.xtend.lib.annotations.Accessors
  @Accessors
 class Turista extends Categoria {
 
-    override precio() {
+   override def precio() {
         precioBase
     }
 
-    new (float precio) {
-        super(precio)
-    }
-    
-    new(int id, float precio){
-		super(id, precio)
-	}
+public new (float precio) {
+                this.precioBase = precio
 
+    }
+
+new(){}
 
 }

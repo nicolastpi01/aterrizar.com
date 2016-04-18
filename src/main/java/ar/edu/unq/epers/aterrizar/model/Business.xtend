@@ -8,16 +8,15 @@ import org.eclipse.xtend.lib.annotations.Accessors
  @Accessors
 class Business extends Categoria{
 
-    override precio() {
+    override def precio() {
         precioBase + 1000
     }
 
-    new (float precio) {
-        super(precio)
-    }
+    public new (float precio) {
+                this.precioBase = precio
 
-	new(int id, float precio){
-		super(id, precio)
-	}
+    }
+    
+    new(){}
 
 }

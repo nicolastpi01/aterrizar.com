@@ -12,15 +12,6 @@ abstract class Categoria {
     int id
     float precioBase
 
-    new(float precio){
-        this.precioBase = precio
-    }
-    
-    new(int id, float precio){
-    	this.id = id
-        this.precioBase = precio
-    }
-
 
     abstract def float precio()
 

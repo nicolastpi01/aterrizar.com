@@ -14,6 +14,7 @@ import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import ar.edu.unq.epers.aterrizar.exceptions.AsientoReservadoException
 
 class TestAsiento {
 
@@ -31,7 +32,7 @@ class TestAsiento {
 
     @Before
     def void setUp(){
-
+		
         SessionManager::getSessionFactory().openSession()
         user = new Usuario => [
             nombreDeUsuario = "alan75"
@@ -49,16 +50,19 @@ class TestAsiento {
         
 		unaCategoria = new Primera(1000)
         asiento1 = new Asiento => [
-            //id = "c 1"
-            categoria = unaCategoria
+            id = 1
+            categoria = new Primera(1000)
+            reservado = false
         ]
         asiento2 = new Asiento => [
-            //id = "c 2"
-            categoria = unaCategoria
+            id = 2
+            categoria = new Primera(1000)
+            reservado = false
         ]
         asiento3 = new Asiento => [
-            //id = "c 3"
-            categoria = unaCategoria
+            id = 3
+            categoria = new Primera(1000)
+            reservado = false
         ]
 
         
@@ -67,6 +71,7 @@ class TestAsiento {
 
     @After
     def limpiar() {
+ 		this.borrarTodo
         SessionManager::resetSessionFactory
     }
 
@@ -81,141 +86,53 @@ class TestAsiento {
     	service.guardarAsiento(asiento3)
         //new AsientoHome().guardarAsiento(asiento2)
         //new AsientoHome().guardarAsiento(asiento3)
-        //Assert.assertEquals(service.todosLosAsientos.length, 1)
-    }
-
-
-	/*
-    @Test
-    def void consultarUsuarioEnLaDB(){
-        service.guardarUsuario(user)
-        val consulta = service.consultarUsuario(user.nombreDeUsuario)
-        Assert.assertEquals(consulta.nombreDeUsuario, user.nombreDeUsuario)
-        Assert.assertEquals(consulta.contrasenia, user.contrasenia)
-        Assert.assertEquals(consulta.email, user.email)
-        Assert.assertEquals(consulta.nacimiento, user.nacimiento)
-    }
-     */
-     
-    /*
-    @Test
-    def void consultarAsientoEnLaDB(){
-        service.guardarUsuario(user)
-        val consulta = service.consultarUsuario(user.nombreDeUsuario)
-        Assert.assertEquals(consulta.nombreDeUsuario, user.nombreDeUsuario)
-        Assert.assertEquals(consulta.contrasenia, user.contrasenia)
-        Assert.assertEquals(consulta.email, user.email)
-        Assert.assertEquals(consulta.nacimiento, user.nacimiento)
+        //var a = service.todosLosAsientos
+        
+        var Asiento a = service.buscarAsiento(asiento1)
+        Assert.assertEquals(a.categoria.precioBase, asiento1.categoria.precioBase, 0.002)
+        Assert.assertEquals(a.categoria.precio, asiento1.categoria.precio, 0.002)
+        
+        Assert.assertEquals(service.todosLosAsientos.length, 3)
     }
     
-
+    
     @Test
-    def void reservarAsientoEnTramo(){
-
-        tramo.agregarAsiento(asiento1)
-
-        serviceTramo.guardarTramo(tramo)
-        serviceTramo.reservarAsientoParaUsuarioEnTramo(asiento1, user, tramo)
-
-        Assert.assertEquals(user, asiento1.reservadoPorUsuario)
+    def void reservarUnAsiento(){
+    	Assert.assertEquals(service.todosLosAsientos.length, 0)
+    	
+    	service.guardarAsiento(asiento1)
+    	service.guardarAsiento(asiento2)
+    	service.guardarAsiento(asiento3)
+        //new AsientoHome().guardarAsiento(asiento2)
+        //new AsientoHome().guardarAsiento(asiento3)
+        //var a = service.todosLosAsientos
+        
+        service.reservarAsiento(user, asiento1)
+        Assert.assertEquals(service.buscarAsiento(asiento1).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
     }
-
-    @Test
-    def void reservarVariosAsientosYComprarTodos(){
-
-
-
-        var List listaAReservar = new ArrayList<Asiento>
-        listaAReservar.add(asiento1)
-        listaAReservar.add(asiento2)
-        listaAReservar.add(asiento3)
-
-        serviceTramo.reservarAsientosParaUsuario(listaAReservar, user, tramo)
-
-        var listaAComprar = listaAReservar
-        serviceTramo.comprarAsientosParaUsuario(listaAComprar,user , tramo)
-
-        Assert.assertEquals(user, asiento1.vendidoAUsuario)
-        Assert.assertEquals(user, asiento2.vendidoAUsuario)
-        Assert.assertEquals(user, asiento3.vendidoAUsuario)
-
+    
+    @Test(expected = AsientoReservadoException)
+    def void reservarUnAsientoYFalle(){
+    	//Assert.assertEquals(service.todosLosAsientos.length, 0)
+    	
+    	service.guardarAsiento(asiento1)
+    	service.guardarAsiento(asiento2)
+    	service.guardarAsiento(asiento3)
+        //new AsientoHome().guardarAsiento(asiento2)
+        //new AsientoHome().guardarAsiento(asiento3)
+        //var a = service.todosLosAsientos
+        
+        service.reservarAsiento(user, service.buscarAsiento(asiento1))
+        service.reservarAsiento(user, service.buscarAsiento(asiento1))
+        //Assert.assertEquals(service.buscarAsiento(asiento1).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
     }
-
-    @Test
-    def void reservarAsientosYComprarAlgunos(){
-
-        var List listaAReservar = new ArrayList<Asiento>
-        listaAReservar.add(asiento1)
-        listaAReservar.add(asiento2)
-        listaAReservar.add(asiento3)
-
-        serviceTramo.reservarAsientosParaUsuario(listaAReservar, user, tramo)
-
-        var List listaAComprar = new ArrayList<Asiento>
-        listaAComprar.add(asiento1)
-        listaAComprar.add(asiento3)
-
-
-        Assert.assertEquals(user, asiento1.reservadoPorUsuario)
-        Assert.assertEquals(user, asiento2.reservadoPorUsuario)
-        Assert.assertEquals(user, asiento3.reservadoPorUsuario)
-
-
-        serviceTramo.comprarAsientosParaUsuario(listaAComprar,user , tramo)
-
-        Assert.assertEquals(user, asiento1.vendidoAUsuario)
-        Assert.assertEquals(null, asiento2.vendidoAUsuario)
-        Assert.assertEquals(null, asiento2.reservadoPorUsuario)
-        Assert.assertEquals(user, asiento3.vendidoAUsuario)
-
-    }
-
-    @Test
-    def void reservarAsientosYNoComprarNinguno(){
-
-        var List listaAReservar = new ArrayList<Asiento>
-        listaAReservar.add(asiento1)
-        listaAReservar.add(asiento2)
-        listaAReservar.add(asiento3)
-
-        serviceTramo.reservarAsientosParaUsuario(listaAReservar, user, tramo)
-
-        var List listaAComprar = new ArrayList<Asiento>
-
-        Assert.assertEquals(user, asiento1.reservadoPorUsuario)
-        Assert.assertEquals(user, asiento2.reservadoPorUsuario)
-        Assert.assertEquals(user, asiento3.reservadoPorUsuario)
-
-
-        serviceTramo.comprarAsientosParaUsuario(listaAComprar,user , tramo)
-
-        Assert.assertEquals(null, asiento1.vendidoAUsuario)
-        Assert.assertEquals(null, asiento2.vendidoAUsuario)
-        Assert.assertEquals(null, asiento3.vendidoAUsuario)
-        Assert.assertEquals(null, asiento1.reservadoPorUsuario)
-        Assert.assertEquals(null, asiento2.reservadoPorUsuario)
-        Assert.assertEquals(null, asiento3.reservadoPorUsuario)
-
-    }
-
-    @Test
-    def void consultarAsientosDisponiblesParaUnTramo(){
-
-        var List listaAReservar = new ArrayList<Asiento>
-        listaAReservar.add(asiento1)
-        listaAReservar.add(asiento3)
-
-        serviceTramo.reservarAsientosParaUsuario(listaAReservar, user, tramo)
-
-        var List<Asiento> asientosDisponibles = serviceTramo.asientosDisponibles(tramo)
-
-        var List<Asiento> asientosEsperados = new ArrayList
-
-        asientosEsperados.add(asiento2)
-
-        Assert.assertEquals(asientosDisponibles, asientosEsperados)
-
-    }
- */
+    
+    
+    def borrarTodo() {
+       	SessionManager.runInSession([
+            new AsientoHome().borrarAsientos()
+            Asiento
+        ]);
+       }
 
 }
