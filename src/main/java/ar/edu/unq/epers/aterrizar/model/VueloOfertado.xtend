@@ -17,6 +17,10 @@ class VueloOfertado {
         this.tramos = tramos
     }
 
+    def destino(){
+        tramos.last.destino
+    }
+
     def estaDisponible(){
         tramos.fold(true)[ result, tramo|
             tramo.hayUnAsientoDisponible() && result
