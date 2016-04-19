@@ -10,13 +10,12 @@ import ar.edu.unq.epers.aterrizar.model.CriterioPorFechaDeLlegada
 import ar.edu.unq.epers.aterrizar.model.CriterioPorFechaDeSalida
 import ar.edu.unq.epers.aterrizar.model.CriterioPorOrigen
 import ar.edu.unq.epers.aterrizar.model.Primera
+import ar.edu.unq.epers.aterrizar.servicios.AerolineaService
 import java.sql.Date
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import ar.edu.unq.epers.aterrizar.servicios.AerolineaService
-import ar.edu.unq.epers.aterrizar.home.AerolineaHome
 
 /**
  * Created by damian on 4/18/16.
@@ -31,20 +30,19 @@ class TestCriterio extends TestBase{
     val criterio6 = new CriterioPorOrigen() => [origen = "Buenos Aires"]
     val criterio7 = new CriterioPorDestino() => [destino = "Chubut"]
 
-    val AerolineaHome aerolineaHome = new AerolineaHome
 
     var Busqueda busqueda
 
     var Aerolinea aerolinea1
     var Aerolinea aerolinea2
     var Aerolinea aerolinea3
-
     val AerolineaService aerolineaService = new AerolineaService
+
 
     @Before
     override setUp(){
-        super.setUp
         SessionManager::getSessionFactory().openSession()
+        super.setUp
         aerolinea1 = new Aerolinea => [vuelosOfertados = #[vuelo1,vuelo2]
             nombre = "LAN"
 
@@ -56,6 +54,7 @@ class TestCriterio extends TestBase{
             nombre = "Austral"
         ]
 
+
         aerolineaService.guardarAerolinea(aerolinea1)
         aerolineaService.guardarAerolinea(aerolinea2)
         aerolineaService.guardarAerolinea(aerolinea3)
@@ -63,8 +62,8 @@ class TestCriterio extends TestBase{
     }
 
     @After
-    def void tearDown(){
-//        SessionManager::resetSessionFactory
+    def void limpiar(){
+        SessionManager::resetSessionFactory
     }
 
     @Test
@@ -73,7 +72,9 @@ class TestCriterio extends TestBase{
         busqueda = new Busqueda() => [criterio = criterio1]
 
         Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where aerolinea.nombre = L.A.N.", busqueda.getHQL)
-        aerolineaHome.buscar(busqueda.getHQL)
+//        var vuelos = aerolineaService.buscar(busqueda)
+
+//        Assert.assertEquals(vuelos.get(0).getTramos.get(0).origen, "Buenos Aires")
     }
 
     @Test

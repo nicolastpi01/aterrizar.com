@@ -9,6 +9,7 @@ import org.hibernate.Query
 import ar.edu.unq.epers.aterrizar.model.VueloOfertado
 import javax.sound.midi.Track
 import ar.edu.unq.epers.aterrizar.model.Aerolinea
+import java.util.ArrayList
 
 /**
  * Created by damian on 4/16/16.
@@ -26,6 +27,12 @@ class TramoHome {
 		else
 			return tramos.get(0) as Tramo
 	}
+
+	def buscarVuelos(String hquery){
+		var query = SessionManager.getSession().createQuery(hquery) as Query
+		query.list as List<VueloOfertado>
+	}
+
 
 	def guardarTramo(Tramo a) {
 		SessionManager.getSession().saveOrUpdate(a)
