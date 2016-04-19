@@ -15,4 +15,6 @@ class Busqueda {
         "select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where " + criterio.getHQL
     }
 
+
+
 }

@@ -1,5 +1,7 @@
 package ar.edu.unq.epers.hibernate
 
+import ar.edu.unq.epers.aterrizar.home.SessionManager
+import ar.edu.unq.epers.aterrizar.model.Aerolinea
 import ar.edu.unq.epers.aterrizar.model.Busqueda
 import ar.edu.unq.epers.aterrizar.model.CriterioPorAerolinea
 import ar.edu.unq.epers.aterrizar.model.CriterioPorCategoriaDeAsiento
@@ -13,11 +15,13 @@ import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import ar.edu.unq.epers.aterrizar.servicios.AerolineaService
+import ar.edu.unq.epers.aterrizar.home.AerolineaHome
 
 /**
  * Created by damian on 4/18/16.
  */
-class TestCriterio {
+class TestCriterio extends TestBase{
 
     val criterio1 = new CriterioPorAerolinea() => [aerolinea = "L.A.N."]
     val criterio2 = new CriterioPorAerolinea() => [aerolinea = "Aerolineas Argentinas"]
@@ -26,15 +30,41 @@ class TestCriterio {
     val criterio5 = new CriterioPorFechaDeLlegada() => [fechaLlegada = new Date(116,07,01)]
     val criterio6 = new CriterioPorOrigen() => [origen = "Buenos Aires"]
     val criterio7 = new CriterioPorDestino() => [destino = "Chubut"]
+
+    val AerolineaHome aerolineaHome = new AerolineaHome
+
     var Busqueda busqueda
 
+    var Aerolinea aerolinea1
+    var Aerolinea aerolinea2
+    var Aerolinea aerolinea3
+
+    val AerolineaService aerolineaService = new AerolineaService
+
     @Before
-    def void setUp(){
+    override setUp(){
+        super.setUp
+        SessionManager::getSessionFactory().openSession()
+        aerolinea1 = new Aerolinea => [vuelosOfertados = #[vuelo1,vuelo2]
+            nombre = "LAN"
+
+        ]
+        aerolinea2 = new Aerolinea => [vuelosOfertados = #[vuelo3,vuelo2]
+            nombre = "Aerolineas Argentinas"
+        ]
+        aerolinea3 = new Aerolinea => [vuelosOfertados = #[vuelo1,vuelo2,vuelo3]
+            nombre = "Austral"
+        ]
+
+        aerolineaService.guardarAerolinea(aerolinea1)
+        aerolineaService.guardarAerolinea(aerolinea2)
+        aerolineaService.guardarAerolinea(aerolinea3)
+
     }
 
     @After
     def void tearDown(){
-
+//        SessionManager::resetSessionFactory
     }
 
     @Test
@@ -43,7 +73,7 @@ class TestCriterio {
         busqueda = new Busqueda() => [criterio = criterio1]
 
         Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where aerolinea.nombre = L.A.N.", busqueda.getHQL)
-
+        aerolineaHome.buscar(busqueda.getHQL)
     }
 
     @Test
@@ -103,10 +133,5 @@ class TestCriterio {
         Assert.assertEquals('select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where aerolinea.nombre = L.A.N. and vuelo.tramos as tramo join tramo.asientos as asiento where asiento.categoria.getCategoria = Primera or vuelo.tramos as tramo where tramo.salida = 2016-07-16 and vuelo.tramos as tramo where tramo.origen = Buenos Aires', busqueda.getHQL)
 
     }
-
-
-
-
-
 
 }

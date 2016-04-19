@@ -3,29 +3,28 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-<class name="ar.edu.unq.epers.aterrizar.model.Categoria" table="categoria" abstract="true">
-   <id name="id" column="id" type="integer">
-      <generator class="increment"/>
-   </id>
-   <property name="precioBase" column="precioBase"/>
-              
-   <joined-subclass name="ar.edu.unq.epers.aterrizar.model.Primera" table="primera">
-      <key column="primera_id"></key>
-   
-      
-   </joined-subclass>
-   
-   <joined-subclass name="ar.edu.unq.epers.aterrizar.model.Turista" table="turista" >
-      <key column="turista_id"></key>
-      
-      
-   
-   </joined-subclass>
-   
-   <joined-subclass name="ar.edu.unq.epers.aterrizar.model.Business" table="business">
-      <key column="business_id"></key>
-   
-   
-   </joined-subclass>
-</class>
+    <class name="ar.edu.unq.epers.aterrizar.model.Categoria" table="categoria" abstract="true">
+        <id name="id" column="id" type="integer">
+            <generator class="increment"/>
+        </id>
+        <property name="precioBase" column="precioBase"/>
+
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.model.Primera" table="primera">
+            <key column="primera_id"></key>
+
+
+        </joined-subclass>
+
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.model.Turista" table="turista">
+            <key column="turista_id"></key>
+
+
+        </joined-subclass>
+
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.model.Business" table="business">
+            <key column="business_id"></key>
+
+
+        </joined-subclass>
+    </class>
 </hibernate-mapping>

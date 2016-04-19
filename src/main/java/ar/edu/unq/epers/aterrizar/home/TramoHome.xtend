@@ -8,6 +8,7 @@ import java.util.List
 import org.hibernate.Query
 import ar.edu.unq.epers.aterrizar.model.VueloOfertado
 import javax.sound.midi.Track
+import ar.edu.unq.epers.aterrizar.model.Aerolinea
 
 /**
  * Created by damian on 4/16/16.
@@ -27,6 +28,10 @@ class TramoHome {
 	}
 
 	def guardarTramo(Tramo a) {
+		SessionManager.getSession().saveOrUpdate(a)
+	}
+
+	def guardarAerolinea(Aerolinea a){
 		SessionManager.getSession().saveOrUpdate(a)
 	}
 
