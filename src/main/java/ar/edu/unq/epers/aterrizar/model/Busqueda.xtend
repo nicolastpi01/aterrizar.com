@@ -13,7 +13,7 @@ class Busqueda {
 
     def getHQL(){
 
-        "select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where " + criterio.getHQL
+        "from VueloOfertado"
 
 //        "select vuelo from Aerolinea aerolinea join (select aerolinea.vuelosOfertados vuelo) where " + criterio.getHQL
     }
