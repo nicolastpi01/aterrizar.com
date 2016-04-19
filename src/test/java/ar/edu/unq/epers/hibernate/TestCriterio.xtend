@@ -22,7 +22,7 @@ import org.junit.Test
  */
 class TestCriterio extends TestBase{
 
-    val criterio1 = new CriterioPorAerolinea() => [aerolinea = "L.A.N."]
+    val criterio1 = new CriterioPorAerolinea() => [aerolinea = "Austral"]
     val criterio2 = new CriterioPorAerolinea() => [aerolinea = "Aerolineas Argentinas"]
     val criterio3 = new CriterioPorCategoriaDeAsiento() => [categoriaAsiento = new Primera]
     val criterio4 = new CriterioPorFechaDeSalida() => [fechaSalida = new Date(116,6,16)]
@@ -42,15 +42,14 @@ class TestCriterio extends TestBase{
     @Before
     override setUp(){
         super.setUp
-        aerolinea1 = new Aerolinea => [vuelosOfertados = #[vuelo1,vuelo2]
-            nombre = "LAN"
-
+        aerolinea1 = new Aerolinea => [vuelosOfertados = #[vuelo1,vuelo2,vuelo3]
+            nombre = "Austral"
         ]
-        aerolinea2 = new Aerolinea => [vuelosOfertados = #[vuelo3,vuelo2]
+        aerolinea2 = new Aerolinea => [vuelosOfertados = #[]
             nombre = "Aerolineas Argentinas"
         ]
-        aerolinea3 = new Aerolinea => [vuelosOfertados = #[vuelo1,vuelo2,vuelo3]
-            nombre = "Austral"
+        aerolinea3 = new Aerolinea => [vuelosOfertados = #[]
+            nombre = "Lan"
         ]
 
 
@@ -63,27 +62,30 @@ class TestCriterio extends TestBase{
     @After
     def void limpiar(){
         SessionManager::resetSessionFactory
+        SessionManager::resetSessionFactory
     }
 
     @Test
     def void criterioPorAerolinea(){
-        SessionManager::getSessionFactory().openSession()
 
         busqueda = new Busqueda() => [criterio = criterio1]
-        //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where aerolinea.nombre = L.A.N.", busqueda.getHQL)
+        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelosOfertados as vuelo where aerolinea.nombre = 'Austral' ", busqueda.getHQL)
         var vuelos = aerolineaService.buscar(busqueda)
 
         Assert.assertEquals(vuelos.get(0).getTramos.get(0).origen, "Chile")
     }
 
-    //    @Test
-    //    def void criterioPorUnaAerolineaUOtra(){
-    //
-    //        busqueda = new Busqueda() => [criterio = criterio1.or(criterio2)]
-    //
-    //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where aerolinea.nombre = L.A.N. or aerolinea.nombre = Aerolineas Argentinas", busqueda.getHQL)
-    //
-    //    }
+    @Test
+    def void criterioPorUnaAerolineaUOtra(){
+
+        busqueda = new Busqueda() => [criterio = criterio1.or(criterio2)]
+
+        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelosOfertados as vuelo where aerolinea.nombre = 'Austral'  or aerolinea.nombre = 'Aerolineas Argentinas' ", busqueda.getHQL)
+        var vuelos = aerolineaService.buscar(busqueda)
+        Assert.assertTrue(vuelos.exists[vuelo | vuelo.id == 1])
+        Assert.assertTrue(vuelos.exists[vuelo | vuelo.id == 2])
+        Assert.assertTrue(vuelos.size == 3)
+    }
     //
     //    @Test
     //    def void filtrarPorCategoriaDeAsiento(){
