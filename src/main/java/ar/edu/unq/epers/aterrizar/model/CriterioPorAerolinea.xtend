@@ -9,7 +9,7 @@ class CriterioPorAerolinea extends Criterio {
     String aerolinea
 
     override getHQL() {
-        '''aerolinea.nombre = '«aerolinea»' '''
+        ''' aerolinea.nombre = '«aerolinea»' '''
     }
 
 
