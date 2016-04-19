@@ -39,6 +39,7 @@ class TestBase {
     VueloOfertado vuelo1
     VueloOfertado vuelo2
     VueloOfertado vuelo3
+    VueloOfertado vuelo4
 
 
     @Before
@@ -110,6 +111,7 @@ class TestBase {
         vuelo1 = new VueloOfertado => [tramos = #[tramo,tramo2,tramo3]]
         vuelo2 = new VueloOfertado => [tramos = #[tramo2,tramo,tramo3]]
         vuelo3 = new VueloOfertado => [tramos = #[tramo3,tramo,tramo2,tramo3]]
+        vuelo4 = new VueloOfertado => [tramos = #[tramo,tramo2,tramo3,tramo]]
 
     }
 }
