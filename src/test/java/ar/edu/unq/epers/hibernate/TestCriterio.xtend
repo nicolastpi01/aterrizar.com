@@ -179,6 +179,17 @@ class TestCriterio extends TestBase{
 
     }
 
+    @Test
+    def void filtrarPorFechaDeSalida(){
+
+        busqueda = new Busqueda() => [criterio = criterio4]
+
+
+        var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
+        Assert.assertEquals(vuelos.size, 1)
+
+    }
+
     //
 //    @Test
 //    def void combinarFiltrosConAndYOr(){
