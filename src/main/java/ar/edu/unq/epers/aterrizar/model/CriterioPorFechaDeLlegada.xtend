@@ -13,5 +13,10 @@ class CriterioPorFechaDeLlegada extends Criterio {
         "vuelo.tramos as tramo where tramo.salida = " + fechaLlegada
     }
 
+    override whereClause() {
+        throw new UnsupportedOperationException()
+    }
+
+
 
 }

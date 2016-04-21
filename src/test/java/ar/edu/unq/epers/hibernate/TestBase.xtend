@@ -5,21 +5,16 @@ import ar.edu.unq.epers.aterrizar.model.Asiento
 import ar.edu.unq.epers.aterrizar.model.Primera
 import ar.edu.unq.epers.aterrizar.model.Tramo
 import ar.edu.unq.epers.aterrizar.model.Usuario
+import ar.edu.unq.epers.aterrizar.model.VueloOfertado
 import ar.edu.unq.epers.aterrizar.servicios.AsientoService
 import ar.edu.unq.epers.aterrizar.servicios.TramoService
 import ar.edu.unq.epers.aterrizar.servicios.UsuarioService
 import java.sql.Date
-import java.util.ArrayList
-import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
 import org.hibernate.Session
 import org.hibernate.SessionFactory
-import org.junit.After
-import org.junit.Assert
 import org.junit.Before
-import org.junit.Test
-import ar.edu.unq.epers.aterrizar.model.VueloOfertado
-import ar.edu.unq.epers.aterrizar.home.TramoHome
-import org.eclipse.xtend.lib.annotations.Accessors
+import ar.edu.unq.epers.aterrizar.model.Business
 
 @Accessors
 class TestBase {
@@ -106,12 +101,22 @@ class TestBase {
             llegada = new Date(1000)
             salida = new Date(1500)
             precioBase = 1500
+            asientos = #[
+                new Asiento => [
+                    nombre = "c 1"
+                    categoria = new Business(500)
+                ],
+                new Asiento => [
+                    nombre = "c 2"
+                    categoria = new Business(500)
+                ]
+            ]
         ]
 
-        vuelo1 = new VueloOfertado => [tramos = #[tramo,tramo2,tramo3]]
-        vuelo2 = new VueloOfertado => [tramos = #[tramo2,tramo,tramo3]]
-        vuelo3 = new VueloOfertado => [tramos = #[tramo3,tramo,tramo2,tramo3]]
-        vuelo4 = new VueloOfertado => [tramos = #[tramo,tramo2,tramo3,tramo]]
+        vuelo1 = new VueloOfertado => [tramos = #[tramo,tramo2]]
+        vuelo2 = new VueloOfertado => [tramos = #[tramo2,tramo]]
+        vuelo3 = new VueloOfertado => [tramos = #[tramo,tramo2]]
+        vuelo4 = new VueloOfertado => [tramos = #[tramo3]]
 
     }
 }

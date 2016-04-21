@@ -11,9 +11,12 @@ class CriterioCompuesto extends Criterio{
     List<Criterio> criteriosSeleccionados
     OperadorLogico operador
 
-
     override getHQL() {
         operador.unirCriterios(criteriosSeleccionados)
+    }
+
+    override whereClause() {
+        operador.unirWhereClauses(criteriosSeleccionados.map[it.whereClause].toList)
     }
 
 

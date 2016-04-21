@@ -9,8 +9,13 @@ class CriterioPorCategoriaDeAsiento extends Criterio {
     Categoria categoriaAsiento
 
     override getHQL() {
-        "vuelo.tramos" + categoriaAsiento.getCategoria
+        ''' left join vuelo.tramos as tramo left join tramo.asientos as asiento left join asiento.categoria as cat '''
     }
+
+    override whereClause() {
+        ''' cat.class = «categoriaAsiento.class.getSimpleName»'''
+    }
+
 
 
 }

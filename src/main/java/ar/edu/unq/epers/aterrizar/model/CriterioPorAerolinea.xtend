@@ -12,6 +12,11 @@ class CriterioPorAerolinea extends Criterio {
         ''' aerolinea.nombre = '«aerolinea»' '''
     }
 
+    override whereClause() {
+        throw new UnsupportedOperationException()
+    }
+
+
 
 
 }

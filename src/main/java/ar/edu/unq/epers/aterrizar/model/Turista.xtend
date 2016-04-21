@@ -20,9 +20,5 @@ class Turista extends Categoria {
     new(){
     }
 
-    override getCategoria() {
-        "Turista"
-    }
-
 
 }

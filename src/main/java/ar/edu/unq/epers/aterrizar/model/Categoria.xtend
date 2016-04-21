@@ -14,6 +14,4 @@ abstract class Categoria {
 
     abstract def float precio()
 
-    abstract def String getCategoria()
-
 }

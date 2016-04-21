@@ -12,6 +12,8 @@ abstract class Criterio {
 
     def abstract String getHQL()
 
+    def abstract String whereClause()
+
 
     def and(Criterio criterio){
         new CriterioCompuesto =>[

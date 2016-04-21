@@ -13,4 +13,9 @@ class CriterioPorDestino extends Criterio{
     override getHQL() {
         "vuelo.tramos as tramo where tramo.destino = " + destino
     }
+
+    override whereClause() {
+        throw new UnsupportedOperationException()
+    }
+
 }

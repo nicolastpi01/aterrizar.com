@@ -11,4 +11,9 @@ class CriterioPorOrigen extends Criterio {
         "vuelo.tramos as tramo where tramo.origen = " + origen
     }
 
+    override whereClause() {
+        throw new UnsupportedOperationException()
+    }
+
+
 }

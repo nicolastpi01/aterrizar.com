@@ -20,8 +20,5 @@ class Primera extends Categoria{
     
     new(){}
 
-    override getCategoria() {
-        "Primera"
-    }
 
 }

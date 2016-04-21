@@ -10,6 +10,9 @@ import ar.edu.unq.epers.aterrizar.model.VueloOfertado
 import javax.sound.midi.Track
 import ar.edu.unq.epers.aterrizar.model.Aerolinea
 import java.util.ArrayList
+import java.util.LinkedHashSet
+import java.util.Set
+import java.util.HashSet
 
 /**
  * Created by damian on 4/16/16.
@@ -28,9 +31,14 @@ class TramoHome {
 			return tramos.get(0) as Tramo
 	}
 
-	def buscarVuelos(String hquery){
+	def List<VueloOfertado> buscarVuelos(String hquery){
 		var query = SessionManager.getSession().createQuery(hquery) as Query
-		query.list as List<VueloOfertado>
+		var list = query.list as List<VueloOfertado>
+		var Set<VueloOfertado> set = new HashSet
+		set.addAll(list)
+		var List<VueloOfertado> l = new ArrayList
+		l.addAll(set)
+		l
 	}
 
 
