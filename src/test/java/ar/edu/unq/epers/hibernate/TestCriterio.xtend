@@ -73,16 +73,16 @@ class TestCriterio extends TestBase{
     }
 
 
-    //    @Test
-    //    def void criterioPorAerolinea(){
-    //
-    //        busqueda = new Busqueda() => [criterio = criterio1]
-    //        //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelosOfertados as vuelo where aerolinea.nombre = 'Austral' ", busqueda.getHQL)
-    //        var vuelos = aerolineaService.buscar(busqueda)
-    //
-    //        Assert.assertEquals(vuelos.get(0).getTramos.get(0).origen, "Chile")
-    //        Assert.assertEquals(vuelos.size, 3)
-    //    }
+    @Test
+    def void criterioPorAerolinea(){
+
+        busqueda = new Busqueda() => [criterio = criterio1]
+        //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelosOfertados as vuelo where aerolinea.nombre = 'Austral' ", busqueda.getHQL)
+        var vuelos = aerolineaService.buscar(busqueda)
+
+        Assert.assertEquals(vuelos.get(0).getTramos.get(0).origen, "Chile")
+        Assert.assertEquals(vuelos.size, 3)
+    }
     //
     //    @Test
     //    def void criterioPorUnaAerolineaUOtra(){

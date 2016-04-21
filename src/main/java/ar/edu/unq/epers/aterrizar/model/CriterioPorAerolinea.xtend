@@ -9,11 +9,11 @@ class CriterioPorAerolinea extends Criterio {
     String aerolinea
 
     override getHQL() {
-        ''' aerolinea.nombre = '«aerolinea»' '''
+        ""
     }
 
     override whereClause() {
-        throw new UnsupportedOperationException()
+        ''' aerolinea.nombre = '«aerolinea»' '''
     }
 
 
