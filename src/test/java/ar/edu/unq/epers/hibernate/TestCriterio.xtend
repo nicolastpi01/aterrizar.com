@@ -157,14 +157,14 @@ class TestCriterio extends TestBase{
         var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
         Assert.assertEquals(vuelos.size, 4)
     }
-    //
-    //    @Test
-    //    def void filtrarPorFechaDeSalida(){
-    //
-    //        busqueda = new Busqueda() => [criterio = criterio4]
-    //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where vuelo.tramos as tramo where tramo.salida = 2016-07-16", busqueda.getHQL)
-    //
-    //    }
+
+    @Test
+    def void filtrarPorOrigen(){
+        busqueda = new Busqueda() => [criterio = criterio6]
+        //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where vuelo.tramos as tramo where tramo.origen = Buenos Aires", busqueda.getHQL)
+        var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
+        Assert.assertEquals(vuelos.size, 3)
+    }
     //
     //    @Test
     //    def void filtrarPorFechaDeLlegada(){

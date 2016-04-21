@@ -8,11 +8,11 @@ class CriterioPorOrigen extends Criterio {
     String origen
 
     override getHQL() {
-        "vuelo.tramos as tramo where tramo.origen = " + origen
+        " left join vuelo.tramos as tramo "
     }
 
     override whereClause() {
-        throw new UnsupportedOperationException()
+        ''' tramo.origen = '«origen»' '''
     }
 
 
