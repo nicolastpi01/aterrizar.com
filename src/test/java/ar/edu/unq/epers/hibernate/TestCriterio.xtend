@@ -190,14 +190,22 @@ class TestCriterio extends TestBase{
 
     }
 
-    //
-//    @Test
-//    def void combinarFiltrosConAndYOr(){
-//
-//        busqueda = new Busqueda() => [criterio = criterio1.and(criterio3.or(criterio4.and(criterio6)))]
-//        var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
-//        Assert.assertEquals(vuelos.size, 1)
-//
-//    }
+    @Test
+    def void combinarFiltrosConAndYOr(){
+
+        busqueda = new Busqueda() => [criterio = criterio1.and(criterio3.or(criterio4.and(criterio6)))]
+        var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
+        Assert.assertEquals(vuelos.size, 3)
+
+    }
+
+    @Test
+    def void combinarFiltrosConAndYOr2(){
+
+        busqueda = new Busqueda() => [criterio = criterio4.or(criterio1).and(criterio7)]
+        var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
+        Assert.assertEquals(vuelos.size, 1)
+
+    }
 
 }
