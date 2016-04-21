@@ -78,7 +78,7 @@ class TestBase {
 
             origen = "Buenos Aires"
             destino = "Brasil"
-            llegada = new Date(1000)
+            llegada = new Date(116,07,01)
             salida = new Date(1500)
             precioBase = 1500
             asientos = #[

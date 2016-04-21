@@ -10,11 +10,11 @@ class CriterioPorFechaDeLlegada extends Criterio {
     Date fechaLlegada
 
     override getHQL() {
-        "vuelo.tramos as tramo where tramo.salida = " + fechaLlegada
+        " left join vuelo.tramos as tramo "
     }
 
     override whereClause() {
-        throw new UnsupportedOperationException()
+        ''' trim(tramo.llegada)= '«fechaLlegada»' '''
     }
 
 
