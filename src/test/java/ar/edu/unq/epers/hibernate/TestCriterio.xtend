@@ -36,7 +36,7 @@ class TestCriterio extends TestBase{
     val criterio4 = new CriterioPorFechaDeSalida() => [fechaSalida = new Date(116,6,16)]
     val criterio5 = new CriterioPorFechaDeLlegada() => [fechaLlegada = new Date(116,07,01)]
     val criterio6 = new CriterioPorOrigen() => [origen = "Buenos Aires"]
-    val criterio7 = new CriterioPorDestino() => [destino = "Chubut"]
+    val criterio7 = new CriterioPorDestino() => [destino = "Brasil"]
 
 
     var Busqueda busqueda
@@ -89,7 +89,6 @@ class TestCriterio extends TestBase{
 
         busqueda = new Busqueda() => [criterio = criterio1.or(criterio2)]
 
-        //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelosOfertados as vuelo where (aerolinea.nombre = 'Austral' ) or (aerolinea.nombre = 'Aerolineas Argentinas' )", busqueda.getHQL)
         var vuelos = aerolineaService.buscar(busqueda)
         Assert.assertTrue(vuelos.exists[vuelo | vuelo.id == 1])
         Assert.assertTrue(vuelos.exists[vuelo | vuelo.id == 2])
@@ -105,7 +104,6 @@ class TestCriterio extends TestBase{
 
         busqueda = new Busqueda() => [criterio = criterio2.or(criterio8)]
 
-        //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelosOfertados as vuelo where (aerolinea.nombre = 'Austral' ) or (aerolinea.nombre = 'Aerolineas Argentinas' )", busqueda.getHQL)
         var vuelos = aerolineaService.buscar(busqueda)
         Assert.assertEquals(vuelos.findFirst[vuelo | vuelo.id == 4].id, 4)
         Assert.assertEquals(vuelos.size, 1)
@@ -116,9 +114,7 @@ class TestCriterio extends TestBase{
     def void filtrarPorCategoriaDeAsiento(){
 
         busqueda = new Busqueda() => [criterio = criterio3]
-        //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where vuelo.tramos as tramo join tramo.asientos as asiento where asiento.categoria.getCategoria = Primera", busqueda.getHQL)
         var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
-        //        Assert.assertTrue(vuelos.exists[vuelo | vuelo.tieneCategoriaDeAsientoEnCadaTramo(new Primera)])
         Assert.assertEquals(vuelos.size, 3)
     }
 
@@ -126,16 +122,13 @@ class TestCriterio extends TestBase{
     def void filtrarPorCategoriaDeAsiento2(){
 
         busqueda = new Busqueda() => [criterio = criterio10]
-        //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where vuelo.tramos as tramo join tramo.asientos as asiento where asiento.categoria.getCategoria = Primera", busqueda.getHQL)
         var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
-        //        Assert.assertTrue(vuelos.exists[vuelo | vuelo.tieneCategoriaDeAsientoEnCadaTramo(new Primera)])
         Assert.assertEquals(vuelos.size, 0)
     }
     @Test
     def void filtrarPorCategoriaDeAsiento3(){
 
         busqueda = new Busqueda() => [criterio = criterio11]
-        //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where vuelo.tramos as tramo join tramo.asientos as asiento where asiento.categoria.getCategoria = Primera", busqueda.getHQL)
         var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
         Assert.assertEquals(vuelos.size, 1)
     }
@@ -144,7 +137,6 @@ class TestCriterio extends TestBase{
     def void filtrarPorCategoriaDeAsiento4(){
 
         busqueda = new Busqueda() => [criterio = criterio11.and(criterio3)]
-        //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where vuelo.tramos as tramo join tramo.asientos as asiento where asiento.categoria.getCategoria = Primera", busqueda.getHQL)
         var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
         Assert.assertEquals(vuelos.size, 0)
     }
@@ -153,7 +145,6 @@ class TestCriterio extends TestBase{
     def void filtrarPorCategoriaDeAsiento5(){
 
         busqueda = new Busqueda() => [criterio = criterio11.or(criterio3)]
-        //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where vuelo.tramos as tramo join tramo.asientos as asiento where asiento.categoria.getCategoria = Primera", busqueda.getHQL)
         var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
         Assert.assertEquals(vuelos.size, 4)
     }
@@ -161,11 +152,10 @@ class TestCriterio extends TestBase{
     @Test
     def void filtrarPorOrigen(){
         busqueda = new Busqueda() => [criterio = criterio6]
-        //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where vuelo.tramos as tramo where tramo.origen = Buenos Aires", busqueda.getHQL)
         var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
         Assert.assertEquals(vuelos.size, 3)
     }
-    //
+
     //    @Test
     //    def void filtrarPorFechaDeLlegada(){
     //
@@ -173,22 +163,17 @@ class TestCriterio extends TestBase{
     //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where vuelo.tramos as tramo where tramo.salida = 2016-08-01", busqueda.getHQL)
     //
     //    }
-    //
-    //    @Test
-    //    def void filtrarPorOrigen(){
-    //
-    //        busqueda = new Busqueda() => [criterio = criterio6]
-    //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where vuelo.tramos as tramo where tramo.origen = Buenos Aires", busqueda.getHQL)
-    //
-    //    }
-    //
-    //    @Test
-    //    def void filtrarPorDestino(){
-    //
-    //        busqueda = new Busqueda() => [criterio = criterio7]
-    //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelos vuelo where vuelo.tramos as tramo where tramo.destino = Chubut", busqueda.getHQL)
-    //
-    //    }
+
+
+    @Test
+    def void filtrarPorDestino(){
+
+        busqueda = new Busqueda() => [criterio = criterio7]
+
+        var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
+        Assert.assertEquals(vuelos.size, 1)
+
+    }
     //
     //    @Test
     //    def void combinarFiltrosConAndYOr(){

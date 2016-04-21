@@ -11,11 +11,13 @@ class CriterioPorDestino extends Criterio{
     String destino
 
     override getHQL() {
-        "vuelo.tramos as tramo where tramo.destino = " + destino
+        " left join vuelo.tramos as tramo "
     }
 
     override whereClause() {
-        throw new UnsupportedOperationException()
+        ''' tramo.origen = '«destino»' '''
     }
+
+
 
 }
