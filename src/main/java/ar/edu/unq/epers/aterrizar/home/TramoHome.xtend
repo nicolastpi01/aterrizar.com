@@ -34,6 +34,7 @@ class TramoHome {
 	def List<VueloOfertado> buscarVuelos(String hquery){
 		var query = SessionManager.getSession().createQuery(hquery) as Query
 		var list = query.list as List<VueloOfertado>
+		list = list.filterNull.toList
 		var Set<VueloOfertado> set = new HashSet
 		set.addAll(list)
 		var List<VueloOfertado> l = new ArrayList

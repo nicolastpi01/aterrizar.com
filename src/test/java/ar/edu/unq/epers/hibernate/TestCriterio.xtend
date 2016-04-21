@@ -83,32 +83,34 @@ class TestCriterio extends TestBase{
         Assert.assertEquals(vuelos.get(0).getTramos.get(0).origen, "Chile")
         Assert.assertEquals(vuelos.size, 3)
     }
-    //
-    //    @Test
-    //    def void criterioPorUnaAerolineaUOtra(){
-    //
-    //        busqueda = new Busqueda() => [criterio = criterio1.or(criterio2)]
-    //
-    //        //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelosOfertados as vuelo where (aerolinea.nombre = 'Austral' ) or (aerolinea.nombre = 'Aerolineas Argentinas' )", busqueda.getHQL)
-    //        var vuelos = aerolineaService.buscar(busqueda)
-    //        Assert.assertTrue(vuelos.exists[vuelo | vuelo.id == 1])
-    //        Assert.assertTrue(vuelos.exists[vuelo | vuelo.id == 2])
-    //        Assert.assertTrue(vuelos.exists[vuelo | vuelo.id == 4])
-    //        Assert.assertEquals(vuelos.size, 4)
-    //    }
-    //
-    //    @Test
-    //    def void criterioPorUnaAerolineaUOtra2(){
-    //
-    //        busqueda = new Busqueda() => [criterio = criterio2.or(criterio8)]
-    //
-    //        //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelosOfertados as vuelo where (aerolinea.nombre = 'Austral' ) or (aerolinea.nombre = 'Aerolineas Argentinas' )", busqueda.getHQL)
-    //        var vuelos = aerolineaService.buscar(busqueda)
-    //        Assert.assertTrue(vuelos.exists[vuelo | vuelo.id == 4])
-    //        Assert.assertTrue(vuelos.exists[vuelo | vuelo == null]) //????????????
-    //        Assert.assertEquals(vuelos.size, 2) // ??????????
-    //
-    //    }
+
+    @Test
+    def void criterioPorUnaAerolineaUOtra(){
+
+        busqueda = new Busqueda() => [criterio = criterio1.or(criterio2)]
+
+        //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelosOfertados as vuelo where (aerolinea.nombre = 'Austral' ) or (aerolinea.nombre = 'Aerolineas Argentinas' )", busqueda.getHQL)
+        var vuelos = aerolineaService.buscar(busqueda)
+        Assert.assertTrue(vuelos.exists[vuelo | vuelo.id == 1])
+        Assert.assertTrue(vuelos.exists[vuelo | vuelo.id == 2])
+        Assert.assertTrue(vuelos.exists[vuelo | vuelo.id == 4])
+        Assert.assertTrue(vuelos.exists[vuelo | vuelo.id == 3])
+        Assert.assertEquals(vuelos.size, 4)
+    }
+
+
+
+    @Test
+    def void criterioPorUnaAerolineaUOtra2(){
+
+        busqueda = new Busqueda() => [criterio = criterio2.or(criterio8)]
+
+        //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelosOfertados as vuelo where (aerolinea.nombre = 'Austral' ) or (aerolinea.nombre = 'Aerolineas Argentinas' )", busqueda.getHQL)
+        var vuelos = aerolineaService.buscar(busqueda)
+        Assert.assertEquals(vuelos.findFirst[vuelo | vuelo.id == 4].id, 4)
+        Assert.assertEquals(vuelos.size, 1)
+
+    }
 
     @Test
     def void filtrarPorCategoriaDeAsiento(){
