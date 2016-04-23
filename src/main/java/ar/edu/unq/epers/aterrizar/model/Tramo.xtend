@@ -13,11 +13,16 @@ import ar.edu.unq.epers.aterrizar.exceptions.NoHayAsientoConEsaIdException
 class Tramo {
 
 	int id
-    List<Asiento> asientos = new ArrayList
+    var List<VueloOfertado> vuelos = #[]
+    var List<Asiento> asientos = #[]
     var String origen
     var String destino
     var Date llegada
     var Date salida
+
+    def long duracion(){
+        salida.getTime - llegada.getTime
+    }
 
     def agregarAsiento(Asiento asiento){
         asientos.add(asiento)

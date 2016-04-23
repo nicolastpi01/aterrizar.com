@@ -35,6 +35,7 @@ class TestBase {
     VueloOfertado vuelo2
     VueloOfertado vuelo3
     VueloOfertado vuelo4
+    VueloOfertado vuelo5
 
 
     @Before
@@ -65,6 +66,7 @@ class TestBase {
         ]
 
         tramo = new Tramo => [
+            vuelos = #[vuelo1,vuelo2,vuelo3,vuelo5]
 
             origen = "Chile"
             destino = "Buenos Aires"
@@ -74,6 +76,7 @@ class TestBase {
         ]
 
         tramo2 = new Tramo => [
+            vuelos = #[vuelo1,vuelo2,vuelo3,vuelo5]
 
             origen = "Buenos Aires"
             destino = "Brasil"
@@ -94,6 +97,7 @@ class TestBase {
 
         tramo3 = new Tramo => [
 
+            vuelos = #[vuelo4,vuelo5]
             origen = "Brasil"
             destino = "Mexico"
             llegada = new Date(1000)
@@ -110,10 +114,11 @@ class TestBase {
             ]
         ]
 
-        vuelo1 = new VueloOfertado => [tramos = #[tramo,tramo2] precioBase=1000]
-        vuelo2 = new VueloOfertado => [tramos = #[tramo2,tramo] precioBase=2500]
-        vuelo3 = new VueloOfertado => [tramos = #[tramo,tramo2] precioBase= 1600]
-        vuelo4 = new VueloOfertado => [tramos = #[tramo3] precioBase = 800]
+        vuelo1 = new VueloOfertado(#[tramo,tramo2], 1000)
+        vuelo2 = new VueloOfertado (#[tramo2,tramo] ,2500)
+        vuelo3 = new VueloOfertado (#[tramo,tramo2],1600)
+        vuelo4 = new VueloOfertado (#[tramo3] ,800)
+        vuelo5 = new VueloOfertado (#[tramo3,tramo2,tramo,tramo3] , 8800)
 
     }
 }

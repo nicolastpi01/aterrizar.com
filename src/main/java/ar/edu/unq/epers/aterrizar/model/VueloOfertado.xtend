@@ -11,8 +11,27 @@ import java.sql.Date
 @Accessors
 class VueloOfertado {
 	int id
-    var List<Tramo> tramos = new ArrayList
-    var float precioBase
+    var List<Tramo> tramos
+    var int precioBase
+    var int cantidadTramos
+    var long duracion
+
+    protected new(){}
+
+    new(List<Tramo> tramos2, int precio){
+        tramos = tramos2
+        precioBase = precio
+        cantidadTramos = tramos.size
+        duracion = this.duracion()
+    }
+
+    def cantidadDeTramos(){
+        this.tramos.size
+    }
+
+    def duracion(){
+        tramos.fold(0 as long)[res, tramo | tramo.duracion + res]
+    }
 
     def destino(){
         tramos.last.destino

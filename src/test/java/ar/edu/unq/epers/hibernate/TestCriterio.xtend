@@ -22,6 +22,7 @@ import org.junit.Test
 
 import static ar.edu.unq.epers.aterrizar.home.SessionManager.resetSessionFactory
 import ar.edu.unq.epers.aterrizar.model.MenorCosto
+import ar.edu.unq.epers.aterrizar.model.MenorCantidadDeEscalas
 
 /**
  * Created by damian on 4/18/16.
@@ -50,6 +51,7 @@ class TestCriterio extends TestBase{
 
     @After
     def void limpiar(){
+        resetSessionFactory
         resetSessionFactory
     }
 
@@ -209,14 +211,5 @@ class TestCriterio extends TestBase{
 
     }
 
-    @Test
-    def void ordernarVuelosPorMenosCosto(){
-        busqueda = new Busqueda() => [
-            criterio = criterio6
-            orden = new MenorCosto
-        ]
-        var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
-        Assert.assertEquals(1000, vuelos.get(0).precioBase,0)
-    }
 
 }

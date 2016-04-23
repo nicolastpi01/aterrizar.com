@@ -7,13 +7,15 @@
         <id column="id" name="id" type="integer">
             <generator class="identity"/>
         </id>
-        <property column="precioBase" generated="never" lazy="false" length="45" name="precioBase" type="float"/>
+        <property column="precioBase" generated="never" lazy="false" length="45" name="precioBase" type="int"/>
+        <property column="cantidadTramos" generated="never" lazy="false" length="45" name="cantidadTramos" type="int"/>
+        <property column="duracion" generated="never" lazy="false" length="45" name="duracion" type="long"/>
 
 
 
         <bag fetch="select" lazy="false" name="tramos" table="tramos" cascade="all">
             <key>
-                <column name="vuelo_id" not-null="false"/>
+                <column name="vuelo_tramo_id" not-null="false"/>
             </key>
 
             <many-to-many class="ar.edu.unq.epers.aterrizar.model.Tramo"/>
