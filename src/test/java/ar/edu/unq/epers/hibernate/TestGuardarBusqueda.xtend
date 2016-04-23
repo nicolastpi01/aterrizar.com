@@ -132,6 +132,15 @@ class TestGuardarBusqueda extends TestBase{
         aerolineaService.guardarBusqueda(busqueda)
     }
 
+    @Test
+    def void guardarBusquedaConCriterioCompuesto(){
+
+        busqueda = new Busqueda() => [criterio = criterio7.and(criterio6).or(criterio3)]
+        var vuelos = aerolineaService.buscar(busqueda)
+
+        aerolineaService.guardarBusqueda(busqueda)
+    }
+
 
 
 
