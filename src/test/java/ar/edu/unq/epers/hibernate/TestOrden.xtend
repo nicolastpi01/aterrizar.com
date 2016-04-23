@@ -70,7 +70,8 @@ class TestOrden extends TestBase {
     def void ordernarVuelosPorMenorDuracion(){
         var busqueda = new Busqueda(new MenorDuracion)
         var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
+        vuelos.forEach[println("vuelo 1 : " + it.duracion)]
+        Assert.assertEquals("-1470020398000", vuelos.get(0).duracion.toString)
         Assert.assertEquals(5, vuelos.size)
-
     }
 }

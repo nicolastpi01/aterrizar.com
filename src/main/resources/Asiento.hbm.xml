@@ -19,16 +19,5 @@
             <column name="nombre" length="45" not-null="false" unique="false"/>
         </property>
 
-        <!--
-        <any name="categoria" meta-type="string" id-type="integer">
-        <meta-value value="PRIMERA" class="ar.edu.unq.epers.aterrizar.model.Primera"/>
-        <meta-value value="TURISTA" class="ar.edu.unq.epers.aterrizar.model.Turista"/>
-        <meta-value value="BUSINESS" class="ar.edu.unq.epers.aterrizar.model.Business"/>
-        <column name="clase_categoria"/>
-        <column name="categoria_id"/>
-        </any>
-     -->
-
-
     </class>
 </hibernate-mapping>

@@ -7,9 +7,18 @@ import org.eclipse.xtend.lib.annotations.Accessors
  */
 @Accessors
 class Busqueda {
-
+    int id
     Criterio criterio
     Orden orden
+
+
+    def getHQL(){
+        "select distinct vuelo from Aerolinea aerolinea inner join aerolinea.vuelosOfertados as vuelo " +
+                criterio.getHQL +
+                " where " +
+                criterio.whereClause +
+                orden.getOrderStatament
+    }
 
     new(){
         criterio = new Criterio{
@@ -50,7 +59,4 @@ class Busqueda {
         orden = o
     }
 
-    def getHQL(){
-        "select distinct vuelo from Aerolinea aerolinea inner join aerolinea.vuelosOfertados as vuelo " + criterio.getHQL + " where " + criterio.whereClause + orden.getOrderStatament
-    }
 }

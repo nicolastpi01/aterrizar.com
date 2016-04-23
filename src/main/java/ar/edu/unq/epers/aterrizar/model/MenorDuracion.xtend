@@ -6,7 +6,7 @@ package ar.edu.unq.epers.aterrizar.model
 class MenorDuracion extends Orden{
 
     override getOrderStatament() {
-        "order by vuelo.duracion desc"
+        "order by vuelo.duracion ASC"
     }
 
 }

@@ -22,15 +22,15 @@ class VueloOfertado {
         tramos = tramos2
         precioBase = precio
         cantidadTramos = tramos.size
-        duracion = this.duracion()
+        duracion = this.getDuracionTotal()
     }
 
     def cantidadDeTramos(){
         this.tramos.size
     }
 
-    def duracion(){
-        tramos.fold(0 as long)[res, tramo | tramo.duracion + res]
+    def getDuracionTotal(){
+        tramos.fold(0 as long)[res, tramo | tramo.duracion() + res]
     }
 
     def destino(){
