@@ -91,11 +91,4 @@ class TestUsuario extends TestBase{
 
     }
 
-    @Test
-    def void guardarYTraerVuelo(){
-        var VueloOfertado vuelo = new VueloOfertado()
-        serviceTramo.guardarTramosEnVuelo(vuelo,tramo,tramo2)
-
-    }
-
 }

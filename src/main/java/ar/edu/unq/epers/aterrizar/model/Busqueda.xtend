@@ -51,6 +51,6 @@ class Busqueda {
     }
 
     def getHQL(){
-        "select vuelo from Aerolinea aerolinea left join aerolinea.vuelosOfertados as vuelo " + criterio.getHQL + " where " + criterio.whereClause + orden.getOrderStatament
+        "select distinct vuelo from Aerolinea aerolinea inner join aerolinea.vuelosOfertados as vuelo " + criterio.getHQL + " where " + criterio.whereClause + orden.getOrderStatament
     }
 }
