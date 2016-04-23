@@ -149,6 +149,15 @@ class TestGuardarBusqueda extends TestBase{
         aerolineaService.guardarBusqueda(busqueda)
     }
 
+    @Test
+    def void ordernarVuelosPorMenorCantidadDeEscalas(){
+        var busqueda = new Busqueda(new MenorCantidadDeEscalas)
+        var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
+        vuelos.forEach[println("vuelo 1 : " + it.precioBase)]
+        aerolineaService.guardarBusqueda(busqueda)
+
+    }
+
 
 
 

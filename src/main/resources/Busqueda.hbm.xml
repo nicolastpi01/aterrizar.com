@@ -12,8 +12,9 @@
 
         <many-to-one cascade="all" column="criterio" name="criterio"
                      class="ar.edu.unq.epers.aterrizar.model.Criterio"/>
+
         <many-to-one cascade="all" column="orden" name="orden"
-                     class="ar.edu.unq.epers.aterrizar.model.Orden" lazy="false" fetch="select"/>
+                     class="ar.edu.unq.epers.aterrizar.model.Orden"/>
 
     </class>
 </hibernate-mapping>
