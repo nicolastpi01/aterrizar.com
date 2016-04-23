@@ -13,7 +13,6 @@
         <property column="destino" generated="never" lazy="false" length="45" name="destino" type="string"/>
         <property column="llegada" generated="never" lazy="false" length="45" name="llegada" type="date"/>
         <property column="salida" generated="never" lazy="false" length="45" name="salida" type="date"/>
-        <property column="precioBase" generated="never" lazy="false" length="45" name="precioBase" type="float"/>
         <bag fetch="select" lazy="false" name="asientos" table="asientos" cascade="all">
             <key>
                 <column name="tramo_id"/>

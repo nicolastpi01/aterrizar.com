@@ -11,14 +11,13 @@ import ar.edu.unq.epers.aterrizar.exceptions.NoHayAsientoConEsaIdException
  */
 @Accessors
 class Tramo {
+
 	int id
     List<Asiento> asientos = new ArrayList
     var String origen
     var String destino
     var Date llegada
     var Date salida
-    var float precioBase
-
 
     def agregarAsiento(Asiento asiento){
         asientos.add(asiento)

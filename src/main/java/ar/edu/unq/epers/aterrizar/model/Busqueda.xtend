@@ -12,7 +12,12 @@ class Busqueda {
     Orden orden
 
     def getHQL(){
-        "select vuelo from Aerolinea aerolinea left join aerolinea.vuelosOfertados as vuelo " + criterio.getHQL + " where " + criterio.whereClause
+        var res = "select vuelo from Aerolinea aerolinea left join aerolinea.vuelosOfertados as vuelo " + criterio.getHQL + " where " + criterio.whereClause
+        if (orden != null){
+            return res + orden.getOrderStatament
+        }else{
+            res
+        }
     }
 
 

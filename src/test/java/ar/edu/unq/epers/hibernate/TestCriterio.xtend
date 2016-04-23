@@ -21,6 +21,7 @@ import org.junit.Before
 import org.junit.Test
 
 import static ar.edu.unq.epers.aterrizar.home.SessionManager.resetSessionFactory
+import ar.edu.unq.epers.aterrizar.model.MenorCosto
 
 /**
  * Created by damian on 4/18/16.
@@ -206,6 +207,16 @@ class TestCriterio extends TestBase{
         var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
         Assert.assertEquals(vuelos.size, 1)
 
+    }
+
+    @Test
+    def void ordernarVuelosPorMenosCosto(){
+        busqueda = new Busqueda() => [
+            criterio = criterio6
+            orden = new MenorCosto
+        ]
+        var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
+        Assert.assertEquals(1000, vuelos.get(0).precioBase,0)
     }
 
 }

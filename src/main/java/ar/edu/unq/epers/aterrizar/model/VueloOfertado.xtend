@@ -12,7 +12,7 @@ import java.sql.Date
 class VueloOfertado {
 	int id
     var List<Tramo> tramos = new ArrayList
-
+    var float precioBase
 
     def destino(){
         tramos.last.destino

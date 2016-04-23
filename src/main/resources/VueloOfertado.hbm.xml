@@ -7,6 +7,8 @@
         <id column="id" name="id" type="integer">
             <generator class="identity"/>
         </id>
+        <property column="precioBase" generated="never" lazy="false" length="45" name="precioBase" type="float"/>
+
 
 
         <bag fetch="select" lazy="false" name="tramos" table="tramos" cascade="all">

@@ -70,7 +70,6 @@ class TestBase {
             destino = "Buenos Aires"
             llegada = new Date(1000)
             salida = new Date(1500)
-            precioBase = 1500
             asientos = #[asiento1, asiento2, asiento3]
         ]
 
@@ -80,7 +79,6 @@ class TestBase {
             destino = "Brasil"
             llegada = new Date(116,07,01)
             salida = new Date(1500)
-            precioBase = 1500
             asientos = #[
                 new Asiento => [
                     nombre = "c 1"
@@ -100,7 +98,6 @@ class TestBase {
             destino = "Mexico"
             llegada = new Date(1000)
             salida = new Date(116,6,16)
-            precioBase = 1500
             asientos = #[
                 new Asiento => [
                     nombre = "c 1"
@@ -113,10 +110,10 @@ class TestBase {
             ]
         ]
 
-        vuelo1 = new VueloOfertado => [tramos = #[tramo,tramo2]]
-        vuelo2 = new VueloOfertado => [tramos = #[tramo2,tramo]]
-        vuelo3 = new VueloOfertado => [tramos = #[tramo,tramo2]]
-        vuelo4 = new VueloOfertado => [tramos = #[tramo3]]
+        vuelo1 = new VueloOfertado => [tramos = #[tramo,tramo2] precioBase=1000]
+        vuelo2 = new VueloOfertado => [tramos = #[tramo2,tramo] precioBase=2500]
+        vuelo3 = new VueloOfertado => [tramos = #[tramo,tramo2] precioBase= 1600]
+        vuelo4 = new VueloOfertado => [tramos = #[tramo3] precioBase = 800]
 
     }
 }
