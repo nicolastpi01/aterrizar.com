@@ -12,6 +12,10 @@
             <key column="criterioCompuesto_id"></key>
         </joined-subclass>
 
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.model.CriterioVacio" table="criterioVacio">
+            <key column="criterioVacio_id"></key>
+        </joined-subclass>
+
         <joined-subclass name="ar.edu.unq.epers.aterrizar.model.CriterioPorAerolinea" table="criterioPorAerolinea">
             <key column="criterioPorAerolinea_id"></key>
         </joined-subclass>

@@ -21,41 +21,17 @@ class Busqueda {
     }
 
     new(){
-        criterio = new Criterio{
-            override getHQL() {
-                ""
-            }
-            override whereClause() {
-                "1=1 "
-            }
-        }
-        orden = new Orden{
-
-            override getOrderStatament() {
-                ""
-            }
-        }
+        criterio = new CriterioVacio
+        orden = new OrdenVacio
     }
 
     new(Criterio c){
         criterio = c
-        orden = new Orden{
-
-            override getOrderStatament() {
-                ""
-            }
-        }
+        orden = new OrdenVacio
     }
 
     new(Orden o){
-        criterio = criterio = new Criterio{
-            override getHQL() {
-                ""
-            }
-            override whereClause() {
-                "1=1 "
-            }
-        }
+        criterio = criterio = new CriterioVacio
         orden = o
     }
 
