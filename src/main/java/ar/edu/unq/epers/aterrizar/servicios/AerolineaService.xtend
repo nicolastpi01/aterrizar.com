@@ -25,4 +25,11 @@ class AerolineaService {
         ]);
     }
 
+    def guardarBusqueda(Busqueda busqueda){
+        SessionManager.runInSession([
+            val tramoHome = new TramoHome()
+            tramoHome.guardarBusqueda(busqueda)
+            null
+        ]);
+    }
 }

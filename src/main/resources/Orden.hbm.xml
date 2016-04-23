@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="ar.edu.unq.epers.aterrizar.model.Orden" table="criterio" abstract="true">
+        <id name="id" column="id" type="integer">
+            <generator class="identity"/>
+        </id>
+
+        <!--<joined-subclass name="ar.edu.unq.epers.aterrizar.model.CriterioCompuesto" table="criterioCompuesto">-->
+            <!--<key column="criterioCompuesto_id"></key>-->
+
+
+        <!--</joined-subclass>-->
+
+        <!--<joined-subclass name="ar.edu.unq.epers.aterrizar.model.Turista" table="turista">-->
+            <!--<key column="turista_id"></key>-->
+
+
+        <!--</joined-subclass>-->
+
+        <!--<joined-subclass name="ar.edu.unq.epers.aterrizar.model.Business" table="business">-->
+            <!--<key column="business_id"></key>-->
+
+
+        <!--</joined-subclass>-->
+    </class>
+</hibernate-mapping>

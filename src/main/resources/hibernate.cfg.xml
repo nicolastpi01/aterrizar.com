@@ -31,6 +31,9 @@
         <mapping resource="Categoria.hbm.xml"></mapping>
         <mapping resource="VueloOfertado.hbm.xml"></mapping>
         <mapping resource="Aerolinea.hbm.xml"></mapping>
+        <mapping resource="Busqueda.hbm.xml"></mapping>
+        <mapping resource="Criterio.hbm.xml"></mapping>
+        <mapping resource="Orden.hbm.xml"></mapping>
 
     </session-factory>
 </hibernate-configuration>

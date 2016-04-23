@@ -6,11 +6,16 @@ import ar.edu.unq.epers.aterrizar.model.Tramo
 import ar.edu.unq.epers.aterrizar.model.VueloOfertado
 import java.util.List
 import org.hibernate.Query
+import ar.edu.unq.epers.aterrizar.model.Busqueda
 
 /**
  * Created by damian on 4/16/16.
  */
 class TramoHome {
+
+    def guardarBusqueda(Busqueda b){
+        SessionManager.getSession().saveOrUpdate(b)
+    }
 
     def getTramo(int idTramo){
         var q = "from Tramo as tramo where tramo.id = :idTramo"
