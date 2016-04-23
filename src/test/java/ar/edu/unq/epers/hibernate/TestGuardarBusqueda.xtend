@@ -86,6 +86,17 @@ class TestGuardarBusqueda extends TestBase{
         aerolineaService.guardarBusqueda(busqueda)
     }
 
+    @Test
+    def void guardarBusquedaPor(){
+
+        busqueda = new Busqueda() => [criterio = criterio3]
+        var vuelos = aerolineaService.buscar(busqueda)
+
+        Assert.assertEquals(vuelos.get(0).getTramos.get(0).origen, "Chile")
+        Assert.assertEquals(vuelos.size, 3)
+        aerolineaService.guardarBusqueda(busqueda)
+    }
+
 
 
 
