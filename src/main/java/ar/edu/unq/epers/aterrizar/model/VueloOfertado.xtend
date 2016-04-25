@@ -10,16 +10,16 @@ import java.sql.Date
  */
 @Accessors
 class VueloOfertado {
-	String id
+	int id
     var List<Tramo> tramos = new ArrayList
 
-    new (String id, List<Tramo> tramos){
-    	this.id = id
-        this.tramos = tramos
-    }
 
     def destino(){
         tramos.last.destino
+    }
+
+    def guardarTramo(Tramo tramo){
+        this.tramos.add(tramo)
     }
 
     def tieneFechaLlegada(Date fechaDeLlegada){

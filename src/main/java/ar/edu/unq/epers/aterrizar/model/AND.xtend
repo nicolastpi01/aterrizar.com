@@ -3,20 +3,17 @@ package ar.edu.unq.epers.aterrizar.model
 import java.util.ArrayList
 import java.util.List
 
-class AND extends OperadorLogico {
+class AND implements OperadorLogico{
 
-
-    override operar(List<VueloOfertado> vuelos1, List<VueloOfertado> vuelos2) {
-
-        var List<VueloOfertado> retList = new ArrayList
-
-        vuelos1.fold(retList)[ result, vuelo |
-            if(this.existeVuelo(vuelo, vuelos2))
-                result.add(vuelo)
-            result
-        ]
-
+    override unirCriterios(List<Criterio> criteriosSeleccionados) {
+        criteriosSeleccionados.map[it.getHQL].join("  ")
     }
+
+
+    override String unirWhereClauses(List<String> criteriosSeleccionados) {
+        criteriosSeleccionados.join(" and ")
+    }
+
 
 
 

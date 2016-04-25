@@ -8,7 +8,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
  */
 @Accessors
 class Aerolinea {
-	String id
+	int id
     String nombre
     var List<VueloOfertado> vuelosOfertados
 }

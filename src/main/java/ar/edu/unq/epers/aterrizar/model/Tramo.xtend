@@ -18,8 +18,7 @@ class Tramo {
     var Date llegada
     var Date salida
     var float precioBase
-    
-    new(){}
+
 
     def agregarAsiento(Asiento asiento){
         asientos.add(asiento)

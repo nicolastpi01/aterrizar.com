@@ -1,12 +1,21 @@
 package ar.edu.unq.epers.aterrizar.model
 
-import java.util.List
+/**
+ * Created by damian on 4/18/16.
+ */
 
-class CriterioPorDestino extends Criterio {
+import org.eclipse.xtend.lib.annotations.Accessors
+
+@Accessors
+class CriterioPorDestino extends Criterio{
     String destino
 
-    override validarVuelos(List<VueloOfertado> vuelos) {
-        vuelos.filter[vuelo | vuelo.destino == destino].toList
+    override getHQL() {
+        "vuelo.tramos as tramo where tramo.destino = " + destino
+    }
+
+    override whereClause() {
+        throw new UnsupportedOperationException()
     }
 
 }

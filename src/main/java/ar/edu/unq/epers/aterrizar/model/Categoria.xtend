@@ -12,8 +12,6 @@ abstract class Categoria {
     int id
     float precioBase
 
-
     abstract def float precio()
-
 
 }

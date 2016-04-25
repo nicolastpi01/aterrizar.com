@@ -19,4 +19,6 @@ class Primera extends Categoria{
     }
     
     new(){}
+
+
 }

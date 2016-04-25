@@ -8,8 +8,25 @@ import java.util.List
  */
 @Accessors
 abstract class Criterio {
-    String id
+    int id
 
-    def abstract List<VueloOfertado> validarVuelos(List<VueloOfertado> vuelos)
+    def abstract String getHQL()
+
+    def abstract String whereClause()
+
+
+    def and(Criterio criterio){
+        new CriterioCompuesto =>[
+            operador = new AND
+            criteriosSeleccionados = #[this, criterio]
+        ]
+    }
+
+    def or(Criterio criterio){
+        new CriterioCompuesto =>[
+            operador = new OR
+            criteriosSeleccionados = #[this, criterio]
+        ]
+    }
 
 }

@@ -18,6 +18,7 @@
         <property name="nombre" type="string">
             <column name="nombre" length="45" not-null="false" unique="false"/>
         </property>
+
         <!--
         <any name="categoria" meta-type="string" id-type="integer">
         <meta-value value="PRIMERA" class="ar.edu.unq.epers.aterrizar.model.Primera"/>
