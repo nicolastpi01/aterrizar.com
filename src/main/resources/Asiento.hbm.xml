@@ -13,7 +13,7 @@
         <many-to-one cascade="all" column="reservadoPorUsuario" name="reservadoPorUsuario"
                      class="ar.edu.unq.epers.aterrizar.model.Usuario"/>
         <many-to-one cascade="all" column="categoria" name="categoria"
-                     class="ar.edu.unq.epers.aterrizar.model.Categoria" lazy="false" fetch="select"/>
+                     class="ar.edu.unq.epers.aterrizar.model.Categoria" />
 
         <property name="nombre" type="string">
             <column name="nombre" length="45" not-null="false" unique="false"/>

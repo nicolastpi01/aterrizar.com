@@ -14,7 +14,7 @@ class AerolineaService {
         SessionManager.runInSession([
             val tramoHome = new TramoHome()
             tramoHome.guardarAerolinea(a)
-            null
+            Aerolinea
         ]);
     }
 
