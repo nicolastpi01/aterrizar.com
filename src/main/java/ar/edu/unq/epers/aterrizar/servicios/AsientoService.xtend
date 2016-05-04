@@ -5,15 +5,7 @@ import ar.edu.unq.epers.aterrizar.home.SessionManager
 import ar.edu.unq.epers.aterrizar.model.Asiento
 import ar.edu.unq.epers.aterrizar.model.Usuario
 
-class AsientoService {
-
-    def reservarAsiento(Usuario user, Asiento asiento){
-        asiento.chequearSiEstaReservado
-        SessionManager.runInSession([
-            new AsientoHome().reservarAsiento(user, asiento)
-            Asiento
-        ]);
-    }
+class AsientoService extends BaseService{
 
 
     def todosLosAsientos(){
@@ -25,7 +17,7 @@ class AsientoService {
 
     def guardarAsiento(Asiento asiento){
         SessionManager.runInSession([
-            new AsientoHome().guardarAsiento(asiento)
+            this.guardar(asiento)
             asiento
         ]);
     }

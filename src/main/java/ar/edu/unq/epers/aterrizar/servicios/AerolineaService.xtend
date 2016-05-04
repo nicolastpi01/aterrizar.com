@@ -8,15 +8,7 @@ import ar.edu.unq.epers.aterrizar.model.Busqueda
 /**
  * Created by damian on 4/18/16.
  */
-class AerolineaService {
-
-    def guardarAerolinea(Aerolinea a){
-        SessionManager.runInSession([
-            val tramoHome = new TramoHome()
-            tramoHome.guardarAerolinea(a)
-            null
-        ]);
-    }
+class AerolineaService extends BaseService{
 
     def buscar(Busqueda busqueda){
         SessionManager.runInSession([

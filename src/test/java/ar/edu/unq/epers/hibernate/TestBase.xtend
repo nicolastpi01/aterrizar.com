@@ -18,6 +18,7 @@ import ar.edu.unq.epers.aterrizar.model.Business
 
 @Accessors
 class TestBase {
+
     var Usuario user
     var UsuarioService serviceUsuario
     var TramoService serviceTramo
