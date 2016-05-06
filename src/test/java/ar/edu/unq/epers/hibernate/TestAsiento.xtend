@@ -74,29 +74,35 @@ class TestAsiento {
     def void guardoUnAsientoEnLaDB(){
         Assert.assertEquals(service.todosLosAsientos.length, 0)
 
-        service.guardarAsiento(asiento1)
-        service.guardarAsiento(asiento2)
-        service.guardarAsiento(asiento3)
+        service.guardar(asiento1)
+        service.guardar(asiento2)
+        service.guardar(asiento3)
 
-        var Asiento a = service.buscarAsiento(asiento1)
+        var Asiento a = service.buscar(asiento1, asiento1.id)
         Assert.assertEquals(a.categoria.precioBase, asiento1.categoria.precioBase, 0.002)
         Assert.assertEquals(a.categoria.precio, asiento1.categoria.precio, 0.002)
 
         Assert.assertEquals(service.todosLosAsientos.length, 3)
     }
 
+    @Test
+    def void reservarUnAsiento(){
 
-    @Test(expected = AsientoReservadoException)
-    def void reservarUnAsientoYFalle(){
+        service.guardar(asiento1)
+        service.reservarAsientoParaUsuario(asiento1.id, user)
 
-        service.guardarAsiento(asiento1)
-        service.guardarAsiento(asiento2)
-        service.guardarAsiento(asiento3)
-
-        service.reservarAsiento(user, service.buscarAsiento(asiento1))
-        service.reservarAsiento(user, service.buscarAsiento(asiento1))
-        Assert.assertEquals(service.buscarAsiento(asiento1).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
+        Assert.assertEquals(service.buscar(asiento1, asiento1.id).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
     }
+
+//    @Test(expected = AsientoReservadoException)
+//    def void reservarUnAsientoYFalle(){
+//
+//        service.guardar(asiento1)
+//
+//
+//
+//        Assert.assertEquals(service.buscarAsiento(asiento1).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
+//    }
 
 
 }

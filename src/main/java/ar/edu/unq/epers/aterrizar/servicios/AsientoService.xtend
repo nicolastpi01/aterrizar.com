@@ -15,18 +15,17 @@ class AsientoService extends BaseService{
         ]);
     }
 
-    def guardarAsiento(Asiento asiento){
+    def void reservarAsientoParaUsuario(int asientoId, Usuario user){
         SessionManager.runInSession([
-            this.guardar(asiento)
-            asiento
+            val asiento= buscar(new Asiento, asientoId)
+            asiento.reservadoPorUsuario = user
+            guardar(asiento)
+            null
         ]);
+
     }
 
-    def buscarAsiento(Asiento asiento){
-        SessionManager.runInSession([
-            new AsientoHome().getAsiento(asiento)
-        ]);
-    }
+
 
 
 

@@ -4,18 +4,18 @@
 
 <hibernate-mapping>
     <class
-            name="ar.edu.unq.epers.aterrizar.model.Asiento" table="asiento">
+            name="ar.edu.unq.epers.aterrizar.model.Asiento" table="asiento" lazy="true">
         <id column="id" name="id" type="integer">
             <generator class="identity"/>
         </id>
 
 
         <many-to-one cascade="all" column="reservadoPorUsuario" name="reservadoPorUsuario"
-                     class="ar.edu.unq.epers.aterrizar.model.Usuario"/>
+                     class="ar.edu.unq.epers.aterrizar.model.Usuario" lazy="false"/>
         <many-to-one cascade="all" column="categoria" name="categoria"
                      class="ar.edu.unq.epers.aterrizar.model.Categoria" lazy="false" fetch="select"/>
 
-        <property name="nombre" type="string">
+        <property name="nombre" type="string" lazy="true">
             <column name="nombre" length="45" not-null="false" unique="false"/>
         </property>
 

@@ -2,12 +2,14 @@ package ar.edu.unq.epers.aterrizar.model
 
 import ar.edu.unq.epers.aterrizar.exceptions.AsientoReservadoException
 import org.eclipse.xtend.lib.annotations.Accessors
+import java.io.Serializable
+import javax.persistence.Id
 
 /**
  * Created by damian on 4/16/16.
  */
 @Accessors
-class Asiento {
+class Asiento{
     int id
     String nombre
     Usuario reservadoPorUsuario
@@ -26,5 +28,6 @@ class Asiento {
     def estaReservado(){
         this.reservadoPorUsuario != null
     }
+
 
 }

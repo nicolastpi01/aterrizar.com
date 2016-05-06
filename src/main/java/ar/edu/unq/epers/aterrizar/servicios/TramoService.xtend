@@ -12,30 +12,8 @@ import ar.edu.unq.epers.aterrizar.model.VueloOfertado
 /**
  * Created by damian on 4/16/16.
  */
-class TramoService {
+class TramoService extends BaseService{
 
-	def guardarTramo(Tramo tramo){
-		SessionManager.runInSession([
-			new TramoHome().guardarTramo(tramo)
-			Usuario
-		]);
-	}
-
-	def reservarAsientosParaUsuario(Usuario user, Tramo tramo, Asiento... listaAReservar){
-		reservarAsientosParaUsuario(user, tramo, listaAReservar.toList)
-	}
-
-	def reservarAsientosParaUsuario(Usuario user, Tramo tramo, List<Asiento> listaAReservar){
-		SessionManager.runInSession([
-			val asientoHome = new AsientoHome()
-			listaAReservar.forEach[asiento|
-				tramo.validarAsiento(asiento)
-				asiento.reservarAsiento(user)
-				asientoHome.guardarAsiento(asiento)
-			]
-			null
-		])
-	}
 
 	def guardarTramosEnVuelo(VueloOfertado vuelo, Tramo... listaTramos){
 		guardarVueloConTramos(vuelo, listaTramos.toList)
