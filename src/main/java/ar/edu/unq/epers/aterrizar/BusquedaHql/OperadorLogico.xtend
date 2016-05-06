@@ -1,8 +1,9 @@
 package ar.edu.unq.epers.aterrizar.BusquedaHql
 
-import ar.edu.unq.epers.aterrizar.model.Criterio
 import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class OperadorLogico{
     String operador
 

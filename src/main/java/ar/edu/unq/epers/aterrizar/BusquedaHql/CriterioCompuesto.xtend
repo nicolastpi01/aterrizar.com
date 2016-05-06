@@ -1,4 +1,5 @@
-package ar.edu.unq.epers.aterrizar.model
+package ar.edu.unq.epers.aterrizar.BusquedaHql
+
 
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors

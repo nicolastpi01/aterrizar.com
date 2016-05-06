@@ -1,8 +1,7 @@
-package ar.edu.unq.epers.aterrizar.model
+package ar.edu.unq.epers.aterrizar.BusquedaHql
 
-
-import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import ar.edu.unq.epers.aterrizar.model.Categoria
 
 @Accessors
 class CriterioPorCategoriaDeAsiento extends Criterio {

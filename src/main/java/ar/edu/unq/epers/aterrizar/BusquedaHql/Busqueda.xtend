@@ -1,11 +1,8 @@
 package ar.edu.unq.epers.aterrizar.BusquedaHql
 
-
-import org.eclipse.xtend.lib.annotations.Accessors
-import ar.edu.unq.epers.aterrizar.model.Criterio
 import ar.edu.unq.epers.aterrizar.model.Orden
-import ar.edu.unq.epers.aterrizar.model.CriterioVacio
 import ar.edu.unq.epers.aterrizar.model.OrdenVacio
+import org.eclipse.xtend.lib.annotations.Accessors
 
 /**
  * Created by damian on 4/18/16.
