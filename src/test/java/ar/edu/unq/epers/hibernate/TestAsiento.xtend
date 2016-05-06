@@ -89,7 +89,7 @@ class TestAsiento {
     def void reservarUnAsiento(){
 
         service.guardar(asiento1)
-        service.reservarAsientoParaUsuario(asiento1.id, user)
+        service.reservarAsientoParaUsuario(asiento1, user)
 
         Assert.assertEquals(service.buscar(asiento1, asiento1.id).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
     }

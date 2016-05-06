@@ -18,33 +18,11 @@ import static ar.edu.unq.epers.aterrizar.home.SessionManager.resetSessionFactory
 /**
  * Created by damian on 4/22/16.
  */
-class TestOrden extends TestBase {
-
-    var aerolineaService = new AerolineaService
+class TestOrden extends TestBaseAerolinea {
 
     @Before
     override setUp(){
         super.setUp
-        var aerolinea1 = new Aerolinea => [vuelosOfertados = #[vuelo1,vuelo3]
-            nombre = "Austral"
-        ]
-        var aerolinea2 = new Aerolinea => [vuelosOfertados = #[vuelo4]
-            nombre = "Aerolineas Argentinas"
-        ]
-        var aerolinea3 = new Aerolinea => [vuelosOfertados = #[vuelo5,vuelo2]
-            nombre = "Lan"
-        ]
-
-
-        aerolineaService.guardarAerolinea(aerolinea1)
-        aerolineaService.guardarAerolinea(aerolinea2)
-        aerolineaService.guardarAerolinea(aerolinea3)
-
-    }
-
-    @After
-    def void cleanUp(){
-        resetSessionFactory
     }
 
     @Test
@@ -53,7 +31,7 @@ class TestOrden extends TestBase {
         var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
         Assert.assertEquals(vuelos.get(0).precioBase, 800)
         vuelos.forEach[println("vuelo 1 : " + it.precioBase)]
-        Assert.assertEquals(5, vuelos.size)
+        Assert.assertEquals(4, vuelos.size)
     }
 
     @Test
@@ -62,7 +40,7 @@ class TestOrden extends TestBase {
         var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
         vuelos.forEach[println("vuelo 1 : " + it.cantidadTramos)]
         Assert.assertEquals(vuelos.get(0).cantidadTramos, 1)
-        Assert.assertEquals(5, vuelos.size)
+        Assert.assertEquals(4, vuelos.size)
 
     }
 
@@ -72,6 +50,6 @@ class TestOrden extends TestBase {
         var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
         vuelos.forEach[println("vuelo 1 : " + it.duracion)]
         Assert.assertEquals("-1470020398000", vuelos.get(0).duracion.toString)
-        Assert.assertEquals(5, vuelos.size)
+        Assert.assertEquals(4, vuelos.size)
     }
 }

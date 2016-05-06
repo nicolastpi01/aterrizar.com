@@ -8,21 +8,21 @@ import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.model.VueloOfertado
 import ar.edu.unq.epers.aterrizar.servicios.AsientoService
 import ar.edu.unq.epers.aterrizar.servicios.TramoService
-import ar.edu.unq.epers.aterrizar.servicios.UsuarioService
 import java.sql.Date
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.hibernate.Session
 import org.hibernate.SessionFactory
 import org.junit.Before
 import ar.edu.unq.epers.aterrizar.model.Business
+import ar.edu.unq.epers.aterrizar.servicios.BaseService
 
 @Accessors
 class TestBase {
 
     var Usuario user
-    var UsuarioService serviceUsuario
     var TramoService serviceTramo
     var AsientoService serviceAsiento
+    var BaseService servicioBase = new BaseService
 
     SessionFactory sessionFactory;
     Session session = null;
@@ -49,7 +49,6 @@ class TestBase {
             email = "abc@123.com"
             nacimiento = new Date(2015,10,1)
         ]
-        serviceUsuario = new UsuarioService
         serviceTramo = new TramoService
         serviceAsiento = new AsientoService
 
