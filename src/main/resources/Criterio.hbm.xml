@@ -3,40 +3,45 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="ar.edu.unq.epers.aterrizar.model.Criterio" table="criterio" abstract="true">
+    <class name="ar.edu.unq.epers.aterrizar.BusquedaHql.Criterio" table="criterio" abstract="true">
         <id name="id" column="id" type="integer">
             <generator class="identity"/>
         </id>
 
-        <joined-subclass name="ar.edu.unq.epers.aterrizar.model.CriterioCompuesto" table="criterioCompuesto">
+
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioCompuesto" table="criterioCompuesto">
             <key column="criterioCompuesto_id"></key>
         </joined-subclass>
 
-        <joined-subclass name="ar.edu.unq.epers.aterrizar.model.CriterioVacio" table="criterioVacio">
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioVacio" table="criterioVacio">
             <key column="criterioVacio_id"></key>
         </joined-subclass>
 
-        <joined-subclass name="ar.edu.unq.epers.aterrizar.model.CriterioPorAerolinea" table="criterioPorAerolinea">
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioPorAerolinea"
+                         table="criterioPorAerolinea">
             <key column="criterioPorAerolinea_id"></key>
         </joined-subclass>
 
-        <joined-subclass name="ar.edu.unq.epers.aterrizar.model.CriterioPorCategoriaDeAsiento" table="criterioPorCategoriaDeAsiento">
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioPorCategoriaDeAsiento"
+                         table="criterioPorCategoriaDeAsiento">
             <key column="criterioPorCategoriaDeAsiento_id"></key>
         </joined-subclass>
 
-        <joined-subclass name="ar.edu.unq.epers.aterrizar.model.CriterioPorFechaDeSalida" table="criterioPorFechaDeSalida">
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioPorFechaDeSalida"
+                         table="criterioPorFechaDeSalida">
             <key column="criterioPorFechaDeSalida_id"></key>
         </joined-subclass>
 
-        <joined-subclass name="ar.edu.unq.epers.aterrizar.model.CriterioPorFechaDeLlegada" table="criterioPorFechaDeLlegada">
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioPorFechaDeLlegada"
+                         table="criterioPorFechaDeLlegada">
             <key column="criterioPorFechaDeLlegada_id"></key>
         </joined-subclass>
 
-        <joined-subclass name="ar.edu.unq.epers.aterrizar.model.CriterioPorOrigen" table="criterioPorOrigen">
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioPorOrigen" table="criterioPorOrigen">
             <key column="criterioPorOrigen_id"></key>
         </joined-subclass>
 
-        <joined-subclass name="ar.edu.unq.epers.aterrizar.model.CriterioPorDestino" table="criterioPorDestino">
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioPorDestino" table="criterioPorDestino">
             <key column="criterioPorDestino_id"></key>
         </joined-subclass>
     </class>

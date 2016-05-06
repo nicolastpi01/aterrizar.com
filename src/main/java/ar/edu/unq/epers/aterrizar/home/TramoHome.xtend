@@ -7,15 +7,12 @@ import ar.edu.unq.epers.aterrizar.model.VueloOfertado
 import java.util.List
 import org.hibernate.Query
 import ar.edu.unq.epers.aterrizar.BusquedaHql.Busqueda
+import ar.edu.unq.epers.aterrizar.servicios.BaseService
 
 /**
  * Created by damian on 4/16/16.
  */
-class TramoHome {
-
-    def guardarBusqueda(Busqueda b){
-        SessionManager.getSession().saveOrUpdate(b)
-    }
+class TramoHome extends BaseService {
 
     def List<VueloOfertado> buscarVuelos(String hquery){
         var query = SessionManager.getSession().createQuery(hquery) as Query

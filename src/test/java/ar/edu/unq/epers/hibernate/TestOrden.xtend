@@ -1,19 +1,14 @@
 package ar.edu.unq.epers.hibernate
 
-import ar.edu.unq.epers.aterrizar.model.Aerolinea
-import ar.edu.unq.epers.aterrizar.model.Busqueda
-import ar.edu.unq.epers.aterrizar.model.MenorCantidadDeEscalas
-import ar.edu.unq.epers.aterrizar.model.MenorCosto
-import ar.edu.unq.epers.aterrizar.model.MenorDuracion
+import ar.edu.unq.epers.aterrizar.BusquedaHql.Busqueda
+import ar.edu.unq.epers.aterrizar.BusquedaHql.MenorCantidadDeEscalas
+import ar.edu.unq.epers.aterrizar.BusquedaHql.MenorCosto
+import ar.edu.unq.epers.aterrizar.BusquedaHql.MenorDuracion
 import ar.edu.unq.epers.aterrizar.model.VueloOfertado
-import ar.edu.unq.epers.aterrizar.servicios.AerolineaService
 import java.util.List
-import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-
-import static ar.edu.unq.epers.aterrizar.home.SessionManager.resetSessionFactory
 
 /**
  * Created by damian on 4/22/16.

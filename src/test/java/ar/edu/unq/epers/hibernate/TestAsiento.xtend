@@ -1,7 +1,5 @@
 package ar.edu.unq.epers.hibernate
 
-import ar.edu.unq.epers.aterrizar.exceptions.AsientoReservadoException
-import ar.edu.unq.epers.aterrizar.home.AsientoHome
 import ar.edu.unq.epers.aterrizar.home.SessionManager
 import ar.edu.unq.epers.aterrizar.model.Asiento
 import ar.edu.unq.epers.aterrizar.model.Categoria
@@ -93,16 +91,5 @@ class TestAsiento {
 
         Assert.assertEquals(service.buscar(asiento1, asiento1.id).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
     }
-
-//    @Test(expected = AsientoReservadoException)
-//    def void reservarUnAsientoYFalle(){
-//
-//        service.guardar(asiento1)
-//
-//
-//
-//        Assert.assertEquals(service.buscarAsiento(asiento1).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
-//    }
-
 
 }

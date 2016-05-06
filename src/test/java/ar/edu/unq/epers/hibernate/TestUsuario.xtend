@@ -1,8 +1,6 @@
 package ar.edu.unq.epers.hibernate
 
 import ar.edu.unq.epers.aterrizar.home.SessionManager
-import ar.edu.unq.epers.aterrizar.model.Asiento
-import ar.edu.unq.epers.aterrizar.model.VueloOfertado
 import java.util.ArrayList
 import java.util.List
 import org.junit.After

@@ -1,23 +1,23 @@
 package ar.edu.unq.epers.hibernate
 
+import ar.edu.unq.epers.aterrizar.BusquedaHql.Busqueda
+import ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioPorAerolinea
+import ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioPorCategoriaDeAsiento
+import ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioPorDestino
+import ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioPorFechaDeLlegada
+import ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioPorFechaDeSalida
+import ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioPorOrigen
 import ar.edu.unq.epers.aterrizar.model.Aerolinea
 import ar.edu.unq.epers.aterrizar.model.Business
-import ar.edu.unq.epers.aterrizar.model.Busqueda
-import ar.edu.unq.epers.aterrizar.model.CriterioPorAerolinea
-import ar.edu.unq.epers.aterrizar.model.CriterioPorCategoriaDeAsiento
-import ar.edu.unq.epers.aterrizar.model.CriterioPorDestino
-import ar.edu.unq.epers.aterrizar.model.CriterioPorFechaDeLlegada
-import ar.edu.unq.epers.aterrizar.model.CriterioPorFechaDeSalida
-import ar.edu.unq.epers.aterrizar.model.CriterioPorOrigen
 import ar.edu.unq.epers.aterrizar.model.Primera
 import ar.edu.unq.epers.aterrizar.model.Turista
 import ar.edu.unq.epers.aterrizar.servicios.AerolineaService
 import java.sql.Date
+import org.eclipse.xtend.lib.annotations.Accessors
 import org.junit.After
 import org.junit.Before
 
 import static ar.edu.unq.epers.aterrizar.home.SessionManager.resetSessionFactory
-import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class TestBaseAerolinea extends TestBase{

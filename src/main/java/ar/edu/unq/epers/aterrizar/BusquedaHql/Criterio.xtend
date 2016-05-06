@@ -1,8 +1,6 @@
 package ar.edu.unq.epers.aterrizar.BusquedaHql
 
-
 import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.List
 
 /**
  * Created by damian on 4/17/16.
@@ -18,14 +16,14 @@ abstract class Criterio {
 
     def and(Criterio criterio){
         new CriterioCompuesto =>[
-            operador.operador = "and"
+            operador = new OperadorLogico => [operadorAndOr = "and"]
             criteriosSeleccionados = #[this, criterio]
         ]
     }
 
     def or(Criterio criterio){
         new CriterioCompuesto =>[
-            operador.operador = "or"
+            operador = new OperadorLogico => [operadorAndOr = "or"]
             criteriosSeleccionados = #[this, criterio]
         ]
     }

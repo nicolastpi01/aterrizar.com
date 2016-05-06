@@ -5,14 +5,14 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class OperadorLogico{
-    String operador
+    String operadorAndOr
 
     def unirCriterios(List<Criterio> criteriosSeleccionados) {
         criteriosSeleccionados.map[it.getHQL].join("  ")
     }
 
     def String unirWhereClauses (List<String> criteriosSeleccionados){
-        criteriosSeleccionados.join(" " + operador + " ")
+        criteriosSeleccionados.join(" " + operadorAndOr + " ")
     }
 
 }

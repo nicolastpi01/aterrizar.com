@@ -2,19 +2,19 @@ package ar.edu.unq.epers.hibernate
 
 import ar.edu.unq.epers.aterrizar.home.SessionManager
 import ar.edu.unq.epers.aterrizar.model.Asiento
+import ar.edu.unq.epers.aterrizar.model.Business
 import ar.edu.unq.epers.aterrizar.model.Primera
 import ar.edu.unq.epers.aterrizar.model.Tramo
 import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.model.VueloOfertado
 import ar.edu.unq.epers.aterrizar.servicios.AsientoService
+import ar.edu.unq.epers.aterrizar.servicios.BaseService
 import ar.edu.unq.epers.aterrizar.servicios.TramoService
 import java.sql.Date
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.hibernate.Session
 import org.hibernate.SessionFactory
 import org.junit.Before
-import ar.edu.unq.epers.aterrizar.model.Business
-import ar.edu.unq.epers.aterrizar.servicios.BaseService
 
 @Accessors
 class TestBase {

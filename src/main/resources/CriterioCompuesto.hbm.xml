@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class
+            name="ar.edu.unq.epers.aterrizar.model.Asiento" table="asiento" lazy="true">
+        <id column="id" name="id" type="integer">
+            <generator class="identity"/>
+        </id>
+
+
+        <bag fetch="select" lazy="true" name="criteriosSeleccionados" table="criteriosSeleccionados" cascade="all">
+            <key>
+                <column name="criterio_id" not-null="false"/>
+            </key>
+            <one-to-many class="ar.edu.unq.epers.aterrizar.BusquedaHql.Criterio"/>
+        </bag>
+        <many-to-one cascade="all" column="OperadorLogico" name="OperadorLogico"
+                     class="ar.edu.unq.epers.aterrizar.BusquedaHql.OperadorLogico" lazy="false" fetch="select"/>
+
+    </class>
+</hibernate-mapping>
