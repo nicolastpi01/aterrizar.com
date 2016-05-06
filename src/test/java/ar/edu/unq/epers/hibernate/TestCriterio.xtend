@@ -133,7 +133,7 @@ class TestCriterio extends TestBaseAerolinea{
     @Test
     def void filtrarPorFechaDeLlegada(){
 
-        busqueda = new Busqueda() => [criterio = criterio5]
+        busqueda = new Busqueda() => [criterio = criterioPorFechaLlegada]
 
 
         var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
@@ -144,7 +144,7 @@ class TestCriterio extends TestBaseAerolinea{
     @Test
     def void filtrarPorFechaDeSalida(){
 
-        busqueda = new Busqueda() => [criterio = criterio4]
+        busqueda = new Busqueda() => [criterio = criterioPorFechaSalida]
 
 
         var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
@@ -155,7 +155,7 @@ class TestCriterio extends TestBaseAerolinea{
     @Test
     def void combinarFiltrosConAndYOr(){
 
-        busqueda = new Busqueda() => [criterio = criterio1.and(criterio3.or(criterio4.and(criterio6)))]
+        busqueda = new Busqueda() => [criterio = criterio1.and(criterio3.or(criterioPorFechaSalida.and(criterio6)))]
         var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
         Assert.assertEquals(vuelos.size, 3)
 
@@ -164,7 +164,7 @@ class TestCriterio extends TestBaseAerolinea{
     @Test
     def void combinarFiltrosConAndYOr2(){
 
-        busqueda = new Busqueda() => [criterio = criterio4.or(criterio1).and(criterio7)]
+        busqueda = new Busqueda() => [criterio = criterioPorFechaSalida.or(criterio1).and(criterio7)]
         var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
         Assert.assertEquals(vuelos.size, 1)
 

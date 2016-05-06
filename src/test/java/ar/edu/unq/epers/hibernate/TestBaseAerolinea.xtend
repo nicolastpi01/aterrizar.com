@@ -29,8 +29,8 @@ class TestBaseAerolinea extends TestBase{
     val criterio3 = new CriterioPorCategoriaDeAsiento() => [categoriaAsiento = new Primera]
     val criterio10 = new CriterioPorCategoriaDeAsiento() => [categoriaAsiento = new Turista]
     val criterio11 = new CriterioPorCategoriaDeAsiento() => [categoriaAsiento = new Business]
-    val criterio4 = new CriterioPorFechaDeSalida() => [fechaSalida = new Date(116,6,16)]
-    val criterio5 = new CriterioPorFechaDeLlegada() => [fechaLlegada = new Date(116,07,01)]
+    val criterioPorFechaSalida = new CriterioPorFechaDeSalida() => [fechaSalida = new Date(116,6,16)]
+    val criterioPorFechaLlegada = new CriterioPorFechaDeLlegada() => [fechaLlegada = new Date(116,07,01)]
     val criterio6 = new CriterioPorOrigen() => [origen = "Buenos Aires"]
     val criterio7 = new CriterioPorDestino() => [destino = "Brasil"]
 

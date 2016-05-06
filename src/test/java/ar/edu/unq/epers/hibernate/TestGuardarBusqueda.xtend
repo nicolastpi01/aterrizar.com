@@ -59,7 +59,7 @@ class TestGuardarBusqueda extends TestBaseAerolinea{
     @Test
     def void guardarBusquedaPorFechaDeSalida(){
 
-        busqueda = new Busqueda() => [criterio = criterio4]
+        busqueda = new Busqueda() => [criterio = criterioPorFechaSalida]
         var vuelos = aerolineaService.buscar(busqueda)
 
         aerolineaService.guardarBusqueda(busqueda)
@@ -68,7 +68,7 @@ class TestGuardarBusqueda extends TestBaseAerolinea{
     @Test
     def void guardarBusquedaPorFechaDeLlegada(){
 
-        busqueda = new Busqueda() => [criterio = criterio5]
+        busqueda = new Busqueda() => [criterio = criterioPorFechaLlegada]
         var vuelos = aerolineaService.buscar(busqueda)
 
         aerolineaService.guardarBusqueda(busqueda)
