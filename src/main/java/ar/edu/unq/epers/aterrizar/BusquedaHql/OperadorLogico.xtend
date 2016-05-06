@@ -1,11 +1,17 @@
 package ar.edu.unq.epers.aterrizar.BusquedaHql
 
-import java.util.List
 import ar.edu.unq.epers.aterrizar.model.Criterio
+import java.util.List
 
-interface OperadorLogico {
+class OperadorLogico{
+    String operador
 
-    def String unirCriterios (List<Criterio> criteriosSeleccionados)
-    def String unirWhereClauses (List<String> criteriosSeleccionados)
+    def unirCriterios(List<Criterio> criteriosSeleccionados) {
+        criteriosSeleccionados.map[it.getHQL].join("  ")
+    }
+
+    def String unirWhereClauses (List<String> criteriosSeleccionados){
+        criteriosSeleccionados.join(" " + operador + " ")
+    }
 
 }
