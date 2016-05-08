@@ -18,7 +18,7 @@ class AsientoService extends BaseService{
     def void reservarAsientoParaUsuario(Asiento asiento, Usuario user){
         SessionManager.runInSession([
             val Asiento asiento1 = buscar(asiento, asiento.id)
-            asiento1.reservadoPorUsuario = user
+            asiento1.reservarAsiento(user)
             guardar(asiento1)
             null
         ]);

@@ -13,6 +13,7 @@ import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import ar.edu.unq.epers.aterrizar.exceptions.AsientoReservadoException
 
 class TestAsiento {
 
@@ -90,6 +91,18 @@ class TestAsiento {
         service.reservarAsientoParaUsuario(asiento1, user)
 
         Assert.assertEquals(service.buscar(asiento1, asiento1.id).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
+    }
+
+    @Test
+    def void intentarReservarUnAsientoYaReservado(){
+
+        service.guardar(asiento1)
+        service.reservarAsientoParaUsuario(asiento1, user)
+        try {
+            service.reservarAsientoParaUsuario(asiento1, user)
+        } catch(RuntimeException e) {
+            Assert.assertEquals(e.getMessage, "ar.edu.unq.epers.aterrizar.exceptions.AsientoReservadoException: El siento ya está reservado")
+        }
     }
 
 }
