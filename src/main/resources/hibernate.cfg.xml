@@ -25,15 +25,15 @@
 
 
         <!--<mapping resource=""></mapping>-->
-        <mapping resource="Usuario.hbm.xml"></mapping>
-        <mapping resource="Tramo.hbm.xml"></mapping>
-        <mapping resource="Asiento.hbm.xml"></mapping>
-        <mapping resource="Categoria.hbm.xml"></mapping>
-        <mapping resource="VueloOfertado.hbm.xml"></mapping>
-        <mapping resource="Aerolinea.hbm.xml"></mapping>
-        <mapping resource="Busqueda.hbm.xml"></mapping>
-        <mapping resource="Criterio.hbm.xml"></mapping>
-        <mapping resource="Orden.hbm.xml"></mapping>
+        <mapping resource="MapeoModelo/Usuario.hbm.xml"></mapping>
+        <mapping resource="MapeoModelo/Tramo.hbm.xml"></mapping>
+        <mapping resource="MapeoModelo/Asiento.hbm.xml"></mapping>
+        <mapping resource="MapeoModelo/Categoria.hbm.xml"></mapping>
+        <mapping resource="MapeoModelo/VueloOfertado.hbm.xml"></mapping>
+        <mapping resource="MapeoModelo/Aerolinea.hbm.xml"></mapping>
+        <mapping resource="MapeoBusqueda/Busqueda.hbm.xml"></mapping>
+        <mapping resource="MapeoBusqueda/Criterio.hbm.xml"></mapping>
+        <mapping resource="MapeoBusqueda/Orden.hbm.xml"></mapping>
 
     </session-factory>
 </hibernate-configuration>
