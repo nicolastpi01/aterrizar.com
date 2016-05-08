@@ -1,22 +1,22 @@
 package ar.edu.unq.epers.aterrizar.model
 
-import java.util.ArrayList
+import java.sql.Date
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
-import java.sql.Date
 
 /**
  * Created by damian on 4/16/16.
  */
 @Accessors
 class VueloOfertado {
-	int id
+    int id
     var List<Tramo> tramos
     var int precioBase
     var int cantidadTramos
     var long duracion
 
-    protected new(){}
+    protected new(){
+    }
 
     new(List<Tramo> tramos2, int precio){
         tramos = tramos2
@@ -30,7 +30,7 @@ class VueloOfertado {
     }
 
     def getDuracionTotal(){
-        tramos.fold(0 as long)[res, tramo | tramo.duracion() + res]
+        tramos.fold(0 as long) [res, tramo | tramo.duracion() + res]
     }
 
     def destino(){
@@ -50,7 +50,7 @@ class VueloOfertado {
     }
 
     def estaDisponible(){
-        tramos.fold(true)[ result, tramo|
+        tramos.fold(true) [ result, tramo|
             tramo.hayUnAsientoDisponible() && result
         ]
     }
@@ -64,7 +64,7 @@ class VueloOfertado {
     }
 
     def tieneCategoriaDeAsientoEnCadaTramo(Categoria cat){
-        tramos.fold(true)[result, tramo |
+        tramos.fold(true) [result, tramo |
             tramo.tieneCategoriaDeAsiento(cat) && result
         ]
     }

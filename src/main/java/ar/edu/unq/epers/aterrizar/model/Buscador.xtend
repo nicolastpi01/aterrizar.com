@@ -1,5 +1,6 @@
 package ar.edu.unq.epers.aterrizar.model
 
+import ar.edu.unq.epers.aterrizar.BusquedaHql.Busqueda
 import java.util.List
 
 /**

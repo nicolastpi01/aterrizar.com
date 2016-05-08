@@ -1,13 +1,11 @@
 package ar.edu.unq.epers.aterrizar.home
 
-import ar.edu.unq.epers.aterrizar.model.Aerolinea
 import ar.edu.unq.epers.aterrizar.model.Asiento
 import ar.edu.unq.epers.aterrizar.model.Tramo
 import ar.edu.unq.epers.aterrizar.model.VueloOfertado
+import ar.edu.unq.epers.aterrizar.servicios.BaseService
 import java.util.List
 import org.hibernate.Query
-import ar.edu.unq.epers.aterrizar.BusquedaHql.Busqueda
-import ar.edu.unq.epers.aterrizar.servicios.BaseService
 
 /**
  * Created by damian on 4/16/16.

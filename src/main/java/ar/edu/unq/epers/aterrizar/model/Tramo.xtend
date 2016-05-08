@@ -1,10 +1,9 @@
 package ar.edu.unq.epers.aterrizar.model
 
+import ar.edu.unq.epers.aterrizar.exceptions.NoHayAsientoConEsaIdException
 import java.sql.Date
-import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
-import ar.edu.unq.epers.aterrizar.exceptions.NoHayAsientoConEsaIdException
 
 /**
  * Created by damian on 4/16/16.
@@ -12,7 +11,7 @@ import ar.edu.unq.epers.aterrizar.exceptions.NoHayAsientoConEsaIdException
 @Accessors
 class Tramo {
 
-	int id
+    int id
     var List<VueloOfertado> vuelos = #[]
     var List<Asiento> asientos = #[]
     var String origen
@@ -29,14 +28,14 @@ class Tramo {
     }
 
     def tieneCategoriaDeAsiento(Categoria cat){
-        asientos.fold(false)[result, asiento |
+        asientos.fold(false) [result, asiento |
             asiento.categoria.getClass == cat.getClass || result
         ]
     }
 
     def validarAsiento(Asiento asiento){
         val valido = asientos.exists[asient | asient.nombre == asiento.nombre]
-        if(!valido){
+        if(!valido) {
             throw new NoHayAsientoConEsaIdException
         }
     }

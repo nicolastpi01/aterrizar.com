@@ -4,9 +4,6 @@ import ar.edu.unq.epers.aterrizar.model.Usuario
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.ResultSet
-import java.util.Date
-import java.sql.DatabaseMetaData
-import org.joda.time.DateTime
 
 /**
  * Created by damian on 4/2/16.
@@ -86,7 +83,7 @@ class Repositorio {
             val ResultSet rs = ps.executeQuery
 
 
-            if(rs.next()){
+            if(rs.next()) {
                 val nDeUs = rs.getString("nombreDeUsuario")
                 if(nDeUs == nomDeUsuario )
                     new Usuario => [

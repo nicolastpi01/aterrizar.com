@@ -8,7 +8,6 @@ import java.util.List
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import ar.edu.unq.epers.aterrizar.BusquedaHql.OrdenVacio
 
 /**
  * Created by damian on 4/23/16.

@@ -1,8 +1,7 @@
 package ar.edu.unq.epers.aterrizar.model
 
-
-import org.eclipse.xtend.lib.annotations.Accessors
 import java.sql.Date
+import org.eclipse.xtend.lib.annotations.Accessors
 
 //import java.sql.Date
 

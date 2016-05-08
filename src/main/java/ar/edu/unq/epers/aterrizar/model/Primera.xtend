@@ -13,12 +13,13 @@ class Primera extends Categoria{
     }
 
     public new (float precio) {
-                this.precioBase = precio
+        this.precioBase = precio
 
-    
+
     }
-    
-    new(){}
+
+    new(){
+    }
 
 
 }

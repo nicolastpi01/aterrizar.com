@@ -1,19 +1,18 @@
 package ar.edu.unq.epers.aterrizar.servicios
 
-import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
-import ar.edu.unq.epers.aterrizar.model.Usuario
-import ar.edu.unq.epers.aterrizar.exceptions.YaExisteUsuarioConEseNombreException
-import ar.edu.unq.epers.aterrizar.exceptions.NoExisteUsuarioConEseNombreException
 import ar.edu.unq.epers.aterrizar.exceptions.ContraseniaIgualALaAnteriorException
 import ar.edu.unq.epers.aterrizar.exceptions.ContraseniaIncorrectaException
-import org.mockito.internal.stubbing.answers.ThrowsException
+import ar.edu.unq.epers.aterrizar.exceptions.NoExisteUsuarioConEseNombreException
+import ar.edu.unq.epers.aterrizar.exceptions.YaExisteUsuarioConEseNombreException
+import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.persistencia.Repositorio
+import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 
 /**
  * Created by damian on 4/3/16.
  */
- 
- //JDBC
+
+//JDBC
 class ServiciosDelUsuario {
 
     var Repositorio repositorio
@@ -26,7 +25,7 @@ class ServiciosDelUsuario {
 
     def void registrarUsuario(Usuario usuario){
 
-        if (repositorio.obtenerUsuarioPorNombreDeUsuario(usuario.nombreDeUsuario) == null)
+        if(repositorio.obtenerUsuarioPorNombreDeUsuario(usuario.nombreDeUsuario) == null)
             repositorio.guardarUsuario(usuario)
         else
             throw new YaExisteUsuarioConEseNombreException
@@ -56,7 +55,7 @@ class ServiciosDelUsuario {
     def validarUsuario(String nombreDeUsuario, int hashCode){
 
         val usuario = this.obtenerUsuarioSiExiste(nombreDeUsuario)
-        if (usuario.getCodigoDeEmail() == hashCode && (! usuario.validado)) {
+        if(usuario.getCodigoDeEmail() == hashCode && (! usuario.validado)) {
             repositorio.validarUsuario(nombreDeUsuario)
             usuario.validado = true
         }
