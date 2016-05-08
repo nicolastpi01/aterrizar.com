@@ -14,6 +14,7 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import ar.edu.unq.epers.aterrizar.exceptions.AsientoReservadoException
+import java.util.List
 
 class TestAsiento {
 
@@ -91,6 +92,24 @@ class TestAsiento {
         service.reservarAsientoParaUsuario(asiento1, user)
 
         Assert.assertEquals(service.buscar(asiento1, asiento1.id).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
+    }
+
+    @Test
+    def void reservarUnConjuntoDeAsientos(){
+        Assert.assertEquals(service.todosLosAsientos.length, 0)
+
+        service.guardar(asiento1)
+        service.guardar(asiento2)
+        service.guardar(asiento3)
+
+        val List<Asiento> listaAReservar = #[asiento1,asiento2,asiento3]
+        service.reservarUnConjuntoDeAsientosParaUsuario(listaAReservar, user)
+
+        Assert.assertEquals(service.buscar(asiento1, asiento1.id).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
+        Assert.assertEquals(service.buscar(asiento2, asiento2.id).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
+        Assert.assertEquals(service.buscar(asiento3, asiento3.id).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
+
+        Assert.assertEquals(service.todosLosAsientos.length, 3)
     }
 
     @Test

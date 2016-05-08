@@ -4,6 +4,7 @@ import ar.edu.unq.epers.aterrizar.home.AsientoHome
 import ar.edu.unq.epers.aterrizar.home.SessionManager
 import ar.edu.unq.epers.aterrizar.model.Asiento
 import ar.edu.unq.epers.aterrizar.model.Usuario
+import java.util.List
 
 class AsientoService extends BaseService{
 
@@ -23,6 +24,10 @@ class AsientoService extends BaseService{
             null
         ]);
 
+    }
+
+    def void reservarUnConjuntoDeAsientosParaUsuario(List<Asiento> asientos, Usuario user){
+        asientos.forEach[reservarAsientoParaUsuario(it, user)]
     }
 
 
