@@ -6,21 +6,40 @@ import java.util.List
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import org.junit.After
+import ar.edu.unq.epers.aterrizar.home.BaseHome
 
 /**
  * Created by damian on 4/18/16.
  */
 class TestCriterio extends TestBaseAerolinea{
 
+    var BaseHome homeBase = new BaseHome()
+
     @Before
     override setUp(){
         super.setUp
     }
 
+    @After
+    def void limpiar() {
+        homeBase.hqlTruncate("usuario")
+        //        homeBase.hqlTruncate("aerolinea")
+        homeBase.hqlTruncate("asiento")
+        //        homeBase.hqlTruncate("vueloOfertado")
+        homeBase.hqlTruncate("criterioCompuesto")
+        homeBase.hqlTruncate("criterio")
+        homeBase.hqlTruncate("orden")
+        homeBase.hqlTruncate("busqueda")
+        homeBase.hqlTruncate("tramo")
+        homeBase.hqlTruncate("categoria")
+
+
+
+    }
 
     @Test
     def void criterioPorAerolinea(){
-
         busqueda = new Busqueda() => [criterio = criterio1]
         //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelosOfertados as vuelo where aerolinea.nombre = 'Austral' ", busqueda.getHQL)
         var vuelos = aerolineaService.buscar(busqueda)

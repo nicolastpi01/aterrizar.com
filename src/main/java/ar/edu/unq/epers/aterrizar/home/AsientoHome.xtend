@@ -23,7 +23,6 @@ class AsientoHome {
 
     def borrarCategorias(){
         var q = "delete from Categoria "
-
         SessionManager.getSession().createQuery(q) as Query
     }
 

@@ -21,11 +21,9 @@
         </bag>
 
         <!-- inverse end -->
-        <bag fetch="select" lazy="false" name="vuelos" table="vuelos" inverse="true" cascade="all">
-            <key>
-                <column name="tramo_vuelo_id"/>
-            </key>
-            <many-to-many class="ar.edu.unq.epers.aterrizar.model.VueloOfertado" />
-        </bag>
+
+        <many-to-one cascade="all" column="vuelo" name="vuelo" lazy="false"
+                     fetch="select" class="ar.edu.unq.epers.aterrizar.model.VueloOfertado"/>
+
     </class>
 </hibernate-mapping>

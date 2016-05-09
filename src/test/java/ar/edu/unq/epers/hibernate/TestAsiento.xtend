@@ -15,12 +15,14 @@ import org.junit.Before
 import org.junit.Test
 import ar.edu.unq.epers.aterrizar.exceptions.AsientoReservadoException
 import java.util.List
+import ar.edu.unq.epers.aterrizar.home.BaseHome
 
 class TestAsiento {
 
     var Usuario user
     var Usuario user2
     var AsientoService service
+    var BaseHome homeBase
 
     SessionFactory sessionFactory;
     Session session = null;
@@ -32,8 +34,6 @@ class TestAsiento {
 
     @Before
     def void setUp(){
-
-        SessionManager::getSessionFactory().openSession()
         user = new Usuario => [
             nombreDeUsuario = "alan75"
             nombreYApellido = "alan ferreira"
@@ -59,21 +59,24 @@ class TestAsiento {
             categoria = new Primera(1000)
         ]
 
+        homeBase = new BaseHome
+
 
     }
 
 
     @After
-    def limpiar() {
-        SessionManager::resetSessionFactory
+    def void limpiar() {
+        homeBase.hqlTruncate('asiento')
+        homeBase.hqlTruncate('usuario')
+
     }
 
 
 
     @Test
     def void guardoUnAsientoEnLaDB(){
-        Assert.assertEquals(service.todosLosAsientos.length, 0)
-
+        //        Assert.assertEquals(service.todosLosAsientos.length, 0)
         service.guardar(asiento1)
         service.guardar(asiento2)
         service.guardar(asiento3)

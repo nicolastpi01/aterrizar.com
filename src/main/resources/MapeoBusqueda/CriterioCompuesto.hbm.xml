@@ -4,7 +4,7 @@
 
 <hibernate-mapping>
     <class
-            name="ar.edu.unq.epers.aterrizar.model.Asiento" table="asiento" lazy="true">
+            name="ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioCompuesto" table="criterioCompuesto" lazy="true">
         <id column="id" name="id" type="integer">
             <generator class="identity"/>
         </id>

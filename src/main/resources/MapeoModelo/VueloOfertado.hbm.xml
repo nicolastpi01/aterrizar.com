@@ -18,7 +18,7 @@
                 <column name="vuelo_tramo_id" not-null="false"/>
             </key>
 
-            <many-to-many class="ar.edu.unq.epers.aterrizar.model.Tramo"/>
+            <one-to-many  class="ar.edu.unq.epers.aterrizar.model.Tramo"/>
         </bag>
 
     </class>

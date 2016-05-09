@@ -66,10 +66,4 @@ class TestBaseAerolinea extends TestBase{
 
     }
 
-    @After
-    def void limpiar(){
-        resetSessionFactory
-    }
-
-
 }

@@ -15,6 +15,8 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.hibernate.Session
 import org.hibernate.SessionFactory
 import org.junit.Before
+import org.junit.After
+import ar.edu.unq.epers.aterrizar.home.BaseHome
 
 @Accessors
 class TestBase {
@@ -66,7 +68,7 @@ class TestBase {
         ]
 
         tramo = new Tramo => [
-            vuelos = #[vuelo1,vuelo2,vuelo3,vuelo5]
+            vuelo = vuelo1
 
             origen = "Chile"
             destino = "Buenos Aires"
@@ -76,7 +78,7 @@ class TestBase {
         ]
 
         tramo2 = new Tramo => [
-            vuelos = #[vuelo1,vuelo2,vuelo3,vuelo5]
+            vuelo = vuelo5
 
             origen = "Buenos Aires"
             destino = "Brasil"
@@ -97,7 +99,7 @@ class TestBase {
 
         tramo3 = new Tramo => [
 
-            vuelos = #[vuelo4,vuelo5]
+            vuelo = vuelo4
             origen = "Brasil"
             destino = "Mexico"
             llegada = new Date(1000)
@@ -121,4 +123,6 @@ class TestBase {
         vuelo5 = new VueloOfertado (#[tramo3,tramo2,tramo,tramo3] , 8800)
 
     }
+
+
 }

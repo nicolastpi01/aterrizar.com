@@ -12,7 +12,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class Tramo {
 
     int id
-    var List<VueloOfertado> vuelos = #[]
+    var VueloOfertado vuelo
     var List<Asiento> asientos = #[]
     var String origen
     var String destino
