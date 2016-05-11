@@ -24,16 +24,29 @@ class TestCriterio extends TestBaseAerolinea{
     @After
     def void limpiar() {
         homeBase.hqlTruncate("usuario")
-        //        homeBase.hqlTruncate("aerolinea")
         homeBase.hqlTruncate("asiento")
-        //        homeBase.hqlTruncate("vueloOfertado")
         homeBase.hqlTruncate("criterioCompuesto")
-        homeBase.hqlTruncate("criterio")
-        homeBase.hqlTruncate("orden")
+        homeBase.hqlTruncate("ordenVacio")
+        homeBase.hqlTruncate("MenorCosto")
+        homeBase.hqlTruncate("MenorDuracion")
+        homeBase.hqlTruncate("MenorCantidadDeEscalas")
         homeBase.hqlTruncate("busqueda")
-        homeBase.hqlTruncate("tramo")
-        homeBase.hqlTruncate("categoria")
+        homeBase.hqlTruncate("criterioCompuesto")
+        homeBase.hqlTruncate("criterioVacio")
+        homeBase.hqlTruncate("criterioPorAerolinea")
+        homeBase.hqlTruncate("criterioPorCategoriaDeAsiento")
+        homeBase.hqlTruncate("criterioPorFechaDeLlegada")
+        homeBase.hqlTruncate("criterioPorFechaDeSalida")
+        homeBase.hqlTruncate("criterioPorOrigen")
+        homeBase.hqlTruncate("criterioPorDestino")
 
+        homeBase.hqlTruncate("primera")
+        homeBase.hqlTruncate("turista")
+        homeBase.hqlTruncate("business")
+        homeBase.hqlTruncate("categoria")
+        homeBase.hqlTruncate("criterio")
+        homeBase.hqlTruncate("vuelo")
+        homeBase.hqlTruncate("tramo")
 
 
     }
@@ -41,11 +54,12 @@ class TestCriterio extends TestBaseAerolinea{
     @Test
     def void criterioPorAerolinea(){
         busqueda = new Busqueda() => [criterio = criterio1]
-        //        Assert.assertEquals("select vuelo from Aerolinea aerolinea join aerolinea.vuelosOfertados as vuelo where aerolinea.nombre = 'Austral' ", busqueda.getHQL)
         var vuelos = aerolineaService.buscar(busqueda)
 
-        Assert.assertEquals(vuelos.get(0).getTramos.get(0).origen, "Chile")
         Assert.assertEquals(vuelos.size, 3)
+        Assert.assertEquals(vuelos.get(0).tramos.size, 2)
+        Assert.assertEquals(vuelos.get(0).tramos.get(0).getOrigen, "Paris")
+
     }
 
     @Test
@@ -54,10 +68,6 @@ class TestCriterio extends TestBaseAerolinea{
         busqueda = new Busqueda() => [criterio = criterio1.or(criterio2)]
 
         var vuelos = aerolineaService.buscar(busqueda)
-        Assert.assertTrue(vuelos.exists[vuelo | vuelo.id == 1])
-        Assert.assertTrue(vuelos.exists[vuelo | vuelo.id == 2])
-        Assert.assertTrue(vuelos.exists[vuelo | vuelo.id == 4])
-        Assert.assertTrue(vuelos.exists[vuelo | vuelo.id == 3])
         Assert.assertEquals(vuelos.size, 4)
     }
 
@@ -69,7 +79,6 @@ class TestCriterio extends TestBaseAerolinea{
         busqueda = new Busqueda() => [criterio = criterio2.or(criterio8)]
 
         var vuelos = aerolineaService.buscar(busqueda)
-        Assert.assertEquals(vuelos.findFirst[vuelo | vuelo.id == 4].id, 4)
         Assert.assertEquals(vuelos.size, 1)
 
     }
@@ -79,7 +88,7 @@ class TestCriterio extends TestBaseAerolinea{
 
         busqueda = new Busqueda() => [criterio = criterio3]
         var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
-        Assert.assertEquals(vuelos.size, 3)
+        Assert.assertEquals(vuelos.size, 4)
     }
 
     @Test
@@ -117,7 +126,7 @@ class TestCriterio extends TestBaseAerolinea{
     def void filtrarPorOrigen(){
         busqueda = new Busqueda() => [criterio = criterio6]
         var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
-        Assert.assertEquals(vuelos.size, 3)
+        Assert.assertEquals(vuelos.size, 1)
     }
 
 
@@ -139,7 +148,7 @@ class TestCriterio extends TestBaseAerolinea{
 
 
         var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
-        Assert.assertEquals(vuelos.size, 3)
+        Assert.assertEquals(vuelos.size, 1)
 
     }
 

@@ -54,31 +54,10 @@ class TestBase {
         serviceTramo = new TramoService
         serviceAsiento = new AsientoService
 
-        asiento1 = new Asiento => [
-            nombre = "c 1"
-            categoria = new Primera(1000)
-        ]
-        asiento2 = new Asiento => [
-            nombre = "c 2"
-            categoria = new Primera(1000)
-        ]
-        asiento3 = new Asiento => [
-            nombre = "c 3"
-            categoria = new Primera(1000)
-        ]
 
-        tramo = new Tramo => [
-            vuelo = vuelo1
 
-            origen = "Chile"
-            destino = "Buenos Aires"
-            llegada = new Date(1000)
-            salida = new Date(1500)
-            asientos = #[asiento1, asiento2, asiento3]
-        ]
 
         tramo2 = new Tramo => [
-            vuelo = vuelo5
 
             origen = "Buenos Aires"
             destino = "Brasil"
@@ -99,7 +78,6 @@ class TestBase {
 
         tramo3 = new Tramo => [
 
-            vuelo = vuelo4
             origen = "Brasil"
             destino = "Mexico"
             llegada = new Date(1000)
@@ -116,11 +94,13 @@ class TestBase {
             ]
         ]
 
-        vuelo1 = new VueloOfertado(#[tramo,tramo2], 1000)
-        vuelo2 = new VueloOfertado (#[tramo2,tramo] ,2500)
-        vuelo3 = new VueloOfertado (#[tramo,tramo2],1600)
-        vuelo4 = new VueloOfertado (#[tramo3] ,800)
-        vuelo5 = new VueloOfertado (#[tramo3,tramo2,tramo,tramo3] , 8800)
+
+
+        vuelo1 = new VueloOfertado (#[new Tramo("Paris", "Italia"),tramo2], 1000)
+        vuelo2 = new VueloOfertado (#[tramo3, new Tramo("Mexico", "España")] ,2500)
+        vuelo3 = new VueloOfertado (#[new Tramo("Paris", "Italia"), new Tramo("Italia", "Grecia")],1600)
+        vuelo4 = new VueloOfertado (#[new Tramo("Paris", "Italia"), new Tramo("Italia", "Venezuela")] ,800)
+        vuelo5 = new VueloOfertado (#[new Tramo("Paris", "Italia"), new Tramo("Italia", "Venezuela"), new Tramo("Venezuela", "Peru")] , 8800)
 
     }
 

@@ -19,6 +19,29 @@ class Tramo {
     var Date llegada
     var Date salida
 
+    new(){
+    }
+
+
+    new(String orig, String dest){
+
+        origen = orig
+        destino = dest
+        llegada = new Date(1000)
+        salida = new Date(1500)
+        asientos = #[new Asiento => [
+                nombre = "c 1"
+                categoria = new Primera(1000)
+            ], new Asiento => [
+                nombre = "c 2"
+                categoria = new Primera(1000)
+            ],new Asiento => [
+                nombre = "c 3"
+                categoria = new Primera(1000)
+            ]]
+
+    }
+
     def long duracion(){
         salida.getTime - llegada.getTime
     }

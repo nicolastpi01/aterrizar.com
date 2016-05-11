@@ -23,6 +23,7 @@ class VueloOfertado {
         precioBase = precio
         cantidadTramos = tramos.size
         duracion = this.getDuracionTotal()
+        tramos2.forEach[it.vuelo = this]
     }
 
     def cantidadDeTramos(){
