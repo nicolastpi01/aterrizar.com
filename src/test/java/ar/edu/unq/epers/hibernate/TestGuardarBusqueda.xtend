@@ -25,7 +25,7 @@ class TestGuardarBusqueda extends TestBaseAerolinea{
         busqueda = new Busqueda() => [criterio = criterio1]
         var vuelos = aerolineaService.buscar(busqueda)
 
-        Assert.assertEquals(vuelos.get(0).getTramos.get(0).origen, "Chile")
+        Assert.assertEquals(vuelos.get(0).getTramos.get(0).origen, "Paris")
         Assert.assertEquals(vuelos.size, 3)
         servicioBase.guardar(busqueda)
     }
@@ -36,8 +36,8 @@ class TestGuardarBusqueda extends TestBaseAerolinea{
         busqueda = new Busqueda() => [criterio = criterio3]
         var vuelos = aerolineaService.buscar(busqueda)
 
-        Assert.assertEquals(vuelos.get(0).getTramos.get(0).origen, "Chile")
-        Assert.assertEquals(vuelos.size, 3)
+        Assert.assertEquals(vuelos.get(0).getTramos.get(0).origen, "Paris")
+        Assert.assertEquals(vuelos.size, 4)
         servicioBase.guardar(busqueda)
     }
 
