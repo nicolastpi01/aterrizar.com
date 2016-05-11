@@ -21,36 +21,6 @@ class TestCriterio extends TestBaseAerolinea{
         super.setUp
     }
 
-    @After
-    def void limpiar() {
-        homeBase.hqlTruncate("usuario")
-        homeBase.hqlTruncate("asiento")
-        homeBase.hqlTruncate("criterioCompuesto")
-        homeBase.hqlTruncate("ordenVacio")
-        homeBase.hqlTruncate("MenorCosto")
-        homeBase.hqlTruncate("MenorDuracion")
-        homeBase.hqlTruncate("MenorCantidadDeEscalas")
-        homeBase.hqlTruncate("busqueda")
-        homeBase.hqlTruncate("criterioCompuesto")
-        homeBase.hqlTruncate("criterioVacio")
-        homeBase.hqlTruncate("criterioPorAerolinea")
-        homeBase.hqlTruncate("criterioPorCategoriaDeAsiento")
-        homeBase.hqlTruncate("criterioPorFechaDeLlegada")
-        homeBase.hqlTruncate("criterioPorFechaDeSalida")
-        homeBase.hqlTruncate("criterioPorOrigen")
-        homeBase.hqlTruncate("criterioPorDestino")
-
-        homeBase.hqlTruncate("primera")
-        homeBase.hqlTruncate("turista")
-        homeBase.hqlTruncate("business")
-        homeBase.hqlTruncate("categoria")
-        homeBase.hqlTruncate("criterio")
-        homeBase.hqlTruncate("tramo")
-        homeBase.hqlTruncate("vueloOfertado")
-
-
-    }
-
     @Test
     def void criterioPorAerolinea(){
         busqueda = new Busqueda() => [criterio = criterio1]

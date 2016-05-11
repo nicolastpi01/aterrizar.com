@@ -13,7 +13,7 @@
 
 
 
-        <bag fetch="select" lazy="false" name="tramos" table="tramos" cascade="all">
+        <bag fetch="select" lazy="false" name="tramos" table="u" cascade="all">
             <key>
                 <column name="vuelo_tramo_id" not-null="false"/>
             </key>

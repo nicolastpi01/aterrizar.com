@@ -21,6 +21,7 @@ import ar.edu.unq.epers.aterrizar.home.BaseHome
 @Accessors
 class TestBase {
 
+    var BaseHome homeBase
     var Usuario user
     var TramoService serviceTramo
     var AsientoService serviceAsiento
@@ -43,6 +44,8 @@ class TestBase {
 
     @Before
     def void setUp(){
+
+        homeBase = new BaseHome()
 
         SessionManager::getSessionFactory().openSession()
         user = new Usuario => [
@@ -104,5 +107,35 @@ class TestBase {
 
     }
 
+
+    @After
+    def void trunarTodasLasTablasDeLaBase() {
+        homeBase.hqlTruncate("usuario")
+        homeBase.hqlTruncate("asiento")
+        homeBase.hqlTruncate("criterioCompuesto")
+        homeBase.hqlTruncate("ordenVacio")
+        homeBase.hqlTruncate("MenorCosto")
+        homeBase.hqlTruncate("MenorDuracion")
+        homeBase.hqlTruncate("MenorCantidadDeEscalas")
+        homeBase.hqlTruncate("busqueda")
+        homeBase.hqlTruncate("criterioCompuesto")
+        homeBase.hqlTruncate("criterioVacio")
+        homeBase.hqlTruncate("criterioPorAerolinea")
+        homeBase.hqlTruncate("criterioPorCategoriaDeAsiento")
+        homeBase.hqlTruncate("criterioPorFechaDeLlegada")
+        homeBase.hqlTruncate("criterioPorFechaDeSalida")
+        homeBase.hqlTruncate("criterioPorOrigen")
+        homeBase.hqlTruncate("criterioPorDestino")
+
+        homeBase.hqlTruncate("primera")
+        homeBase.hqlTruncate("turista")
+        homeBase.hqlTruncate("business")
+        homeBase.hqlTruncate("categoria")
+        homeBase.hqlTruncate("criterio")
+        homeBase.hqlTruncate("tramo")
+        homeBase.hqlTruncate("vueloOfertado")
+
+
+    }
 
 }
