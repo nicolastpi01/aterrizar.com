@@ -15,13 +15,6 @@ class TestUsuario extends TestBase{
         super.setUp
     }
 
-
-    @After
-    def void limpiar() {
-        SessionManager::resetSessionFactory
-    }
-
-
     @Test
     def void guardoUnUsuarioEnLaDB(){
         servicioBase.guardar(user)
