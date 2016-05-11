@@ -45,8 +45,8 @@ class TestCriterio extends TestBaseAerolinea{
         homeBase.hqlTruncate("business")
         homeBase.hqlTruncate("categoria")
         homeBase.hqlTruncate("criterio")
-        homeBase.hqlTruncate("vuelo")
         homeBase.hqlTruncate("tramo")
+        homeBase.hqlTruncate("vueloOfertado")
 
 
     }
