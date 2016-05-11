@@ -34,7 +34,7 @@ class TestOrden extends TestBaseAerolinea {
         var busqueda = new Busqueda(new MenorCantidadDeEscalas)
         var List<VueloOfertado> vuelos = aerolineaService.buscar(busqueda)
         vuelos.forEach[println("vuelo 1 : " + it.cantidadTramos)]
-        Assert.assertEquals(vuelos.get(0).cantidadTramos, 1)
+        Assert.assertEquals(vuelos.get(0).cantidadTramos, 2)
         Assert.assertEquals(4, vuelos.size)
 
     }
