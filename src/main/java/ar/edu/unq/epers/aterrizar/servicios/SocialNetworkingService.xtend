@@ -4,6 +4,7 @@ import ar.edu.unq.epers.aterrizar.home.SocialNetworkingHome
 import ar.edu.unq.epers.aterrizar.model.Usuario
 import org.neo4j.graphdb.GraphDatabaseService
 import ar.edu.unq.epers.aterrizar.model.TipoDeRelaciones
+import ar.edu.unq.epers.aterrizar.model.Message
 
 class SocialNetworkingService {
 	
@@ -44,6 +45,13 @@ class SocialNetworkingService {
 		GraphServiceRunner::run[
 			val home = createHome(it)
 			home.getAllFriends(user)
+		]
+	}
+	
+	def sendMessage(Usuario sender, Usuario receiver, Message msj) {
+		GraphServiceRunner::run[
+			val home = createHome(it)
+			home.sendMsj(sender, receiver, msj)
 		]
 	}
 }

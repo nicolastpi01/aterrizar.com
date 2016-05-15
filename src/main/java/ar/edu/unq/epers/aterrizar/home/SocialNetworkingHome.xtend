@@ -1,6 +1,5 @@
 package ar.edu.unq.epers.aterrizar.home
 
-class SocialNetworkingHome {
 import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.model.TipoDeRelaciones
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -8,10 +7,15 @@ import org.neo4j.graphdb.Direction
 import org.neo4j.graphdb.DynamicLabel
 import org.neo4j.graphdb.GraphDatabaseService
 import org.neo4j.graphdb.Node
-import org.neo4j.graphdb.RelationshipType
 import java.sql.Date
+import ar.edu.unq.epers.aterrizar.model.Message
+import org.neo4j.graphdb.RelationshipType
+import java.util.Set
+import java.util.ArrayList
+
 
 class SocialNetworkingHome {
+
 	GraphDatabaseService graph
 	
 	new(GraphDatabaseService graph) {
@@ -47,21 +51,31 @@ class SocialNetworkingHome {
 	}
 	
 	def relacionar(Usuario usuario0, Usuario usuario1, TipoDeRelaciones relacion) {
+		/*
+		 * Si no estan relacionados
+		 */
 		val nodo1 = this.getNodo(usuario0);
 		val nodo2 = this.getNodo(usuario1);
 		nodo1.createRelationshipTo(nodo2, relacion);
 	}
 	
+	// Total
 	def getFriends(Usuario usuario) {
 		val nodoUsuario = this.getNodo(usuario)
 		val nodoAmigos = this.nodosRelacionados(nodoUsuario, TipoDeRelaciones.AMIGO, Direction.INCOMING)
 		nodoAmigos.map[toUsuario].toSet
 	}
-	
+	/* 
+	 // Algo asi, hay problemas con los tipos
 	def getAllFriends(Usuario usuario) {
-		
+		val myFriends = getFriends(usuario)
+		val otherFriends = Set
+		for(Usuario friend : myFriends) {
+			otherFriends.addAll(getFriends(friend).toArray) 
+		}
+			otherFriends.addAll(myFriends)
 	}
-	
+	*/
 	private def toUsuario(Node nodo) {
 		new Usuario => [
 			nombreDeUsuario = nodo.getProperty("nombreDeUsuario") as String
@@ -76,4 +90,18 @@ class SocialNetworkingHome {
 	protected def nodosRelacionados(Node nodo, RelationshipType tipo, Direction direccion) {
 		nodo.getRelationships(tipo, direccion).map[it.getOtherNode(nodo)]
 	}
+	
+	// Modificar, si existe relacion entonces solo agrego el mensaje, si no creo la relacion e envio el mensaje
+	// solucion provisoria
+	// la idea es que la relacion tenga una propiedad llamada msjs que sea un array de msjs
+	def sendMsj(Usuario sender, Usuario receiver, Message msj) {
+		/*
+		 * if no existe la relacion la creo, indistintamente se agrega el mensaje
+		 */
+		val nodo1 = this.getNodo(sender);
+		val nodo2 = this.getNodo(receiver);
+		var relationship = nodo1.createRelationshipTo(nodo2, TipoDeRelaciones.SENDERMSJ)
+		relationship.setProperty("msjs", "un nuevo mensaje de sender")
+		return null
+	}	
 }
