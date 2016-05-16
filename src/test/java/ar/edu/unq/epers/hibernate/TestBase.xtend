@@ -33,7 +33,6 @@ class TestBase {
     Asiento asiento2
     Asiento asiento3
     Tramo tramo
-    Tramo tramo2
     Tramo tramo3
     VueloOfertado vuelo1
     VueloOfertado vuelo2
@@ -49,7 +48,7 @@ class TestBase {
 
         SessionManager::getSessionFactory().openSession()
         user = new Usuario => [
-            nombreDeUsuario = "alan75"
+            nombreDeUsuario = "alan1000"
             nombreYApellido = "alan ferreira"
             email = "abc@123.com"
             nacimiento = new Date(2015,10,1)
@@ -60,7 +59,7 @@ class TestBase {
 
 
 
-        tramo2 = new Tramo => [
+        tramo = new Tramo => [
 
             origen = "Buenos Aires"
             destino = "Brasil"
@@ -77,9 +76,15 @@ class TestBase {
                     categoria = new Primera(1000)
                 ]
 
+            asiento3 = new Asiento => [
+                nombre = "c 3"
+                categoria = new Primera(1000)
+            ]
+
             asientos = #[
                 asiento1,
-                asiento2
+                asiento2,
+                asiento3
             ]
         ]
 
@@ -105,7 +110,7 @@ class TestBase {
 
 
 
-        vuelo1 = new VueloOfertado (#[new Tramo("Paris", "Italia"),tramo2], 1000)
+        vuelo1 = new VueloOfertado (#[new Tramo("Paris", "Italia"),tramo], 1000)
         vuelo2 = new VueloOfertado (#[tramo3, new Tramo("Mexico", "España")] ,2500)
         vuelo3 = new VueloOfertado (#[new Tramo("Paris", "Italia"), new Tramo("Italia", "Grecia")],1600)
         vuelo4 = new VueloOfertado (#[new Tramo("Paris", "Italia"), new Tramo("Italia", "Venezuela")] ,800)
@@ -116,7 +121,6 @@ class TestBase {
 
     @After
     def void trunarTodasLasTablasDeLaBase() {
-        homeBase.hqlTruncate("usuario")
         homeBase.hqlTruncate("asiento")
         homeBase.hqlTruncate("criterioCompuesto")
         homeBase.hqlTruncate("ordenVacio")
@@ -139,6 +143,7 @@ class TestBase {
         homeBase.hqlTruncate("categoria")
         homeBase.hqlTruncate("criterio")
         homeBase.hqlTruncate("tramo")
+        homeBase.hqlTruncate("usuario")
         homeBase.hqlTruncate("vueloOfertado")
 
 
