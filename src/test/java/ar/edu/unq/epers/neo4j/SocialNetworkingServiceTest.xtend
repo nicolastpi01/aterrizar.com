@@ -11,188 +11,190 @@ import org.junit.Test
 import org.junit.Assert
 
 class SocialNetworkingServiceTest {
-	
-	
-	Usuario usuario1
-	Usuario usuario2
-	Usuario usuario3AmigoDe1
-	Usuario usuario4AmigoDe1
-	Usuario usuario5AmigoDe1
-	Usuario usuario6AmigoDe2
-	Usuario usuario7AmigoDe2
-	Usuario usuario8AmigoDe3
-	Usuario usuario9AmigoDe4
-	Usuario usuario10AmigoDe6
-	SocialNetworkingService service
-	
-	
-	@Test
-	def void getAmigos(){
-		var amigos = service.friends(usuario1)
-		Assert.assertEquals(3, amigos.length)
-		//Assert.assertEquals(padres.head, padre)
-	}
-	
-	
-	
-	/*
-	@Test
-	def void sonPrimos(){
-		val primos = service.primosDe(hijo)
-		
-		Assert.assertEquals(2, primos.length)
-		Assert.assertTrue(primos.contains(primo))
-		Assert.assertTrue(primos.contains(primo2))
-	}
-	*
-	*/
-	
-	@After
-	def void after(){
-		service.eliminarPersona(usuario1)
-		service.eliminarPersona(usuario2)
-		
-		
-		service.eliminarPersona(usuario3AmigoDe1)
-		service.eliminarPersona(usuario4AmigoDe1)
-		service.eliminarPersona(usuario5AmigoDe1)
-		service.eliminarPersona(usuario6AmigoDe2)
-		service.eliminarPersona(usuario7AmigoDe2)
-		service.eliminarPersona(usuario8AmigoDe3)
-		service.eliminarPersona(usuario9AmigoDe4)
-		service.eliminarPersona(usuario10AmigoDe6)
-		
-	}
-	
-	
-	@Before
-	def void setup(){
-		
-		service = new SocialNetworkingService
-		
-		 usuario1 = new Usuario => [
+
+
+    Usuario usuario1
+    Usuario usuario2
+    Usuario usuario3AmigoDe1
+    Usuario usuario4AmigoDe1
+    Usuario usuario5AmigoDe1
+    Usuario usuario6AmigoDe2
+    Usuario usuario7AmigoDe2
+    Usuario usuario8AmigoDe3
+    Usuario usuario9AmigoDe4
+    Usuario usuario10AmigoDe6
+    SocialNetworkingService service
+
+
+    @Test
+    def void getAmigos(){
+        var amigos = service.friends(usuario1)
+        Assert.assertEquals(3, amigos.length)
+        //Assert.assertEquals(padres.head, padre)
+    }
+
+
+
+    /*
+    @Test
+    def void sonPrimos(){
+        val primos = service.primosDe(hijo)
+
+        Assert.assertEquals(2, primos.length)
+        Assert.assertTrue(primos.contains(primo))
+        Assert.assertTrue(primos.contains(primo2))
+    }
+    *
+    */
+
+    @After
+    def void after(){
+        service.eliminarPersona(usuario1)
+        service.eliminarPersona(usuario2)
+
+
+        service.eliminarPersona(usuario3AmigoDe1)
+        service.eliminarPersona(usuario4AmigoDe1)
+        service.eliminarPersona(usuario5AmigoDe1)
+        service.eliminarPersona(usuario6AmigoDe2)
+        service.eliminarPersona(usuario7AmigoDe2)
+        service.eliminarPersona(usuario8AmigoDe3)
+        service.eliminarPersona(usuario9AmigoDe4)
+        service.eliminarPersona(usuario10AmigoDe6)
+
+    }
+
+
+    @Before
+    def void setup(){
+
+        service = new SocialNetworkingService
+
+        usuario1 = new Usuario => [
             nombreDeUsuario = "alan75"
             nombreYApellido = "alan ferreira"
             email = "abc@123.com"
-     //       nacimiento = new Date(2015,10,1)
+            //       nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
         ]
-        
-     
+
+
         usuario2 = new Usuario => [
             nombreDeUsuario = "piter23"
             nombreYApellido = "piter castro"
             email = "abcd@123.com"
-        //    nacimiento = new Date(2015,10,1)
+            //    nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
-		
-		
-		]
-	
-		
-	
-		 usuario3AmigoDe1 = new Usuario => [
+
+
+        ]
+
+
+
+        usuario3AmigoDe1 = new Usuario => [
             nombreDeUsuario = "abelAlgo"
             nombreYApellido = "Abel Pintos"
             email = "abel@123.com"
             //nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
-            ]
-            
-          usuario4AmigoDe1 = new Usuario => [
-          	nombreDeUsuario = "Mauro"
+        ]
+
+        usuario4AmigoDe1 = new Usuario => [
+            nombreDeUsuario = "Mauro"
             nombreYApellido = "Abel Pintos"
-  email = "abel@123.com"
+            email = "abel@123.com"
             //nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
-          ]  
-            
-         usuario5AmigoDe1 = new Usuario => [
+        ]
+
+        usuario5AmigoDe1 = new Usuario => [
             nombreDeUsuario = "Irenne"
             nombreYApellido = " Diana Perez"
             email = "diann@24.com"
             //nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
-            ]
-            
-            usuario6AmigoDe2 = new Usuario => [
+        ]
+
+        usuario6AmigoDe2 = new Usuario => [
             nombreDeUsuario = "CarlosJ"
             nombreYApellido = " Diana Perez"
             email = "diann@24.com"
             //nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
-            ]
-            
-            usuario7AmigoDe2 = new Usuario => [
+        ]
+
+        usuario7AmigoDe2 = new Usuario => [
             nombreDeUsuario = "Sebastian"
             nombreYApellido = " Diana Perez"
             email = "diann@24.com"
             //nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
-            ]
-            
-            usuario8AmigoDe3 = new Usuario => [
+        ]
+
+        usuario8AmigoDe3 = new Usuario => [
             nombreDeUsuario = "Yamila"
             nombreYApellido = " Diana Perez"
             email = "diann@24.com"
             //nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
-            ]
-            
-            usuario9AmigoDe4 = new Usuario => [
+        ]
+
+        usuario9AmigoDe4 = new Usuario => [
             nombreDeUsuario = "Marcos"
             nombreYApellido = " Diana Perez"
             email = "diann@24.com"
             //nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
-            ]
-            
-            usuario10AmigoDe6 = new Usuario => [
+        ]
+
+        usuario10AmigoDe6 = new Usuario => [
             nombreDeUsuario = "Patricio"
             nombreYApellido = " Diana Perez"
             email = "diann@24.com"
             //nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
-            ]
-            
-         
-		
-		
-		service.agregarPersona(usuario1)
-		service.agregarPersona(usuario2)
-		
-		
-		service.agregarPersona(usuario3AmigoDe1)
-		service.agregarPersona(usuario4AmigoDe1)
-		service.agregarPersona(usuario5AmigoDe1)
-		service.agregarPersona(usuario6AmigoDe2)
-		service.agregarPersona(usuario7AmigoDe2)
-		service.agregarPersona(usuario8AmigoDe3)
-		service.agregarPersona(usuario9AmigoDe4)
-		service.agregarPersona(usuario10AmigoDe6)
-		
-		
-		
-		 
-		service.amigoDe(usuario1, usuario3AmigoDe1)
-		service.amigoDe(usuario1, usuario4AmigoDe1)
-		service.amigoDe(usuario1, usuario5AmigoDe1)
-		service.amigoDe(usuario2, usuario6AmigoDe2)
-		service.amigoDe(usuario2, usuario7AmigoDe2)
-		service.amigoDe(usuario3AmigoDe1, usuario8AmigoDe3)
-		service.amigoDe(usuario4AmigoDe1, usuario9AmigoDe4)
-		service.amigoDe(usuario6AmigoDe2, usuario10AmigoDe6)
-		
-		
-	}
+        ]
+
+
+
+
+        service.agregarPersona(usuario1)
+        service.agregarPersona(usuario2)
+
+
+        service.agregarPersona(usuario3AmigoDe1)
+        service.agregarPersona(usuario4AmigoDe1)
+        service.agregarPersona(usuario5AmigoDe1)
+        service.agregarPersona(usuario6AmigoDe2)
+        service.agregarPersona(usuario7AmigoDe2)
+        service.agregarPersona(usuario8AmigoDe3)
+        service.agregarPersona(usuario9AmigoDe4)
+        service.agregarPersona(usuario10AmigoDe6)
+
+
+
+
+        service.amigoDe(usuario1, usuario3AmigoDe1)
+        service.amigoDe(usuario1, usuario4AmigoDe1)
+        service.amigoDe(usuario1, usuario5AmigoDe1)
+        service.amigoDe(usuario2, usuario6AmigoDe2)
+        service.amigoDe(usuario2, usuario7AmigoDe2)
+        service.amigoDe(usuario3AmigoDe1, usuario8AmigoDe3)
+        service.amigoDe(usuario4AmigoDe1, usuario9AmigoDe4)
+        service.amigoDe(usuario6AmigoDe2, usuario10AmigoDe6)
+
+
+    }
+
+
 }
