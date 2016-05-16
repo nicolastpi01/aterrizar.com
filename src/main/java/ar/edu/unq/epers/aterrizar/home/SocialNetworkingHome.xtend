@@ -79,8 +79,8 @@ class SocialNetworkingHome {
 	// Total
 	def getFriends(Usuario usuario) {
 		val nodoUsuario = this.getNodo(usuario)
-		val nodoAmigos = this.nodosRelacionados(nodoUsuario, TipoDeRelaciones.AMIGO, Direction.OUTGOING)
-		//INCOMING
+		val nodoAmigos = this.nodosRelacionados(nodoUsuario, TipoDeRelaciones.AMIGO, Direction.BOTH)
+		//OUTGOING INCOMING
 		return nodoAmigos.map[toUsuario].toSet
 	}
 	/* 

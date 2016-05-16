@@ -33,6 +33,8 @@ class SocialNetworkingServiceTest {
 		//Assert.assertEquals(padres.head, padre)
 	}
 	
+	
+	
 	/*
 	@Test
 	def void sonPrimos(){
@@ -103,7 +105,7 @@ class SocialNetworkingServiceTest {
           usuario4AmigoDe1 = new Usuario => [
           	nombreDeUsuario = "Mauro"
             nombreYApellido = "Abel Pintos"
-            email = "abel@123.com"
+  email = "abel@123.com"
             //nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
@@ -128,7 +130,7 @@ class SocialNetworkingServiceTest {
             ]
             
             usuario7AmigoDe2 = new Usuario => [
-            nombreDeUsuario = "CarlosJ"
+            nombreDeUsuario = "Sebastian"
             nombreYApellido = " Diana Perez"
             email = "diann@24.com"
             //nacimiento = new Date(2015,10,1)
