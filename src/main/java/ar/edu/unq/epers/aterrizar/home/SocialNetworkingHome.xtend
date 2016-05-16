@@ -31,6 +31,10 @@ class SocialNetworkingHome {
 		DynamicLabel.label("User")
 	}
 	
+	private def msjLabel() {
+		DynamicLabel.label("Message")
+	}
+	
 	def eliminarNodo(Usuario usuario) {
 		val nodo = this.getNodo(usuario)
 		nodo.relationships.forEach[delete]
@@ -48,11 +52,19 @@ class SocialNetworkingHome {
 	}
 	
 	def getNodo(Usuario usuario) {
-		this.getNodo(usuario.nombreDeUsuario)
+		this.getNodoUsuario(usuario.nombreDeUsuario)
 	}
 	
-	def getNodo(String nombreUsuario) {
+	def getNodo(Message msj) {
+		this.getNodoMsj(msj.id)
+	}
+	
+	def getNodoUsuario(String nombreUsuario) {
 		this.graph.findNodes(userLabel, "nombreDeUsuario", nombreUsuario).head
+	}
+	
+	def getNodoMsj(String id) {
+		this.graph.findNodes(msjLabel, "id", id).head
 	}
 	
 	def relacionar(Usuario usuario0, Usuario usuario1, TipoDeRelaciones relacion) {
@@ -88,7 +100,7 @@ class SocialNetworkingHome {
 			nombreYApellido = nodo.getProperty("nombreYApellido") as String
 			email = nodo.getProperty("email") as String
 			contrasenia = nodo.getProperty("contrasenia") as String
-			nacimiento = nodo.getProperty("nacimiento") as Date
+			//nacimiento = nodo.getProperty("nacimiento") as Date
 			validado = nodo.getProperty("validado") as Boolean
 		]
 	}
@@ -104,10 +116,11 @@ class SocialNetworkingHome {
 		/*
 		 * if no existe la relacion la creo, indistintamente se agrega el mensaje
 		 */
-		val nodo1 = this.getNodo(sender);
-		val nodo2 = this.getNodo(receiver);
-		var relationship = nodo1.createRelationshipTo(nodo2, TipoDeRelaciones.SENDERMSJ)
-		relationship.setProperty("msjs", "un nuevo mensaje de sender")
+		val nodo1 = this.getNodo(sender)
+		val nodo2 = this.getNodo(receiver)
+		val nodo3 = this.getNodo(msj)
+		nodo1.createRelationshipTo(nodo3, TipoDeRelaciones.SENDER)
+		nodo2.createRelationshipTo(nodo3, TipoDeRelaciones.RECEIVER)
 		return null
 	}	
 	

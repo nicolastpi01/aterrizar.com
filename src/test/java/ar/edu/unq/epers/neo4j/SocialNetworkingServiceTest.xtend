@@ -28,8 +28,8 @@ class SocialNetworkingServiceTest {
 	
 	@Test
 	def void getAmigos(){
-		//var amigos = service.friends(usuario1)
-		//Assert.assertEquals(3, amigos.length)
+		var amigos = service.friends(usuario1)
+		Assert.assertEquals(3, amigos.length)
 		//Assert.assertEquals(padres.head, padre)
 	}
 	
@@ -72,7 +72,7 @@ class SocialNetworkingServiceTest {
             nombreDeUsuario = "alan75"
             nombreYApellido = "alan ferreira"
             email = "abc@123.com"
-            nacimiento = new Date(2015,10,1)
+     //       nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
         ]
@@ -82,7 +82,7 @@ class SocialNetworkingServiceTest {
             nombreDeUsuario = "piter23"
             nombreYApellido = "piter castro"
             email = "abcd@123.com"
-            nacimiento = new Date(2015,10,1)
+        //    nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
 		
@@ -95,7 +95,7 @@ class SocialNetworkingServiceTest {
             nombreDeUsuario = "abelAlgo"
             nombreYApellido = "Abel Pintos"
             email = "abel@123.com"
-            nacimiento = new Date(2015,10,1)
+            //nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
             ]
@@ -104,7 +104,7 @@ class SocialNetworkingServiceTest {
           	nombreDeUsuario = "Mauro"
             nombreYApellido = "Abel Pintos"
             email = "abel@123.com"
-            nacimiento = new Date(2015,10,1)
+            //nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
           ]  
@@ -113,7 +113,7 @@ class SocialNetworkingServiceTest {
             nombreDeUsuario = "Irenne"
             nombreYApellido = " Diana Perez"
             email = "diann@24.com"
-            nacimiento = new Date(2015,10,1)
+            //nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
             ]
@@ -122,7 +122,7 @@ class SocialNetworkingServiceTest {
             nombreDeUsuario = "CarlosJ"
             nombreYApellido = " Diana Perez"
             email = "diann@24.com"
-            nacimiento = new Date(2015,10,1)
+            //nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
             ]
@@ -131,7 +131,7 @@ class SocialNetworkingServiceTest {
             nombreDeUsuario = "CarlosJ"
             nombreYApellido = " Diana Perez"
             email = "diann@24.com"
-            nacimiento = new Date(2015,10,1)
+            //nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
             ]
@@ -140,7 +140,7 @@ class SocialNetworkingServiceTest {
             nombreDeUsuario = "Yamila"
             nombreYApellido = " Diana Perez"
             email = "diann@24.com"
-            nacimiento = new Date(2015,10,1)
+            //nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
             ]
@@ -149,7 +149,7 @@ class SocialNetworkingServiceTest {
             nombreDeUsuario = "Marcos"
             nombreYApellido = " Diana Perez"
             email = "diann@24.com"
-            nacimiento = new Date(2015,10,1)
+            //nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
             ]
@@ -158,7 +158,7 @@ class SocialNetworkingServiceTest {
             nombreDeUsuario = "Patricio"
             nombreYApellido = " Diana Perez"
             email = "diann@24.com"
-            nacimiento = new Date(2015,10,1)
+            //nacimiento = new Date(2015,10,1)
             validado = true
             contrasenia = "abc123"
             ]

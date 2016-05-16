@@ -7,6 +7,6 @@ class Message {
 	String descripcion
 	Usuario sender
 	Usuario receiver
-	int id
+	String id
 	
 }
