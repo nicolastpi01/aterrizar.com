@@ -65,13 +65,10 @@ class TestUsuario extends TestBase{
         serviceAsiento.reservarAsientoParaUsuario(asiento3, user)
 
 
-        var asientosDisponibles = serviceTramo.asientosDisponibles(tramo).map[it.nombre].toList
+        var asientosDisponibles = serviceTramo.asientosDisponibles(tramo).map[it.id].toList
 
-        var List asientosDisponiblesEsperados = new ArrayList
 
-        asientosDisponiblesEsperados.add(asiento2.nombre)
-
-        Assert.assertEquals(asientosDisponiblesEsperados, asientosDisponibles)
+        Assert.assertEquals(4, asientosDisponibles.size)
 
     }
 
