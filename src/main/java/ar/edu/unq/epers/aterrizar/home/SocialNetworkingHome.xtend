@@ -38,12 +38,12 @@ class SocialNetworkingHome {
 	}
 	
 	def crearNodo(Usuario usuario) {
-		val node = this.graph.createNode(userLabel)
+		var node = this.graph.createNode(userLabel)
 		node.setProperty("nombreDeUsuario", usuario.nombreDeUsuario)
 		node.setProperty("nombreYApellido", usuario.nombreYApellido)
 		node.setProperty("email", usuario.email)
 		node.setProperty("contrasenia", usuario.contrasenia)
-		node.setProperty("nacimiento", usuario.nacimiento)
+		//node.setProperty("nacimiento", usuario.nacimiento)
 		node.setProperty("validado", usuario.validado)
 	}
 	
@@ -52,7 +52,7 @@ class SocialNetworkingHome {
 	}
 	
 	def getNodo(String nombreUsuario) {
-		this.graph.findNodes(userLabel, "nombreUsuario", nombreUsuario).head
+		this.graph.findNodes(userLabel, "nombreDeUsuario", nombreUsuario).head
 	}
 	
 	def relacionar(Usuario usuario0, Usuario usuario1, TipoDeRelaciones relacion) {

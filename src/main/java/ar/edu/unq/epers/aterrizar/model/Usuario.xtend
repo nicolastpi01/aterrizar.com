@@ -2,6 +2,7 @@ package ar.edu.unq.epers.aterrizar.model
 
 import java.sql.Date
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.eclipse.xtend.lib.annotations.EqualsHashCode
 
 //import java.sql.Date
 
@@ -9,6 +10,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
  * Created by damian on 4/2/16.
  */
 @Accessors
+@EqualsHashCode
 class Usuario {
     int id
 

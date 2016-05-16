@@ -8,6 +8,7 @@ import ar.edu.unq.epers.aterrizar.model.Message
 
 class SocialNetworkingService {
 	
+	
 	private def createHome(GraphDatabaseService graph) {
 		new SocialNetworkingHome(graph)
 	}
