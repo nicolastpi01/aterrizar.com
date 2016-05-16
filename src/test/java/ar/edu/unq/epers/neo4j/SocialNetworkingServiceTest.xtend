@@ -201,4 +201,10 @@ class SocialNetworkingServiceTest {
         var amigos = service.allFriends(usuario1)
         Assert.assertEquals(5, amigos.length)
     }
+
+    @Test
+    def void getAmigosDeAmigos2(){
+        var amigos = service.allFriends(usuario2)
+        Assert.assertEquals(3, amigos.length)
+    }
 }
