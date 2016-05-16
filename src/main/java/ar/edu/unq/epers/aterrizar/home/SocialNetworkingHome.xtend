@@ -13,6 +13,11 @@ import org.neo4j.graphdb.GraphDatabaseService
 import org.neo4j.graphdb.Node
 import org.neo4j.graphdb.RelationshipType
 import java.util.Set
+import java.util.Map
+import java.util.HashMap
+import java.util.Arrays
+import org.neo4j.graphdb.Result
+import org.neo4j.graphdb.traversal.Evaluators
 
 class SocialNetworkingHome {
 
@@ -62,7 +67,8 @@ class SocialNetworkingHome {
 	// Total
 	def getFriends(Usuario usuario) {
 		val nodoUsuario = this.getNodo(usuario)
-		val nodoAmigos = this.nodosRelacionados(nodoUsuario, TipoDeRelaciones.AMIGO, Direction.INCOMING)
+		val nodoAmigos = this.nodosRelacionados(nodoUsuario, TipoDeRelaciones.AMIGO, Direction.OUTGOING)
+		//INCOMING
 		return nodoAmigos.map[toUsuario].toSet
 	}
 	/* 
@@ -105,17 +111,18 @@ class SocialNetworkingHome {
 		return null
 	}	
 	
-	def ArrayList<Usuario>  getAllFriends(Usuario usuario) {
-		val myFriends = getFriends(usuario)
-		val otherFriends = new ArrayList<Usuario>
-		otherFriends.addAll(myFriends)
-		for(Usuario friend : myFriends) {
-			//otherFriends.addAll(getFriends(friend))
-			otherFriends.addAll(getAllFriends(friend)) 
-		}
-			return otherFriends
+	def getAllFriends(Usuario usuario){
+		var Node n = this.getNodo(usuario)
+		graph.traversalDescription()
+	        .breadthFirst()
+	        .relationships(TipoDeRelaciones.AMIGO)
+            .evaluator(Evaluators.excludeStartPosition)
+            .traverse(n)
+            .nodes()
+	        .map[it.getProperty("nombreDeUsuario") as String].toSet
 	}
-	
-	
-	
+		
 }
+	
+	
+	
