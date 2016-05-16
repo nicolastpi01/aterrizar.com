@@ -66,15 +66,20 @@ class TestBase {
             destino = "Brasil"
             llegada = new Date(116,07,01)
             salida = new Date(1500)
-            asientos = #[
-                new Asiento => [
+            
+            asiento1 = new Asiento => [
                     nombre = "c 1"
                     categoria = new Primera(1000)
-                ],
-                new Asiento => [
+                ]
+               
+            asiento2 =  new Asiento => [
                     nombre = "c 2"
                     categoria = new Primera(1000)
                 ]
+
+            asientos = #[
+                asiento1,
+                asiento2
             ]
         ]
 
@@ -85,6 +90,7 @@ class TestBase {
             destino = "Mexico"
             llegada = new Date(1000)
             salida = new Date(116,6,16)
+            
             asientos = #[
                 new Asiento => [
                     nombre = "c 1"

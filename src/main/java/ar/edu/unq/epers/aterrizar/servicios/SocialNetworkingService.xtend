@@ -54,4 +54,5 @@ class SocialNetworkingService {
 			home.sendMsj(sender, receiver, msj)
 		]
 	}
+	
 }

@@ -1,18 +1,18 @@
 package ar.edu.unq.epers.aterrizar.home
 
-import ar.edu.unq.epers.aterrizar.model.Usuario
+import ar.edu.unq.epers.aterrizar.model.Message
 import ar.edu.unq.epers.aterrizar.model.TipoDeRelaciones
-import org.eclipse.xtend.lib.annotations.Accessors
+import ar.edu.unq.epers.aterrizar.model.Usuario
+import java.sql.Date
+import java.util.ArrayList
+import org.neo4j.cypher.ExecutionEngine
+import org.neo4j.cypher.ExecutionResult
 import org.neo4j.graphdb.Direction
 import org.neo4j.graphdb.DynamicLabel
 import org.neo4j.graphdb.GraphDatabaseService
 import org.neo4j.graphdb.Node
-import java.sql.Date
-import ar.edu.unq.epers.aterrizar.model.Message
 import org.neo4j.graphdb.RelationshipType
 import java.util.Set
-import java.util.ArrayList
-
 
 class SocialNetworkingHome {
 
@@ -63,7 +63,7 @@ class SocialNetworkingHome {
 	def getFriends(Usuario usuario) {
 		val nodoUsuario = this.getNodo(usuario)
 		val nodoAmigos = this.nodosRelacionados(nodoUsuario, TipoDeRelaciones.AMIGO, Direction.INCOMING)
-		nodoAmigos.map[toUsuario].toSet
+		return nodoAmigos.map[toUsuario].toSet
 	}
 	/* 
 	 // Algo asi, hay problemas con los tipos
@@ -104,4 +104,18 @@ class SocialNetworkingHome {
 		relationship.setProperty("msjs", "un nuevo mensaje de sender")
 		return null
 	}	
+	
+	def ArrayList<Usuario>  getAllFriends(Usuario usuario) {
+		val myFriends = getFriends(usuario)
+		val otherFriends = new ArrayList<Usuario>
+		otherFriends.addAll(myFriends)
+		for(Usuario friend : myFriends) {
+			//otherFriends.addAll(getFriends(friend))
+			otherFriends.addAll(getAllFriends(friend)) 
+		}
+			return otherFriends
+	}
+	
+	
+	
 }
