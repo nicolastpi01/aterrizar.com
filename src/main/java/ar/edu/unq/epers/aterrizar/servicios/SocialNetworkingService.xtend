@@ -64,17 +64,17 @@ class SocialNetworkingService {
 		]
 	}
 
-	def Usuario getSender(Message msj) {
+	def getSender(String nombreUsuario) {
 		GraphServiceRunner::run[
 			val home = createHome(it)
-			home.getNodo(msj).getRelationships(TipoDeRelaciones.SENDER) as Usuario
+			home.getMensajeRemitente(nombreUsuario) 
 		]
 	}
 
-	def Usuario getReceiver(Message msj) {
+	def getReceiver(String nombreUsuario) {
 		GraphServiceRunner::run[
 			val home = createHome(it)
-			home.getNodo(msj).getRelationships(TipoDeRelaciones.RECEIVER) as Usuario
+			home.getMensajeDestinatario(nombreUsuario)
 		]
 	}
 

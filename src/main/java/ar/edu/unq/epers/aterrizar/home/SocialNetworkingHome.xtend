@@ -54,6 +54,7 @@ class SocialNetworkingHome {
 	def crearNodo(Message msj){
 		var node = this.graph.createNode(msjLabel)
 		node.setProperty("descripcion", msj.descripcion)
+		node.setProperty("id", msj.id)
 		
 	}
 	
@@ -139,6 +140,30 @@ class SocialNetworkingHome {
             .traverse(n)
             .nodes()
 	        .map[it.getProperty("nombreDeUsuario") as String].toSet
+	}
+		
+
+ 		
+	def getMensajeDestinatario(String userName){
+		val nodoPersona = this.getNodoUsuario(userName)
+		val nodoDestinatarios = this.nodosRelacionados(nodoPersona, TipoDeRelaciones.RECEIVER, Direction.INCOMING)
+		nodoDestinatarios.map[toMensaje(it)].toSet
+	}
+	
+	def getMensajeRemitente(String userName){
+		val nodoPersona = this.getNodoUsuario(userName)
+		val nodoRemitentes = this.nodosRelacionados(nodoPersona, TipoDeRelaciones.SENDER, Direction.INCOMING)
+		nodoRemitentes.map[toMensaje(it)].toSet
+	}
+	
+	
+	private def toMensaje(Node nodo){
+		new Message() => [
+			descripcion = nodo.getProperty("descripcion") as String
+			receiver = nodo.getRelationships(TipoDeRelaciones.RECEIVER,Direction.INCOMING).head as Usuario
+			sender = nodo.getRelationships(TipoDeRelaciones.SENDER,Direction.INCOMING).head as Usuario
+			id = nodo.getProperty("id") as String
+		]
 	}
 		
 }
