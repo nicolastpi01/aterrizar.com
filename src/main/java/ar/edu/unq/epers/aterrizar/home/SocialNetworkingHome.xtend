@@ -55,6 +55,7 @@ class SocialNetworkingHome {
 		var node = this.graph.createNode(msjLabel)
 		node.setProperty("descripcion", msj.descripcion)
 		node.setProperty("id", msj.id)
+		node
 		
 	}
 	
@@ -123,11 +124,13 @@ class SocialNetworkingHome {
 		/*
 		 * if no existe la relacion la creo, indistintamente se agrega el mensaje
 		 */
+		 
+		var nodoMensaje = this.crearNodo(msj)
 		val nodo1 = this.getNodo(sender)
 		val nodo2 = this.getNodo(receiver)
-		val nodo3 = this.getNodo(msj)
-		nodo1.createRelationshipTo(nodo3, TipoDeRelaciones.SENDER)
-		nodo2.createRelationshipTo(nodo3, TipoDeRelaciones.RECEIVER)
+		//val nodo3 = this.getNodo(msj)
+		nodoMensaje.createRelationshipTo(nodo1, TipoDeRelaciones.SENDER)
+		nodoMensaje.createRelationshipTo(nodo2, TipoDeRelaciones.RECEIVER)
 		return null
 	}	
 	
@@ -152,7 +155,7 @@ class SocialNetworkingHome {
 	
 	def getMensajeRemitente(String userName){
 		val nodoPersona = this.getNodoUsuario(userName)
-		val nodoRemitentes = this.nodosRelacionados(nodoPersona, TipoDeRelaciones.SENDER, Direction.INCOMING)
+		val nodoRemitentes = this.nodosRelacionados(nodoPersona, TipoDeRelaciones.RECEIVER, Direction.INCOMING)
 		nodoRemitentes.map[toMensaje(it)].toSet
 	}
 	
