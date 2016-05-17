@@ -9,6 +9,8 @@ import java.sql.Date
 import org.junit.After
 import org.junit.Test
 import org.junit.Assert
+import ar.edu.unq.epers.aterrizar.model.Message
+import ar.edu.unq.epers.aterrizar.home.SocialNetworkingHome
 
 class SocialNetworkingServiceTest {
 
@@ -30,22 +32,7 @@ class SocialNetworkingServiceTest {
     def void getAmigos(){
         var amigos = service.friends(usuario1)
         Assert.assertEquals(3, amigos.length)
-        //Assert.assertEquals(padres.head, padre)
     }
-
-
-
-    /*
-    @Test
-    def void sonPrimos(){
-        val primos = service.primosDe(hijo)
-
-        Assert.assertEquals(2, primos.length)
-        Assert.assertTrue(primos.contains(primo))
-        Assert.assertTrue(primos.contains(primo2))
-    }
-    *
-    */
 
     @After
     def void after(){
@@ -206,5 +193,20 @@ class SocialNetworkingServiceTest {
     def void getAmigosDeAmigos2(){
         var amigos = service.allFriends(usuario2)
         Assert.assertEquals(3, amigos.length)
+    }
+
+    @Test
+    def void enviarUnMensaje(){
+        var mensaje = new Message() => [
+            descripcion = "descripcion 1"
+            sender = usuario1
+            receiver = usuario2
+        ]
+
+        service.agregarMensaje(mensaje)
+        service.sendMessage(usuario1,usuario2,mensaje)
+        Assert.assertEquals(service.getSender(mensaje).nombreDeUsuario, usuario1.nombreDeUsuario)
+        Assert.assertEquals(service.getReceiver(mensaje).nombreDeUsuario, usuario2.nombreDeUsuario)
+
     }
 }
