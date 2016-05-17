@@ -155,7 +155,7 @@ class SocialNetworkingHome {
 	
 	def getMensajeRemitente(String userName){
 		val nodoPersona = this.getNodoUsuario(userName)
-		val nodoRemitentes = this.nodosRelacionados(nodoPersona, TipoDeRelaciones.RECEIVER, Direction.INCOMING)
+		val nodoRemitentes = this.nodosRelacionados(nodoPersona, TipoDeRelaciones.SENDER, Direction.INCOMING)
 		nodoRemitentes.map[toMensaje(it)].toSet
 	}
 	

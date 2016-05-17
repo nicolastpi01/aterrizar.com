@@ -196,29 +196,20 @@ class SocialNetworkingServiceTest {
     def void enviarUnMensaje(){
         var mensaje = new Message() => [
             descripcion = "descripcion 1"
+            sender = usuario1
+            receiver = usuario2
             id = "1"
         ]
-        
-        
-		service.sendMessage(usuario1, usuario2,mensaje)
-		
-		var remitentes = service.getSender(usuario1.nombreDeUsuario)
-		var destinatarios = service.getReceiver(usuario2.nombreDeUsuario)
-		
-		Assert.assertEquals(1, remitentes.size)
-		Assert.assertEquals(1, destinatarios.size)
-	}
-        
 
-        //service.agregarMensaje(mensaje)
-        //service.sendMessage(usuario1,usuario2,mensaje)
-        
-        //var remitentes = service.getSender(mensaje).get(0).getProperty("nombreDeUsuario")
-        //var destinatarios = service.getReceiver(mensaje).get(0).getProperty("nombreDeUsuario")
-        
-        //Assert.assertEquals(usuario1.nombreDeUsuario, remitentes)
-        //Assert.assertEquals(usuario2.nombreDeUsuario, destinatarios)
-        //Assert.assertEquals(service.getSender(mensaje).nombreDeUsuario, usuario1.nombreDeUsuario)
-        //Assert.assertEquals(service.getReceiver(mensaje).nombreDeUsuario, usuario2.nombreDeUsuario)
 
+        service.sendMessage(usuario1, usuario2,mensaje)
+
+        var remitentes = service.getSender(usuario1.nombreDeUsuario)
+        var destinatarios = service.getReceiver(usuario2.nombreDeUsuario)
+
+        Assert.assertEquals(1, remitentes.size)
+        Assert.assertEquals(1, destinatarios.size)
     }
+
+
+}
