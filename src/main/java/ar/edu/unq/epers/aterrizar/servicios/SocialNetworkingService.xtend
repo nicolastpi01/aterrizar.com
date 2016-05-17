@@ -22,7 +22,7 @@ class SocialNetworkingService {
 
 	def agregarPersona(Usuario user) {
 		GraphServiceRunner::run[
-			createHome(it).crearNodo(user); 
+			createHome(it).crearNodo(user);
 			null
 		]
 	}
@@ -63,5 +63,20 @@ class SocialNetworkingService {
 			home.sendMsj(sender, receiver, msj)
 		]
 	}
-	
+
+	def Usuario getSender(Message msj) {
+		GraphServiceRunner::run[
+			val home = createHome(it)
+			home.getNodo(msj).getRelationships(TipoDeRelaciones.SENDER) as Usuario
+		]
+	}
+
+	def Usuario getReceiver(Message msj) {
+		GraphServiceRunner::run[
+			val home = createHome(it)
+			home.getNodo(msj).getRelationships(TipoDeRelaciones.RECEIVER) as Usuario
+		]
+	}
+
+
 }
