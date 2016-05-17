@@ -27,6 +27,14 @@ class SocialNetworkingService {
 		]
 	}
 	
+	def agregarMensaje(Message msj) {
+		GraphServiceRunner::run[
+			createHome(it).crearNodo(msj); 
+			null
+		]
+	}
+	
+	
 	def amigoDe(Usuario usuarioYo, Usuario usuarioMiAmigo) {
 		GraphServiceRunner::run[
 			val home = createHome(it);

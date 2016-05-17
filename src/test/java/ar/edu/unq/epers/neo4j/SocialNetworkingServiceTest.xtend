@@ -9,6 +9,7 @@ import java.sql.Date
 import org.junit.After
 import org.junit.Test
 import org.junit.Assert
+import ar.edu.unq.epers.aterrizar.model.Message
 
 class SocialNetworkingServiceTest {
 
@@ -207,4 +208,29 @@ class SocialNetworkingServiceTest {
         var amigos = service.allFriends(usuario2)
         Assert.assertEquals(3, amigos.length)
     }
+    
+    @Test
+	def void testMensajesEnviados(){
+		
+		var mensaje = new Message =>[
+			descripcion = "Hola como estas"
+		]
+		
+		service.sendMessage(usuario1, usuario2, mensaje)
+		var remitentes = service.getViaSenders(usuario1)
+		var destinatarios = service.getReceivers(usuario2)
+		
+		Assert.assertEquals(1, remitentes.length)
+		Assert.assertEquals(1, destinatarios.length)
+
+	
+	
+	}
+	
+	
+	@Test
+	def void agregarAmigo(){
+		
+	}
+	
 }

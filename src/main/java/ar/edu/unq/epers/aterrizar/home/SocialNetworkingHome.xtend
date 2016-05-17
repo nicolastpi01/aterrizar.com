@@ -51,6 +51,12 @@ class SocialNetworkingHome {
 		node.setProperty("validado", usuario.validado)
 	}
 	
+	def crearNodo(Message msj){
+		var node = this.graph.createNode(msjLabel)
+		node.setProperty("descripcion", msj.descripcion)
+		
+	}
+	
 	def getNodo(Usuario usuario) {
 		this.getNodoUsuario(usuario.nombreDeUsuario)
 	}
