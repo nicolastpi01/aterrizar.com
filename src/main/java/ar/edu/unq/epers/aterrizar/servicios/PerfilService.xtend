@@ -6,7 +6,11 @@ import com.mongodb.BasicDBObject
 import ar.edu.unq.epers.aterrizar.model.Comment
 import ar.edu.unq.epers.aterrizar.model.Perfil
 import ar.edu.unq.epers.aterrizar.model.Visibility
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.mongojack.DBQuery
+import org.mongojack.DBCursor
 
+@Accessors
 class PerfilService {
 	PerfilHome<Perfil> perfilHome;
 	
@@ -14,17 +18,27 @@ class PerfilService {
 		this.perfilHome = perfilHome;
 	}
 	
-	def BasicDBObject toDBObjectPerfil(Perfil p) {
-    var dBObjectPerfil = new BasicDBObject()
-    dBObjectPerfil.append("userNme", p.userName)
-		dBObjectPerfil
+	def Perfil findPerfil(Perfil p) {
+		var perfiles = perfilHome.find(DBQuery.is("_id", p._id))
+		var perfil = perfiles.get(0)
+			perfil
 	}
 	
-	def addDestiny(Perfil p, Destiny d) {
+	def Destiny findDestiny(Perfil p, Destiny d) {
 		
 	}
 	
-	def addComment(Destiny d, Comment c) {
+	def insertPerfil(Perfil p) {
+		perfilHome.insert(p)
+	}
+	
+	def addDestiny(Perfil p, Destiny d) {
+		var perfil = findPerfil(p)	
+		perfil.add(d)
+		insertPerfil(perfil)
+	}
+	
+	def addComment(Perfil p, Destiny d, Comment c) {
 		
 	}
 	
