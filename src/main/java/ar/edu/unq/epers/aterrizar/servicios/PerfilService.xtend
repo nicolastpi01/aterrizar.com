@@ -1,20 +1,18 @@
 package ar.edu.unq.epers.aterrizar.servicios
 
-import ar.edu.unq.epers.aterrizar.home.PerfilHome
 import ar.edu.unq.epers.aterrizar.model.Destiny
-import com.mongodb.BasicDBObject
 import ar.edu.unq.epers.aterrizar.model.Comment
 import ar.edu.unq.epers.aterrizar.model.Perfil
 import ar.edu.unq.epers.aterrizar.model.Visibility
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.mongojack.DBQuery
-import org.mongojack.DBCursor
+import ar.edu.unq.epers.aterrizar.home.MongoHome
 
 @Accessors
 class PerfilService {
-	PerfilHome<Perfil> perfilHome;
+	MongoHome<Perfil> perfilHome;
 	
-	new(PerfilHome<Perfil> perfilHome) {
+	new(MongoHome<Perfil> perfilHome) {
 		this.perfilHome = perfilHome;
 	}
 	
@@ -24,19 +22,23 @@ class PerfilService {
 			perfil
 	}
 	
-	def Destiny findDestiny(Perfil p, Destiny d) {
-		
-	}
-	
-	def insertPerfil(Perfil p) {
-		perfilHome.insert(p)
-	}
-	
 	def addDestiny(Perfil p, Destiny d) {
 		var perfil = findPerfil(p)	
 		perfil.add(d)
 		insertPerfil(perfil)
 	}
+	
+		def insertPerfil(Perfil p) {
+		perfilHome.insert(p)
+	}
+	/* 
+	def Destiny findDestiny(Perfil p, Destiny d) {
+		
+	}
+	
+
+	
+	
 	
 	def addComment(Perfil p, Destiny d, Comment c) {
 		
@@ -56,5 +58,5 @@ class PerfilService {
 	def addVisibilityTo(Comment c, Visibility v) {
 		
 	}
-	
+	*/
 }
