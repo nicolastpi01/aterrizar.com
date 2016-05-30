@@ -7,6 +7,7 @@ import ar.edu.unq.epers.aterrizar.model.Visibility
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.mongojack.DBQuery
 import ar.edu.unq.epers.aterrizar.home.MongoHome
+import com.mongodb.BasicDBObject
 
 @Accessors
 class PerfilService {
@@ -17,10 +18,15 @@ class PerfilService {
 	}
 	
 	def Perfil findPerfil(Perfil p) {
-		var perfiles = perfilHome.find(DBQuery.is("_id", p._id))
+		var perfiles = perfilHome.find(DBQuery.is("userName", p.userName))
 		var perfil = perfiles.get(0)
 			perfil
 	}
+	
+	def insertPerfil(Perfil p) {
+		perfilHome.save(p)
+	}
+	
 	
 	def addDestiny(Perfil p, Destiny d) {
 		var perfil = findPerfil(p)	
@@ -28,28 +34,31 @@ class PerfilService {
 		insertPerfil(perfil)
 	}
 	
-		def insertPerfil(Perfil p) {
-		perfilHome.insert(p)
+	def findDestiny(Perfil p, Destiny d) {
+		var perfil = findPerfil(p)
+		var destino = perfil.destinys.findFirst[it.nombre == d.nombre]
+		return destino
 	}
-	/* 
-	def Destiny findDestiny(Perfil p, Destiny d) {
-		
-	}
-	
-
-	
-	
-	
-	def addComment(Perfil p, Destiny d, Comment c) {
-		
+	  
+	def addComment(Perfil p, Destiny d, Comment c) { 
+		var dest = findDestiny(p, d)
+		dest.add(c)
+		p.add(dest)
+		insertPerfil(p) 
 	}
 	
-	def addMg(Destiny d) {
-		
+	def addMg(Perfil p, Destiny d) {
+		var dest = findDestiny(p, d)
+		dest.addMg
+		p.add(dest)
+		insertPerfil(p)
 	}
 	
-	def addnMg(Destiny d) {
-		
+	def addnMg(Perfil p, Destiny d) {
+		var dest = findDestiny(p, d)
+		dest.addNMg
+		p.add(dest)
+		insertPerfil(p)
 	}
 	def addVisibilityTo(Destiny d, Visibility v) {
 		
@@ -58,5 +67,5 @@ class PerfilService {
 	def addVisibilityTo(Comment c, Visibility v) {
 		
 	}
-	*/
+	
 }
