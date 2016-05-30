@@ -61,7 +61,7 @@ class PerfilService {
 		insertPerfil(p)
 	}
 	def addVisibilityTo(Destiny d, Visibility v) {
-		
+		/*dnskskjsnkjsnckcndkjcndsckjnsckjdcndkjcbdkjcbdvkjdvbSKB */
 	}
 	
 	def addVisibilityTo(Comment c, Visibility v) {
