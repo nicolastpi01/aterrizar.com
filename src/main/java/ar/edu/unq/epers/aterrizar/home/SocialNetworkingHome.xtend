@@ -44,11 +44,11 @@ class SocialNetworkingHome {
 	def crearNodo(Usuario usuario) {
 		var node = this.graph.createNode(userLabel)
 		node.setProperty("nombreDeUsuario", usuario.nombreDeUsuario)
-		node.setProperty("nombreYApellido", usuario.nombreYApellido)
-		node.setProperty("email", usuario.email)
-		node.setProperty("contrasenia", usuario.contrasenia)
+		//node.setProperty("nombreYApellido", usuario.nombreYApellido)
+		//node.setProperty("email", usuario.email)
+		//node.setProperty("contrasenia", usuario.contrasenia)
 		//node.setProperty("nacimiento", usuario.nacimiento)
-		node.setProperty("validado", usuario.validado)
+		//node.setProperty("validado", usuario.validado)
 	}
 	
 	def crearNodo(Message msj){
@@ -105,11 +105,11 @@ class SocialNetworkingHome {
 	private def toUsuario(Node nodo) {
 		new Usuario => [
 			nombreDeUsuario = nodo.getProperty("nombreDeUsuario") as String
-			nombreYApellido = nodo.getProperty("nombreYApellido") as String
-			email = nodo.getProperty("email") as String
-			contrasenia = nodo.getProperty("contrasenia") as String
+			//nombreYApellido = nodo.getProperty("nombreYApellido") as String
+			//email = nodo.getProperty("email") as String
+			//contrasenia = nodo.getProperty("contrasenia") as String
 			//nacimiento = nodo.getProperty("nacimiento") as Date
-			validado = nodo.getProperty("validado") as Boolean
+			//validado = nodo.getProperty("validado") as Boolean
 		]
 	}
 	

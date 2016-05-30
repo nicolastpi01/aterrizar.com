@@ -6,6 +6,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class Comment {
 	String description
 	Visibility visibility
+	Puntuacion calificacion
 	
 	new() {}
 	

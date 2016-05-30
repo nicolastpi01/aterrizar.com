@@ -11,10 +11,9 @@ class Destiny {
 	@JsonProperty("_id")
 	String id
 	String nombre;
-	int mg;
-	int nMg;
-	ArrayList<Comment> comments;
-	Visibility visibility;
+	
+	ArrayList<Comment> comments
+	Visibility visibility
 	
 	new() {
 	}

@@ -6,13 +6,13 @@ import ar.edu.unq.epers.aterrizar.model.Perfil
 import ar.edu.unq.epers.aterrizar.model.Visibility
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.mongojack.DBQuery
-import ar.edu.unq.epers.aterrizar.home.MongoHome
+import ar.edu.unq.epers.aterrizar.home.Collection
 
 @Accessors
 class PerfilService {
-	MongoHome<Perfil> perfilHome;
+	Collection<Perfil> perfilHome;
 	
-	new(MongoHome<Perfil> perfilHome) {
+	new(Collection<Perfil> perfilHome) {
 		this.perfilHome = perfilHome;
 	}
 	

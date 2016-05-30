@@ -1,9 +1,11 @@
 package ar.edu.unq.epers.aterrizar.servicios
 
 import ar.edu.unq.epers.aterrizar.home.ComentariosHome
-import ar.edu.unq.epers.aterrizar.model.Visibilidad
+import ar.edu.unq.epers.aterrizar.model.Comentario
+import ar.edu.unq.epers.aterrizar.model.Destino
 import ar.edu.unq.epers.aterrizar.model.Puntuacion
 import ar.edu.unq.epers.aterrizar.model.Usuario
+import ar.edu.unq.epers.aterrizar.model.Visibilidad
 
 class ComentarioService {
 	
@@ -16,10 +18,13 @@ class ComentarioService {
 		this.redSocial = redSocial
 	}
 
-	def hacerComentario(String patenteAuto,Visibilidad visibilidad,Puntuacion puntuacion,String comentario,Usuario user){
+	def hacerComentario(Destino destino,Visibilidad visibilidad,Puntuacion puntuacion,String comentario,Usuario user){
 		var Comentario newComentario = new Comentario(patenteAuto,visibilidad,calificacion,comentario,user)
 		
-		var Comentario2 = new Comentario =>[
+		var Destino = new Comentario =>[
+			
+			
+			
 			
 		]
 		homeComentario.insertarComentario(newComentario)	

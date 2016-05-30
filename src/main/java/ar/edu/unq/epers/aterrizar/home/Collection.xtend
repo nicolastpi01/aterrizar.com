@@ -5,7 +5,7 @@ import java.util.List
 import org.mongojack.DBQuery.Query
 import org.mongojack.MapReduce
 
-class PerfilHome<T> {
+class Collection<T> {
 	private JacksonDBCollection<T, String> mongoCollection;
 	
 	new(JacksonDBCollection<T, String> collection){
