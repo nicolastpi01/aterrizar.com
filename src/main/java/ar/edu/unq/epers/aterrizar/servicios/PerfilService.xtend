@@ -17,7 +17,7 @@ class PerfilService {
 	}
 	
 	def Perfil findPerfil(Perfil p) {
-		var perfiles = perfilHome.find(DBQuery.is("_id", p._id))
+		var perfiles = perfilHome.find(DBQuery.is("userName", p.userName))
 		var perfil = perfiles.get(0)
 			perfil
 	}
