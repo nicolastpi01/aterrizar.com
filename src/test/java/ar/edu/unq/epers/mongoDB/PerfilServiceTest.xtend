@@ -12,6 +12,7 @@ import org.junit.Assert
 import org.junit.Before
 import ar.edu.unq.epers.aterrizar.model.Destiny
 import ar.edu.unq.epers.aterrizar.model.Comment
+import ar.edu.unq.epers.aterrizar.model.Visibility
 
 class PerfilServiceTest {
 	List<Perfil> perfiles
@@ -61,7 +62,18 @@ class PerfilServiceTest {
 		perfilService.addComment(pepe, marDelPlata, comentario)
 		var destinoNuevo = perfilService.findDestiny(pepe, marDelPlata)
 		Assert.assertEquals(destinoNuevo.comments.size, 1)
-		Assert.assertEquals(destinoNuevo.comments.get(0).description, ("Mar del plata"))
+		Assert.assertEquals(destinoNuevo.comments.get(0).description, ("mongodb"))
+	}
+	
+	
+	@Test
+	def void addVisibilityToDestinyTest() {
+		perfilService.perfilHome.mongoCollection.insert(pepe)
+		var marDelPlata = new Destiny("Mar del plata")
+		perfilService.addDestiny(pepe, marDelPlata)
+		perfilService.addVisibilityTo(pepe, marDelPlata, Visibility.PRIVADO)
+		var destinoNuevo = perfilService.findDestiny(pepe, marDelPlata)
+		Assert.assertEquals(destinoNuevo.getVisibility, "PRIVADO")
 	}
 	
 	@After
