@@ -11,6 +11,7 @@ import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import ar.edu.unq.epers.aterrizar.model.Destiny
+import ar.edu.unq.epers.aterrizar.model.Comment
 
 class PerfilServiceTest {
 	List<Perfil> perfiles
@@ -18,6 +19,7 @@ class PerfilServiceTest {
 	PerfilService perfilService
 	Perfil pepe
 	Destiny dest
+	Comment comentario
 	
 	
 	@Before
@@ -48,7 +50,19 @@ class PerfilServiceTest {
 		Assert.assertEquals(pepeNuevo.destinys.size, 2)
 		Assert.assertEquals(pepeNuevo.destinys.get(0).nombre, ("Mar del plata"))
 		Assert.assertEquals(pepeNuevo.destinys.get(1).nombre, ("Iguazu"))
-	} 
+	}
+	
+	@Test
+	def void addCommentTest() {
+		comentario = new Comment("mongodb")
+		perfilService.perfilHome.mongoCollection.insert(pepe)
+		var marDelPlata = new Destiny("Mar del plata")
+		perfilService.addDestiny(pepe, marDelPlata)
+		perfilService.addComment(pepe, marDelPlata, comentario)
+		var destinoNuevo = perfilService.findDestiny(pepe, marDelPlata)
+		Assert.assertEquals(destinoNuevo.comments.size, 1)
+		Assert.assertEquals(destinoNuevo.comments.get(0).description, ("Mar del plata"))
+	}
 	
 	@After
 	def void cleanDB() {
