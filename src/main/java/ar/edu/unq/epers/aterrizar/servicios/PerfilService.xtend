@@ -23,13 +23,18 @@ class PerfilService {
 	}
 	
 	def addDestiny(Perfil p, Destiny d) {
-		var perfil = findPerfil(p)	
-		perfil.add(d)
-		insertPerfil(perfil)
+			
+		p.add(d)
+		updatePerfil(p)
 	}
 	
 		def insertPerfil(Perfil p) {
 		perfilHome.insert(p)
+	}
+	
+	
+	def updatePerfil(Perfil p){
+		perfilHome.update(p)
 	}
 	/* 
 	def Destiny findDestiny(Perfil p, Destiny d) {

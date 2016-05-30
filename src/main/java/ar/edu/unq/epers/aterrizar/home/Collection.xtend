@@ -20,6 +20,10 @@ class Collection<T> {
 		return mongoCollection.insert(object);
     }
     
+    def update(T object){
+		return mongoCollection.save(object);
+    }
+    
     def find(Query object){
 		return mongoCollection.find(object);
     }

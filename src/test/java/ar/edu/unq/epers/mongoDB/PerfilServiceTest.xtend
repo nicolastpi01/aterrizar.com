@@ -23,7 +23,7 @@ class PerfilServiceTest {
 	
 	
 	
-	Destiny destiny;
+	Destiny destinoMarDelPlata;
 	Collection<Perfil> home;
 	final String CODIGO = "111";
 	PerfilService service;
@@ -35,11 +35,11 @@ class PerfilServiceTest {
 	
 	@Before
 	def void setUp() {
-		destiny = new Destiny => [
+		destinoMarDelPlata = new Destiny => [
 			comments = newArrayList
 			visibility = Visibility.PUBLICO
-			id = CODIGO
-			nombre = "Venecia" 
+//			id = CODIGO
+			nombre = "Mar del Plata" 
 		]
 		
 		//home = new MongoHome()
@@ -66,6 +66,22 @@ class PerfilServiceTest {
 		
 		
 	}
+	
+	@Test
+	def void agregarUnDestino(){
+		service.insertPerfil(perfil)
+		
+		var p = service.findPerfil(perfil)
+		
+		service.addDestiny(p, destinoMarDelPlata)
+		
+		var newP = service.findPerfil(p) 
+		Assert.assertEquals(p.destinys.size, 1)
+		
+		Assert.assertEquals(p.destinys.get(0).nombre, "Mar del Plata")
+	}
+	
+	
 	
 
 
