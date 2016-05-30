@@ -32,6 +32,28 @@ class PerfilService {
 		perfilHome.insert(p)
 	}
 	
+	def Destiny findDestiny(Perfil p, Destiny d){
+		var perfil = findPerfil(p)
+		var destino = perfil.destinys.findFirst[it.nombre == d.nombre]
+		destino
+		
+		
+	}
+	
+	def addComment(Perfil p, Destiny d, Comment c){
+		var perfil = findPerfil(p)
+		var destino = findDestiny(perfil,d)
+		perfil.removeDestino(destino)
+		destino.add(c)
+		perfil.add(destino)
+		perfilHome.update(perfil)
+		
+	} 
+	
+	def Comment findComment(Destiny d, Comment c){
+		var comentario = d.comments.findFirst[it.description == c.description]
+		comentario
+	}
 	
 	def updatePerfil(Perfil p){
 		perfilHome.update(p)

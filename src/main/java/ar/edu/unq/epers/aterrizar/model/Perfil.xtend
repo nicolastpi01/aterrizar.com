@@ -29,4 +29,8 @@ class Perfil {
 		destinys.add(d)
 	}
 	
+	def removeDestino(Destiny d){
+		this.destinys.remove(d)
+	}
+	
 }

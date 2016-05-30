@@ -11,6 +11,8 @@ class Destiny {
 	@JsonProperty("_id")
 	String id
 	String nombre;
+	int like = 0
+	int dislike = 0
 	
 	ArrayList<Comment> comments
 	Visibility visibility
@@ -18,4 +20,8 @@ class Destiny {
 	new() {
 	}
 	
+	
+	def add(Comment c){
+		comments.add(c)
+	}
 }

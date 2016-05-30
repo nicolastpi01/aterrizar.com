@@ -1,18 +1,17 @@
 package ar.edu.unq.epers.mongoDB
 
-
+import ar.edu.unq.epers.aterrizar.home.Collection
+import ar.edu.unq.epers.aterrizar.model.Comment
 import ar.edu.unq.epers.aterrizar.model.Destiny
 import ar.edu.unq.epers.aterrizar.model.Perfil
 import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.model.Visibility
-import ar.edu.unq.epers.aterrizar.servicios.DestinyService
 import ar.edu.unq.epers.aterrizar.servicios.DocumentsServiceRunner
-import org.junit.After
-import org.junit.Before
 import ar.edu.unq.epers.aterrizar.servicios.PerfilService
-import ar.edu.unq.epers.aterrizar.home.Collection
-import org.junit.Test
+import org.junit.After
 import org.junit.Assert
+import org.junit.Before
+import org.junit.Test
 
 class PerfilServiceTest {
 	
@@ -31,10 +30,13 @@ class PerfilServiceTest {
 	
 	Perfil perfil
 	
+	Comment comentario
 	
 	
 	@Before
 	def void setUp() {
+		
+		
 		destinoMarDelPlata = new Destiny => [
 			comments = newArrayList
 			visibility = Visibility.PUBLICO
@@ -53,6 +55,14 @@ class PerfilServiceTest {
 			//Recordar: los id no se inicializan para mongoDB
 //			id = "unId"
 			destinys = newArrayList
+		]
+		
+		
+		
+		comentario = new Comment => [
+			description = "me gusta"
+			visibility = Visibility.PUBLICO 
+			
 		]
 	}
 	
@@ -81,10 +91,22 @@ class PerfilServiceTest {
 		Assert.assertEquals(p.destinys.get(0).nombre, "Mar del Plata")
 	}
 	
-	
-	
-
-
+	@Test
+	def void agregarComentario(){
+		service.insertPerfil(perfil)
+		var p = service.findPerfil(perfil)
+		service.addDestiny(p, destinoMarDelPlata)
+		
+		
+		service.addComment(p,  destinoMarDelPlata,  comentario)
+		
+		var unPerfil = service.findPerfil(p)
+		var unDestino = service.findDestiny(p, destinoMarDelPlata)
+		var comentario = service.findComment(unDestino, comentario)
+		
+		Assert.assertEquals(comentario.description, null)
+		
+	}
 
 
 	
