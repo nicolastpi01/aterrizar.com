@@ -5,8 +5,6 @@ import com.mongodb.MongoClient
 import java.net.UnknownHostException
 import org.mongojack.JacksonDBCollection
 
-import ar.edu.unq.epers.aterrizar.home.Collection
-
 class DocumentsServiceRunner {
 	static DocumentsServiceRunner INSTANCE;
 	MongoClient mongoClient;
