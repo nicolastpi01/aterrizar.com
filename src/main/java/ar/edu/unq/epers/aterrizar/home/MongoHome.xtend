@@ -6,6 +6,8 @@ import org.mongojack.DBQuery.Query
 import org.mongojack.JacksonDBCollection
 import org.mongojack.MapReduce
 import ar.edu.unq.epers.aterrizar.servicios.Aggregation
+import com.mongodb.DBObject
+import org.mongojack.DBQuery
 
 class MongoHome<T> {
 	private JacksonDBCollection<T, String> mongoCollection
@@ -29,7 +31,7 @@ class MongoHome<T> {
     }
     
     def update(Query queryObject, T object) {
-    	return mongoCollection.update(queryObject, object);
+    	return mongoCollection.update(queryObject, object, true, false)
     }
     
     def List<T> find(Aggregation<T> aggregation) {
