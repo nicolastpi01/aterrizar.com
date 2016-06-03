@@ -63,6 +63,15 @@ class SocialNetworkingService {
 			home.sendMsj(sender, receiver, msj)
 		]
 	}
+	
+	def theyAreFriends(Usuario miUser, Usuario anotherUser) {
+		var bool_friends = false
+		var my_friends = this.friends(miUser)
+		for(Usuario u : my_friends) {
+			bool_friends = bool_friends || u.id == anotherUser.id
+		}
+			bool_friends
+	}
 
 	def getSender(String nombreUsuario) {
 		GraphServiceRunner::run[
