@@ -31,10 +31,6 @@ class SocialNetworkingHome {
 		DynamicLabel.label("User")
 	}
 	
-	private def msjLabel() {
-		DynamicLabel.label("Message")
-	}
-	
 	def eliminarNodo(Usuario usuario) {
 		val nodo = this.getNodo(usuario)
 		nodo.relationships.forEach[delete]
@@ -42,37 +38,21 @@ class SocialNetworkingHome {
 	}
 	
 	def crearNodo(Usuario usuario) {
-		var node = this.graph.createNode(userLabel)
+		val node = this.graph.createNode(userLabel)
 		node.setProperty("nombreDeUsuario", usuario.nombreDeUsuario)
-		//node.setProperty("nombreYApellido", usuario.nombreYApellido)
-		//node.setProperty("email", usuario.email)
-		//node.setProperty("contrasenia", usuario.contrasenia)
-		//node.setProperty("nacimiento", usuario.nacimiento)
-		//node.setProperty("validado", usuario.validado)
-	}
-	
-	def crearNodo(Message msj){
-		var node = this.graph.createNode(msjLabel)
-		node.setProperty("descripcion", msj.descripcion)
-		node.setProperty("id", msj.id)
-		node
-		
+		node.setProperty("nombreYApellido", usuario.nombreYApellido)
+		node.setProperty("email", usuario.email)
+		node.setProperty("contrasenia", usuario.contrasenia)
+		node.setProperty("nacimiento", usuario.nacimiento)
+		node.setProperty("validado", usuario.validado)
 	}
 	
 	def getNodo(Usuario usuario) {
-		this.getNodoUsuario(usuario.nombreDeUsuario)
+		this.getNodo(usuario.nombreDeUsuario)
 	}
 	
-	def getNodo(Message msj) {
-		this.getNodoMsj(msj.id)
-	}
-	
-	def getNodoUsuario(String nombreUsuario) {
-		this.graph.findNodes(userLabel, "nombreDeUsuario", nombreUsuario).head
-	}
-	
-	def getNodoMsj(String id) {
-		this.graph.findNodes(msjLabel, "id", id).head
+	def getNodo(String nombreUsuario) {
+		this.graph.findNodes(userLabel, "nombreUsuario", nombreUsuario).head
 	}
 	
 	def relacionar(Usuario usuario0, Usuario usuario1, TipoDeRelaciones relacion) {
@@ -87,8 +67,8 @@ class SocialNetworkingHome {
 	// Total
 	def getFriends(Usuario usuario) {
 		val nodoUsuario = this.getNodo(usuario)
-		val nodoAmigos = this.nodosRelacionados(nodoUsuario, TipoDeRelaciones.AMIGO, Direction.BOTH)
-		//OUTGOING INCOMING
+		val nodoAmigos = this.nodosRelacionados(nodoUsuario, TipoDeRelaciones.AMIGO, Direction.OUTGOING)
+		//INCOMING
 		return nodoAmigos.map[toUsuario].toSet
 	}
 	/* 
@@ -105,11 +85,11 @@ class SocialNetworkingHome {
 	private def toUsuario(Node nodo) {
 		new Usuario => [
 			nombreDeUsuario = nodo.getProperty("nombreDeUsuario") as String
-			//nombreYApellido = nodo.getProperty("nombreYApellido") as String
-			//email = nodo.getProperty("email") as String
-			//contrasenia = nodo.getProperty("contrasenia") as String
-			//nacimiento = nodo.getProperty("nacimiento") as Date
-			//validado = nodo.getProperty("validado") as Boolean
+			nombreYApellido = nodo.getProperty("nombreYApellido") as String
+			email = nodo.getProperty("email") as String
+			contrasenia = nodo.getProperty("contrasenia") as String
+			nacimiento = nodo.getProperty("nacimiento") as Date
+			validado = nodo.getProperty("validado") as Boolean
 		]
 	}
 	
@@ -124,13 +104,10 @@ class SocialNetworkingHome {
 		/*
 		 * if no existe la relacion la creo, indistintamente se agrega el mensaje
 		 */
-		 
-		var nodoMensaje = this.crearNodo(msj)
-		val nodo1 = this.getNodo(sender)
-		val nodo2 = this.getNodo(receiver)
-		//val nodo3 = this.getNodo(msj)
-		nodoMensaje.createRelationshipTo(nodo1, TipoDeRelaciones.SENDER)
-		nodoMensaje.createRelationshipTo(nodo2, TipoDeRelaciones.RECEIVER)
+		val nodo1 = this.getNodo(sender);
+		val nodo2 = this.getNodo(receiver);
+		var relationship = nodo1.createRelationshipTo(nodo2, TipoDeRelaciones.SENDERMSJ)
+		relationship.setProperty("msjs", "un nuevo mensaje de sender")
 		return null
 	}	
 	
@@ -143,30 +120,6 @@ class SocialNetworkingHome {
             .traverse(n)
             .nodes()
 	        .map[it.getProperty("nombreDeUsuario") as String].toSet
-	}
-		
-
- 		
-	def getMensajeDestinatario(String userName){
-		val nodoPersona = this.getNodoUsuario(userName)
-		val nodoDestinatarios = this.nodosRelacionados(nodoPersona, TipoDeRelaciones.RECEIVER, Direction.INCOMING)
-		nodoDestinatarios.map[toMensaje(it)].toSet
-	}
-	
-	def getMensajeRemitente(String userName){
-		val nodoPersona = this.getNodoUsuario(userName)
-		val nodoRemitentes = this.nodosRelacionados(nodoPersona, TipoDeRelaciones.SENDER, Direction.INCOMING)
-		nodoRemitentes.map[toMensaje(it)].toSet
-	}
-	
-	
-	private def toMensaje(Node nodo){
-		new Message() => [
-			descripcion = nodo.getProperty("descripcion") as String
-			receiver = nodo.getRelationships(TipoDeRelaciones.RECEIVER,Direction.INCOMING).head as Usuario
-			sender = nodo.getRelationships(TipoDeRelaciones.SENDER,Direction.INCOMING).head as Usuario
-			id = nodo.getProperty("id") as String
-		]
 	}
 		
 }

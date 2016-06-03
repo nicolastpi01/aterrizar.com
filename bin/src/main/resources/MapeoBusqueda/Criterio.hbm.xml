@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="ar.edu.unq.epers.aterrizar.BusquedaHql.Criterio" table="criterio" abstract="true">
+        <id name="id" column="id" type="integer">
+            <generator class="identity"/>
+        </id>
+
+
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioCompuesto" table="criterioCompuesto">
+            <key column="criterioCompuesto_id"></key>
+        </joined-subclass>
+
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioVacio" table="criterioVacio">
+            <key column="criterioVacio_id"></key>
+        </joined-subclass>
+
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioPorAerolinea"
+                         table="criterioPorAerolinea">
+            <key column="criterioPorAerolinea_id"></key>
+        </joined-subclass>
+
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioPorCategoriaDeAsiento"
+                         table="criterioPorCategoriaDeAsiento">
+            <key column="criterioPorCategoriaDeAsiento_id"></key>
+        </joined-subclass>
+
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioPorFechaDeSalida"
+                         table="criterioPorFechaDeSalida">
+            <key column="criterioPorFechaDeSalida_id"></key>
+        </joined-subclass>
+
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioPorFechaDeLlegada"
+                         table="criterioPorFechaDeLlegada">
+            <key column="criterioPorFechaDeLlegada_id"></key>
+        </joined-subclass>
+
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioPorOrigen" table="criterioPorOrigen">
+            <key column="criterioPorOrigen_id"></key>
+        </joined-subclass>
+
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.BusquedaHql.CriterioPorDestino" table="criterioPorDestino">
+            <key column="criterioPorDestino_id"></key>
+        </joined-subclass>
+    </class>
+</hibernate-mapping>

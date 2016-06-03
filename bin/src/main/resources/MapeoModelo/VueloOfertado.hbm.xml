@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="ar.edu.unq.epers.aterrizar.model.VueloOfertado" table="vueloOfertado">
+        <id column="id" name="id" type="integer">
+            <generator class="identity"/>
+        </id>
+        <property column="precioBase" generated="never" lazy="false" length="45" name="precioBase" type="int"/>
+        <property column="cantidadTramos" generated="never" lazy="false" length="45" name="cantidadTramos" type="int"/>
+        <property column="duracion" generated="never" lazy="false" length="45" name="duracion" type="long"/>
+
+
+
+        <bag fetch="select" lazy="false" name="tramos" table="u" cascade="all">
+            <key>
+                <column name="vuelo_tramo_id" not-null="false"/>
+            </key>
+
+            <one-to-many  class="ar.edu.unq.epers.aterrizar.model.Tramo"/>
+        </bag>
+
+    </class>
+
+</hibernate-mapping>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="ar.edu.unq.epers.aterrizar.model.Aerolinea" table="aerolinea">
+        <id column="id" name="id" type="integer">
+            <generator class="identity"/>
+        </id>
+
+        <property column="nombre" generated="never" lazy="false" length="45" name="nombre" type="string"/>
+
+        <bag fetch="select" lazy="true" name="vuelosOfertados" table="vuelosOfertados" cascade="all">
+            <key>
+                <column name="aerolinea_id" not-null="false"/>
+            </key>
+            <one-to-many class="ar.edu.unq.epers.aterrizar.model.VueloOfertado"/>
+        </bag>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="ar.edu.unq.epers.aterrizar.BusquedaHql.Orden" table="orden" abstract="true" lazy="true">
+        <id name="id" column="id" type="integer">
+            <generator class="identity"/>
+        </id>
+
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.BusquedaHql.OrdenVacio" table="ordenVacio">
+            <key column="ordenVacio_id"></key>
+        </joined-subclass>
+
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.BusquedaHql.MenorCosto" table="MenorCosto">
+            <key column="MenorCosto_id"></key>
+        </joined-subclass>
+
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.BusquedaHql.MenorDuracion" table="MenorDuracion">
+            <key column="MenorDuracion_id"></key>
+        </joined-subclass>
+
+        <joined-subclass name="ar.edu.unq.epers.aterrizar.BusquedaHql.MenorCantidadDeEscalas" table="MenorCantidadDeEscalas">
+            <key column="MenorCantidadDeEscalas_id"></key>
+        </joined-subclass>
+
+    </class>
+</hibernate-mapping>
