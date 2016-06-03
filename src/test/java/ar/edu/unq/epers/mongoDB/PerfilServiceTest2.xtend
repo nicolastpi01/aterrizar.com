@@ -65,7 +65,7 @@ class PerfilServiceTest2 {
 		
 	}
 	
-	
+	/*
 	@Test 
 	def void agregarUnPerfil(){
 		service.insertPerfil(perfil)
@@ -76,6 +76,8 @@ class PerfilServiceTest2 {
 		
 		
 	}
+	* 
+	*/
 	/*
 	@Test
 	def void agregarUnDestino(){
