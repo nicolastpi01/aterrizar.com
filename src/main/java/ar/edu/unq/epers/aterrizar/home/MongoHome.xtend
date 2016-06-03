@@ -16,6 +16,10 @@ class MongoHome<T> {
 		this.entityType = entityType
 	}
 	
+	new(JacksonDBCollection<T, String> collection){
+		this.mongoCollection = collection
+	}
+	
 	def insert(T object){
 		return mongoCollection.insert(object);
     }
@@ -68,4 +72,10 @@ class MongoHome<T> {
 	def getMongoCollection() {
 		return mongoCollection;
 	}
+	
+	 def update(T object){
+    //	mongoCollection.remove(object as DBObject);
+//    	var objeto = this.find(object)
+		return mongoCollection.save(object);
+    }
 }

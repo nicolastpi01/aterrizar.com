@@ -4,8 +4,7 @@ import com.mongodb.DB
 import com.mongodb.MongoClient
 import java.net.UnknownHostException
 import org.mongojack.JacksonDBCollection
-
-import ar.edu.unq.epers.aterrizar.home.Collection
+import ar.edu.unq.epers.aterrizar.home.MongoHome
 
 class DocumentsServiceRunner {
 	static DocumentsServiceRunner INSTANCE;
@@ -28,8 +27,8 @@ class DocumentsServiceRunner {
 		db = mongoClient.getDB("admin");
 	}
 	
-	def <T> Collection<T> collection(Class<T> entityType){
+	def <T> MongoHome<T> collection(Class<T> entityType){
 		val dbCollection = db.getCollection(entityType.getSimpleName());
-		new Collection<T>(JacksonDBCollection.wrap(dbCollection, entityType, String));
+		new MongoHome<T>(JacksonDBCollection.wrap(dbCollection, entityType, String));
 	}
 }
