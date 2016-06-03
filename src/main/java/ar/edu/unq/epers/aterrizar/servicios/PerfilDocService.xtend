@@ -17,13 +17,6 @@ class PerfilDocService {
 		commentHome = c
 	}
 	
-	
-	
-
-	new(MongoHome<PerfilDocument> commentHome) {
-		this.commentHome = commentHome
-	}
-	
 
 	def void addDestiny(Usuario u, Destiny d) {
 		var perfildoc = new PerfilDocument(u.nombreDeUsuario, d)
