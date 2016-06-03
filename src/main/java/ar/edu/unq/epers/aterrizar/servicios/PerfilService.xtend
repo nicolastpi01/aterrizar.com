@@ -23,35 +23,45 @@ class PerfilService {
 	}
 	
 	def addDestiny(Perfil p, Destiny d) {
-			
-		p.add(d)
-		updatePerfil(p)
+		var perfil = findPerfil(p)
+		perfil.add(d)
+		updatePerfil(perfil)
 	}
+	
 	
 		def insertPerfil(Perfil p) {
 		perfilHome.insert(p)
 	}
 	
 	def Destiny findDestiny(Perfil p, Destiny d){
-		var perfil = findPerfil(p)
-		var destino = perfil.destinys.findFirst[it.nombre == d.nombre]
+		//var destinos = perfilHome.find(DBQuery.is("_id", d.id))
+	    var perfil = findPerfil(p)
+		var destino = perfil.destinys.findLast[it.nombre == d.nombre]
 		destino
 		
 		
 	}
 	
+	
+	
 	def addComment(Perfil p, Destiny d, Comment c){
 		var perfil = findPerfil(p)
-		var destino = findDestiny(perfil,d)
-		perfil.removeDestino(destino)
-		destino.add(c)
-		perfil.add(destino)
-		perfilHome.update(perfil)
+		var destiny = findDestiny(perfil, d)
+		destiny.add(c)
+		//p.removeDestino(d)
+		//d.add(c)
+		//p.add(d)
+		//perfilHome.update(p)
+		
+		perfil.add(destiny)
+		updatePerfil(perfil)
 		
 	} 
 	
-	def Comment findComment(Destiny d, Comment c){
-		var comentario = d.comments.findFirst[it.description == c.description]
+	def Comment findComment(Perfil p, Destiny d, Comment c){
+		var perfil= this.findPerfil(p) 
+		var destiny = this.findDestiny(perfil, d)
+		var comentario = destiny.comments.findLast[it.description == c.description]
 		comentario
 	}
 	

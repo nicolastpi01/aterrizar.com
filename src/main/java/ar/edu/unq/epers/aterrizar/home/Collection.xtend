@@ -4,6 +4,7 @@ import org.mongojack.JacksonDBCollection
 import java.util.List
 import org.mongojack.DBQuery.Query
 import org.mongojack.MapReduce
+import com.mongodb.DBObject
 
 class Collection<T> {
 	private JacksonDBCollection<T, String> mongoCollection;
@@ -21,6 +22,8 @@ class Collection<T> {
     }
     
     def update(T object){
+    //	mongoCollection.remove(object as DBObject);
+//    	var objeto = this.find(object)
 		return mongoCollection.save(object);
     }
     

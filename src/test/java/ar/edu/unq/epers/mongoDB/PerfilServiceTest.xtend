@@ -59,11 +59,12 @@ class PerfilServiceTest {
 		
 		
 		
-		comentario = new Comment => [
+		 comentario = new Comment => [
 			description = "me gusta"
 			visibility = Visibility.PUBLICO 
 			
 		]
+		
 	}
 	
 	
@@ -96,15 +97,24 @@ class PerfilServiceTest {
 		service.insertPerfil(perfil)
 		var p = service.findPerfil(perfil)
 		service.addDestiny(p, destinoMarDelPlata)
+		service.addDestiny(p, destinoMarDelPlata)
 		
 		
-		service.addComment(p,  destinoMarDelPlata,  comentario)
+		
 		
 		var unPerfil = service.findPerfil(p)
-		var unDestino = service.findDestiny(p, destinoMarDelPlata)
-		var comentario = service.findComment(unDestino, comentario)
+		var unDestino = service.findDestiny(perfil, destinoMarDelPlata)
 		
-		Assert.assertEquals(comentario.description, null)
+		service.addComment(perfil, destinoMarDelPlata, comentario)
+		
+		
+		var comentario = service.findComment(perfil, destinoMarDelPlata, comentario)
+		
+		var destinoConComentario = service.findDestiny(perfil, destinoMarDelPlata)
+		
+		
+		Assert.assertEquals(comentario.description, "me gusta")
+		Assert.assertEquals(destinoConComentario.comments.size, 1)
 		
 	}
 
