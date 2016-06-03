@@ -40,6 +40,7 @@ class PerfilDocService {
 		commentHome.update(query, perfil_doc)
 	}
 	
+	//falta testear
 	def void addDislike(Usuario u, Destiny d) {
 		val perfil_documents = commentHome.find(DBQuery.is("username", u.nombreDeUsuario)).and (DBQuery.is("destiny.nombre", d.nombre))
 		var perfil_doc = new PerfilDocument(u.nombreDeUsuario, d)
