@@ -39,22 +39,18 @@ class PerfilDocService {
 		// el update deberia actualizar todos los perfilDocuments con usuario y destino igual a los parametros
 		commentHome.update(query, perfildoc)
 	}
-	/* 
-	def verPerfil(Usuario yo, Usuario aVer){
-		val homeComentario = SistemDB.instance().collection(Comentario);
-		var servicioAmigos= new ServicioAmigos
-		if(yo.userName.equals(aVer.userName)){ 
-			return homeComentario.mongoCollection.find(DBQuery.is("nombreUsuario", yo.userName) )	
+	
+	def verPerfil(Usuario mi_usuario, Usuario a_stalkear) { 
+		var socialService = new SocialNetworkingService()
+		if(mi_usuario.nombreDeUsuario.equals(a_stalkear.nombreDeUsuario)) { 
+			return commentHome.find(DBQuery.is("username", mi_usuario.nombreDeUsuario))	
 	    }
-		if(servicioAmigos.esAmigoDe(yo, aVer)){
-			return homeComentario.mongoCollection.find(DBQuery.in("visibilidad", Visibilidad.PUBLICO,Visibilidad.SOLO_AMIGOS).and (DBQuery.is("nombreUsuario", aVer.userName)))
+		if(socialService.theyAreFriends(mi_usuario, a_stalkear)) {
+			return commentHome.find(DBQuery.in("visibility", Visibility.PUBLICO, Visibility.AMIGOS).and (DBQuery.is("username", a_stalkear.nombreDeUsuario)))
 			
 		}
-		if (!servicioAmigos.esAmigoDe(yo, aVer)){
-			return homeComentario.mongoCollection.find(DBQuery.is("visibilidad", Visibilidad.PUBLICO)).and (DBQuery.is("nombreUsuario", aVer.userName))
-			
-		}
-		
-	}*/
-
+		if(!socialService.theyAreFriends(mi_usuario, a_stalkear)) {
+			return commentHome.find(DBQuery.is("visibility", Visibility.PUBLICO)).and (DBQuery.is("username", a_stalkear.nombreDeUsuario))	
+		}	
+	}
 }
