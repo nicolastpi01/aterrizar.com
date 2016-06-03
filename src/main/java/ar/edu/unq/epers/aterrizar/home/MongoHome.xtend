@@ -75,9 +75,4 @@ class MongoHome<T> {
 		return mongoCollection;
 	}
 	
-	 def update(T object){
-    //	mongoCollection.remove(object as DBObject);
-//    	var objeto = this.find(object)
-		return mongoCollection.save(object);
-    }
 }
