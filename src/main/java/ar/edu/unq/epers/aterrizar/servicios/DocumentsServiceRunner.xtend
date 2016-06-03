@@ -29,6 +29,10 @@ class DocumentsServiceRunner {
 	
 	def <T> MongoHome<T> collection(Class<T> entityType){
 		val dbCollection = db.getCollection(entityType.getSimpleName());
+<<<<<<< HEAD
 		new MongoHome<T>(JacksonDBCollection.wrap(dbCollection, entityType, String));
+=======
+		new MongoHome<T>(JacksonDBCollection.wrap(dbCollection, entityType, String), entityType);
+>>>>>>> 7bd2fe9e4c4a270db0b8254479beff8115aeef20
 	}
 }
