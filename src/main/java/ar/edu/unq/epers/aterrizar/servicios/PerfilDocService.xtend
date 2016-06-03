@@ -17,7 +17,6 @@ class PerfilDocService {
 		commentHome = c
 	}
 	
-
 	def void addDestiny(Usuario u, Destiny d) {
 		var perfildoc = new PerfilDocument(u.nombreDeUsuario, d)
 		commentHome.insert(perfildoc)
@@ -41,7 +40,7 @@ class PerfilDocService {
 		commentHome.update(query, perfil_doc)
 	}
 	
-	//falta testear
+	
 	def void addDislike(Usuario u, Destiny d) {
 		val perfil_documents = commentHome.find(DBQuery.is("username", u.nombreDeUsuario)).and (DBQuery.is("destiny.nombre", d.nombre))
 		var perfil_doc = new PerfilDocument(u.nombreDeUsuario, d)
@@ -98,11 +97,6 @@ class PerfilDocService {
 			return commentHome.find(DBQuery.is("visibility", Visibility.PUBLICO)).and (DBQuery.is("username", a_stalkear.nombreDeUsuario))	
 		}	
 	}
-
-	
-	
-
-	
 	
 }
 				

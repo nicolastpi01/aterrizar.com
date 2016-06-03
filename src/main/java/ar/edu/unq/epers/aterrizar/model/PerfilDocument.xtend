@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 @Accessors
 class PerfilDocument {
 	
+	
 	@ObjectId
 	@JsonProperty("_id")
 	public String username
@@ -20,7 +21,8 @@ class PerfilDocument {
 	String id
 	
 	
-	new(String username,  Destiny destiny) {
+	
+	new(String username, Destiny destiny) {
 		this.username = username
 		this.destiny = destiny
 		this.comments = new ArrayList();

@@ -50,8 +50,8 @@ class PerfilDocServiceTest {
 		//Assert.assertEquals(perfilDoc.destiny.nombre,"Mar del plata");	
 	}
 	
-	
 	/* 
+	 
 	// happy road
 	@Test
 	def void addComment_No_user_and_destiny_in_mongobd_Test() {
@@ -117,6 +117,20 @@ class PerfilDocServiceTest {
 		Assert.assertEquals(perfilDoc_pepe_mardel_4like.likes, 4)
 	}
 	
+	@Test
+	def void addDislikeTest() {
+		service.addDislike(usuario_pepe, marDelPlata_destiny)
+		val perfil_documents_si_pepe_si_mardel_1dislike = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
+		Assert.assertEquals(perfil_documents_si_pepe_si_mardel_1dislike.size(), 1)
+		var perfilDoc_pepe_mardel_1dislike = perfil_documents_si_pepe_si_mardel_1dislike.get(0)
+		Assert.assertEquals(perfilDoc_pepe_mardel_1dislike.likes, 1)
+		service.addDislike(usuario_pepe, marDelPlata_destiny)
+		val perfil_documents_si_pepe_si_mardel_2dislike = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
+		Assert.assertEquals(perfil_documents_si_pepe_si_mardel_2dislike.size(), 1)
+		var perfilDoc_pepe_mardel_2dislike = perfil_documents_si_pepe_si_mardel_2dislike.get(0)
+		Assert.assertEquals(perfilDoc_pepe_mardel_2dislike.likes, 2)
+	}  
+	 
 	@Test
 	//happy road
 	def void addVisibility_No_User_and_Destiny_in_mongodb_Test() {
