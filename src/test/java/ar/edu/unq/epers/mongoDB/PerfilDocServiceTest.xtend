@@ -20,7 +20,9 @@ class PerfilDocServiceTest {
 	Usuario usuario_luis
 	Destiny marDelPlata_destiny
 	Destiny cancun_destiny
+	Destiny bariloche_destiny
 	SocialNetworkingService networkService
+	
 	
 	@Before
 	def void setUp() {
@@ -34,6 +36,8 @@ class PerfilDocServiceTest {
 		marDelPlata_destiny.nombre = "Mar del plata"
 		cancun_destiny = new Destiny()
 		cancun_destiny.nombre = "cancun"
+		bariloche_destiny = new Destiny()
+		bariloche_destiny.nombre = "bariloche"
 	}
 	
 	@Test
@@ -191,8 +195,20 @@ class PerfilDocServiceTest {
 		val perfil_documents_luis_no_amigos = service.stalkear(usuario_pepe, usuario_luis)
 		Assert.assertEquals(perfil_documents_luis_no_amigos.size, 1)
 	}
-	*/
 	
+	
+	@Test
+	def void stalkear_yes_friend() {
+		val perfil_documents_luis_yes_amigos_no_documents = service.stalkear(usuario_pepe, usuario_luis)
+		Assert.assertEquals(perfil_documents_luis_yes_amigos_no_documents.size, 0)
+		service.addVisibility(usuario_luis, marDelPlata_destiny, Visibility.AMIGOS)
+		service.addVisibility(usuario_luis, cancun_destiny, Visibility.PRIVADO)
+		service.addVisibility(usuario_luis, cancun_destiny, Visibility.PUBLICO)
+		service.addVisibility(usuario_luis, bariloche_destiny, Visibility.AMIGOS)
+		val perfil_documents_luis_yes_amigos = service.stalkear(usuario_pepe, usuario_luis)
+		Assert.assertEquals(perfil_documents_luis_yes_amigos.size, 3)
+	}
+	*/
 	@After
 	def void cleanDB(){
 		home.mongoCollection.drop

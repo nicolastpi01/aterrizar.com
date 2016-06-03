@@ -89,39 +89,10 @@ class PerfilDocService {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	 
-
- 
-	def verPerfil(Usuario mi_usuario, Usuario a_stalkear) { 
+	def stalkear(Usuario mi_usuario, Usuario a_stalkear) { 
 		var socialService = new SocialNetworkingService()
-		if(mi_usuario.nombreDeUsuario.equals(a_stalkear.nombreDeUsuario)) { 
-			return commentHome.find(DBQuery.is("username", mi_usuario.nombreDeUsuario))	
-	    }
 		if(socialService.theyAreFriends(mi_usuario, a_stalkear)) {
-			return commentHome.find(DBQuery.in("visibility", Visibility.PUBLICO, Visibility.AMIGOS).and (DBQuery.is("username", a_stalkear.nombreDeUsuario)))
-			
+			return commentHome.find(DBQuery.in("visibility", Visibility.PUBLICO, Visibility.AMIGOS).and (DBQuery.is("username", a_stalkear.nombreDeUsuario)))			
 		}
 		if(!socialService.theyAreFriends(mi_usuario, a_stalkear)) {
 			return commentHome.find(DBQuery.is("visibility", Visibility.PUBLICO)).and (DBQuery.is("username", a_stalkear.nombreDeUsuario))	
