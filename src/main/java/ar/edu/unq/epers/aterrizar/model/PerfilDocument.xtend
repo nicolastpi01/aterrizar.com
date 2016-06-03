@@ -11,8 +11,8 @@ class PerfilDocument {
 	private String username
 	private Destiny destiny
 	private List<Comment> comments
-	private int like
-	private int dislike
+	private int likes
+	private int dislikes
 	private Visibility visibility
 	@ObjectId
 	@JsonProperty("_id")
@@ -25,6 +25,8 @@ class PerfilDocument {
 		this.username = username
 		this.destiny = destiny
 		this.comments = new ArrayList();
+		this.likes = 0
+		this.dislikes = 0
 	}
 	
 	new(String username,  Destiny destiny, List<Comment> comments) {
@@ -41,11 +43,11 @@ class PerfilDocument {
 	}
 	
 	def void addlike() {
-		like++
+		likes++
 	}
 	
 	def void addDislike() {
-		dislike++
+		dislikes++
 	}
 	
 	def void add(Comment c) {

@@ -72,7 +72,37 @@ class PerfilDocServiceTest {
 		Assert.assertEquals(perfilDoc_3.comments.get(1).description, "en Iguazu")	
 	}
 	
+	//happy road
+	@Test
+	def void addlike_No_User_and_Destiny_in_mongodb_Test() {
+		service.addlike(usuario_pepe, marDelPlata_destiny)
+		val perfil_documents_si_pepe_si_mardel_1like = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
+		Assert.assertEquals(perfil_documents_si_pepe_si_mardel_1like.size(), 1)
+		var perfilDoc_pepe_mardel_1like = perfil_documents_si_pepe_si_mardel_1like.get(0)
+		Assert.assertEquals(perfilDoc_pepe_mardel_1like.likes, 1)
+	}
 	
+	// hard road
+	@Test
+	def void addlike_yes_User_and_yes_Destiny_in_mongodb_Test() {
+		service.addDestiny(usuario_pepe, marDelPlata_destiny)
+		val perfil_documents_si_pepe_si_mardel_0like = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
+		Assert.assertEquals(perfil_documents_si_pepe_si_mardel_0like.size(), 1)
+		var perfilDoc_pepe_mardel_0like = perfil_documents_si_pepe_si_mardel_0like.get(0)
+		Assert.assertEquals(perfilDoc_pepe_mardel_0like.likes, 0)
+		service.addlike(usuario_pepe, marDelPlata_destiny)
+		val perfil_documents_si_pepe_si_mardel_1like = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
+		Assert.assertEquals(perfil_documents_si_pepe_si_mardel_1like.size(), 1)
+		var perfilDoc_pepe_mardel_1like = perfil_documents_si_pepe_si_mardel_1like.get(0)
+		Assert.assertEquals(perfilDoc_pepe_mardel_1like.likes, 1)
+		service.addlike(usuario_pepe, marDelPlata_destiny)
+		service.addlike(usuario_pepe, marDelPlata_destiny)
+		service.addlike(usuario_pepe, marDelPlata_destiny)
+		val perfil_documents_si_pepe_si_mardel_4like = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
+		Assert.assertEquals(perfil_documents_si_pepe_si_mardel_4like.size(), 1)
+		var perfilDoc_pepe_mardel_4like = perfil_documents_si_pepe_si_mardel_4like.get(0)
+		Assert.assertEquals(perfilDoc_pepe_mardel_4like.likes, 4)
+	}
 	
 	
 	

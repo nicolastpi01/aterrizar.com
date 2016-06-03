@@ -32,14 +32,23 @@ class PerfilDocService {
 	}
 	
 	def void addlike(Usuario u, Destiny d) {
-		var perfildoc = new PerfilDocument(u.nombreDeUsuario, d)
-		perfildoc.addlike
-		//la query debe ver el destino tmb
-		var query = DBQuery.is("username", u.nombreDeUsuario)
-		// el update deberia actualizar todos los perfilDocuments con usuario y destino igual a los parametros
-		//commentHome.update(query, perfildoc)
+		val perfil_documents = commentHome.find(DBQuery.is("username", u.nombreDeUsuario)).and (DBQuery.is("destiny.nombre", d.nombre))
+		var perfil_doc = new PerfilDocument(u.nombreDeUsuario, d)
+		if(perfil_documents.size() != 0) perfil_doc = perfil_documents.get(0) 
+		perfil_doc.addlike
+		var query = DBQuery.is("username", u.nombreDeUsuario).and (DBQuery.is("destiny.nombre", d.nombre))
+		commentHome.update(query, perfil_doc)
 	}
-	/* 
+	
+	def void addDislike(Usuario u, Destiny d) {
+		val perfil_documents = commentHome.find(DBQuery.is("username", u.nombreDeUsuario)).and (DBQuery.is("destiny.nombre", d.nombre))
+		var perfil_doc = new PerfilDocument(u.nombreDeUsuario, d)
+		if(perfil_documents.size() != 0) perfil_doc = perfil_documents.get(0) 
+		perfil_doc.addDislike
+		var query = DBQuery.is("username", u.nombreDeUsuario).and (DBQuery.is("destiny.nombre", d.nombre))
+		commentHome.update(query, perfil_doc)
+	}
+	/*  
 	def void addVisibility(Usuario u,  Destiny d, String comment, Visibility visibility) {
 		var perfildoc = new PerfilDocument(u.nombreDeUsuario, d, comment, visibility)
 		//la query debe ver el destino tmb
@@ -48,6 +57,32 @@ class PerfilDocService {
 		//commentHome.update(query, perfildoc)
 	}
 	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	 
+
+	/* 
 	def verPerfil(Usuario mi_usuario, Usuario a_stalkear) { 
 		var socialService = new SocialNetworkingService()
 		if(mi_usuario.nombreDeUsuario.equals(a_stalkear.nombreDeUsuario)) { 
@@ -61,4 +96,6 @@ class PerfilDocService {
 			return commentHome.find(DBQuery.is("visibility", Visibility.PUBLICO)).and (DBQuery.is("username", a_stalkear.nombreDeUsuario))	
 		}	
 	}
+	*/
+	
 }
