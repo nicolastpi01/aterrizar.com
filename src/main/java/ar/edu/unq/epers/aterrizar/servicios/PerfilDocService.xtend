@@ -1,14 +1,19 @@
 package ar.edu.unq.epers.aterrizar.servicios
-
 import ar.edu.unq.epers.aterrizar.home.MongoHome
 import ar.edu.unq.epers.aterrizar.model.PerfilDocument
-import ar.edu.unq.epers.aterrizar.model.Destiny
 import ar.edu.unq.epers.aterrizar.model.Usuario
+import ar.edu.unq.epers.aterrizar.model.Destiny
 import org.mongojack.DBQuery
 import ar.edu.unq.epers.aterrizar.model.Visibility
 
 class PerfilDocService {
 	MongoHome<PerfilDocument> commentHome
+	
+	new(MongoHome<PerfilDocument> c){
+		commentHome = c
+	}
+	
+	
 	
 	def void addDestiny(Usuario u, Destiny d) {
 		var perfildoc = new PerfilDocument(u.nombreDeUsuario, d)
@@ -53,4 +58,10 @@ class PerfilDocService {
 			return commentHome.find(DBQuery.is("visibility", Visibility.PUBLICO)).and (DBQuery.is("username", a_stalkear.nombreDeUsuario))	
 		}	
 	}
+	
+	
+
+	
+	
 }
+				

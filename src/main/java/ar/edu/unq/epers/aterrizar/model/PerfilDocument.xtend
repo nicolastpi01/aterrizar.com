@@ -1,10 +1,14 @@
 package ar.edu.unq.epers.aterrizar.model
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.mongojack.ObjectId
+import com.fasterxml.jackson.annotation.JsonProperty
 
 @Accessors
 class PerfilDocument {
-	private String username
+	@ObjectId
+	@JsonProperty("_id")
+	public String username
 	private Destiny destiny
 	private String comment
 	private int like
@@ -18,6 +22,7 @@ class PerfilDocument {
 	}
 	
 	new(String username,  Destiny destiny, String comment) {
+		
 		this.username = username
 		this.destiny = destiny
 		this.comment = comment
