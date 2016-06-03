@@ -3,24 +3,24 @@ package ar.edu.unq.epers.aterrizar.model
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
 import java.util.ArrayList
-import org.mongojack.ObjectId
 import com.fasterxml.jackson.annotation.JsonProperty
+import org.mongojack.ObjectId
+import org.mongojack.Id
 
 @Accessors
 class PerfilDocument {
-	
-	
-	@ObjectId
-	@JsonProperty("_id")
-	public String username
+
+	private String username
 	private Destiny destiny
 	private List<Comment> comments
 	private int likes
 	private int dislikes
 	private Visibility visibility
+	@ObjectId
+	@JsonProperty("_id")
 	String id
 	
-	
+	new() {}
 	
 	new(String username, Destiny destiny) {
 		this.username = username

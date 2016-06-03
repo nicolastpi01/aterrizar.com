@@ -12,6 +12,8 @@ import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.model.Destiny
 import org.mongojack.DBQuery
 import ar.edu.unq.epers.aterrizar.servicios.SocialNetworkingService
+import ar.edu.unq.epers.aterrizar.model.Comment
+import ar.edu.unq.epers.aterrizar.model.Visibility
 
 class PerfilDocServiceTest {
 	PerfilDocService service
@@ -43,14 +45,12 @@ class PerfilDocServiceTest {
 	@Test
 	def void addDestinyTest() {
 		service.addDestiny(usuario_pepe, marDelPlata_destiny)
-		//val perfil_documents = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
-		//Assert.assertEquals(perfil_documents.size(), 1)
-		//var perfilDoc = perfil_documents.get(0)
-		//Assert.assertEquals(perfilDoc.username, "pepe")
-		//Assert.assertEquals(perfilDoc.destiny.nombre,"Mar del plata");	
+		val perfil_documents = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
+		Assert.assertEquals(perfil_documents.size, 1)
+		var perfilDoc = perfil_documents.get(0)
+		Assert.assertEquals(perfilDoc.username, "pepe")
+		Assert.assertEquals(perfilDoc.destiny.nombre,"Mar del plata");	
 	}
-	
-	/* 
 	 
 	// happy road
 	@Test
@@ -64,7 +64,7 @@ class PerfilDocServiceTest {
 		var perfilDoc = perfil_documents_si_mardel.get(0)
 		Assert.assertEquals(perfilDoc.comments.get(0).description, "en mardel")
 	}
-	
+	 
 	// hard road
 	@Test
 	def void addComment_yes_user_and_destiny_in_mongobd_Test() {
@@ -84,7 +84,7 @@ class PerfilDocServiceTest {
 		var perfilDoc_3 = perfil_documents_si_mardel_si_Iguazu.get(0)
 		Assert.assertEquals(perfilDoc_3.comments.get(1).description, "en Iguazu")	
 	}
-	
+	 
 	//happy road
 	@Test
 	def void addlike_No_User_and_Destiny_in_mongodb_Test() {
@@ -94,7 +94,7 @@ class PerfilDocServiceTest {
 		var perfilDoc_pepe_mardel_1like = perfil_documents_si_pepe_si_mardel_1like.get(0)
 		Assert.assertEquals(perfilDoc_pepe_mardel_1like.likes, 1)
 	}
-	
+	 
 	// hard road
 	@Test
 	def void addlike_yes_User_and_yes_Destiny_in_mongodb_Test() {
@@ -123,14 +123,14 @@ class PerfilDocServiceTest {
 		val perfil_documents_si_pepe_si_mardel_1dislike = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
 		Assert.assertEquals(perfil_documents_si_pepe_si_mardel_1dislike.size(), 1)
 		var perfilDoc_pepe_mardel_1dislike = perfil_documents_si_pepe_si_mardel_1dislike.get(0)
-		Assert.assertEquals(perfilDoc_pepe_mardel_1dislike.likes, 1)
+		Assert.assertEquals(perfilDoc_pepe_mardel_1dislike.dislikes, 1)
 		service.addDislike(usuario_pepe, marDelPlata_destiny)
 		val perfil_documents_si_pepe_si_mardel_2dislike = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
 		Assert.assertEquals(perfil_documents_si_pepe_si_mardel_2dislike.size(), 1)
 		var perfilDoc_pepe_mardel_2dislike = perfil_documents_si_pepe_si_mardel_2dislike.get(0)
-		Assert.assertEquals(perfilDoc_pepe_mardel_2dislike.likes, 2)
+		Assert.assertEquals(perfilDoc_pepe_mardel_2dislike.dislikes, 2)
 	}  
-	 
+	  
 	@Test
 	//happy road
 	def void addVisibility_No_User_and_Destiny_in_mongodb_Test() {
@@ -144,7 +144,7 @@ class PerfilDocServiceTest {
 		Assert.assertNotEquals(perfilDoc_pepe_mardel_amigos.visibility.toString, "PUBLICO")
 		Assert.assertNotEquals(perfilDoc_pepe_mardel_amigos.visibility.toString, "PRIVADO")
 	}
-	
+	 
 	@Test
 	//hard road
 	def void addVisibility_yes_User_and_Destiny_in_mongodb_Test() {
@@ -198,7 +198,7 @@ class PerfilDocServiceTest {
 		Assert.assertEquals(perfilDoc_pepe_mardel_con_comment_amigos.comments.get(0).description, "en mardel")
 		Assert.assertEquals(perfilDoc_pepe_mardel_con_comment_amigos.comments.get(0).visibility.toString, "AMIGOS")
 	} 
-	
+	 /* 
 	@Test
 	def void stalkear_No_friend() {
 		val perfil_documents_luis_no_amigos_no_documents = service.stalkear(usuario_pepe, usuario_luis)
@@ -210,7 +210,7 @@ class PerfilDocServiceTest {
 		Assert.assertEquals(perfil_documents_luis_no_amigos.size, 1)
 	}
 	
-	
+	/* 
 	@Test
 	def void stalkear_yes_friend() {
 		val perfil_documents_luis_yes_amigos_no_documents = service.stalkear(usuario_pepe, usuario_luis)
