@@ -12,6 +12,7 @@ import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.model.Destiny
 import org.mongojack.DBQuery
 import ar.edu.unq.epers.aterrizar.model.Comment
+import ar.edu.unq.epers.aterrizar.model.Visibility
 
 class PerfilDocServiceTest {
 	PerfilDocService service
@@ -104,9 +105,35 @@ class PerfilDocServiceTest {
 		Assert.assertEquals(perfilDoc_pepe_mardel_4like.likes, 4)
 	}
 	
+	@Test
+	//happy road
+	def void addVisibility_No_User_and_Destiny_in_mongodb_Test() {
+		val perfil_documents_si_pepe_si_mardel_no_amigos = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata").and (DBQuery.is("visibility", Visibility.AMIGOS)))
+		Assert.assertEquals(perfil_documents_si_pepe_si_mardel_no_amigos.size(), 0)
+		service.addVisibility(usuario_pepe, marDelPlata_destiny, Visibility.AMIGOS)
+		val perfil_documents_si_pepe_si_mardel_si_amigos = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata").and (DBQuery.is("visibility", Visibility.AMIGOS)))
+		Assert.assertEquals(perfil_documents_si_pepe_si_mardel_si_amigos.size(), 1)
+		var perfilDoc_pepe_mardel_amigos = perfil_documents_si_pepe_si_mardel_si_amigos.get(0)
+		Assert.assertEquals(perfilDoc_pepe_mardel_amigos.visibility.toString, "AMIGOS")
+		Assert.assertNotEquals(perfilDoc_pepe_mardel_amigos.visibility.toString, "PUBLICO")
+		Assert.assertNotEquals(perfilDoc_pepe_mardel_amigos.visibility.toString, "PRIVADO")
+	}
 	
-	
-	
+	@Test
+	//hard road
+	def void addVisibility_yes_User_and_Destiny_in_mongodb_Test() {
+		service.addDestiny(usuario_pepe, marDelPlata_destiny)
+		service.addVisibility(usuario_pepe, marDelPlata_destiny, Visibility.AMIGOS)
+		val perfil_documents_si_pepe_si_mardel_si_amigos = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata").and (DBQuery.is("visibility", Visibility.AMIGOS)))
+		Assert.assertEquals(perfil_documents_si_pepe_si_mardel_si_amigos.size(), 1)
+		var perfilDoc_pepe_mardel_amigos = perfil_documents_si_pepe_si_mardel_si_amigos.get(0)
+		Assert.assertEquals(perfilDoc_pepe_mardel_amigos.visibility.toString, "AMIGOS")
+		service.addVisibility(usuario_pepe, marDelPlata_destiny, Visibility.PUBLICO)
+		val perfil_documents_si_pepe_si_mardel_si_publico = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata").and (DBQuery.is("visibility", Visibility.PUBLICO)))
+		Assert.assertEquals(perfil_documents_si_pepe_si_mardel_si_publico.size(), 1)
+		var perfilDoc_pepe_mardel_publico = perfil_documents_si_pepe_si_mardel_si_publico.get(0)
+		Assert.assertEquals(perfilDoc_pepe_mardel_publico.visibility.toString, "PUBLICO")
+	}
 	
 	
 	@After
