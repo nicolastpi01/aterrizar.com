@@ -14,25 +14,25 @@ import org.mongojack.DBQuery
 import ar.edu.unq.epers.aterrizar.servicios.SocialNetworkingService
 import ar.edu.unq.epers.aterrizar.model.Comment
 import ar.edu.unq.epers.aterrizar.model.Visibility
+import ar.edu.unq.epers.neo4j.SocialNetworkingServiceTest
 
 class PerfilDocServiceTest {
 	PerfilDocService service
 	MongoHome<PerfilDocument> home
 	Usuario usuario_pepe
 	Usuario usuario_luis
-	Usuario usuario1
-	Usuario usuario2
 	Destiny marDelPlata_destiny
 	Destiny cancun_destiny
 	Destiny bariloche_destiny
-	SocialNetworkingService networkService
+	SocialNetworkingService socialService
 	
 	
 	@Before
 	def void setUp() {
-		networkService = new SocialNetworkingService
+		
 		home = DocumentsServiceRunner.instance().collection(PerfilDocument)
-		service = new PerfilDocService(home, networkService)
+		socialService = new SocialNetworkingService
+		service = new PerfilDocService(home, socialService)
 		usuario_pepe = new Usuario()
 		usuario_pepe.nombreDeUsuario = "pepe"
 		usuario_luis = new Usuario()
@@ -203,17 +203,20 @@ class PerfilDocServiceTest {
 	} 
 	  
 	@Test
-	def void stalkear_No_friend() {
-		val perfil_documents_luis_no_amigos_no_documents = service.stalkear(usuario_pepe, usuario_luis)
-		Assert.assertEquals(perfil_documents_luis_no_amigos_no_documents.size, 0)
+	def void stalkear_yes_friend() {
+		socialService.agregarPersona(usuario_pepe)
+		socialService.agregarPersona(usuario_luis)
+		socialService.amigoDe(usuario_pepe, usuario_luis)
+		val perfil_documents_luis_si_amigos_no_documents = service.stalkear(usuario_pepe, usuario_luis)
+		Assert.assertEquals(perfil_documents_luis_si_amigos_no_documents.size, 0)
 		service.addVisibility(usuario_luis, marDelPlata_destiny, Visibility.AMIGOS)
 		service.addVisibility(usuario_luis, cancun_destiny, Visibility.PRIVADO)
 		service.addVisibility(usuario_luis, cancun_destiny, Visibility.PUBLICO)
-		val perfil_documents_luis_no_amigos = service.stalkear(usuario_pepe, usuario_luis)
-		Assert.assertEquals(perfil_documents_luis_no_amigos.size, 1)
+		val perfil_documents_luis_si_amigos_si_documents = service.stalkear(usuario_pepe, usuario_luis)
+		Assert.assertEquals(perfil_documents_luis_si_amigos_si_documents.size, 2)
 	}
 	
-	/* 
+	 /* 
 	@Test
 	def void stalkear_yes_friend() {
 		val perfil_documents_luis_yes_amigos_no_documents = service.stalkear(usuario_pepe, usuario_luis)

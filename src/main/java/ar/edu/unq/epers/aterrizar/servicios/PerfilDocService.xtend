@@ -8,7 +8,6 @@ import ar.edu.unq.epers.aterrizar.model.Visibility
 import ar.edu.unq.epers.aterrizar.model.Comment
 import ar.edu.unq.epers.aterrizar.model.PerfilDocument
 
-
 class PerfilDocService {
 	MongoHome<PerfilDocument> commentHome
 	SocialNetworkingService networkService

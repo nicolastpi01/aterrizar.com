@@ -7,9 +7,10 @@ import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class SocialNetworkingServiceTest {
-
 
     Usuario usuario1
     Usuario usuario2
