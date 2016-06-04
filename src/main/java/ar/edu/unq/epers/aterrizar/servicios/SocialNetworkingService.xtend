@@ -65,12 +65,13 @@ class SocialNetworkingService {
 	}
 	
 	def theyAreFriends(Usuario miUser, Usuario anotherUser) {
-		var bool_friends = false
-		var my_friends = this.friends(miUser)
-		for(Usuario u : my_friends) {
-			bool_friends = bool_friends || u.id == anotherUser.id
-		}
-			bool_friends
+		//var bool_friends = false
+		//var my_friends = this.friends(miUser)
+		//for(Usuario u : my_friends) {
+			//bool_friends = bool_friends || u.id == anotherUser.id
+		//}
+			//bool_friends
+			false
 	}
 
 	def getSender(String nombreUsuario) {

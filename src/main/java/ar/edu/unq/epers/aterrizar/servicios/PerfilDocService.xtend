@@ -11,10 +11,12 @@ import ar.edu.unq.epers.aterrizar.model.PerfilDocument
 
 class PerfilDocService {
 	MongoHome<PerfilDocument> commentHome
+	SocialNetworkingService networkService
 	
 
-	new(MongoHome<PerfilDocument> c){
-		commentHome = c
+	new(MongoHome<PerfilDocument> c, SocialNetworkingService networkService){
+		this.commentHome = c
+		this.networkService = networkService
 	}
 	
 	def void addDestiny(Usuario u, Destiny d) {
@@ -89,11 +91,10 @@ class PerfilDocService {
 	
 	
 	def stalkear(Usuario mi_usuario, Usuario a_stalkear) { 
-		var socialService = new SocialNetworkingService()
-		if(socialService.theyAreFriends(mi_usuario, a_stalkear)) {
+		if(networkService.theyAreFriends(mi_usuario, a_stalkear)) {
 			return commentHome.find(DBQuery.in("visibility", Visibility.PUBLICO, Visibility.AMIGOS).and (DBQuery.is("username", a_stalkear.nombreDeUsuario)))			
 		}
-		if(!socialService.theyAreFriends(mi_usuario, a_stalkear)) {
+		if(!networkService.theyAreFriends(mi_usuario, a_stalkear)) {
 			return commentHome.find(DBQuery.is("visibility", Visibility.PUBLICO)).and (DBQuery.is("username", a_stalkear.nombreDeUsuario))	
 		}	
 	}

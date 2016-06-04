@@ -20,6 +20,8 @@ class PerfilDocServiceTest {
 	MongoHome<PerfilDocument> home
 	Usuario usuario_pepe
 	Usuario usuario_luis
+	Usuario usuario1
+	Usuario usuario2
 	Destiny marDelPlata_destiny
 	Destiny cancun_destiny
 	Destiny bariloche_destiny
@@ -28,8 +30,9 @@ class PerfilDocServiceTest {
 	
 	@Before
 	def void setUp() {
+		networkService = new SocialNetworkingService
 		home = DocumentsServiceRunner.instance().collection(PerfilDocument)
-		service = new PerfilDocService(home)
+		service = new PerfilDocService(home, networkService)
 		usuario_pepe = new Usuario()
 		usuario_pepe.nombreDeUsuario = "pepe"
 		usuario_luis = new Usuario()
@@ -198,7 +201,7 @@ class PerfilDocServiceTest {
 		Assert.assertEquals(perfilDoc_pepe_mardel_con_comment_amigos.comments.get(0).description, "en mardel")
 		Assert.assertEquals(perfilDoc_pepe_mardel_con_comment_amigos.comments.get(0).visibility.toString, "AMIGOS")
 	} 
-	 /* 
+	  
 	@Test
 	def void stalkear_No_friend() {
 		val perfil_documents_luis_no_amigos_no_documents = service.stalkear(usuario_pepe, usuario_luis)
