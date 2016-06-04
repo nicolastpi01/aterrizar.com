@@ -93,8 +93,8 @@ class PerfilDocService {
 		if(networkService.theyAreFriends(mi_usuario, a_stalkear)) {
 			return commentHome.find(DBQuery.in("visibility", Visibility.PUBLICO, Visibility.AMIGOS).and (DBQuery.is("username", a_stalkear.nombreDeUsuario)))			
 		}
-		if(!networkService.theyAreFriends(mi_usuario, a_stalkear)) {
-			return commentHome.find(DBQuery.is("visibility", Visibility.PUBLICO)).and (DBQuery.is("username", a_stalkear.nombreDeUsuario))	
+		else {
+			return commentHome.find(DBQuery.in("visibility", Visibility.PUBLICO)).and (DBQuery.is("username", a_stalkear.nombreDeUsuario))	
 		}	
 	}
 	
