@@ -90,11 +90,11 @@ class PerfilService {
 	
 	
 	def stalkear(Usuario mi_usuario, Usuario a_stalkear) { 
-		if(networkService.theyAreFriends(mi_usuario, a_stalkear)) {
-			return commentHome.find(DBQuery.in("visibility", Visibility.PUBLICO, Visibility.AMIGOS).and (DBQuery.is("username", a_stalkear.nombreDeUsuario)))			
+		if(networkService.theyAreFriends(mi_usuario, a_stalkear)) {			
+			return commentHome.stalkearAmigo(a_stalkear)			
 		}
-		else {
-			return commentHome.find(DBQuery.in("visibility", Visibility.PUBLICO)).and (DBQuery.is("username", a_stalkear.nombreDeUsuario))	
+		else {			
+			return commentHome.stalkearNoAmigo(a_stalkear)
 		}	
 	}
 	

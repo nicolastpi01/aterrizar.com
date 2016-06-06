@@ -1,6 +1,6 @@
 package ar.edu.unq.epers.mongoDB
 
-import ar.edu.unq.epers.aterrizar.servicios.PerfilDocService
+import ar.edu.unq.epers.aterrizar.servicios.PerfilService
 import org.junit.Assert
 import org.junit.Test
 import org.junit.Before
@@ -16,7 +16,7 @@ import ar.edu.unq.epers.aterrizar.model.Comment
 import ar.edu.unq.epers.aterrizar.model.Visibility
 
 class PerfilDocServiceTest {
-	PerfilDocService service
+	PerfilService service
 	MongoHome<PerfilDocument> home
 	Usuario usuario_pepe
 	Usuario usuario_luis
@@ -32,7 +32,7 @@ class PerfilDocServiceTest {
 		
 		home = DocumentsServiceRunner.instance().collection(PerfilDocument)
 		socialService = new SocialNetworkingService
-		service = new PerfilDocService(home, socialService)
+		service = new PerfilService(home, socialService)
 		usuario_pepe = new Usuario()
 		usuario_pepe.nombreDeUsuario = "pepe"
 		usuario_luis = new Usuario()
@@ -209,8 +209,8 @@ class PerfilDocServiceTest {
 		socialService.agregarPersona(usuario_pepe)
 		socialService.agregarPersona(usuario_luis)
 		socialService.amigoDe(usuario_pepe, usuario_luis)
-		val perfil_documents_luis_si_amigos_no_documents = service.stalkear(usuario_pepe, usuario_luis)
-		Assert.assertEquals(perfil_documents_luis_si_amigos_no_documents.size, 0)
+		val perfil_null = service.stalkear(usuario_pepe, usuario_luis)
+		Assert.assertEquals(perfil_null.size, 0)
 		service.addVisibility(usuario_luis, marDelPlata_destiny, Visibility.AMIGOS)
 		service.addVisibility(usuario_luis, cancun_destiny, Visibility.PRIVADO)
 		service.addVisibility(usuario_luis, cancun_destiny, Visibility.PUBLICO)
