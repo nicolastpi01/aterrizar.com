@@ -10,6 +10,7 @@ import com.mongodb.DBObject
 import org.mongojack.DBQuery
 import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.model.Visibility
+import ar.edu.unq.epers.aterrizar.model.Perfil
 
 class MongoHome<T> {
 	private JacksonDBCollection<T, String> mongoCollection
@@ -77,13 +78,12 @@ class MongoHome<T> {
 		return mongoCollection;
 	}
 	
-	def stalkearAmigo(Usuario a_stalkear) {
-		this.find(DBQuery.in("visibility", Visibility.PUBLICO, Visibility.AMIGOS).and (DBQuery.is("username", a_stalkear.nombreDeUsuario)))
+	def Perfil stalkearAmigo(Usuario a_stalkear) {
+		this.find(DBQuery.in("visibility", Visibility.PUBLICO, Visibility.AMIGOS).and (DBQuery.is("username", a_stalkear.nombreDeUsuario))).get(0) as Perfil
 	}
 	
-	def stalkearNoAmigo(Usuario a_stalkear) {
-		this.find(DBQuery.in("visibility", Visibility.PUBLICO)).and (DBQuery.is("username", a_stalkear.nombreDeUsuario))
-		
+	def Perfil stalkearNoAmigo(Usuario a_stalkear) {
+		this.find(DBQuery.in("visibility", Visibility.PUBLICO)).and (DBQuery.is("username", a_stalkear.nombreDeUsuario)).get(0) as Perfil
 	}
 	
 }
