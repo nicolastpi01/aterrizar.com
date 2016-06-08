@@ -143,20 +143,29 @@ class PerfilDocServiceTest {
 		Assert.assertEquals(perfil_pepe_publico.destinations.get(0).comments.get(0).visibility.toString, "PUBLICO")
 	}
 	 
-	/*  
+	  
 	@Test
-	def void stalkear_yes_friend() {
+	def void stalkearTest_yo_mismo() {
 		socialService.agregarPersona(usuario_pepe)
-		socialService.agregarPersona(usuario_luis)
-		socialService.amigoDe(usuario_pepe, usuario_luis)
-		val perfil_null = service.stalkear(usuario_pepe, usuario_luis)
-		service.addVisibility(usuario_luis, marDelPlata_destiny, Visibility.AMIGOS)
-		service.addVisibility(usuario_luis, cancun_destiny, Visibility.PRIVADO)
-		service.addVisibility(usuario_luis, cancun_destiny, Visibility.PUBLICO)
-		val perfil_documents_luis_si_amigos_si_documents = service.stalkear(usuario_pepe, usuario_luis)
-		Assert.assertEquals(perfil_documents_luis_si_amigos_si_documents, "un perfil aqui")
+		service.addPerfil(usuario_pepe)
+		service.addDestiny(usuario_pepe, marDelPlata_destiny)
+		service.addComment(usuario_pepe, marDelPlata_destiny, que_frio)
+		service.addVisibility(usuario_pepe, marDelPlata_destiny, visibility_privado)
+		service.addVisibility(usuario_pepe, marDelPlata_destiny, que_frio, visibility_privado)
+		val perfil_pepe = service.stalkear(usuario_pepe, usuario_pepe)
+		Assert.assertEquals(perfil_pepe.destinations.get(0).visibility.toString, "PRIVADO")
+		Assert.assertEquals(perfil_pepe.destinations.get(0).comments.get(0).visibility.toString, "PRIVADO")
 	}
-	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@After
 	def void cleanDB(){

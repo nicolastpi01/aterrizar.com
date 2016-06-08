@@ -100,7 +100,4 @@ class MongoHome<T> {
 		this.find(DBQuery.in("visibility", Visibility.PUBLICO)).and (DBQuery.is("username", a_stalkear.nombreDeUsuario)).get(0) as Perfil
 	}
 	
-		def Perfil stalkearme(Usuario mi_usuario) {
-		this.find(DBQuery.in("visibility", Visibility.PUBLICO)).and (DBQuery.is("username", mi_usuario.nombreDeUsuario)).get(0) as Perfil
-	}
 }

@@ -67,18 +67,13 @@ class PerfilService {
 		u_perfil.addVisibility(d, c, visibility)
 		perfilHome.updatePerfil(u_perfil, u_perfil)
 	}
-	
-	
-	
-	
-	/*
 
-	def Perfil stalkear(Usuario mi_usuario, Usuario a_stalkear) {
-		if(mi_usuario.nombreDeUsuario == a_stalkear.nombreDeUsuario) return commentHome.stalkearme(a_stalkear)
-		if(networkService.theyAreFriends(mi_usuario, a_stalkear)) return commentHome.stalkearAmigo(a_stalkear)			
-		else return commentHome.stalkearNoAmigo(a_stalkear)	
+	def stalkear(Usuario mi_usuario, Usuario a_stalkear) {
+		if(mi_usuario.nombreDeUsuario == a_stalkear.nombreDeUsuario) return perfilHome.getPerfil(a_stalkear)
+		if(networkService.theyAreFriends(mi_usuario, a_stalkear)) return perfilHome.stalkearAmigo(a_stalkear)			
+		else return perfilHome.stalkearNoAmigo(a_stalkear)	
 	}
-	*/
+	
 }
 				
 
