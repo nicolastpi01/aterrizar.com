@@ -52,8 +52,6 @@ class Perfil {
 		for(Destiny dest : this.destinations) {
 			if(d.nombre == dest.nombre) dest.addComment(c)
 		}
-	}
-	
-	
+	}	
 	
 }

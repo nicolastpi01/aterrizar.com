@@ -9,6 +9,7 @@ import ar.edu.unq.epers.aterrizar.model.Comment
 import ar.edu.unq.epers.aterrizar.model.Perfil
 import java.util.ArrayList
 import ar.edu.unq.epers.aterrizar.model.Like
+import ar.edu.unq.epers.aterrizar.model.Dislike
 
 class PerfilService {
 	MongoHome<Perfil> perfilHome
@@ -50,17 +51,14 @@ class PerfilService {
 		d.addLike(u, like)
 		perfilHome.updatePerfil(u_perfil, u_perfil)
 	}
-	
-	/* 
-	def void addDislike(Usuario u, Destiny d) {
-		val perfil_documents = commentHome.find(DBQuery.is("username", u.nombreDeUsuario)).and (DBQuery.is("destiny.nombre", d.nombre))
-		var perfil_doc = new PerfilDocument(u.nombreDeUsuario, d)
-		if(perfil_documents.size() != 0) perfil_doc = perfil_documents.get(0) 
-		perfil_doc.addDislike
-		var query = DBQuery.is("username", u.nombreDeUsuario).and (DBQuery.is("destiny.nombre", d.nombre))
-		commentHome.update(query, perfil_doc)
+
+	def void addDislike(Usuario u, Destiny d, Dislike dislike) {
+		var u_perfil = getPerfil(u)
+		if(!u_perfil.exist(d)) u_perfil.addDestiny(d)
+		d.addDisLike(u, dislike)
+		perfilHome.updatePerfil(u_perfil, u_perfil)
 	}
-	  
+	/*  
 	def void addVisibility(Usuario u,  Destiny d, Visibility visibility) {
 		val perfil_documents = commentHome.find(DBQuery.is("username", u.nombreDeUsuario)).and (DBQuery.is("destiny.nombre", d.nombre))
 		var perfil_doc = new PerfilDocument(u.nombreDeUsuario, d)

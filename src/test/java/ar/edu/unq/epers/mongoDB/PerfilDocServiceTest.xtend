@@ -14,6 +14,7 @@ import ar.edu.unq.epers.aterrizar.servicios.SocialNetworkingService
 import ar.edu.unq.epers.aterrizar.model.Perfil
 import ar.edu.unq.epers.aterrizar.model.Comment
 import ar.edu.unq.epers.aterrizar.model.Like
+import ar.edu.unq.epers.aterrizar.model.Dislike
 
 class PerfilDocServiceTest {
 	PerfilService service
@@ -26,6 +27,7 @@ class PerfilDocServiceTest {
 	Destiny bahiaBlanca_destiny
 	Comment que_frio
 	Like like_pepe
+	Dislike dislike_pepe
 	SocialNetworkingService socialService
 	
 	
@@ -49,6 +51,7 @@ class PerfilDocServiceTest {
 		bahiaBlanca_destiny.nombre = "bahiaBlanca"
 		que_frio = new Comment("que frio")
 		like_pepe = new Like("pepe")
+		dislike_pepe = new Dislike("pepe")
 	}
 	
 	@Test
@@ -82,7 +85,7 @@ class PerfilDocServiceTest {
 	
 	 
 	@Test
-	def void addlikeTest() {
+	def void addLikeTest() {
 		service.addPerfil(usuario_pepe)
 		service.addlike(usuario_pepe, marDelPlata_destiny, like_pepe)
 		val perfil_pepe = service.getPerfil(usuario_pepe)
@@ -92,42 +95,22 @@ class PerfilDocServiceTest {
 		Assert.assertEquals(perfil_pepe.destinations.get(0).likes.size, 1)
 	}
 	 
-	/*
-	@Test
-	def void addlike_yes_User_and_yes_Destiny_in_mongodb_Test() {
-		service.addDestiny(usuario_pepe, marDelPlata_destiny)
-		val perfil_documents_si_pepe_si_mardel_0like = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
-		Assert.assertEquals(perfil_documents_si_pepe_si_mardel_0like.size(), 1)
-		var perfilDoc_pepe_mardel_0like = perfil_documents_si_pepe_si_mardel_0like.get(0)
-		Assert.assertEquals(perfilDoc_pepe_mardel_0like.likes, 0)
-		service.addlike(usuario_pepe, marDelPlata_destiny)
-		val perfil_documents_si_pepe_si_mardel_1like = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
-		Assert.assertEquals(perfil_documents_si_pepe_si_mardel_1like.size(), 1)
-		var perfilDoc_pepe_mardel_1like = perfil_documents_si_pepe_si_mardel_1like.get(0)
-		Assert.assertEquals(perfilDoc_pepe_mardel_1like.likes, 1)
-		service.addlike(usuario_pepe, marDelPlata_destiny)
-		service.addlike(usuario_pepe, marDelPlata_destiny)
-		service.addlike(usuario_pepe, marDelPlata_destiny)
-		val perfil_documents_si_pepe_si_mardel_4like = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
-		Assert.assertEquals(perfil_documents_si_pepe_si_mardel_4like.size(), 1)
-		var perfilDoc_pepe_mardel_4like = perfil_documents_si_pepe_si_mardel_4like.get(0)
-		Assert.assertEquals(perfilDoc_pepe_mardel_4like.likes, 4)
-	}
 	
 	@Test
 	def void addDislikeTest() {
-		service.addDislike(usuario_pepe, marDelPlata_destiny)
-		val perfil_documents_si_pepe_si_mardel_1dislike = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
-		Assert.assertEquals(perfil_documents_si_pepe_si_mardel_1dislike.size(), 1)
-		var perfilDoc_pepe_mardel_1dislike = perfil_documents_si_pepe_si_mardel_1dislike.get(0)
-		Assert.assertEquals(perfilDoc_pepe_mardel_1dislike.dislikes, 1)
-		service.addDislike(usuario_pepe, marDelPlata_destiny)
-		val perfil_documents_si_pepe_si_mardel_2dislike = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
-		Assert.assertEquals(perfil_documents_si_pepe_si_mardel_2dislike.size(), 1)
-		var perfilDoc_pepe_mardel_2dislike = perfil_documents_si_pepe_si_mardel_2dislike.get(0)
-		Assert.assertEquals(perfilDoc_pepe_mardel_2dislike.dislikes, 2)
-	}  
+		service.addPerfil(usuario_pepe)
+		service.addDislike(usuario_pepe, marDelPlata_destiny, dislike_pepe)
+		val perfil_pepe = service.getPerfil(usuario_pepe)
+		Assert.assertEquals(perfil_pepe.destinations.get(0).dislikes.size, 1)
+		Assert.assertEquals(perfil_pepe.destinations.get(0).dislikes.get(0).username, "pepe")
+		service.addDislike(usuario_pepe, marDelPlata_destiny, dislike_pepe)
+		Assert.assertEquals(perfil_pepe.destinations.get(0).dislikes.size, 1)
+		service.addlike(usuario_pepe, marDelPlata_destiny, like_pepe)
+		Assert.assertEquals(perfil_pepe.destinations.get(0).likes.size, 0)
+		Assert.assertEquals(perfil_pepe.destinations.get(0).dislikes.size, 1)
+	}
 	  
+	/*   
 	@Test
 	//happy road
 	def void addVisibility_No_User_and_Destiny_in_mongodb_Test() {

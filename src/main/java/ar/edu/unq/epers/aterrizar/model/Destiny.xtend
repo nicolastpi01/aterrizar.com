@@ -22,13 +22,16 @@ class Destiny {
 		dislikes = new ArrayList
 	}
 	
-	
 	def addComment(Comment c){
 		comments.add(c)
 	}
 	
 	def addLike(Usuario u, Like like) {
 		if(puedoAgregarLikeODislike(u)) likes.add(like)
+	}
+	
+	def addDisLike(Usuario u, Dislike dislike) {
+		if(puedoAgregarLikeODislike(u)) dislikes.add(dislike)
 	}
 	
 	def puedoAgregarLikeODislike(Usuario u) {
