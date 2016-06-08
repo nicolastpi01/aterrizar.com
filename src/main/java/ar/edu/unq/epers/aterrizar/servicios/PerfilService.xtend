@@ -19,12 +19,6 @@ class PerfilService {
 		this.networkService = networkService
 	}
 	
-	def void addDestiny(Usuario u, Destiny d) {
-		var u_perfil = getPerfil(u)
-		u_perfil.addDestiny(d)
-		perfilHome.updatePerfil(u_perfil, u_perfil)		
-	}
-	
 	def Perfil getPerfil(Usuario u) {
 		perfilHome.getPerfil(u)
 	}
@@ -34,9 +28,25 @@ class PerfilService {
 		perfil.username = u.nombreDeUsuario
 		perfil.destinations = new ArrayList()
 		perfilHome.insert(perfil)
+	}
+	
+	def void addDestiny(Usuario u, Destiny d) {
+		var u_perfil = getPerfil(u)
+		u_perfil.addDestiny(d)
+		perfilHome.updatePerfil(u_perfil, u_perfil)		
+	}
+	
+	def void addComment(Usuario u, Destiny d, Comment c) {
+		var u_perfil = getPerfil(u)
+		if(u_perfil.exist(d)) u_perfil.update(d, c)
+		else {
+			d.addComment(c)
+			u_perfil.addDestiny(d)
+		}
+		perfilHome.updatePerfil(u_perfil, u_perfil)
 	} 
 	
-	/* 
+	/*   
 	def void addComment(Usuario u, Destiny d, Comment comment) {
 		val perfil_documents = commentHome.find(DBQuery.is("username", u.nombreDeUsuario)).and (DBQuery.is("destiny.nombre", d.nombre))
 		var perfil_doc = new PerfilDocument(u.nombreDeUsuario, d)

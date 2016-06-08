@@ -12,6 +12,7 @@ import ar.edu.unq.epers.aterrizar.model.Destiny
 import org.mongojack.DBQuery
 import ar.edu.unq.epers.aterrizar.servicios.SocialNetworkingService
 import ar.edu.unq.epers.aterrizar.model.Perfil
+import ar.edu.unq.epers.aterrizar.model.Comment
 
 class PerfilDocServiceTest {
 	PerfilService service
@@ -22,6 +23,7 @@ class PerfilDocServiceTest {
 	Destiny cancun_destiny
 	Destiny bariloche_destiny
 	Destiny bahiaBlanca_destiny
+	Comment que_frio
 	SocialNetworkingService socialService
 	
 	
@@ -43,6 +45,7 @@ class PerfilDocServiceTest {
 		bariloche_destiny.nombre = "bariloche"
 		bahiaBlanca_destiny = new Destiny()
 		bahiaBlanca_destiny.nombre = "bahiaBlanca"
+		que_frio = new Comment("que frio")
 	}
 	
 	@Test
@@ -64,20 +67,19 @@ class PerfilDocServiceTest {
 		Assert.assertEquals(perfil_pepe.destinations.size, 1)
 		Assert.assertEquals(perfil_pepe.destinations.get(0).nombre, "Mar del plata")	
 	}
-	/*  
-	// happy road
+	  
+	
 	@Test
-	def void addComment_No_user_and_destiny_in_mongobd_Test() {
-		var comment = new Comment("en mardel")
-		val perfil_documents_no_mardel = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
-		Assert.assertEquals(perfil_documents_no_mardel.size(), 0)
-		service.addComment(usuario_pepe, marDelPlata_destiny, comment)
-		val perfil_documents_si_mardel = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
-		Assert.assertEquals(perfil_documents_si_mardel.size(), 1)
-		var perfilDoc = perfil_documents_si_mardel.get(0)
-		Assert.assertEquals(perfilDoc.comments.get(0).description, "en mardel")
+	def void addCommentSinDestinoTest() {
+		service.addPerfil(usuario_pepe)
+		service.addComment(usuario_pepe, marDelPlata_destiny, que_frio)
+		val perfil_pepe = service.getPerfil(usuario_pepe)
+		Assert.assertEquals(perfil_pepe.destinations.size, 1)
+		Assert.assertEquals(perfil_pepe.destinations.get(0).nombre, "Mar del plata")
+		Assert.assertEquals(perfil_pepe.destinations.get(0).comments.size, 1)
+		Assert.assertEquals(perfil_pepe.destinations.get(0).comments.get(0).description, "que frio")
 	}
-	 
+	/* 
 	// hard road
 	@Test
 	def void addComment_yes_user_and_destiny_in_mongobd_Test() {

@@ -18,10 +18,11 @@ class Destiny {
 	Visibility visibility
 	
 	new() {
+		comments = new ArrayList
 	}
 	
 	
-	def add(Comment c){
+	def addComment(Comment c){
 		comments.add(c)
 	}
 }

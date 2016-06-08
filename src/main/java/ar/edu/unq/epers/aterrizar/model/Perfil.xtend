@@ -25,7 +25,6 @@ class Perfil {
 	new(String username, Destiny destiny) {
 		this.username = username
 		this.destinations = new ArrayList()
-		this.comments = new ArrayList()
 		this.likes = 0
 		this.dislikes = 0
 	}
@@ -52,6 +51,20 @@ class Perfil {
 	
 	def addDestiny(Destiny d) {
 		this.destinations.add(d)
+	}
+	
+	def exist(Destiny d) {
+		var bool_ret = false
+		for(Destiny dest : this.destinations) {
+			bool_ret = bool_ret || dest.nombre == d.nombre
+		}
+			bool_ret
+	}
+	
+	def update(Destiny d, Comment c) {
+		for(Destiny dest : this.destinations) {
+			if(d.nombre == dest.nombre) dest.addComment(c)
+		}
 	}
 	
 }
