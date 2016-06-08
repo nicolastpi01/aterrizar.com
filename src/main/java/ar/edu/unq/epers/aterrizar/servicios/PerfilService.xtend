@@ -6,23 +6,37 @@ import ar.edu.unq.epers.aterrizar.model.Destiny
 import org.mongojack.DBQuery
 import ar.edu.unq.epers.aterrizar.model.Visibility
 import ar.edu.unq.epers.aterrizar.model.Comment
-import ar.edu.unq.epers.aterrizar.model.PerfilDocument
+import ar.edu.unq.epers.aterrizar.model.Perfil
+import java.util.ArrayList
 
 class PerfilService {
-	MongoHome<PerfilDocument> commentHome
+	MongoHome<Perfil> perfilHome
 	SocialNetworkingService networkService
 	
 
-	new(MongoHome<PerfilDocument> c, SocialNetworkingService networkService){
-		this.commentHome = c
+	new(MongoHome<Perfil> c, SocialNetworkingService networkService) {
+		this.perfilHome = c
 		this.networkService = networkService
 	}
 	
 	def void addDestiny(Usuario u, Destiny d) {
-		var perfildoc = new PerfilDocument(u.nombreDeUsuario, d)
-		commentHome.insert(perfildoc)
+		var u_perfil = getPerfil(u)
+		u_perfil.addDestiny(d)
+		perfilHome.updatePerfil(u_perfil, u_perfil)		
 	}
 	
+	def Perfil getPerfil(Usuario u) {
+		perfilHome.getPerfil(u)
+	}
+	
+	def addPerfil(Usuario u) {
+		var perfil = new Perfil
+		perfil.username = u.nombreDeUsuario
+		perfil.destinations = new ArrayList()
+		perfilHome.insert(perfil)
+	} 
+	
+	/* 
 	def void addComment(Usuario u, Destiny d, Comment comment) {
 		val perfil_documents = commentHome.find(DBQuery.is("username", u.nombreDeUsuario)).and (DBQuery.is("destiny.nombre", d.nombre))
 		var perfil_doc = new PerfilDocument(u.nombreDeUsuario, d)
@@ -89,15 +103,12 @@ class PerfilService {
 	}
 	
 	
-	def stalkear(Usuario mi_usuario, Usuario a_stalkear) { 
-		if(networkService.theyAreFriends(mi_usuario, a_stalkear)) {			
-			return commentHome.stalkearAmigo(a_stalkear)			
-		}
-		else {			
-			return commentHome.stalkearNoAmigo(a_stalkear)
-		}	
+	def Perfil stalkear(Usuario mi_usuario, Usuario a_stalkear) {
+		if(mi_usuario.nombreDeUsuario == a_stalkear.nombreDeUsuario) return commentHome.stalkearme(a_stalkear)
+		if(networkService.theyAreFriends(mi_usuario, a_stalkear)) return commentHome.stalkearAmigo(a_stalkear)			
+		else return commentHome.stalkearNoAmigo(a_stalkear)	
 	}
-	
+	*/
 }
 				
 

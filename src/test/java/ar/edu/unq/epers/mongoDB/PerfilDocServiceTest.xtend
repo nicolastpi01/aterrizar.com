@@ -4,7 +4,6 @@ import ar.edu.unq.epers.aterrizar.servicios.PerfilService
 import org.junit.Assert
 import org.junit.Test
 import org.junit.Before
-import ar.edu.unq.epers.aterrizar.model.PerfilDocument
 import ar.edu.unq.epers.aterrizar.home.MongoHome
 import ar.edu.unq.epers.aterrizar.servicios.DocumentsServiceRunner
 import org.junit.After
@@ -12,12 +11,11 @@ import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.model.Destiny
 import org.mongojack.DBQuery
 import ar.edu.unq.epers.aterrizar.servicios.SocialNetworkingService
-import ar.edu.unq.epers.aterrizar.model.Comment
-import ar.edu.unq.epers.aterrizar.model.Visibility
+import ar.edu.unq.epers.aterrizar.model.Perfil
 
 class PerfilDocServiceTest {
 	PerfilService service
-	MongoHome<PerfilDocument> home
+	MongoHome<Perfil> home
 	Usuario usuario_pepe
 	Usuario usuario_luis
 	Destiny marDelPlata_destiny
@@ -30,7 +28,7 @@ class PerfilDocServiceTest {
 	@Before
 	def void setUp() {
 		
-		home = DocumentsServiceRunner.instance().collection(PerfilDocument)
+		home = DocumentsServiceRunner.instance().collection(Perfil)
 		socialService = new SocialNetworkingService
 		service = new PerfilService(home, socialService)
 		usuario_pepe = new Usuario()
@@ -48,15 +46,25 @@ class PerfilDocServiceTest {
 	}
 	
 	@Test
-	def void addDestinyTest() {
-		service.addDestiny(usuario_pepe, marDelPlata_destiny)
-		val perfil_documents = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
-		Assert.assertEquals(perfil_documents.size, 1)
-		var perfilDoc = perfil_documents.get(0)
-		Assert.assertEquals(perfilDoc.username, "pepe")
-		Assert.assertEquals(perfilDoc.destiny.nombre,"Mar del plata");	
+	def void getPerfil() {
+		service.addPerfil(usuario_pepe)
+		var perfil_pepe = service.getPerfil(usuario_pepe)
+		Assert.assertEquals(perfil_pepe.username, "pepe")
+		service.addPerfil(usuario_luis)
+		var perfil_luis = service.getPerfil(usuario_luis)
+		Assert.assertEquals(perfil_luis.username, "luis")
 	}
+	
 	 
+	@Test
+	def void addDestinyTest() {
+		service.addPerfil(usuario_pepe)
+		service.addDestiny(usuario_pepe, marDelPlata_destiny)
+		var perfil_pepe = service.getPerfil(usuario_pepe)
+		Assert.assertEquals(perfil_pepe.destinations.size, 1)
+		Assert.assertEquals(perfil_pepe.destinations.get(0).nombre, "Mar del plata")	
+	}
+	/*  
 	// happy road
 	@Test
 	def void addComment_No_user_and_destiny_in_mongobd_Test() {

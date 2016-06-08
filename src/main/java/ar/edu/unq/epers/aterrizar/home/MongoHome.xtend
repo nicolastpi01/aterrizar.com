@@ -41,6 +41,20 @@ class MongoHome<T> {
     	return mongoCollection.update(queryObject, object, true, false)
     }
     
+    def updatePerfil(Perfil p, T object) {
+    	var query = DBQuery.is("username", p.username) 
+    	update(query, object)
+    }
+    
+    
+    def getPerfil(Usuario u) {
+    	var query = DBQuery.is("username", u.nombreDeUsuario)
+    	var perfiles = this.find(query)
+    	return perfiles.get(0) as Perfil
+    }
+    
+    
+    
     def List<T> find(Aggregation<T> aggregation) {
     	new AggregationResult<T>(mongoCollection, 
     		mongoCollection.dbCollection.aggregate(aggregation.build),
@@ -86,4 +100,7 @@ class MongoHome<T> {
 		this.find(DBQuery.in("visibility", Visibility.PUBLICO)).and (DBQuery.is("username", a_stalkear.nombreDeUsuario)).get(0) as Perfil
 	}
 	
+		def Perfil stalkearme(Usuario mi_usuario) {
+		this.find(DBQuery.in("visibility", Visibility.PUBLICO)).and (DBQuery.is("username", mi_usuario.nombreDeUsuario)).get(0) as Perfil
+	}
 }
