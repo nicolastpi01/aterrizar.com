@@ -27,11 +27,14 @@ class PerfilDocServiceTest {
 	Destiny bariloche_destiny
 	Destiny bahiaBlanca_destiny
 	Comment que_frio
+	Comment que_calor
+	Comment que_aburrido
 	Like like_pepe
 	Dislike dislike_pepe
 	SocialNetworkingService socialService
 	Visibility visibility_privado
 	Visibility visibility_publico
+	Visibility visibility_amigos
 	
 	
 	@Before
@@ -57,6 +60,9 @@ class PerfilDocServiceTest {
 		dislike_pepe = new Dislike("pepe")
 		visibility_privado = Visibility.PRIVADO
 		visibility_publico = Visibility.PUBLICO
+		visibility_amigos = Visibility.AMIGOS
+		que_calor = new Comment("que calor")
+		que_aburrido = new Comment("que aburrido")
 	}
 	
 	@Test
@@ -157,15 +163,58 @@ class PerfilDocServiceTest {
 		Assert.assertEquals(perfil_pepe.destinations.get(0).comments.get(0).visibility.toString, "PRIVADO")
 	}
 	
+	@Test
+	def void stalkearTest_noAmigo() {
+		socialService.agregarPersona(usuario_pepe)
+		socialService.agregarPersona(usuario_luis)
+		service.addPerfil(usuario_pepe)
+		service.addPerfil(usuario_luis)
+		service.addDestiny(usuario_luis, marDelPlata_destiny)
+		service.addComment(usuario_luis, marDelPlata_destiny, que_frio)
+		service.addDestiny(usuario_luis, bahiaBlanca_destiny)
+		service.addDestiny(usuario_luis, bariloche_destiny)
+		service.addComment(usuario_luis, marDelPlata_destiny, que_calor)
+		service.addComment(usuario_luis, marDelPlata_destiny, que_aburrido)
+		service.addVisibility(usuario_luis, marDelPlata_destiny, visibility_publico)
+		service.addVisibility(usuario_luis, bahiaBlanca_destiny, visibility_privado)
+		service.addVisibility(usuario_luis, bariloche_destiny, visibility_amigos)
+		service.addVisibility(usuario_luis, marDelPlata_destiny, que_frio, visibility_publico)
+		service.addVisibility(usuario_luis, marDelPlata_destiny, que_calor, visibility_privado)
+		service.addVisibility(usuario_luis, marDelPlata_destiny, que_aburrido, visibility_amigos)
+		val perfil_luis = service.stalkear(usuario_pepe, usuario_luis)
+		Assert.assertEquals(perfil_luis.destinations.size, 1)
+		Assert.assertEquals(perfil_luis.destinations.get(0).visibility.toString, "PUBLICO")
+		Assert.assertEquals(perfil_luis.destinations.get(0).comments.size, 1)
+		Assert.assertEquals(perfil_luis.destinations.get(0).comments.get(0).visibility.toString, "PUBLICO")
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	@Test
+	def void stalkearTest_Amigo() {
+		socialService.agregarPersona(usuario_pepe)
+		socialService.agregarPersona(usuario_luis)
+		service.addPerfil(usuario_pepe)
+		service.addPerfil(usuario_luis)
+		socialService.amigoDe(usuario_pepe, usuario_luis)
+		service.addDestiny(usuario_luis, marDelPlata_destiny)
+		service.addComment(usuario_luis, marDelPlata_destiny, que_frio)
+		service.addDestiny(usuario_luis, bahiaBlanca_destiny)
+		service.addDestiny(usuario_luis, bariloche_destiny)
+		service.addComment(usuario_luis, marDelPlata_destiny, que_calor)
+		service.addComment(usuario_luis, marDelPlata_destiny, que_aburrido)
+		service.addVisibility(usuario_luis, marDelPlata_destiny, visibility_publico)
+		service.addVisibility(usuario_luis, bahiaBlanca_destiny, visibility_privado)
+		service.addVisibility(usuario_luis, bariloche_destiny, visibility_amigos)
+		service.addVisibility(usuario_luis, marDelPlata_destiny, que_frio, visibility_publico)
+		service.addVisibility(usuario_luis, marDelPlata_destiny, que_calor, visibility_privado)
+		service.addVisibility(usuario_luis, marDelPlata_destiny, que_aburrido, visibility_amigos)
+		val perfil_luis = service.stalkear(usuario_pepe, usuario_luis)
+		Assert.assertEquals(perfil_luis.destinations.size, 2)
+		Assert.assertEquals(perfil_luis.destinations.get(0).nombre, "Mar del plata")
+		Assert.assertEquals(perfil_luis.destinations.get(1).nombre, "bariloche")
+		Assert.assertEquals(perfil_luis.destinations.get(0).comments.size, 2)
+		Assert.assertEquals(perfil_luis.destinations.get(0).comments.get(0).description, "que frio")
+		Assert.assertEquals(perfil_luis.destinations.get(0).comments.get(1).description, "que aburrido")
+	}
 	
 	@After
 	def void cleanDB(){

@@ -92,12 +92,24 @@ class MongoHome<T> {
 		return mongoCollection;
 	}
 	
-	def Perfil stalkearAmigo(Usuario a_stalkear) {
-		this.find(DBQuery.in("visibility", Visibility.PUBLICO, Visibility.AMIGOS).and (DBQuery.is("username", a_stalkear.nombreDeUsuario))).get(0) as Perfil
+	def stalkearAmigo(Usuario a_stalkear) {
+		var a_stalkear_perfil = this.getPerfil(a_stalkear)
+		a_stalkear_perfil.deleteComments(Visibility.PRIVADO)
+		a_stalkear_perfil.deleteDestinations(Visibility.PRIVADO)
+		a_stalkear_perfil
 	}
 	
-	def Perfil stalkearNoAmigo(Usuario a_stalkear) {
-		this.find(DBQuery.in("visibility", Visibility.PUBLICO)).and (DBQuery.is("username", a_stalkear.nombreDeUsuario)).get(0) as Perfil
+	def stalkearNoAmigo(Usuario a_stalkear) {
+		var a_stalkear_perfil = this.getPerfil(a_stalkear)
+		a_stalkear_perfil.deleteComments(Visibility.PRIVADO)
+		a_stalkear_perfil.deleteComments(Visibility.AMIGOS)
+		a_stalkear_perfil.deleteDestinations(Visibility.PRIVADO)
+		a_stalkear_perfil.deleteDestinations(Visibility.AMIGOS)
+		a_stalkear_perfil
+	}
+	
+	def deleteComments(Perfil p, Visibility v) {
+		
 	}
 	
 }

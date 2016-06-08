@@ -60,5 +60,11 @@ class Destiny {
 		}
 	}
 	
+	def deleteComments(Visibility v) {
+		for(Comment c : comments) {
+			if(c.visibility.toString == v.toString) this.comments.remove(c)
+		}
+	}
+	
 	
 }

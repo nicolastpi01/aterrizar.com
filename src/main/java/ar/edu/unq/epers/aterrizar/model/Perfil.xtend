@@ -12,29 +12,19 @@ import org.mongojack.Id
 class Perfil {
 
 	private String username
-	private List<Destiny> destinations
-	private List<Comment> comments	
+	private List<Destiny> destinations	
 	@ObjectId
 	@JsonProperty("_id")
 	String id
 	
 	new() {}
 	
-	new(String username, Destiny destiny) {
-		this.username = username
-		this.destinations = new ArrayList()
-	}
-	
 
-	new(String username,  Destiny destiny, List<Comment> comments) {
+	new(String username) {
 		this.username = username
 		this.destinations = new ArrayList()
-		this.comments = comments
 	}
 	
-	def void addComment(Comment c) {
-		this.comments.add(c)
-	}
 	
 	def addDestiny(Destiny d) {
 		this.destinations.add(d)
@@ -82,6 +72,20 @@ class Perfil {
 		for(Destiny dest : destinations) {
 			if(dest.nombre == d.nombre) dest.getComment(c).setVisibility(v)
 		}
+	}
+	
+	def deleteComments(Visibility v) {
+		for(Destiny dest : destinations) dest.deleteComments(v)
+			
+	}
+	
+	def deleteDestinations(Visibility v) {
+		var destinationsAux = new ArrayList<Destiny>
+		for(Destiny d : destinations) {
+			if(!(d.visibility.toString == v.toString)) destinationsAux.add(d)
+		}
+			destinations = destinationsAux
+			null
 	}	
 	
 }
