@@ -8,6 +8,7 @@ import ar.edu.unq.epers.aterrizar.model.Visibility
 import ar.edu.unq.epers.aterrizar.model.Comment
 import ar.edu.unq.epers.aterrizar.model.Perfil
 import java.util.ArrayList
+import ar.edu.unq.epers.aterrizar.model.Like
 
 class PerfilService {
 	MongoHome<Perfil> perfilHome
@@ -38,34 +39,19 @@ class PerfilService {
 	
 	def void addComment(Usuario u, Destiny d, Comment c) {
 		var u_perfil = getPerfil(u)
-		if(u_perfil.exist(d)) u_perfil.update(d, c)
-		else {
-			d.addComment(c)
-			u_perfil.addDestiny(d)
-		}
+		if(!u_perfil.exist(d)) u_perfil.addDestiny(d)
+		d.addComment(c)
 		perfilHome.updatePerfil(u_perfil, u_perfil)
 	} 
 	
-	/*   
-	def void addComment(Usuario u, Destiny d, Comment comment) {
-		val perfil_documents = commentHome.find(DBQuery.is("username", u.nombreDeUsuario)).and (DBQuery.is("destiny.nombre", d.nombre))
-		var perfil_doc = new PerfilDocument(u.nombreDeUsuario, d)
-		if(perfil_documents.size() != 0) perfil_doc = perfil_documents.get(0) 
-		perfil_doc.add(comment)
-		var query = DBQuery.is("username", u.nombreDeUsuario).and (DBQuery.is("destiny.nombre", d.nombre))
-		commentHome.update(query, perfil_doc)
+	def void addlike(Usuario u, Destiny d, Like like) {
+		var u_perfil = getPerfil(u)
+		if(!u_perfil.exist(d)) u_perfil.addDestiny(d)
+		d.addLike(u, like)
+		perfilHome.updatePerfil(u_perfil, u_perfil)
 	}
 	
-	def void addlike(Usuario u, Destiny d) {
-		val perfil_documents = commentHome.find(DBQuery.is("username", u.nombreDeUsuario)).and (DBQuery.is("destiny.nombre", d.nombre))
-		var perfil_doc = new PerfilDocument(u.nombreDeUsuario, d)
-		if(perfil_documents.size() != 0) perfil_doc = perfil_documents.get(0) 
-		perfil_doc.addlike
-		var query = DBQuery.is("username", u.nombreDeUsuario).and (DBQuery.is("destiny.nombre", d.nombre))
-		commentHome.update(query, perfil_doc)
-	}
-	
-	
+	/* 
 	def void addDislike(Usuario u, Destiny d) {
 		val perfil_documents = commentHome.find(DBQuery.is("username", u.nombreDeUsuario)).and (DBQuery.is("destiny.nombre", d.nombre))
 		var perfil_doc = new PerfilDocument(u.nombreDeUsuario, d)

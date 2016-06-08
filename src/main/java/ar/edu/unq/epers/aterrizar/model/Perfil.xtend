@@ -14,8 +14,6 @@ class Perfil {
 	private String username
 	private List<Destiny> destinations
 	private List<Comment> comments	
-	private int likes
-	private int dislikes
 	@ObjectId
 	@JsonProperty("_id")
 	String id
@@ -25,8 +23,6 @@ class Perfil {
 	new(String username, Destiny destiny) {
 		this.username = username
 		this.destinations = new ArrayList()
-		this.likes = 0
-		this.dislikes = 0
 	}
 	
 
@@ -34,15 +30,6 @@ class Perfil {
 		this.username = username
 		this.destinations = new ArrayList()
 		this.comments = comments
-	}
-	
-	
-	def void addlike() {
-		likes++
-	}
-	
-	def void addDislike() {
-		dislikes++
 	}
 	
 	def void addComment(Comment c) {
@@ -66,5 +53,7 @@ class Perfil {
 			if(d.nombre == dest.nombre) dest.addComment(c)
 		}
 	}
+	
+	
 	
 }

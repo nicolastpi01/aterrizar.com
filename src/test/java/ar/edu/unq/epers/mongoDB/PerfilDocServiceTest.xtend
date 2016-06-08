@@ -13,6 +13,7 @@ import org.mongojack.DBQuery
 import ar.edu.unq.epers.aterrizar.servicios.SocialNetworkingService
 import ar.edu.unq.epers.aterrizar.model.Perfil
 import ar.edu.unq.epers.aterrizar.model.Comment
+import ar.edu.unq.epers.aterrizar.model.Like
 
 class PerfilDocServiceTest {
 	PerfilService service
@@ -24,6 +25,7 @@ class PerfilDocServiceTest {
 	Destiny bariloche_destiny
 	Destiny bahiaBlanca_destiny
 	Comment que_frio
+	Like like_pepe
 	SocialNetworkingService socialService
 	
 	
@@ -46,6 +48,7 @@ class PerfilDocServiceTest {
 		bahiaBlanca_destiny = new Destiny()
 		bahiaBlanca_destiny.nombre = "bahiaBlanca"
 		que_frio = new Comment("que frio")
+		like_pepe = new Like("pepe")
 	}
 	
 	@Test
@@ -68,49 +71,28 @@ class PerfilDocServiceTest {
 		Assert.assertEquals(perfil_pepe.destinations.get(0).nombre, "Mar del plata")	
 	}
 	  
-	
 	@Test
-	def void addCommentSinDestinoTest() {
+	def void addCommentTest() {
 		service.addPerfil(usuario_pepe)
 		service.addComment(usuario_pepe, marDelPlata_destiny, que_frio)
 		val perfil_pepe = service.getPerfil(usuario_pepe)
-		Assert.assertEquals(perfil_pepe.destinations.size, 1)
-		Assert.assertEquals(perfil_pepe.destinations.get(0).nombre, "Mar del plata")
 		Assert.assertEquals(perfil_pepe.destinations.get(0).comments.size, 1)
 		Assert.assertEquals(perfil_pepe.destinations.get(0).comments.get(0).description, "que frio")
 	}
-	/* 
-	// hard road
+	
+	 
 	@Test
-	def void addComment_yes_user_and_destiny_in_mongobd_Test() {
-		var comment = new Comment("en mardel")
-		var comment_enIguazu = new Comment("en Iguazu")
-		service.addDestiny(usuario_pepe, marDelPlata_destiny)
-		service.addComment(usuario_pepe, marDelPlata_destiny, comment)
-		val perfil_documents_si_mardel = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
-		Assert.assertEquals(perfil_documents_si_mardel.size(), 1)
-		var perfilDoc = perfil_documents_si_mardel.get(0)
-		Assert.assertEquals(perfilDoc.comments.get(0).description, "en mardel")
-		service.addComment(usuario_pepe, marDelPlata_destiny, comment_enIguazu)
-		val perfil_documents_si_mardel_si_Iguazu = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
-		Assert.assertEquals(perfil_documents_si_mardel.size(), 1)
-		var perfilDoc_2 = perfil_documents_si_mardel_si_Iguazu.get(0)
-		Assert.assertEquals(perfilDoc_2.comments.get(0).description, "en mardel")
-		var perfilDoc_3 = perfil_documents_si_mardel_si_Iguazu.get(0)
-		Assert.assertEquals(perfilDoc_3.comments.get(1).description, "en Iguazu")	
+	def void addlikeTest() {
+		service.addPerfil(usuario_pepe)
+		service.addlike(usuario_pepe, marDelPlata_destiny, like_pepe)
+		val perfil_pepe = service.getPerfil(usuario_pepe)
+		Assert.assertEquals(perfil_pepe.destinations.get(0).likes.size, 1)
+		Assert.assertEquals(perfil_pepe.destinations.get(0).likes.get(0).username, "pepe")
+		service.addlike(usuario_pepe, marDelPlata_destiny, like_pepe)
+		Assert.assertEquals(perfil_pepe.destinations.get(0).likes.size, 1)
 	}
 	 
-	//happy road
-	@Test
-	def void addlike_No_User_and_Destiny_in_mongodb_Test() {
-		service.addlike(usuario_pepe, marDelPlata_destiny)
-		val perfil_documents_si_pepe_si_mardel_1like = home.find(DBQuery.is("username", "pepe")).and (DBQuery.is("destiny.nombre", "Mar del plata"))
-		Assert.assertEquals(perfil_documents_si_pepe_si_mardel_1like.size(), 1)
-		var perfilDoc_pepe_mardel_1like = perfil_documents_si_pepe_si_mardel_1like.get(0)
-		Assert.assertEquals(perfilDoc_pepe_mardel_1like.likes, 1)
-	}
-	 
-	// hard road
+	/*
 	@Test
 	def void addlike_yes_User_and_yes_Destiny_in_mongodb_Test() {
 		service.addDestiny(usuario_pepe, marDelPlata_destiny)
