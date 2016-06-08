@@ -22,7 +22,7 @@ class Destiny {
 		dislikes = new ArrayList
 	}
 	
-	def addComment(Comment c){
+	def add(Comment c){
 		comments.add(c)
 	}
 	
@@ -52,6 +52,12 @@ class Destiny {
 			if(dislike.username == u.nombreDeUsuario) ret++
 		}
 			return ret
+	}
+	
+	def getComment(Comment c) {
+		for(Comment comment : comments) {
+			if(comment.description == c.description) return comment
+		}
 	}
 	
 	

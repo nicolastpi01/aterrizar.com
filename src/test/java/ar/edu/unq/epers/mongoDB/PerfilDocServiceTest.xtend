@@ -138,7 +138,7 @@ class PerfilDocServiceTest {
 		service.addVisibility(usuario_pepe, marDelPlata_destiny, que_frio, visibility_privado)
 		val perfil_pepe_privado = service.getPerfil(usuario_pepe)
 		Assert.assertEquals(perfil_pepe_privado.destinations.get(0).comments.get(0).visibility.toString, "PRIVADO")
-		service.addVisibility(usuario_pepe, marDelPlata_destiny, que_frio, visibility_privado)
+		service.addVisibility(usuario_pepe, marDelPlata_destiny, que_frio, visibility_publico)
 		val perfil_pepe_publico = service.getPerfil(usuario_pepe)
 		Assert.assertEquals(perfil_pepe_publico.destinations.get(0).comments.get(0).visibility.toString, "PUBLICO")
 	}

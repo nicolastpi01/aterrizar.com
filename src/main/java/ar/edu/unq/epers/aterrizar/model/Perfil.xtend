@@ -52,6 +52,36 @@ class Perfil {
 		for(Destiny dest : this.destinations) {
 			if(d.nombre == dest.nombre) dest.addComment(c)
 		}
+	}
+	
+	def addComment(Destiny d, Comment c) {
+		for(Destiny dest : destinations) {
+			if(dest.nombre == d.nombre) dest.add(c)
+		}
+	}
+	
+	def addLike(Destiny d, Like l, Usuario u) {
+		for(Destiny dest : destinations) {
+			if(dest.nombre == d.nombre) dest.addLike(u, l)
+		}
+	}
+	
+	def addDislike(Destiny d, Dislike dislike, Usuario u) {
+		for(Destiny dest : destinations) {
+			if(dest.nombre == d.nombre) dest.addDisLike(u, dislike)
+		}
+	}
+	
+	def addVisibility(Destiny d, Visibility visibility) {
+		for(Destiny dest : destinations) {
+			if(dest.nombre == d.nombre) dest.setVisibility(visibility)
+		}
+	}
+	
+	def addVisibility(Destiny d,Comment c, Visibility v) {
+		for(Destiny dest : destinations) {
+			if(dest.nombre == d.nombre) dest.getComment(c).setVisibility(v)
+		}
 	}	
 	
 }

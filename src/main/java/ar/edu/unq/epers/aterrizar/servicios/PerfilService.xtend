@@ -40,36 +40,31 @@ class PerfilService {
 	
 	def void addComment(Usuario u, Destiny d, Comment c) {
 		var u_perfil = getPerfil(u)
-		if(!u_perfil.exist(d)) u_perfil.addDestiny(d)
-		d.addComment(c)
+		u_perfil.addComment(d, c)
 		perfilHome.updatePerfil(u_perfil, u_perfil)
 	} 
 	
 	def void addlike(Usuario u, Destiny d, Like like) {
 		var u_perfil = getPerfil(u)
-		if(!u_perfil.exist(d)) u_perfil.addDestiny(d)
-		d.addLike(u, like)
+		u_perfil.addLike(d, like, u)
 		perfilHome.updatePerfil(u_perfil, u_perfil)
 	}
 
 	def void addDislike(Usuario u, Destiny d, Dislike dislike) {
 		var u_perfil = getPerfil(u)
-		if(!u_perfil.exist(d)) u_perfil.addDestiny(d)
-		d.addDisLike(u, dislike)
+		u_perfil.addDislike(d, dislike, u)
 		perfilHome.updatePerfil(u_perfil, u_perfil)
 	}
 	  
 	def void addVisibility(Usuario u, Destiny d, Visibility visibility) {
 		var u_perfil = getPerfil(u)
-		if(!u_perfil.exist(d)) u_perfil.addDestiny(d)
-		d.setVisibility(visibility)
+		u_perfil.addVisibility(d, visibility)
 		perfilHome.updatePerfil(u_perfil, u_perfil)
 	}
 	 
 	def void addVisibility(Usuario u, Destiny d, Comment c, Visibility visibility) {
 		var u_perfil = getPerfil(u)
-		if(!u_perfil.exist(d)) u_perfil.addDestiny(d)
-		c.setVisibility(visibility)
+		u_perfil.addVisibility(d, c, visibility)
 		perfilHome.updatePerfil(u_perfil, u_perfil)
 	}
 	
