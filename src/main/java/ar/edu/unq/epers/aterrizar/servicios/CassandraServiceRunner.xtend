@@ -8,18 +8,14 @@ import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 
 class CassandraServiceRunner {
-
    private Cluster cluster
    private Session session
 
-   def getSession() {
-      this.session
-   }
-
-   def connect(String node) {
+   def connect() {
       cluster = Cluster.builder()
-            .addContactPoint(node)
+            .addContactPoint("127.0.0.1")
             .build()
+             
       var metadata = cluster.getMetadata()
       System.out.printf("Connected to cluster: %s\n", 
             metadata.getClusterName())
@@ -27,8 +23,17 @@ class CassandraServiceRunner {
          System.out.printf("Datatacenter: %s; Host: %s; Rack: %s\n",
                host.getDatacenter(), host.getAddress(), host.getRack())
       }
-      	session = cluster.connect()
+      
+      session = cluster.connect()
    }
+   
+   def getSession() {
+   	var cliente = new CassandraServiceRunner()
+   	var session = cliente.connect()
+   		session
+   }
+	
+
 /* 
    public void createSchema() {
       session.execute("CREATE KEYSPACE IF NOT EXISTS simplex WITH replication " + 
@@ -86,17 +91,18 @@ class CassandraServiceRunner {
       System.out.println();
    }
 	*/
+	
    def close() {
       session.close()
       cluster.close()
    }
 
    def static void main(String[] args) {
-      var client = new CassandraServiceRunner
-      client.connect("127.0.0.1")
+      var cliente = new CassandraServiceRunner
+      cliente.connect()
       //client.createSchema()
       //client.loadData()
       //client.querySchema()
-      client.close()
-   }
+      cliente.close()
+	}
 }
