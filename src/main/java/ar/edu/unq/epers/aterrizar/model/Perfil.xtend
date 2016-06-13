@@ -5,16 +5,25 @@ import java.util.List
 import java.util.ArrayList
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.mongojack.ObjectId
-import org.mongojack.Id
+import com.datastax.driver.mapping.annotations.Table
+import com.datastax.driver.mapping.annotations.PartitionKey
+import com.datastax.driver.mapping.annotations.Frozen
+import org.eclipse.xtend.lib.annotations.EqualsHashCode
+import com.datastax.driver.mapping.annotations.FrozenValue
+import org.eclipse.xtext.xbase.lib.util.ToStringBuilder
 
-
+@EqualsHashCode
+@Table(keyspace = "simplex", name = "Perfil")
 @Accessors
 class Perfil {
-
+	@PartitionKey
 	private String username
+	//@Frozen
+	//@FrozenValue
 	private List<Destiny> destinations	
 	@ObjectId
 	@JsonProperty("_id")
+	@PartitionKey(1)
 	String id
 	
 	new() {}

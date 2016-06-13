@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.mongojack.ObjectId
 import java.util.ArrayList
+import com.datastax.driver.mapping.annotations.Frozen
+import com.datastax.driver.mapping.EnumType
+import com.datastax.driver.mapping.annotations.Enumerated
+import com.datastax.driver.mapping.annotations.Table
 
 @Accessors
 class Destiny {
@@ -11,9 +15,13 @@ class Destiny {
 	@JsonProperty("_id")
 	String id
 	String nombre;
+	//@Frozen
 	ArrayList<Like> likes
+	//@Frozen
 	ArrayList<Dislike> dislikes
+	//@Frozen
 	ArrayList<Comment> comments
+	@Enumerated(EnumType.STRING)
 	Visibility visibility
 	
 	new() {

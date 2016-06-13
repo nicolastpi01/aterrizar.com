@@ -1,30 +1,37 @@
 package ar.edu.unq.epers.aterrizar.servicios
 
-import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.model.Perfil
 import ar.edu.unq.epers.aterrizar.home.CassandraHome
 
 class CacheService {
 	CassandraHome home
 	
-	
 	new(CassandraHome home) {
 		this.home = home
 	}
 	
-	def verPerfil(Usuario u) {
-		// buscar el perfil en la cache, papa!!!!!
-	}
-	
-	def estaPerfil(Perfil p) {
-		// devuelve un booleano
+	def verPerfil(Perfil p) {
+		this.home.getPerfil(p)
 	}
 	
 	def guardar(Perfil p) {
-		// guardo un perfil en la cache
+		home.save(p)
 	}
 	
 	def borrar(Perfil p) {
-		// borra el prefil de la cache
+		home.delete(p)
 	}
+	
+	
+	
+	/* 
+	def estaPerfil(Perfil p) {
+		this.home.isInPerfil(p)
+	}
+	
+	
+	
+	
+	*/
+	
 }

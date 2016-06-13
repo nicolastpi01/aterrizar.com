@@ -1,15 +1,35 @@
 package ar.edu.unq.epers.aterrizar.home
 
+import ar.edu.unq.epers.aterrizar.servicios.CassandraServiceRunner
 import ar.edu.unq.epers.aterrizar.model.Perfil
-import com.datastax.driver.core.Session
+import ar.edu.unq.epers.aterrizar.model.Usuario
 
 class CassandraHome {
-	private Session cassandraSession
+	private CassandraServiceRunner cassandraRunner
 	
+	new(){ }
 	
-	new(Session cassandraSession) {
-		this.cassandraSession = cassandraSession
+	new(CassandraServiceRunner cassandraRunner) {
+		this.cassandraRunner = cassandraRunner
 	}
+	
+	def save(Perfil p) {
+		cassandraRunner.mapper.save(p)
+	}
+	
+	def getPerfil(Perfil p) {
+		cassandraRunner.mapper.get(p)
+	}
+	
+	def delete(Perfil p) {
+		cassandraRunner.mapper.delete(p)
+	}
+	
+	/* 
+	def isInPerfil(Perfil p) {
+		
+	}
+	*/
 	
 	
 }

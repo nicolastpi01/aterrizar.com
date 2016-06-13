@@ -42,48 +42,49 @@ class PerfilService {
 		perfil.username = u.nombreDeUsuario
 		perfil.destinations = new ArrayList()
 		perfilHome.insert(perfil)
+		cacheService.guardar(perfil)
 	}
 	
 	def void addDestiny(Usuario u, Destiny d) {
 		var u_perfil = getPerfil(u)
 		u_perfil.addDestiny(d)
 		perfilHome.updatePerfil(u_perfil, u_perfil)
-		if(cacheService.estaPerfil(u_perfil)) cacheService.borrar(u_perfil)		
+		if(cacheService.estaPerfil(u)) cacheService.borrar(u_perfil)		
 	}
 	
 	def void addComment(Usuario u, Destiny d, Comment c) {
 		var u_perfil = getPerfil(u)
 		u_perfil.addComment(d, c)
 		perfilHome.updatePerfil(u_perfil, u_perfil)
-		if(cacheService.estaPerfil(u_perfil)) cacheService.borrar(u_perfil)
+		if(cacheService.estaPerfil(u)) cacheService.borrar(u_perfil)
 	} 
 	
 	def void addlike(Usuario u, Destiny d, Like like) {
 		var u_perfil = getPerfil(u)
 		u_perfil.addLike(d, like, u)
 		perfilHome.updatePerfil(u_perfil, u_perfil)
-		if(cacheService.estaPerfil(u_perfil)) cacheService.borrar(u_perfil)
+		if(cacheService.estaPerfil(u)) cacheService.borrar(u_perfil)
 	}
 
 	def void addDislike(Usuario u, Destiny d, Dislike dislike) {
 		var u_perfil = getPerfil(u)
 		u_perfil.addDislike(d, dislike, u)
 		perfilHome.updatePerfil(u_perfil, u_perfil)
-		if(cacheService.estaPerfil(u_perfil)) cacheService.borrar(u_perfil)
+		if(cacheService.estaPerfil(u)) cacheService.borrar(u_perfil)
 	}
 	  
 	def void addVisibility(Usuario u, Destiny d, Visibility visibility) {
 		var u_perfil = getPerfil(u)
 		u_perfil.addVisibility(d, visibility)
 		perfilHome.updatePerfil(u_perfil, u_perfil)
-		if(cacheService.estaPerfil(u_perfil)) cacheService.borrar(u_perfil)
+		if(cacheService.estaPerfil(u)) cacheService.borrar(u_perfil)
 	}
 	 
 	def void addVisibility(Usuario u, Destiny d, Comment c, Visibility visibility) {
 		var u_perfil = getPerfil(u)
 		u_perfil.addVisibility(d, c, visibility)
 		perfilHome.updatePerfil(u_perfil, u_perfil)
-		if(cacheService.estaPerfil(u_perfil)) cacheService.borrar(u_perfil)
+		if(cacheService.estaPerfil(u)) cacheService.borrar(u_perfil)
 	}
 
 	def stalkear(Usuario mi_usuario, Usuario a_stalkear) {
