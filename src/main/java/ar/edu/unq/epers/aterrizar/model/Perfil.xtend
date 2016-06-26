@@ -7,23 +7,22 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import org.mongojack.ObjectId
 import com.datastax.driver.mapping.annotations.Table
 import com.datastax.driver.mapping.annotations.PartitionKey
-import com.datastax.driver.mapping.annotations.Frozen
-import org.eclipse.xtend.lib.annotations.EqualsHashCode
 import com.datastax.driver.mapping.annotations.FrozenValue
-import org.eclipse.xtext.xbase.lib.util.ToStringBuilder
+import com.datastax.driver.mapping.annotations.Frozen
 
-@EqualsHashCode
-@Table(keyspace = "simplex", name = "Perfil")
+@Table(keyspace = "cassandra", name = "perfiles",
+readConsistency = "QUORUM",
+writeConsistency = "QUORUM",
+caseSensitiveKeyspace = false,
+caseSensitiveTable = false)
 @Accessors
 class Perfil {
 	@PartitionKey
 	private String username
-	//@Frozen
-	//@FrozenValue
+	@Frozen
 	private List<Destiny> destinations	
 	@ObjectId
 	@JsonProperty("_id")
-	@PartitionKey(1)
 	String id
 	
 	new() {}
@@ -31,7 +30,7 @@ class Perfil {
 
 	new(String username) {
 		this.username = username
-		this.destinations = new ArrayList()
+		this.destinations = new ArrayList
 	}
 	
 	
@@ -70,7 +69,7 @@ class Perfil {
 			if(dest.nombre == d.nombre) dest.addDisLike(u, dislike)
 		}
 	}
-	
+	 
 	def addVisibility(Destiny d, Visibility visibility) {
 		for(Destiny dest : destinations) {
 			if(dest.nombre == d.nombre) dest.setVisibility(visibility)

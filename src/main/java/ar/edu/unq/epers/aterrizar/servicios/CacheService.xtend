@@ -1,37 +1,42 @@
 package ar.edu.unq.epers.aterrizar.servicios
 
 import ar.edu.unq.epers.aterrizar.model.Perfil
-import ar.edu.unq.epers.aterrizar.home.CassandraHome
+import ar.edu.unq.epers.aterrizar.home.CacheHome
+import org.eclipse.xtend.lib.annotations.Accessors
+import ar.edu.unq.epers.aterrizar.model.Usuario
 
+@Accessors
 class CacheService {
-	CassandraHome home
+	private CacheHome cacheHome
 	
-	new(CassandraHome home) {
-		this.home = home
-	}
+	new() {}
 	
-	def verPerfil(Perfil p) {
-		this.home.getPerfil(p)
+	new(CacheHome cacheHome) {
+		this.cacheHome = cacheHome 
 	}
 	
 	def guardar(Perfil p) {
-		home.save(p)
+		cacheHome.save(p)
 	}
 	
-	def borrar(Perfil p) {
-		home.delete(p)
+	def verPerfil(Usuario u) {
+		cacheHome.get(u)
 	}
 	
-	
-	
-	/* 
-	def estaPerfil(Perfil p) {
-		this.home.isInPerfil(p)
+	def borrar(Usuario u) {
+		cacheHome.delete(u)
+	}
+	 
+	def estaPerfil(Usuario u) {
+		this.verPerfil(u) != null
 	}
 	
+	def deleteKeyspace() {
+		cacheHome.dropKeyspace
+	}
 	
-	
-	
-	*/
-	
+	def deleteTable() {
+		cacheHome.dropTable
+	}
+		
 }

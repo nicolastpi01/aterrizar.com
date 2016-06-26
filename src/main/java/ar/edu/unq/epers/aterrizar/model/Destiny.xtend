@@ -4,27 +4,31 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.mongojack.ObjectId
 import java.util.ArrayList
-import com.datastax.driver.mapping.annotations.Frozen
-import com.datastax.driver.mapping.EnumType
-import com.datastax.driver.mapping.annotations.Enumerated
-import com.datastax.driver.mapping.annotations.Table
+import com.datastax.driver.mapping.annotations.UDT
+import com.datastax.driver.mapping.annotations.FrozenValue
+import com.datastax.driver.core.CodecRegistry
+import com.datastax.driver.extras.codecs.enums.EnumNameCodec
+import java.util.List
 
 @Accessors
+@UDT(name = "destiny", keyspace = "cassandra")
 class Destiny {
 	@ObjectId
 	@JsonProperty("_id")
 	String id
-	String nombre;
-	//@Frozen
-	ArrayList<Like> likes
-	//@Frozen
-	ArrayList<Dislike> dislikes
-	//@Frozen
-	ArrayList<Comment> comments
-	@Enumerated(EnumType.STRING)
+	String nombre
+	@FrozenValue
+	List<Like> likes
+	@FrozenValue
+	List<Dislike> dislikes
+	@FrozenValue
+	List<Comment> comments
 	Visibility visibility
 	
-	new() {
+	
+	new() {		
+		CodecRegistry.DEFAULT_INSTANCE
+    	.register(new EnumNameCodec <Visibility>(Visibility))
 		comments = new ArrayList
 		likes = new ArrayList
 		dislikes = new ArrayList
@@ -71,6 +75,7 @@ class Destiny {
 	def deleteComments(Visibility v) {
 		for(Comment c : comments) {
 			if(c.visibility.toString == v.toString) this.comments.remove(c)
+			if(true) this.comments.remove(c)
 		}
 	}
 	
