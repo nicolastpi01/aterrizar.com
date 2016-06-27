@@ -30,6 +30,16 @@ class SocialNetworkingServiceTest {
         var amigos = service.friends(usuario1)
         Assert.assertEquals(3, amigos.length)
     }
+    
+    @Test
+    def void theyAreFriendsTest() {
+    	Assert.assertFalse(service.theyAreFriends(usuario1, usuario10AmigoDe6))
+    	Assert.assertFalse(service.theyAreFriends(usuario1, usuario2))
+    	Assert.assertFalse(service.theyAreFriends(usuario1, usuario9AmigoDe4))
+    	Assert.assertTrue(service.theyAreFriends(usuario1, usuario3AmigoDe1))
+    	Assert.assertTrue(service.theyAreFriends(usuario1, usuario4AmigoDe1))
+    	Assert.assertTrue(service.theyAreFriends(usuario1, usuario5AmigoDe1))
+    }
 
     @After
     def void after(){

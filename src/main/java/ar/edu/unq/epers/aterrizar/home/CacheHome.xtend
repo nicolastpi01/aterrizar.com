@@ -44,6 +44,14 @@ class CacheHome {
 		runner.dropTable
 	}
 	
+	def stalkearAmigo(Usuario u) {
+		runner.stalkearFriend(u)
+	}
+	
+	def stalkearNoAmigo(Usuario u) {
+		runner.stalkearNoFriend(u)
+	}
+	
 	
 	
 }

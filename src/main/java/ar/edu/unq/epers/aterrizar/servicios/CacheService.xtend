@@ -38,5 +38,13 @@ class CacheService {
 	def deleteTable() {
 		cacheHome.dropTable
 	}
+	
+	def stalkearAmigo(Usuario usuario) {
+		 cacheHome.stalkearAmigo(usuario)
+	}
+	
+	def stalkearNoAmigo(Usuario usuario) {
+		cacheHome.stalkearNoAmigo(usuario)
+	}
 		
 }

@@ -93,23 +93,19 @@ class MongoHome<T> {
 	}
 	 
 	def stalkearAmigo(Usuario a_stalkear) {
-		var a_stalkear_perfil = this.getPerfil(a_stalkear)
-		a_stalkear_perfil.deleteComments(Visibility.PRIVADO)
+		var a_stalkear_perfil = this.getPerfil(a_stalkear)		
 		a_stalkear_perfil.deleteDestinations(Visibility.PRIVADO)
+		a_stalkear_perfil.deleteComments(Visibility.PRIVADO)
 		a_stalkear_perfil
 	}
 	
 	def stalkearNoAmigo(Usuario a_stalkear) {
 		var a_stalkear_perfil = this.getPerfil(a_stalkear)
-		a_stalkear_perfil.deleteComments(Visibility.PRIVADO)
-		a_stalkear_perfil.deleteComments(Visibility.AMIGOS)
 		a_stalkear_perfil.deleteDestinations(Visibility.PRIVADO)
 		a_stalkear_perfil.deleteDestinations(Visibility.AMIGOS)
+		a_stalkear_perfil.deleteComments(Visibility.PRIVADO)
+		a_stalkear_perfil.deleteComments(Visibility.AMIGOS)
 		a_stalkear_perfil
 	}
-	
-	def deleteComments(Perfil p, Visibility v) {
 		
-	}
-	
 }

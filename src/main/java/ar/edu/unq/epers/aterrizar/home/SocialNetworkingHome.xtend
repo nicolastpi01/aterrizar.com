@@ -40,14 +40,6 @@ class SocialNetworkingHome {
 		nodo.relationships.forEach[delete]
 		nodo.delete
 	}
-	def sonAmigos(Usuario miUser, Usuario anotherUser) {
-		var bool_friends = false
-		var my_friends = this.getFriends(miUser)
-		for(Usuario u : my_friends) {
-			bool_friends = bool_friends || miUser.id == anotherUser.id
-		}
-			bool_friends
-	}
 	
 	def crearNodo(Usuario usuario) {
 		var node = this.graph.createNode(userLabel)
@@ -99,17 +91,7 @@ class SocialNetworkingHome {
 		//OUTGOING INCOMING
 		return nodoAmigos.map[toUsuario].toSet
 	}
-	/* 
-	 // Algo asi, hay problemas con los tipos
-	def getAllFriends(Usuario usuario) {
-		val myFriends = getFriends(usuario)
-		val otherFriends = Set
-		for(Usuario friend : myFriends) {
-			otherFriends.addAll(getFriends(friend).toArray) 
-		}
-			otherFriends.addAll(myFriends)
-	}
-	*/
+
 	private def toUsuario(Node nodo) {
 		new Usuario => [
 			nombreDeUsuario = nodo.getProperty("nombreDeUsuario") as String
@@ -125,18 +107,10 @@ class SocialNetworkingHome {
 		nodo.getRelationships(tipo, direccion).map[it.getOtherNode(nodo)]
 	}
 	
-	// Modificar, si existe relacion entonces solo agrego el mensaje, si no creo la relacion e envio el mensaje
-	// solucion provisoria
-	// la idea es que la relacion tenga una propiedad llamada msjs que sea un array de msjs
-	def sendMsj(Usuario sender, Usuario receiver, Message msj) {
-		/*
-		 * if no existe la relacion la creo, indistintamente se agrega el mensaje
-		 */
-		 
+	def sendMsj(Usuario sender, Usuario receiver, Message msj) { 
 		var nodoMensaje = this.crearNodo(msj)
 		val nodo1 = this.getNodo(sender)
 		val nodo2 = this.getNodo(receiver)
-		//val nodo3 = this.getNodo(msj)
 		nodoMensaje.createRelationshipTo(nodo1, TipoDeRelaciones.SENDER)
 		nodoMensaje.createRelationshipTo(nodo2, TipoDeRelaciones.RECEIVER)
 		return null

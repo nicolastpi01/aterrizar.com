@@ -29,10 +29,16 @@ class CacheServiceTest {
 	Usuario usuarioBeto
 	Destiny marDelPlata_destiny
 	Destiny pinamar_destiny
+	Destiny bariloche_destiny
 	Like like
 	Dislike dislike
 	Visibility visibilityPublico
+	Visibility visibilityPrivado
+	Visibility visibilityAmigos
 	Comment queFrio_comment
+	Comment commentQueCalor
+	Comment commentQueLindoDia
+	Comment	commentVoyALaPlaya
 	
 	
 	@Before
@@ -66,10 +72,17 @@ class CacheServiceTest {
 		marDelPlata_destiny.nombre = "Mar del plata"
 		pinamar_destiny = new Destiny()
 		pinamar_destiny.nombre = "pinamar"
+		bariloche_destiny = new Destiny
+		bariloche_destiny.nombre = "bariloche"
 		like = new Like("pepe")
 		dislike = new Dislike("pepe")
 		visibilityPublico = Visibility.PUBLICO
+		visibilityPrivado = Visibility.PRIVADO
+		visibilityAmigos = Visibility.AMIGOS
 		queFrio_comment = new Comment("que frio")
+		commentQueCalor = new Comment("que calor")
+		commentQueLindoDia = new Comment("que lindo dia")
+		commentVoyALaPlaya = new Comment("voy a la playa")
 	}
 	
 	@Test
@@ -119,11 +132,59 @@ class CacheServiceTest {
 		Assert.assertEquals(false, estaLuis)
 	}
 	
-	    
+	@Test
+	def void stalkearAmigoTest() {
+		
+		commentQueCalor.visibility = visibilityPublico
+		commentQueLindoDia.visibility = visibilityAmigos
+		commentVoyALaPlaya.visibility = visibilityPrivado
+		marDelPlata_destiny.add(commentQueCalor)
+		marDelPlata_destiny.add(commentQueLindoDia)
+		marDelPlata_destiny.add(commentVoyALaPlaya)
+		marDelPlata_destiny.visibility = visibilityPublico
+		pinamar_destiny.visibility = visibilityPrivado
+		bariloche_destiny.visibility = visibilityAmigos
+		perfilPepe.addDestiny(marDelPlata_destiny)
+		perfilPepe.addDestiny(pinamar_destiny)
+		perfilPepe.addDestiny(bariloche_destiny)
+		service.guardar(perfilPepe)
+		//var pepe = service.stalkearAmigo(usuarioPepe)
+		//Assert.assertEquals(pepe.destinations.size, 2)
+		//Assert.assertEquals(pepe.destinations.get(0).nombre, "Mar del plata")
+		//Assert.assertEquals(pepe.destinations.get(1).nombre, "bariloche")
+		//Assert.assertEquals(pepe.destinations.get(0).comments.size, 2)
+		//Assert.assertEquals(pepe.destinations.get(0).comments.get(0).description, "que calor")
+		//Assert.assertEquals(pepe.destinations.get(0).comments.get(1).description, "que lindo dia")		
+	}
+	
+	@Test
+	def void stalkearNoAmigoTest() {
+		
+		commentQueCalor.visibility = visibilityPublico
+		commentQueLindoDia.visibility = visibilityAmigos
+		commentVoyALaPlaya.visibility = visibilityPrivado
+		marDelPlata_destiny.add(commentQueCalor)
+		marDelPlata_destiny.add(commentQueLindoDia)
+		marDelPlata_destiny.add(commentVoyALaPlaya)
+		marDelPlata_destiny.visibility = visibilityPublico
+		pinamar_destiny.visibility = visibilityPrivado
+		bariloche_destiny.visibility = visibilityAmigos
+		perfilPepe.addDestiny(marDelPlata_destiny)
+		perfilPepe.addDestiny(pinamar_destiny)
+		perfilPepe.addDestiny(bariloche_destiny)
+		service.guardar(perfilPepe)
+		var pepe = service.stalkearAmigo(usuarioPepe)
+		//Assert.assertEquals(pepe.destinations.size, 1)
+		//Assert.assertEquals(pepe.destinations.get(0).nombre, "Mar del plata")
+		//Assert.assertEquals(pepe.destinations.get(0).comments.size, 1)
+		//Assert.assertEquals(pepe.destinations.get(0).comments.get(0).description, "que calor")		
+	}
+	
+	/*     
 	@After
 	def void afterSetUp() {
 		service.deleteTable
 		service.deleteKeyspace
 	}
-	 
+	 */
 }

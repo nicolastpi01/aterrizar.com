@@ -6,6 +6,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import ar.edu.unq.epers.aterrizar.model.Perfil
 import com.datastax.driver.mapping.Mapper
 import com.datastax.driver.mapping.MappingManager
+import ar.edu.unq.epers.aterrizar.model.Usuario
 
 @Accessors
 class CassandraServiceRunner {
@@ -100,6 +101,16 @@ class CassandraServiceRunner {
 		createTypeComment
 		createTypeDestiny
 		createTable
+	}
+	
+	def stalkearFriend(Usuario u) {
+		var query = "SELECT * FROM cassandra.perfiles "
+		session.execute(query)	
+	}
+	
+	def stalkearNoFriend(Usuario u) {
+		var query = "SELECT * FROM cassandra.perfiles "
+		session.execute(query)
 	}
 	
 }
