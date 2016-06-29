@@ -5,19 +5,13 @@ import java.util.List
 import java.util.ArrayList
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.mongojack.ObjectId
-import com.datastax.driver.mapping.annotations.Table
 import com.datastax.driver.mapping.annotations.PartitionKey
-import com.datastax.driver.mapping.annotations.FrozenValue
 import com.datastax.driver.mapping.annotations.Frozen
+import com.datastax.driver.mapping.annotations.UDT
 
-@Table(keyspace = "cassandra", name = "perfiles",
-readConsistency = "QUORUM",
-writeConsistency = "QUORUM",
-caseSensitiveKeyspace = false,
-caseSensitiveTable = false)
+@UDT(name = "perfil", keyspace = "cassandra")
 @Accessors
 class Perfil {
-	@PartitionKey
 	private String username
 	@Frozen
 	private List<Destiny> destinations	
@@ -26,13 +20,11 @@ class Perfil {
 	String id
 	
 	new() {}
-	
 
 	new(String username) {
 		this.username = username
 		this.destinations = new ArrayList
 	}
-	
 	
 	def addDestiny(Destiny d) {
 		this.destinations.add(d)

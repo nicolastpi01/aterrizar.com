@@ -92,20 +92,20 @@ class MongoHome<T> {
 		return mongoCollection;
 	}
 	 
-	def stalkearAmigo(Usuario a_stalkear) {
-		var a_stalkear_perfil = this.getPerfil(a_stalkear)		
+	def stalkearAmigo(Usuario aStalkear) {
+		var a_stalkear_perfil = this.getPerfil(aStalkear)		
 		a_stalkear_perfil.deleteDestinations(Visibility.PRIVADO)
 		a_stalkear_perfil.deleteComments(Visibility.PRIVADO)
 		a_stalkear_perfil
 	}
 	
-	def stalkearNoAmigo(Usuario a_stalkear) {
-		var a_stalkear_perfil = this.getPerfil(a_stalkear)
+	def stalkearNoAmigo(Usuario aStalkear) {
+		var a_stalkear_perfil = this.getPerfil(aStalkear)
 		a_stalkear_perfil.deleteDestinations(Visibility.PRIVADO)
 		a_stalkear_perfil.deleteDestinations(Visibility.AMIGOS)
 		a_stalkear_perfil.deleteComments(Visibility.PRIVADO)
 		a_stalkear_perfil.deleteComments(Visibility.AMIGOS)
-		a_stalkear_perfil
+			a_stalkear_perfil
 	}
 		
 }

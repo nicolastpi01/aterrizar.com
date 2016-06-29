@@ -1,9 +1,10 @@
 package ar.edu.unq.epers.aterrizar.servicios
 
-import ar.edu.unq.epers.aterrizar.model.Perfil
 import ar.edu.unq.epers.aterrizar.home.CacheHome
 import org.eclipse.xtend.lib.annotations.Accessors
 import ar.edu.unq.epers.aterrizar.model.Usuario
+import ar.edu.unq.epers.aterrizar.model.PerfilCacheado
+import ar.edu.unq.epers.aterrizar.model.Visibility
 
 @Accessors
 class CacheService {
@@ -15,20 +16,24 @@ class CacheService {
 		this.cacheHome = cacheHome 
 	}
 	
-	def guardar(Perfil p) {
+	def guardar(PerfilCacheado p) {
 		cacheHome.save(p)
 	}
 	
-	def verPerfil(Usuario u) {
-		cacheHome.get(u)
+	def verPerfilCache(Usuario u, Visibility v) {
+		cacheHome.get(u, v)
 	}
 	
-	def borrar(Usuario u) {
-		cacheHome.delete(u)
+	def borrarPerfilCache(Usuario u, Visibility v) {
+		cacheHome.delete(u, v)
 	}
 	 
-	def estaPerfil(Usuario u) {
-		this.verPerfil(u) != null
+	def estaPerfilCache(Usuario u, Visibility v) {
+		this.verPerfilCache(u, v) != null
+	}
+	
+	def verPerfil(Usuario u, Visibility v) {
+		this.verPerfilCache(u, v).perfil
 	}
 	
 	def deleteKeyspace() {
@@ -37,14 +42,6 @@ class CacheService {
 	
 	def deleteTable() {
 		cacheHome.dropTable
-	}
-	
-	def stalkearAmigo(Usuario usuario) {
-		 cacheHome.stalkearAmigo(usuario)
-	}
-	
-	def stalkearNoAmigo(Usuario usuario) {
-		cacheHome.stalkearNoAmigo(usuario)
 	}
 		
 }

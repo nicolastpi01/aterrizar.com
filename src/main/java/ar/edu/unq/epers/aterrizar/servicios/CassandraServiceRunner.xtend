@@ -1,36 +1,21 @@
 package ar.edu.unq.epers.aterrizar.servicios
 
+import ar.edu.unq.epers.aterrizar.model.PerfilCacheado
+import ar.edu.unq.epers.aterrizar.model.Visibility
 import com.datastax.driver.core.Cluster
+import com.datastax.driver.core.CodecRegistry
 import com.datastax.driver.core.Session
-import org.eclipse.xtend.lib.annotations.Accessors
-import ar.edu.unq.epers.aterrizar.model.Perfil
+import com.datastax.driver.extras.codecs.enums.EnumNameCodec
 import com.datastax.driver.mapping.Mapper
 import com.datastax.driver.mapping.MappingManager
-import ar.edu.unq.epers.aterrizar.model.Usuario
+import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class CassandraServiceRunner {
    private Session session	
    private Cluster cluster
-   private Mapper<Perfil> perfilmapper
-   //private String contactPoint   
+   private Mapper<PerfilCacheado> perfilmapper 
    
-   /* 
-    new(String contactPoint) {
-   		this.contactPoint = contactPoint
-    }
-   
-   /* 
- 	def createSession() {
-		cluster = Cluster.builder().addContactPoint(contactPoint).build()
-		return cluster.connect()
-  	}
-	
-	def getSession() {
-	if (session == null) session = createSession
-		return session
-	}
-	*/
 	def addPoint(String addres) {
 		cluster = Cluster.builder.addContactPoint(addres).build
 	}
@@ -40,7 +25,7 @@ class CassandraServiceRunner {
 	}
 	
 	def initializeMapper() {
-		this.perfilmapper = new MappingManager(session).mapper(Perfil)
+		this.perfilmapper = new MappingManager(session).mapper(PerfilCacheado)
 	}
 	
 	def defineKeyspace() {
@@ -51,13 +36,21 @@ class CassandraServiceRunner {
 	}
 	
 	def dropTable() {
-		var query = "DROP TABLE perfiles; "
+		var query = "DROP TABLE perfilCacheado; "
 		session.execute(query)
 	}
 	
-	def createTable() {
-		var query = "CREATE TABLE IF NOT EXISTS perfiles(username text PRIMARY KEY, "
-         + "destinations list< frozen <destiny> >, "
+	def createTablePerfilCacheado() {
+		var query = "CREATE TABLE IF NOT EXISTS perfilCacheado(username text, "
+		+ "visibility text, "
+        + "perfil frozen <perfil> , "
+        + "PRIMARY KEY (username, visibility) ); " 
+         session.execute(query)
+	}
+	
+	def createTypePerfil() {
+		var query = "CREATE TYPE IF NOT EXISTS perfil(username text, "
+         + "destinations list <frozen <destiny> >, "
          + "id text );  "
          session.execute(query)
 	}
@@ -95,22 +88,15 @@ class CassandraServiceRunner {
 	}
 	
 	def initializeModel() {
+		CodecRegistry.DEFAULT_INSTANCE
+    	.register(new EnumNameCodec <Visibility>(Visibility))
 		defineKeyspace
 		createTypeLike
 		createTypeDislike
 		createTypeComment
 		createTypeDestiny
-		createTable
-	}
-	
-	def stalkearFriend(Usuario u) {
-		var query = "SELECT * FROM cassandra.perfiles "
-		session.execute(query)	
-	}
-	
-	def stalkearNoFriend(Usuario u) {
-		var query = "SELECT * FROM cassandra.perfiles "
-		session.execute(query)
+		createTypePerfil
+		createTablePerfilCacheado
 	}
 	
 }

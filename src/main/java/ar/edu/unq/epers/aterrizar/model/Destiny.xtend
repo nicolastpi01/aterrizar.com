@@ -27,8 +27,6 @@ class Destiny {
 	
 	
 	new() {		
-		CodecRegistry.DEFAULT_INSTANCE
-    	.register(new EnumNameCodec <Visibility>(Visibility))
 		comments = new ArrayList
 		likes = new ArrayList
 		dislikes = new ArrayList

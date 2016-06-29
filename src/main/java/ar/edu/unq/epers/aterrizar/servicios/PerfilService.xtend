@@ -12,6 +12,7 @@ import ar.edu.unq.epers.aterrizar.model.Dislike
 import ar.edu.unq.epers.aterrizar.servicios.CacheService
 import ar.edu.unq.epers.aterrizar.exceptions.UsuarioNoTieneAsientoEnDestinoException
 import ar.edu.unq.epers.aterrizar.exceptions.UsuarioNoTienePermisoParaMGoNMGException
+import ar.edu.unq.epers.aterrizar.model.PerfilCacheado
 
 class PerfilService {
 	MongoHome<Perfil> perfilHome
@@ -20,8 +21,8 @@ class PerfilService {
 	TramoService tramoService
 	
 
-	new(MongoHome<Perfil> c, SocialNetworkingService networkService, CacheService cacheService, TramoService tramoService) {
-		this.perfilHome = c
+	new(MongoHome<Perfil> MongoHome, SocialNetworkingService networkService, CacheService cacheService, TramoService tramoService) {
+		this.perfilHome = MongoHome
 		this.networkService = networkService
 		this.cacheService = cacheService
 		this.tramoService = tramoService
@@ -31,91 +32,116 @@ class PerfilService {
 		perfilHome.getPerfil(u)
 	}
 	 
-	def verPerfil(Usuario u) {
-		var perfil = cacheService.verPerfil(u)
-		if(!cacheService.estaPerfil(u)) {
-			perfil = this.getPerfil(u)
-			cacheService.guardar(perfil)
-		}
+	def private verPerfilYCachear(Usuario u, Visibility v) {
+		if(cacheService.estaPerfilCache(u, v)) {
+			var perfil = cacheService.verPerfil(u, v) 
+			cacheService.borrarPerfilCache(u, v)
 			return perfil
+		} 
+		else {
+			var perfil = this.getPerfil(u)
+			return perfil
+		}			 
+	}
+	
+	def verPerfil(Usuario u, Visibility v) {
+		if(cacheService.estaPerfilCache(u, v)) return cacheService.verPerfil(u, v)
+		else this.getPerfil(u)		
 	}
 	
 	def addPerfil(Usuario u) {
 		var perfil = new Perfil
 		perfil.username = u.nombreDeUsuario
-		perfil.destinations = new ArrayList<Destiny>
+		perfil.destinations = new ArrayList
 		perfilHome.insert(perfil)
 	}
-	
-	def void addDestiny(Usuario u, Destiny d) {
-		//var u_perfil = getPerfil(u)
-		// REVISAR TEMA DE VER PERFIL, NO FUNCIONA SI EL PERFIL ESTA EN CACHE
-		var u_perfil = verPerfil(u) 
+	  
+	def void addDestiny(Usuario u, Destiny d, Visibility v) {
+		var perfil = verPerfilYCachear(u, v) 
 		// DESCOMENTAR CUANDO MYSQLDB FUNCIONE
 		//if(tramoService.tieneReservadoAsiento(u, d)) 
-		if(true) u_perfil.addDestiny(d)
+		if(true) perfil.addDestiny(d)
 		else new UsuarioNoTieneAsientoEnDestinoException
-		perfilHome.updatePerfil(u_perfil, u_perfil)
-		if(cacheService.estaPerfil(u)) cacheService.borrar(u)		
+		if(!cacheService.estaPerfilCache(u, v)) cacheService.guardar(new PerfilCacheado(perfil.username, v, perfil))	
+		perfilHome.updatePerfil(perfil, perfil)   		
 	}
 	
-	def void addComment(Usuario u, Destiny d, Comment c) {
-		//var u_perfil = getPerfil(u)
-		// idem anterior
-		var u_perfil = verPerfil(u)
-		u_perfil.addComment(d, c)
-		perfilHome.updatePerfil(u_perfil, u_perfil)
-		if(cacheService.estaPerfil(u)) cacheService.borrar(u)
+	def void addComment(Usuario u, Destiny d, Comment c, Visibility v) {
+		var perfil = verPerfilYCachear(u, v)
+		perfil.addComment(d, c)
+		if(!cacheService.estaPerfilCache(u, v)) cacheService.guardar(new PerfilCacheado(perfil.username, v, perfil))
+		perfilHome.updatePerfil(perfil, perfil)
 	} 
 	
 	
-	def void addlike(Usuario u, Destiny d, Like like) {
-		//var u_perfil = getPerfil(u)
-		// idem anterior
-		var u_perfil = verPerfil(u)
-		var meGusta = new Like(u_perfil.username)
-		if(d.puedoAgregarLikeODislike(u)) u_perfil.addLike(d, meGusta, u)
+	def void addlike(Usuario u, Destiny d, Like like, Visibility v) {
+		var perfil = verPerfilYCachear(u, v)
+		var meGusta = new Like(perfil.username)
+		if(d.puedoAgregarLikeODislike(u)) perfil.addLike(d, meGusta, u)
 		else new UsuarioNoTienePermisoParaMGoNMGException
-		perfilHome.updatePerfil(u_perfil, u_perfil)
-		if(cacheService.estaPerfil(u)) cacheService.borrar(u)
+		if(!cacheService.estaPerfilCache(u, v)) cacheService.guardar(new PerfilCacheado(perfil.username, v, perfil))
+		perfilHome.updatePerfil(perfil, perfil)
 	}
 	
-	def void addDislike(Usuario u, Destiny d, Dislike dislike) {
-		//var u_perfil = getPerfil(u)
-		// idem anterior
-		var u_perfil = verPerfil(u)
-		var nmg = new Dislike(u_perfil.username)
-		if(d.puedoAgregarLikeODislike(u)) u_perfil.addDislike(d, nmg, u)
-		perfilHome.updatePerfil(u_perfil, u_perfil)
-		if(cacheService.estaPerfil(u)) cacheService.borrar(u)
+	def void addDislike(Usuario u, Destiny d, Dislike dislike, Visibility v) {
+		var perfil = verPerfilYCachear(u, v)
+		var nmg = new Dislike(perfil.username)
+		if(d.puedoAgregarLikeODislike(u)) perfil.addDislike(d, nmg, u)
+		else new UsuarioNoTienePermisoParaMGoNMGException
+		if(!cacheService.estaPerfilCache(u, v)) cacheService.guardar(new PerfilCacheado(perfil.username, v, perfil))
+		perfilHome.updatePerfil(perfil, perfil)
 	}
 	  
-	def void addVisibility(Usuario u, Destiny d, Visibility visibility) {
-		//var u_perfil = getPerfil(u)
-		// idem anterior
-		var u_perfil = verPerfil(u)
-		u_perfil.addVisibility(d, visibility)
-		perfilHome.updatePerfil(u_perfil, u_perfil)
-		if(cacheService.estaPerfil(u)) cacheService.borrar(u)
+	def void addVisibility(Usuario u, Destiny d, Visibility v, Visibility vCache) {
+		var perfil = verPerfilYCachear(u, vCache)
+		perfil.addVisibility(d, v)
+		if(!cacheService.estaPerfilCache(u, vCache)) cacheService.guardar(new PerfilCacheado(perfil.username, vCache, perfil))
+		perfilHome.updatePerfil(perfil, perfil)
 	}
 	 
-	def void addVisibility(Usuario u, Destiny d, Comment c, Visibility visibility) {
-		//var u_perfil = getPerfil(u)
-		// idem anterior
-		var u_perfil = verPerfil(u)
-		u_perfil.addVisibility(d, c, visibility)
-		perfilHome.updatePerfil(u_perfil, u_perfil)
-		if(cacheService.estaPerfil(u)) cacheService.borrar(u)
+	def void addVisibility(Usuario u, Destiny d, Comment c, Visibility v, Visibility vCache) {
+		var perfil = verPerfilYCachear(u, vCache)
+		perfil.addVisibility(d, c, v)
+		if(!cacheService.estaPerfilCache(u, vCache)) cacheService.guardar(new PerfilCacheado(perfil.username, vCache, perfil))
+		perfilHome.updatePerfil(perfil, perfil)
 	}
 	
-	def stalkear(Usuario mi_usuario, Usuario a_stalkear) {
-		if(mi_usuario.nombreDeUsuario == a_stalkear.nombreDeUsuario) return this.verPerfil(a_stalkear)
-		if(networkService.theyAreFriends(mi_usuario, a_stalkear)) { 
-			if (cacheService.estaPerfil(a_stalkear)) return cacheService.stalkearAmigo(a_stalkear)
-			else return perfilHome.stalkearAmigo(a_stalkear)		
-		} 			
-		else if (cacheService.estaPerfil(a_stalkear)) return cacheService.stalkearNoAmigo(a_stalkear)
-			else return perfilHome.stalkearNoAmigo(a_stalkear)
-	}	
+	
+	def private verPerfilSiEsPosibleEnCache(Usuario yo) {
+		var perfil = verPerfil(yo, Visibility.PUBLICO)
+		if(perfil == null) perfil = verPerfil(yo, Visibility.PRIVADO)
+		else if(perfil == null) perfil = verPerfil(yo, Visibility.AMIGOS)
+			else perfil = this.getPerfil(yo)
+	}
+	
+	def private stalkearme(Usuario yo) {
+			var perfil = this.verPerfilSiEsPosibleEnCache(yo)
+			if(!cacheService.estaPerfilCache(yo, Visibility.PUBLICO) || !cacheService.estaPerfilCache(yo, Visibility.PRIVADO) || !cacheService.estaPerfilCache(yo, Visibility.AMIGOS)) cacheService.guardar(new PerfilCacheado(perfil.username, Visibility.PRIVADO, perfil))
+			return perfil
+	}
 		
+	def private stalkearNoAmigo(Usuario i, Usuario another) {
+		if (cacheService.estaPerfilCache(another, Visibility.PUBLICO)) return cacheService.verPerfil(another, Visibility.PUBLICO)
+		else {
+			var perfil = perfilHome.stalkearNoAmigo(another)
+			cacheService.guardar(new PerfilCacheado(perfil.username, Visibility.PUBLICO, perfil))
+			return perfil
+		}
+	}
+	
+	def private stalkearAmigo(Usuario i, Usuario another) {
+		if (cacheService.estaPerfilCache(another, Visibility.PUBLICO)) return cacheService.verPerfil(another, Visibility.PUBLICO)
+		else if (cacheService.estaPerfilCache(another, Visibility.AMIGOS)) return cacheService.verPerfil(another, Visibility.AMIGOS)
+		else {
+			var perfil = perfilHome.stalkearAmigo(another)
+			cacheService.guardar(new PerfilCacheado(perfil.username, Visibility.AMIGOS, perfil))
+			return perfil
+		}
+	}
+	
+	def stalkear(Usuario miUsuario, Usuario aStalkear) {
+		if(miUsuario.nombreDeUsuario == aStalkear.nombreDeUsuario) return stalkearme(miUsuario)
+		if(networkService.theyAreFriends(miUsuario, aStalkear)) return stalkearAmigo(miUsuario, aStalkear)
+		else stalkearNoAmigo(miUsuario, aStalkear)
+	}
 }	

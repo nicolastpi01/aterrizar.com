@@ -1,39 +1,29 @@
 package ar.edu.unq.epers.aterrizar.home
 
 import com.datastax.driver.mapping.Mapper
-import ar.edu.unq.epers.aterrizar.model.Perfil
 import org.eclipse.xtend.lib.annotations.Accessors
 import ar.edu.unq.epers.aterrizar.servicios.CassandraServiceRunner
 import ar.edu.unq.epers.aterrizar.model.Usuario
+import ar.edu.unq.epers.aterrizar.model.PerfilCacheado
+import ar.edu.unq.epers.aterrizar.model.Visibility
 
 @Accessors
 class CacheHome {
-	//private Session session
-	private Mapper<Perfil> perfilmapper
+	private Mapper<PerfilCacheado> perfilmapper
 	private CassandraServiceRunner runner
 	
 	new() {}
-	/* 
-	new(Session session) {
-		this.session = session
-		this.perfilmapper = new MappingManager(session).mapper(Perfil)
-	}
-	 
-	def getSession() {
-		return this.session
-	}
-	*/
 	
-	def save(Perfil p) {
+	def save(PerfilCacheado p) {
 		perfilmapper.save(p)
 	}
 	
-	def get(Usuario u) {
-		perfilmapper.get(u.nombreDeUsuario)
+	def get(Usuario u, Visibility v) {
+		perfilmapper.get(u.nombreDeUsuario, v)
 	}
 	
-	def delete(Usuario u) {
-		perfilmapper.delete(u.nombreDeUsuario)
+	def delete(Usuario u, Visibility v) {
+		perfilmapper.delete(u.nombreDeUsuario, v)
 	}
 	
 	def dropKeyspace() {
@@ -43,15 +33,5 @@ class CacheHome {
 	def dropTable() {
 		runner.dropTable
 	}
-	
-	def stalkearAmigo(Usuario u) {
-		runner.stalkearFriend(u)
-	}
-	
-	def stalkearNoAmigo(Usuario u) {
-		runner.stalkearNoFriend(u)
-	}
-	
-	
 	
 }
