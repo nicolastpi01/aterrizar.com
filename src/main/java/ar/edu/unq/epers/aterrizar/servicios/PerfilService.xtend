@@ -1,6 +1,6 @@
 package ar.edu.unq.epers.aterrizar.servicios
 
-import ar.edu.unq.epers.aterrizar.home.MongoHome
+import ar.edu.unq.epers.aterrizar.home.Home
 import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.model.Destiny
 import ar.edu.unq.epers.aterrizar.model.Visibility
@@ -15,13 +15,13 @@ import ar.edu.unq.epers.aterrizar.exceptions.UsuarioNoTienePermisoParaMGoNMGExce
 import ar.edu.unq.epers.aterrizar.model.PerfilCacheado
 
 class PerfilService {
-	MongoHome<Perfil> perfilHome
+	Home<Perfil> perfilHome
 	SocialNetworkingService networkService
 	CacheService cacheService
 	TramoService tramoService
 	
 
-	new(MongoHome<Perfil> MongoHome, SocialNetworkingService networkService, CacheService cacheService, TramoService tramoService) {
+	new(Home<Perfil> MongoHome, SocialNetworkingService networkService, CacheService cacheService, TramoService tramoService) {
 		this.perfilHome = MongoHome
 		this.networkService = networkService
 		this.cacheService = cacheService
@@ -119,7 +119,7 @@ class PerfilService {
 			if(!cacheService.estaPerfilCache(yo, Visibility.PUBLICO) || !cacheService.estaPerfilCache(yo, Visibility.PRIVADO) || !cacheService.estaPerfilCache(yo, Visibility.AMIGOS)) cacheService.guardar(new PerfilCacheado(perfil.username, Visibility.PRIVADO, perfil))
 			return perfil
 	}
-		
+	/* 	
 	def private stalkearNoAmigo(Usuario i, Usuario another) {
 		if (cacheService.estaPerfilCache(another, Visibility.PUBLICO)) return cacheService.verPerfil(another, Visibility.PUBLICO)
 		else {
@@ -144,4 +144,6 @@ class PerfilService {
 		if(networkService.theyAreFriends(miUsuario, aStalkear)) return stalkearAmigo(miUsuario, aStalkear)
 		else stalkearNoAmigo(miUsuario, aStalkear)
 	}
+	* */
+
 }	

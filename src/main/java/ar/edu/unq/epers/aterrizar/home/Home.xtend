@@ -6,23 +6,17 @@ import org.mongojack.DBQuery.Query
 import org.mongojack.JacksonDBCollection
 import org.mongojack.MapReduce
 import ar.edu.unq.epers.aterrizar.servicios.Aggregation
-import com.mongodb.DBObject
 import org.mongojack.DBQuery
 import ar.edu.unq.epers.aterrizar.model.Usuario
-import ar.edu.unq.epers.aterrizar.model.Visibility
 import ar.edu.unq.epers.aterrizar.model.Perfil
 
-class MongoHome<T> {
+class Home<T> {
 	private JacksonDBCollection<T, String> mongoCollection
 	var Class<T> entityType
 	
 	new(JacksonDBCollection<T, String> collection, Class<T> entityType){
 		this.mongoCollection = collection
 		this.entityType = entityType
-	}
-	
-	new(JacksonDBCollection<T, String> collection){
-		this.mongoCollection = collection
 	}
 	
 	def insert(T object){
@@ -32,10 +26,10 @@ class MongoHome<T> {
 	def insert(List<T> object){
 		return mongoCollection.insert(object);
     }
-    
+     
     def find(Query object){
 		return mongoCollection.find(object);
-    }
+	}
     
     def update(Query queryObject, T object) {
     	return mongoCollection.update(queryObject, object, true, false)
@@ -91,21 +85,25 @@ class MongoHome<T> {
 	def getMongoCollection() {
 		return mongoCollection;
 	}
-	 
-	def stalkearAmigo(Usuario aStalkear) {
-		var a_stalkear_perfil = this.getPerfil(aStalkear)		
-		a_stalkear_perfil.deleteDestinations(Visibility.PRIVADO)
-		a_stalkear_perfil.deleteComments(Visibility.PRIVADO)
-		a_stalkear_perfil
+	
+	def stalkearNoAmigo(Usuario user) {
+		var results = this.aggregate
+			.match("username", user.nombreDeUsuario)
+			.project
+			.filter("destinations") 
+			.or(#[ [it.eq("visibility", "PUBLICO")], [it.eq("visibility", "PUBLICO")] ])
+			.execute
+				return results 
 	}
 	
-	def stalkearNoAmigo(Usuario aStalkear) {
-		var a_stalkear_perfil = this.getPerfil(aStalkear)
-		a_stalkear_perfil.deleteDestinations(Visibility.PRIVADO)
-		a_stalkear_perfil.deleteDestinations(Visibility.AMIGOS)
-		a_stalkear_perfil.deleteComments(Visibility.PRIVADO)
-		a_stalkear_perfil.deleteComments(Visibility.AMIGOS)
-			a_stalkear_perfil
+	def stalkearAmigo(Usuario user) {
+		var results = this.aggregate
+			.match("username", user.nombreDeUsuario)
+			.project
+			.filter("destinations") 
+			.or(#[ [it.eq("visibility", "PUBLICO")], [it.eq("visibility", "AMIGOS")] ])
+			.execute
+				return results 
 	}
-		
+				
 }

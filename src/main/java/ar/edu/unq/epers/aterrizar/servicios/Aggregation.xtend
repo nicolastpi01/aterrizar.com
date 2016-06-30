@@ -6,19 +6,17 @@ import java.util.HashMap
 import java.util.List
 import java.util.Map
 import org.eclipse.xtext.xbase.lib.Functions.Function1
-import ar.edu.unq.epers.aterrizar.home.MongoHome
-import org.eclipse.xtend.lib.annotations.Accessors
+import ar.edu.unq.epers.aterrizar.home.Home
 
-@Accessors
 class Aggregation<T> {
 	var Filter<T> matchFilter
 	var Filter<T> projection
-	var MongoHome<T> home
+	var Home<T> home
 	
-	new(MongoHome<T> home){
+	new(Home<T> home){
 		this.home = home
 	}
-
+	
 	def match() {
 		matchFilter = new Filter<T>(this)
 		matchFilter.add("$match")
@@ -32,15 +30,15 @@ class Aggregation<T> {
 		projection = new Filter<T>(this)
 		projection.add("$project")
 	}
+	
+	def List<T> execute() {
+		home.find(this)
+	}
 
 	def build() {
 		val t = #[matchFilter.build(), projection.build()]
 		println(t)
 		t
-	}
-	
-	def List<T> execute(){
-		home.find(this)
 	}
 	
 }
@@ -51,6 +49,10 @@ class Filter<T> {
 
 	new(Aggregation<T> aggregation) {
 		this.aggregation = aggregation
+	}
+	
+	def getAggregation() {
+		return this.aggregation
 	}
 
 	def add(String property, Object value) {
@@ -104,5 +106,5 @@ class Filter<T> {
 	
 	override toString() {
 		build().toString
-	}
+	}	
 }
