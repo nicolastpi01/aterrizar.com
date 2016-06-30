@@ -6,6 +6,7 @@ import com.datastax.driver.mapping.annotations.Frozen
 import com.datastax.driver.mapping.annotations.PartitionKey
 import com.datastax.driver.core.CodecRegistry
 import com.datastax.driver.extras.codecs.enums.EnumNameCodec
+import com.datastax.driver.mapping.annotations.FrozenValue
 
 @Table(keyspace = "cassandra", name = "perfilCacheado",
 readConsistency = "QUORUM",
@@ -18,7 +19,7 @@ class PerfilCacheado {
 	private String username
 	@PartitionKey(1)
 	private Visibility visibility
-	@Frozen
+	@FrozenValue
 	private Perfil perfil
 	
 	new() {}

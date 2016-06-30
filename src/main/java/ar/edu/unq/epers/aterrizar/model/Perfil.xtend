@@ -8,12 +8,13 @@ import org.mongojack.ObjectId
 import com.datastax.driver.mapping.annotations.PartitionKey
 import com.datastax.driver.mapping.annotations.Frozen
 import com.datastax.driver.mapping.annotations.UDT
+import com.datastax.driver.mapping.annotations.FrozenValue
 
 @UDT(name = "perfil", keyspace = "cassandra")
 @Accessors
 class Perfil {
 	private String username
-	@Frozen
+	@FrozenValue
 	private List<Destiny> destinations	
 	@ObjectId
 	@JsonProperty("_id")

@@ -50,7 +50,7 @@ class CassandraServiceRunner {
 	
 	def createTypePerfil() {
 		var query = "CREATE TYPE IF NOT EXISTS perfil(username text, "
-         + "destinations list <frozen <destiny> >, "
+         + "destinations list <frozen  <destiny> >, "
          + "id text );  "
          session.execute(query)
 	}
