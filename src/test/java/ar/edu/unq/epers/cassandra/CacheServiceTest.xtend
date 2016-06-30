@@ -57,7 +57,7 @@ class CacheServiceTest {
 	@Test
 	def void verPerfilAndDoSomething() {
 		service.guardar(perfilCacheadoPepe)
-		var pepePerfil = service.verPerfilCache(usuarioPepe, Visibility.PUBLICO).perfil
+		var pepePerfil = service.verPerfil(usuarioPepe, Visibility.PUBLICO)
 		pepePerfil.addDestiny(destinyMarDelPlata)
 		Assert.assertEquals(pepePerfil.destinations.size, 1)
 		Assert.assertEquals(pepePerfil.destinations.get(0).nombre, "Mar del plata")		

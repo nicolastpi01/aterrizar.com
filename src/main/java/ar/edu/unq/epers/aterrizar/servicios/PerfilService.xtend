@@ -31,22 +31,14 @@ class PerfilService {
 	def private getPerfil(Usuario u) {
 		perfilHome.getPerfil(u)
 	}
-	 
-	def private verPerfilYCachear(Usuario u, Visibility v) {
-		if(cacheService.estaPerfilCache(u, v)) {
-			var perfil = cacheService.verPerfil(u, v) 
-			cacheService.borrarPerfilCache(u, v)
-			return perfil
-		} 
-		else {
-			var perfil = this.getPerfil(u)
-			return perfil
-		}			 
-	}
 	
 	def verPerfil(Usuario u, Visibility v) {
 		if(cacheService.estaPerfilCache(u, v)) return cacheService.verPerfil(u, v)
-		else this.getPerfil(u)		
+		else {
+			var perfil = this.getPerfil(u)
+			cacheService.guardar(new PerfilCacheado(perfil.username, v, perfil))
+			perfil
+		} 		
 	}
 	
 	def addPerfil(Usuario u) {
@@ -55,55 +47,65 @@ class PerfilService {
 		perfil.destinations = new ArrayList
 		perfilHome.insert(perfil)
 	}
-	  
-	def void addDestiny(Usuario u, Destiny d, Visibility v) {
-		var perfil = verPerfilYCachear(u, v) 
-		// DESCOMENTAR CUANDO MYSQLDB FUNCIONE
-		//if(tramoService.tieneReservadoAsiento(u, d)) 
-		if(true) perfil.addDestiny(d)
-		else new UsuarioNoTieneAsientoEnDestinoException
-		if(!cacheService.estaPerfilCache(u, v)) cacheService.guardar(new PerfilCacheado(perfil.username, v, perfil))	
-		perfilHome.updatePerfil(perfil, perfil)   		
+	
+	def private verPerfilAux(Usuario u, Visibility v) {
+		if(cacheService.estaPerfilCache(u, v)) return cacheService.verPerfil(u, v)
+		else return getPerfil(u)	
 	}
-	
-	def void addComment(Usuario u, Destiny d, Comment c, Visibility v) {
-		var perfil = verPerfilYCachear(u, v)
-		perfil.addComment(d, c)
-		if(!cacheService.estaPerfilCache(u, v)) cacheService.guardar(new PerfilCacheado(perfil.username, v, perfil))
+	  
+	def addDestiny(Usuario u, Destiny d, Visibility v) {
+		var perfil = verPerfilAux(u, v) 
+		// DESCOMENTAR CUANDO MYSQLDB FUNCIONE
+		if(tramoService.tieneReservadoAsiento(u, d)) perfil.addDestiny(d) 
+		//if(true) perfil.addDestiny(d)
+		else new UsuarioNoTieneAsientoEnDestinoException
 		perfilHome.updatePerfil(perfil, perfil)
+		if(cacheService.estaPerfilCache(u, v)) cacheService.borrarPerfilCache(u, v)
+		else cacheService.guardar(new PerfilCacheado(perfil.username, v, perfil)) 			   		
+	}
+	 
+	def addComment(Usuario u, Destiny d, Comment c, Visibility v) {
+		var perfil = verPerfilAux(u, v)
+		perfil.addComment(d, c)
+		perfilHome.updatePerfil(perfil, perfil)
+		if(cacheService.estaPerfilCache(u, v)) cacheService.borrarPerfilCache(u, v)
+		else cacheService.guardar(new PerfilCacheado(perfil.username, v, perfil)) 		
 	} 
-	
-	
-	def void addlike(Usuario u, Destiny d, Like like, Visibility v) {
-		var perfil = verPerfilYCachear(u, v)
+	   
+	def addlike(Usuario u, Destiny d, Like like, Visibility v) {
+		var perfil = verPerfilAux(u, v)
 		var meGusta = new Like(perfil.username)
 		if(d.puedoAgregarLikeODislike(u)) perfil.addLike(d, meGusta, u)
 		else new UsuarioNoTienePermisoParaMGoNMGException
-		if(!cacheService.estaPerfilCache(u, v)) cacheService.guardar(new PerfilCacheado(perfil.username, v, perfil))
 		perfilHome.updatePerfil(perfil, perfil)
+		if(cacheService.estaPerfilCache(u, v)) cacheService.borrarPerfilCache(u, v)
+		else cacheService.guardar(new PerfilCacheado(perfil.username, v, perfil)) 		
 	}
 	
 	def void addDislike(Usuario u, Destiny d, Dislike dislike, Visibility v) {
-		var perfil = verPerfilYCachear(u, v)
+		var perfil = verPerfilAux(u, v)
 		var nmg = new Dislike(perfil.username)
 		if(d.puedoAgregarLikeODislike(u)) perfil.addDislike(d, nmg, u)
 		else new UsuarioNoTienePermisoParaMGoNMGException
-		if(!cacheService.estaPerfilCache(u, v)) cacheService.guardar(new PerfilCacheado(perfil.username, v, perfil))
 		perfilHome.updatePerfil(perfil, perfil)
+		if(cacheService.estaPerfilCache(u, v)) cacheService.borrarPerfilCache(u, v)
+		else cacheService.guardar(new PerfilCacheado(perfil.username, v, perfil))
 	}
 	  
 	def void addVisibility(Usuario u, Destiny d, Visibility v, Visibility vCache) {
-		var perfil = verPerfilYCachear(u, vCache)
+		var perfil = verPerfilAux(u, vCache)
 		perfil.addVisibility(d, v)
-		if(!cacheService.estaPerfilCache(u, vCache)) cacheService.guardar(new PerfilCacheado(perfil.username, vCache, perfil))
 		perfilHome.updatePerfil(perfil, perfil)
+		if(cacheService.estaPerfilCache(u, vCache)) cacheService.borrarPerfilCache(u, v)
+		else cacheService.guardar(new PerfilCacheado(perfil.username, vCache, perfil)) 		
 	}
 	 
 	def void addVisibility(Usuario u, Destiny d, Comment c, Visibility v, Visibility vCache) {
-		var perfil = verPerfilYCachear(u, vCache)
+		var perfil = verPerfilAux(u, vCache)
 		perfil.addVisibility(d, c, v)
-		if(!cacheService.estaPerfilCache(u, vCache)) cacheService.guardar(new PerfilCacheado(perfil.username, vCache, perfil))
 		perfilHome.updatePerfil(perfil, perfil)
+		if(!cacheService.estaPerfilCache(u, vCache)) cacheService.borrarPerfilCache(u, v)
+		else cacheService.guardar(new PerfilCacheado(perfil.username, vCache, perfil)) 	
 	}
 	
 	
@@ -119,7 +121,7 @@ class PerfilService {
 			if(!cacheService.estaPerfilCache(yo, Visibility.PUBLICO) || !cacheService.estaPerfilCache(yo, Visibility.PRIVADO) || !cacheService.estaPerfilCache(yo, Visibility.AMIGOS)) cacheService.guardar(new PerfilCacheado(perfil.username, Visibility.PRIVADO, perfil))
 			return perfil
 	}
-	/* 	
+	 	
 	def private stalkearNoAmigo(Usuario i, Usuario another) {
 		if (cacheService.estaPerfilCache(another, Visibility.PUBLICO)) return cacheService.verPerfil(another, Visibility.PUBLICO)
 		else {
@@ -144,6 +146,5 @@ class PerfilService {
 		if(networkService.theyAreFriends(miUsuario, aStalkear)) return stalkearAmigo(miUsuario, aStalkear)
 		else stalkearNoAmigo(miUsuario, aStalkear)
 	}
-	* */
-
+	
 }	

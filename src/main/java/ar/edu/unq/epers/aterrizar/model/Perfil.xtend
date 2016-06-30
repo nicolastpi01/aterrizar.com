@@ -62,9 +62,9 @@ class Perfil {
 		}
 	}
 	 
-	def addVisibility(Destiny d, Visibility visibility) {
+	def addVisibility(Destiny d, Visibility v) {
 		for(Destiny dest : destinations) {
-			if(dest.nombre == d.nombre) dest.setVisibility(visibility)
+			if(dest.nombre == d.nombre) dest.visibility = v
 		}
 	}
 	
@@ -72,20 +72,6 @@ class Perfil {
 		for(Destiny dest : destinations) {
 			if(dest.nombre == d.nombre) dest.getComment(c).setVisibility(v)
 		}
-	}
-	
-	def deleteComments(Visibility v) {
-		for(Destiny dest : destinations) dest.deleteComments(v)
-			
-	}
-	
-	def deleteDestinations(Visibility v) {
-		var destinationsAux = new ArrayList
-		for(Destiny d : destinations) {
-			if(!(d.visibility.toString == v.toString)) destinationsAux.add(d)
-		}
-			destinations = destinationsAux
-			null
 	}	
 	
 }

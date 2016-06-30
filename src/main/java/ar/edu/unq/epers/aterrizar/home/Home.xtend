@@ -90,10 +90,10 @@ class Home<T> {
 		var results = this.aggregate
 			.match("username", user.nombreDeUsuario)
 			.project
-			.filter("destinations") 
-			.or(#[ [it.eq("visibility", "PUBLICO")], [it.eq("visibility", "PUBLICO")] ])
+			.filter("destinations")
+			.eq("visibility", "PUBLICO").aggregation 
 			.execute
-				return results 
+				return results.get(0) 
 	}
 	
 	def stalkearAmigo(Usuario user) {
@@ -103,7 +103,7 @@ class Home<T> {
 			.filter("destinations") 
 			.or(#[ [it.eq("visibility", "PUBLICO")], [it.eq("visibility", "AMIGOS")] ])
 			.execute
-				return results 
+				return results.get(0) 
 	}
 				
 }

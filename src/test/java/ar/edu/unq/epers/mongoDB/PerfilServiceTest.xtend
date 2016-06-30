@@ -78,8 +78,10 @@ class PerfilServiceTest {
 	@Test
 	def void verPerfil() {
 		service.addPerfil(usuarioPepe)
-		var perfilPepe = service.verPerfil(usuarioPepe, Visibility.PUBLICO)
-		Assert.assertEquals(perfilPepe.username, "pepe")
+		var perfilPepeMongo = service.verPerfil(usuarioPepe, Visibility.PUBLICO)
+		Assert.assertEquals(perfilPepeMongo.username, "pepe")
+		var perfilPepeCache = service.verPerfil(usuarioPepe, Visibility.PUBLICO)
+		Assert.assertEquals(perfilPepeCache.username, "pepe")
 	}
 	  
 	@Test
@@ -88,17 +90,20 @@ class PerfilServiceTest {
 		service.addDestiny(usuarioPepe, marDelPlataDestiny, Visibility.PUBLICO)
 		var perfilPepe = service.verPerfil(usuarioPepe, Visibility.PUBLICO)
 		Assert.assertEquals(perfilPepe.destinations.size, 1)
-		Assert.assertEquals(perfilPepe.destinations.get(0).nombre, "Mar del plata")	
+		Assert.assertEquals(perfilPepe.destinations.get(0).nombre, "Mar del plata")
+		service.addDestiny(usuarioPepe, barilocheDestiny, Visibility.PUBLICO)
+		var perfilPepe2 = service.verPerfil(usuarioPepe, Visibility.PUBLICO)
+		Assert.assertEquals(perfilPepe2.destinations.size, 2)	
 	}
-	  
+	    
 	@Test
 	def void addCommentTest() {
 		service.addPerfil(usuarioPepe)
 		service.addDestiny(usuarioPepe, marDelPlataDestiny, Visibility.PUBLICO)
 		service.addComment(usuarioPepe, marDelPlataDestiny, queFrio, Visibility.PUBLICO)
-		val perfil_pepe = service.verPerfil(usuarioPepe, Visibility.PUBLICO)
-		Assert.assertEquals(perfil_pepe.destinations.get(0).comments.size, 1)
-		Assert.assertEquals(perfil_pepe.destinations.get(0).comments.get(0).description, "que frio")
+		val perfilPepe = service.verPerfil(usuarioPepe, Visibility.PUBLICO)
+		Assert.assertEquals(perfilPepe.destinations.get(0).comments.size, 1)
+		Assert.assertEquals(perfilPepe.destinations.get(0).comments.get(0).description, "que frio")
 	}
 	
 	 
@@ -107,11 +112,12 @@ class PerfilServiceTest {
 		service.addPerfil(usuarioPepe)
 		service.addDestiny(usuarioPepe, marDelPlataDestiny, Visibility.PUBLICO)
 		service.addlike(usuarioPepe, marDelPlataDestiny, likePepe, Visibility.PUBLICO)
-		val perfil_pepe = service.verPerfil(usuarioPepe, Visibility.PUBLICO)
-		Assert.assertEquals(perfil_pepe.destinations.get(0).likes.size, 1)
-		Assert.assertEquals(perfil_pepe.destinations.get(0).likes.get(0).username, "pepe")
+		val perfilPepe = service.verPerfil(usuarioPepe, Visibility.PUBLICO)
+		Assert.assertEquals(perfilPepe.destinations.get(0).likes.size, 1)
+		Assert.assertEquals(perfilPepe.destinations.get(0).likes.get(0).username, "pepe")
 		service.addlike(usuarioPepe, marDelPlataDestiny, likePepe, Visibility.PUBLICO)
-		Assert.assertEquals(perfil_pepe.destinations.get(0).likes.size, 1)
+		val perfilPepe2 = service.verPerfil(usuarioPepe, Visibility.PUBLICO)
+		Assert.assertEquals(perfilPepe2.destinations.get(0).likes.size, 1)
 	}
 	 
 	
@@ -124,7 +130,8 @@ class PerfilServiceTest {
 		Assert.assertEquals(perfil_pepe.destinations.get(0).dislikes.size, 1)
 		Assert.assertEquals(perfil_pepe.destinations.get(0).dislikes.get(0).username, "pepe")
 		service.addDislike(usuarioPepe, marDelPlataDestiny, dislikePepe, Visibility.PUBLICO)
-		Assert.assertEquals(perfil_pepe.destinations.get(0).dislikes.size, 1)
+		val perfilPepe2 = service.verPerfil(usuarioPepe, Visibility.PUBLICO)
+		Assert.assertEquals(perfilPepe2.destinations.get(0).dislikes.size, 1)
 	}
 	  
 	   
@@ -147,7 +154,7 @@ class PerfilServiceTest {
 		Assert.assertEquals(perfilPepePrivado.destinations.get(0).comments.get(0).visibility.toString, "PRIVADO")
 	}
 	 
-	/*  
+	  
 	@Test
 	def void stalkearYoMismoTest() {
 		socialService.agregarPersona(usuarioPepe)
@@ -161,7 +168,7 @@ class PerfilServiceTest {
 		Assert.assertEquals(perfilPepe.destinations.get(0).comments.get(0).visibility.toString, "PRIVADO")
 	}
 	 
-	  
+	/*  
 	@Test
 	def void stalkearNoAmigoTest() {
 		socialService.agregarPersona(usuarioPepe)
@@ -171,23 +178,23 @@ class PerfilServiceTest {
 		service.addDestiny(usuarioPepe, marDelPlataDestiny, Visibility.PUBLICO)
 		service.addDestiny(usuarioPepe, barilocheDestiny, Visibility.PUBLICO)
 		service.addDestiny(usuarioPepe, bahiaBlancaDestiny, Visibility.PUBLICO)
-		service.addComment(usuarioPepe, marDelPlataDestiny, queFrio, Visibility.PUBLICO)
-		service.addComment(usuarioPepe, marDelPlataDestiny, queCalor, Visibility.PUBLICO)
-		service.addComment(usuarioPepe, marDelPlataDestiny, queAburrido, Visibility.PUBLICO)
-		service.addVisibility(usuarioPepe, marDelPlataDestiny, visibilityPublico, Visibility.PUBLICO)
-		service.addVisibility(usuarioPepe, barilocheDestiny, visibilityPrivado, Visibility.PUBLICO)
-		service.addVisibility(usuarioPepe, bahiaBlancaDestiny, visibilityAmigos, Visibility.PUBLICO)
-		service.addVisibility(usuarioPepe, marDelPlataDestiny, queFrio, visibilityPublico, Visibility.PUBLICO)
-		service.addVisibility(usuarioPepe, marDelPlataDestiny, queCalor, visibilityAmigos, Visibility.PUBLICO)
-		service.addVisibility(usuarioPepe, marDelPlataDestiny, queAburrido, visibilityPrivado, Visibility.PUBLICO)
-		val perfilPepe = service.stalkear(usuarioLuis, usuarioPepe)
-		Assert.assertEquals(perfilPepe.destinations.size, 1)
-		Assert.assertEquals(perfilPepe.destinations.get(0).nombre, "Mar del plata")
-		Assert.assertEquals(perfilPepe.destinations.get(1).nombre, "bariloche")
-		Assert.assertEquals(perfilPepe.destinations.get(0).comments.size, 1)
-		Assert.assertEquals(perfilPepe.destinations.get(0).comments.get(0).description, "que frio")
+		//service.addComment(usuarioPepe, marDelPlataDestiny, queFrio, Visibility.PUBLICO)
+		//service.addComment(usuarioPepe, marDelPlataDestiny, queCalor, Visibility.PUBLICO)
+		//service.addComment(usuarioPepe, marDelPlataDestiny, queAburrido, Visibility.PUBLICO)
+		//service.addVisibility(usuarioPepe, marDelPlataDestiny, visibilityPublico, Visibility.PUBLICO)
+		//service.addVisibility(usuarioPepe, barilocheDestiny, visibilityPrivado, Visibility.PUBLICO)
+		//service.addVisibility(usuarioPepe, bahiaBlancaDestiny, visibilityAmigos, Visibility.PUBLICO)
+		//service.addVisibility(usuarioPepe, marDelPlataDestiny, queFrio, visibilityPublico, Visibility.PUBLICO)
+		//service.addVisibility(usuarioPepe, marDelPlataDestiny, queCalor, visibilityAmigos, Visibility.PUBLICO)
+		//service.addVisibility(usuarioPepe, marDelPlataDestiny, queAburrido, visibilityPrivado, Visibility.PUBLICO)
+		//val perfilPepe = service.stalkear(usuarioLuis, usuarioPepe)
+		//Assert.assertEquals(perfilPepe.destinations.size, 1)
+		//Assert.assertEquals(perfilPepe.destinations.get(0).nombre, "Mar del plata")
+		//Assert.assertEquals(perfilPepe.destinations.get(1).nombre, "bariloche")
+		//Assert.assertEquals(perfilPepe.destinations.get(0).comments.size, 1)
+		//Assert.assertEquals(perfilPepe.destinations.get(0).comments.get(0).description, "que frio")
 	}
-	
+	/*
 	@Test
 	def void stalkearAmigoTest() {
 		socialService.agregarPersona(usuarioPepe)
