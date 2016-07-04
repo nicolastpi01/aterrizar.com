@@ -70,7 +70,9 @@ class PerfilService {
 		perfilHome.updatePerfil(perfil, perfil)
 		if(cacheService.estaPerfilCache(u, v)) cacheService.borrarPerfilCache(u, v)
 		else cacheService.guardar(new PerfilCacheado(perfil.username, v, perfil)) 		
-	} 
+	}
+	
+	def metodoprueb() {} 
 	   
 	def addlike(Usuario u, Destiny d, Like like, Visibility v) {
 		var perfil = verPerfilAux(u, v)
