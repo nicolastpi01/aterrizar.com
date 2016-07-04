@@ -47,8 +47,6 @@ class Home<T> {
     	return perfiles.get(0) as Perfil
     }
     
-    
-    
     def List<T> find(Aggregation<T> aggregation) {
     	new AggregationResult<T>(mongoCollection, 
     		mongoCollection.dbCollection.aggregate(aggregation.build),
@@ -83,7 +81,7 @@ class Home<T> {
 	}
 	
 	def getMongoCollection() {
-		return mongoCollection;
+		return mongoCollection
 	}
 	
 	def stalkearNoAmigo(Usuario user) {
@@ -96,14 +94,14 @@ class Home<T> {
 				return results.get(0) 
 	}
 	
-	def stalkearAmigo(Usuario user) {
+	def stalkearAmigo(Usuario user) {	
 		var results = this.aggregate
 			.match("username", user.nombreDeUsuario)
 			.project
-			.filter("destinations") 
+			.filter("destinations")
 			.or(#[ [it.eq("visibility", "PUBLICO")], [it.eq("visibility", "AMIGOS")] ])
 			.execute
-				return results.get(0) 
+				return results.get(0)  
 	}
 				
 }

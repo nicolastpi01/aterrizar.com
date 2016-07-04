@@ -54,60 +54,53 @@ class PerfilService {
 	}
 	  
 	def addDestiny(Usuario u, Destiny d, Visibility v) {
-		var perfil = verPerfilAux(u, v) 
-		// DESCOMENTAR CUANDO MYSQLDB FUNCIONE
-		if(tramoService.tieneReservadoAsiento(u, d)) perfil.addDestiny(d) 
-		else new UsuarioNoTieneAsientoEnDestinoException
+		var perfil = getPerfil(u) 
+		//if(tramoService.tieneReservadoAsiento(u, d)) perfil.addDestiny(d)
+		if(true) perfil.addDestiny(d)
+		else throw new UsuarioNoTieneAsientoEnDestinoException
 		if(cacheService.estaPerfilCache(u, v)) cacheService.borrarPerfilCache(u, v)
-		else cacheService.guardar(new PerfilCacheado(perfil.username, v, perfil))
 		perfilHome.updatePerfil(perfil, perfil) 			   		
 	}
 	
 	 
 	def addComment(Usuario u, Destiny d, Comment c, Visibility v) {
-		var perfil = verPerfilAux(u, v)
+		var perfil = getPerfil(u)
 		perfil.addComment(d, c)
-		perfilHome.updatePerfil(perfil, perfil)
 		if(cacheService.estaPerfilCache(u, v)) cacheService.borrarPerfilCache(u, v)
-		else cacheService.guardar(new PerfilCacheado(perfil.username, v, perfil)) 		
+		perfilHome.updatePerfil(perfil, perfil) 		
 	}
-	
-	def metodoprueb() {} 
+	 
 	   
 	def addlike(Usuario u, Destiny d, Like like, Visibility v) {
-		var perfil = verPerfilAux(u, v)
+		var perfil = getPerfil(u)
 		var meGusta = new Like(perfil.username)
 		if(d.puedoAgregarLikeODislike(u)) perfil.addLike(d, meGusta, u)
-		else new UsuarioNoTienePermisoParaMGoNMGException
-		perfilHome.updatePerfil(perfil, perfil)
+		else throw new UsuarioNoTienePermisoParaMGoNMGException
 		if(cacheService.estaPerfilCache(u, v)) cacheService.borrarPerfilCache(u, v)
-		else cacheService.guardar(new PerfilCacheado(perfil.username, v, perfil)) 		
+		perfilHome.updatePerfil(perfil, perfil) 		
 	}
 	
 	def void addDislike(Usuario u, Destiny d, Dislike dislike, Visibility v) {
-		var perfil = verPerfilAux(u, v)
+		var perfil = getPerfil(u)
 		var nmg = new Dislike(perfil.username)
 		if(d.puedoAgregarLikeODislike(u)) perfil.addDislike(d, nmg, u)
-		else new UsuarioNoTienePermisoParaMGoNMGException
-		perfilHome.updatePerfil(perfil, perfil)
+		else throw new UsuarioNoTienePermisoParaMGoNMGException
 		if(cacheService.estaPerfilCache(u, v)) cacheService.borrarPerfilCache(u, v)
-		else cacheService.guardar(new PerfilCacheado(perfil.username, v, perfil))
+		perfilHome.updatePerfil(perfil, perfil)
 	}
 	  
 	def void addVisibility(Usuario u, Destiny d, Visibility v, Visibility vCache) {
-		var perfil = verPerfilAux(u, vCache)
+		var perfil = getPerfil(u)
 		perfil.addVisibility(d, v)
-		perfilHome.updatePerfil(perfil, perfil)
-		if(cacheService.estaPerfilCache(u, vCache)) cacheService.borrarPerfilCache(u, v)
-		else cacheService.guardar(new PerfilCacheado(perfil.username, vCache, perfil)) 		
+		if(cacheService.estaPerfilCache(u, vCache)) cacheService.borrarPerfilCache(u, vCache)
+		perfilHome.updatePerfil(perfil, perfil)		
 	}
 	 
 	def void addVisibility(Usuario u, Destiny d, Comment c, Visibility v, Visibility vCache) {
-		var perfil = verPerfilAux(u, vCache)
+		var perfil = getPerfil(u)
 		perfil.addVisibility(d, c, v)
+		if(!cacheService.estaPerfilCache(u, vCache)) cacheService.borrarPerfilCache(u, vCache)
 		perfilHome.updatePerfil(perfil, perfil)
-		if(!cacheService.estaPerfilCache(u, vCache)) cacheService.borrarPerfilCache(u, v)
-		else cacheService.guardar(new PerfilCacheado(perfil.username, vCache, perfil)) 	
 	}
 	
 	
@@ -120,7 +113,7 @@ class PerfilService {
 	
 	def private stalkearme(Usuario yo) {
 			var perfil = this.verPerfilSiEsPosibleEnCache(yo)
-			if(!cacheService.estaPerfilCache(yo, Visibility.PUBLICO) || !cacheService.estaPerfilCache(yo, Visibility.PRIVADO) || !cacheService.estaPerfilCache(yo, Visibility.AMIGOS)) cacheService.guardar(new PerfilCacheado(perfil.username, Visibility.PRIVADO, perfil))
+			if(!cacheService.estaPerfilCache(yo, Visibility.PUBLICO) || !cacheService.estaPerfilCache(yo, Visibility.PRIVADO) ||  !cacheService.estaPerfilCache(yo, Visibility.AMIGOS)) cacheService.guardar(new PerfilCacheado(perfil.username, Visibility.PRIVADO, perfil))
 			return perfil
 	}
 	 	

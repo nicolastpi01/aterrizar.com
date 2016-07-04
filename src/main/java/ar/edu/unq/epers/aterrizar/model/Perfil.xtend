@@ -64,9 +64,7 @@ class Perfil {
 	}
 	 
 	def addVisibility(Destiny d, Visibility v) {
-		for(Destiny dest : destinations) {
-			if(dest.nombre == d.nombre) dest.visibility = v
-		}
+		for(Destiny dest : destinations) if (dest.nombre == d.nombre) dest.visibility = v 		
 	}
 	
 	def addVisibility(Destiny d,Comment c, Visibility v) {
