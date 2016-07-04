@@ -56,13 +56,13 @@ class PerfilService {
 	def addDestiny(Usuario u, Destiny d, Visibility v) {
 		var perfil = verPerfilAux(u, v) 
 		// DESCOMENTAR CUANDO MYSQLDB FUNCIONE
-		//if(tramoService.tieneReservadoAsiento(u, d)) perfil.addDestiny(d) 
-		if(true) perfil.addDestiny(d)
+		if(tramoService.tieneReservadoAsiento(u, d)) perfil.addDestiny(d) 
 		else new UsuarioNoTieneAsientoEnDestinoException
 		if(cacheService.estaPerfilCache(u, v)) cacheService.borrarPerfilCache(u, v)
 		else cacheService.guardar(new PerfilCacheado(perfil.username, v, perfil))
 		perfilHome.updatePerfil(perfil, perfil) 			   		
 	}
+	
 	 
 	def addComment(Usuario u, Destiny d, Comment c, Visibility v) {
 		var perfil = verPerfilAux(u, v)
@@ -70,7 +70,9 @@ class PerfilService {
 		perfilHome.updatePerfil(perfil, perfil)
 		if(cacheService.estaPerfilCache(u, v)) cacheService.borrarPerfilCache(u, v)
 		else cacheService.guardar(new PerfilCacheado(perfil.username, v, perfil)) 		
-	} 
+	}
+	
+	def metodoPurbe() {} 
 	   
 	def addlike(Usuario u, Destiny d, Like like, Visibility v) {
 		var perfil = verPerfilAux(u, v)
