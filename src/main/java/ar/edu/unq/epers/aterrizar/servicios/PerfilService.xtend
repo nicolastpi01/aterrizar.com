@@ -55,8 +55,7 @@ class PerfilService {
 	  
 	def addDestiny(Usuario u, Destiny d, Visibility v) {
 		var perfil = getPerfil(u) 
-		//if(tramoService.tieneReservadoAsiento(u, d)) perfil.addDestiny(d)
-		if(true) perfil.addDestiny(d)
+		if(tramoService.tieneReservadoAsiento(u, d)) perfil.addDestiny(d)
 		else throw new UsuarioNoTieneAsientoEnDestinoException
 		if(cacheService.estaPerfilCache(u, v)) cacheService.borrarPerfilCache(u, v)
 		perfilHome.updatePerfil(perfil, perfil) 			   		
@@ -121,7 +120,7 @@ class PerfilService {
 		if (cacheService.estaPerfilCache(another, Visibility.PUBLICO)) return cacheService.verPerfil(another, Visibility.PUBLICO)
 		else {
 			var perfil = perfilHome.stalkearNoAmigo(another)
-			cacheService.guardar(new PerfilCacheado(perfil.username, Visibility.PUBLICO, perfil))
+			cacheService.guardar(new PerfilCacheado(another.nombreDeUsuario, Visibility.PUBLICO, perfil))
 			return perfil
 		}
 	}
@@ -131,7 +130,7 @@ class PerfilService {
 		else if (cacheService.estaPerfilCache(another, Visibility.AMIGOS)) return cacheService.verPerfil(another, Visibility.AMIGOS)
 		else {
 			var perfil = perfilHome.stalkearAmigo(another)
-			cacheService.guardar(new PerfilCacheado(perfil.username, Visibility.AMIGOS, perfil))
+			cacheService.guardar(new PerfilCacheado(another.nombreDeUsuario, Visibility.AMIGOS, perfil))
 			return perfil
 		}
 	}

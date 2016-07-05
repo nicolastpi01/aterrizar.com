@@ -31,6 +31,7 @@ import ar.edu.unq.epers.aterrizar.model.VueloOfertado
 import java.sql.Date
 import ar.edu.unq.epers.aterrizar.model.Primera
 import ar.edu.unq.epers.aterrizar.model.Business
+import java.util.List
 
 class PerfilServiceTest {
 	PerfilService service
@@ -55,31 +56,35 @@ class PerfilServiceTest {
 	Comment queAburrido
 	Destiny barilocheDestiny
 	Destiny bahiaBlancaDestiny
-	AsientoService asientoService
 	BaseHome homeBase
 	Asiento asiento
 	Tramo tramo
 	
-		/*  Hibernate   */
+	/*  Hibernate   */
 	 
     var Usuario user
     var TramoService serviceTramo
-    var AsientoService serviceAsiento
     var BaseService servicioBase = new BaseService
-
+	var AsientoService asientoService = new AsientoService
     SessionFactory sessionFactory;
     Session session = null;
     Asiento asiento1
     Asiento asiento2
     Asiento asiento3
+    Asiento asiento4
+    Asiento asiento5
+    Asiento asiento6
+    Asiento asiento7
     Tramo tramo3
+    Tramo tramo4
+    Tramo tramo5
     VueloOfertado vuelo1
     VueloOfertado vuelo2
     VueloOfertado vuelo3
     VueloOfertado vuelo4
-    VueloOfertado vuelo5
+    VueloOfertado vuelo5 
 	
-		 def void setUpHibernate(){
+	def void setUpHibernate(){
 
         homeBase = new BaseHome()
 
@@ -91,10 +96,6 @@ class PerfilServiceTest {
             nacimiento = new Date(2015,10,1)
         ]
         serviceTramo = new TramoService
-        serviceAsiento = new AsientoService
-
-
-
 
         tramo = new Tramo => [
 
@@ -144,14 +145,53 @@ class PerfilServiceTest {
                 ]
             ]
         ]
+        
+        tramo4 = new Tramo => [
 
+            origen = "Brasil"
+            destino = "bahia blanca"
+            llegada = new Date(1000)
+            salida = new Date(116,6,16)
+            
+            asientos = #[
+                asiento4 = new Asiento => [
+                    nombre = "c 4"
+                    categoria = new Business(500)
+                ],
+                asiento5 = new Asiento => [
+                    nombre = "c 5"
+                    categoria = new Business(500)
+                ]
+            ]
+        ]
+        
+        
+        tramo5 = new Tramo => [
 
-
+            origen = "Brasil"
+            destino = "bariloche"
+            llegada = new Date(1000)
+            salida = new Date(116,6,16)
+            
+            asientos = #[
+                asiento6 = new Asiento => [
+                    nombre = "c 6"
+                    categoria = new Business(500)
+                ],
+                asiento7 = new Asiento => [
+                    nombre = "c 7"
+                    categoria = new Business(500)
+                ]
+            ]
+        ]
+        
         vuelo1 = new VueloOfertado (#[new Tramo("Paris", "Italia"),tramo], 1000)
         vuelo2 = new VueloOfertado (#[tramo3, new Tramo("Mexico", "España")] ,2500)
-        vuelo3 = new VueloOfertado (#[new Tramo("Paris", "Italia"), new Tramo("Italia", "Grecia")],1600)
+        vuelo3 = new VueloOfertado (#[tramo4, tramo5],2000)
         vuelo4 = new VueloOfertado (#[new Tramo("Paris", "Italia"), new Tramo("Italia", "Venezuela")] ,800)
         vuelo5 = new VueloOfertado (#[new Tramo("Paris", "Italia"), new Tramo("Italia", "Venezuela"), new Tramo("Venezuela", "Peru")] , 8800)
+        servicioBase.guardar(vuelo1)
+        servicioBase.guardar(vuelo3)					
 
     }
 	
@@ -175,10 +215,12 @@ class PerfilServiceTest {
 		service = new PerfilService(home, socialService, cacheService, tramoService)
 		usuarioPepe = new Usuario
 		usuarioPepe.nombreDeUsuario = "pepe"
+		usuarioPepe.nombreYApellido = "pepeGarcia"
 		usuarioJuan = new Usuario
 		usuarioJuan.nombreDeUsuario = "juan"
 		usuarioNoAmigoDePepe = new Usuario
 		usuarioNoAmigoDePepe.nombreDeUsuario = "usuarioNoAmigoDePepe"
+		usuarioNoAmigoDePepe.nombreYApellido = "usuarioNoAmigoPepeDominguez"
 		marDelPlataDestiny = new Destiny
 		marDelPlataDestiny.nombre = "Mar del plata"
 		barilocheDestiny = new Destiny
@@ -191,9 +233,11 @@ class PerfilServiceTest {
 		visibilityPrivado = Visibility.PRIVADO
 		usuarioLuis = new Usuario()
 		usuarioLuis.nombreDeUsuario = "luis"
+		usuarioLuis.nombreYApellido = "luis berterame"
 		queCalor = new Comment("que calor")
 		queAburrido = new Comment("que aburrido")
-		visibilityPublico = Visibility.PUBLICO		
+		visibilityPublico = Visibility.PUBLICO
+		visibilityAmigos = Visibility.AMIGOS		
 	}
 	 
 	@Test
@@ -204,44 +248,43 @@ class PerfilServiceTest {
 		var perfilPepeCache = service.verPerfil(usuarioPepe, Visibility.PUBLICO)
 		Assert.assertEquals(perfilPepeCache.username, "pepe")
 	}
-	  
+	
 	@Test
 	def void addDestinyTest() {
-		//serviceAsiento.reservarAsientoParaUsuario(tramo.asientos.get(0), usuarioPepe)
+		val List<Asiento> listaAReservar = #[asiento1,asiento2,asiento3]						
+		asientoService.reservarUnConjuntoDeAsientosParaUsuario(listaAReservar, usuarioPepe)
+		Assert.assertEquals(servicioBase.buscar(asiento1, asiento1.id).reservadoPorUsuario.nombreDeUsuario, usuarioPepe.nombreDeUsuario)
+		Assert.assertEquals(servicioBase.buscar(asiento2, asiento2.id).reservadoPorUsuario.nombreDeUsuario, usuarioPepe.nombreDeUsuario)
+		Assert.assertEquals(servicioBase.buscar(asiento3, asiento3.id).reservadoPorUsuario.nombreDeUsuario, usuarioPepe.nombreDeUsuario)					
 		service.addPerfil(usuarioPepe)
-		//asientoService.guardar(asiento)
-		//asientoService.reservarAsientoParaUsuario(asiento, usuarioPepe)
 		service.addDestiny(usuarioPepe, marDelPlataDestiny, Visibility.PUBLICO)
 		var perfilPepe = service.verPerfil(usuarioPepe, Visibility.PUBLICO)
 		Assert.assertEquals(perfilPepe.destinations.size, 1)
-		Assert.assertEquals(perfilPepe.destinations.get(0).nombre, "Mar del plata")	
+		Assert.assertEquals(perfilPepe.destinations.get(0).nombre, "Mar del plata")
+ 
 	}
 	    
 	@Test
 	def void addCommentTest() {
+		val List<Asiento> listaAReservar = #[asiento1,asiento2,asiento3]						
+		asientoService.reservarUnConjuntoDeAsientosParaUsuario(listaAReservar, usuarioPepe)
 		service.addPerfil(usuarioPepe)
 		service.addDestiny(usuarioPepe, marDelPlataDestiny, Visibility.PUBLICO)
 		service.addComment(usuarioPepe, marDelPlataDestiny, queFrio, Visibility.PUBLICO)
 		var perfilPepe = service.verPerfil(usuarioPepe, Visibility.PUBLICO)
 		Assert.assertEquals(perfilPepe.destinations.get(0).comments.size, 1)
 		Assert.assertEquals(perfilPepe.destinations.get(0).comments.get(0).description, "que frio")
-		service.addComment(usuarioPepe, marDelPlataDestiny, queCalor, Visibility.PUBLICO)
-		perfilPepe = service.verPerfil(usuarioPepe, Visibility.PUBLICO)
-		Assert.assertEquals(perfilPepe.destinations.get(0).comments.size, 2)
-		Assert.assertEquals(perfilPepe.destinations.get(0).comments.get(1).description, "que calor")
 	}
 	
 	 
 	@Test
 	def void addLikeTest() {
+		val List<Asiento> listaAReservar = #[asiento1,asiento2,asiento3]						
+		asientoService.reservarUnConjuntoDeAsientosParaUsuario(listaAReservar, usuarioPepe)
 		service.addPerfil(usuarioPepe)
 		service.addDestiny(usuarioPepe, marDelPlataDestiny, Visibility.PUBLICO)
 		service.addlike(usuarioPepe, marDelPlataDestiny, likePepe, Visibility.PUBLICO)
 		var perfilPepe = service.verPerfil(usuarioPepe, Visibility.PUBLICO)
-		Assert.assertEquals(perfilPepe.destinations.get(0).likes.size, 1)
-		Assert.assertEquals(perfilPepe.destinations.get(0).likes.get(0).username, "pepe")
-		service.addlike(usuarioPepe, marDelPlataDestiny, likePepe, Visibility.PUBLICO)
-		perfilPepe = service.verPerfil(usuarioPepe, Visibility.PUBLICO)
 		Assert.assertEquals(perfilPepe.destinations.get(0).likes.size, 1)
 		Assert.assertEquals(perfilPepe.destinations.get(0).likes.get(0).username, "pepe")
 	}
@@ -249,14 +292,12 @@ class PerfilServiceTest {
 	
 	@Test
 	def void addDislikeTest() {
+		val List<Asiento> listaAReservar = #[asiento1,asiento2,asiento3]						
+		asientoService.reservarUnConjuntoDeAsientosParaUsuario(listaAReservar, usuarioPepe)
 		service.addPerfil(usuarioPepe)
 		service.addDestiny(usuarioPepe, marDelPlataDestiny, Visibility.PUBLICO)
 		service.addDislike(usuarioPepe, marDelPlataDestiny, dislikePepe, Visibility.PUBLICO)
 		var perfilPepe = service.verPerfil(usuarioPepe, Visibility.PUBLICO)
-		Assert.assertEquals(perfilPepe.destinations.get(0).dislikes.size, 1)
-		Assert.assertEquals(perfilPepe.destinations.get(0).dislikes.get(0).username, "pepe")
-		service.addDislike(usuarioPepe, marDelPlataDestiny, dislikePepe, Visibility.PUBLICO)
-		perfilPepe = service.verPerfil(usuarioPepe, Visibility.PUBLICO)
 		Assert.assertEquals(perfilPepe.destinations.get(0).dislikes.size, 1)
 		Assert.assertEquals(perfilPepe.destinations.get(0).dislikes.get(0).username, "pepe")
 	}
@@ -264,6 +305,8 @@ class PerfilServiceTest {
 	   
 	@Test
 	def void addVisibilityDestinyTest() {
+		val List<Asiento> listaAReservar = #[asiento1,asiento2,asiento3]						
+		asientoService.reservarUnConjuntoDeAsientosParaUsuario(listaAReservar, usuarioPepe)
 		service.addPerfil(usuarioPepe)
 		service.addDestiny(usuarioPepe, marDelPlataDestiny, Visibility.PUBLICO)
 		service.addVisibility(usuarioPepe, marDelPlataDestiny, visibilityPublico, Visibility.PUBLICO)
@@ -273,6 +316,8 @@ class PerfilServiceTest {
 	
 	@Test
 	def void addVisibilityCommentTest() {
+		val List<Asiento> listaAReservar = #[asiento1,asiento2,asiento3]						
+		asientoService.reservarUnConjuntoDeAsientosParaUsuario(listaAReservar, usuarioPepe)
 		service.addPerfil(usuarioPepe)
 		service.addDestiny(usuarioPepe, marDelPlataDestiny, Visibility.PUBLICO)
 		service.addComment(usuarioPepe, marDelPlataDestiny, queFrio, Visibility.PUBLICO)
@@ -284,6 +329,8 @@ class PerfilServiceTest {
 	  
 	@Test
 	def void stalkearYoMismoTest() {
+		val List<Asiento> listaAReservar = #[asiento1,asiento2,asiento3]						
+		asientoService.reservarUnConjuntoDeAsientosParaUsuario(listaAReservar, usuarioPepe)
 		socialService.agregarPersona(usuarioPepe)
 		service.addPerfil(usuarioPepe)
 		service.addDestiny(usuarioPepe, marDelPlataDestiny, Visibility.PUBLICO)
@@ -295,24 +342,35 @@ class PerfilServiceTest {
 	  
 	@Test
 	def void stalkearNoAmigoTest() {
+		val List<Asiento> listaAReservar = #[asiento1,asiento2,asiento3]						
+		asientoService.reservarUnConjuntoDeAsientosParaUsuario(listaAReservar, usuarioNoAmigoDePepe)
+		val List<Asiento> listaAReservarDestinoBahia = #[asiento4,asiento5]						
+		asientoService.reservarUnConjuntoDeAsientosParaUsuario(listaAReservarDestinoBahia, usuarioNoAmigoDePepe)
+		val List<Asiento> listaAReservarDestinoBariloche = #[asiento6,asiento7]						
+		asientoService.reservarUnConjuntoDeAsientosParaUsuario(listaAReservarDestinoBariloche, usuarioNoAmigoDePepe)
 		socialService.agregarPersona(usuarioNoAmigoDePepe)
 		socialService.agregarPersona(usuarioPepe)
 		service.addPerfil(usuarioNoAmigoDePepe)
 		service.addPerfil(usuarioPepe)
-		service.addDestiny(usuarioPepe, marDelPlataDestiny, Visibility.PUBLICO)
-		service.addDestiny(usuarioPepe, barilocheDestiny, Visibility.PUBLICO)
-		service.addDestiny(usuarioPepe, bahiaBlancaDestiny, Visibility.PUBLICO)
-		service.addVisibility(usuarioPepe, marDelPlataDestiny, visibilityPublico, Visibility.PUBLICO)
-		service.addVisibility(usuarioPepe, barilocheDestiny, visibilityPrivado, Visibility.PUBLICO)
-		service.addVisibility(usuarioPepe, bahiaBlancaDestiny, visibilityAmigos, Visibility.PUBLICO)
-		var perfilPepe = service.stalkear(usuarioNoAmigoDePepe, usuarioPepe)
-		//Assert.assertEquals(perfilPepe.destinations.size, 1)
-		//Assert.assertEquals(perfilPepe.destinations.get(0).nombre, "Mar del plata")
-		//Assert.assertEquals(perfilPepe.destinations.get(1).nombre, "bariloche")
+		service.addDestiny(usuarioNoAmigoDePepe, marDelPlataDestiny, Visibility.PUBLICO)
+		service.addDestiny(usuarioNoAmigoDePepe, barilocheDestiny, Visibility.PUBLICO)
+		service.addDestiny(usuarioNoAmigoDePepe, bahiaBlancaDestiny, Visibility.PUBLICO)
+		service.addVisibility(usuarioNoAmigoDePepe, marDelPlataDestiny, visibilityPublico, Visibility.PUBLICO)
+		service.addVisibility(usuarioNoAmigoDePepe, barilocheDestiny, visibilityPrivado, Visibility.PUBLICO)
+		service.addVisibility(usuarioNoAmigoDePepe, bahiaBlancaDestiny, visibilityAmigos, Visibility.PUBLICO)
+		var perfilNoAmigoPepe = service.stalkear(usuarioPepe, usuarioNoAmigoDePepe)
+		Assert.assertEquals(perfilNoAmigoPepe.destinations.size, 1)
+		Assert.assertEquals(perfilNoAmigoPepe.destinations.get(0).nombre, "Mar del plata")
 	}
 	
 	@Test
 	def void stalkearAmigoTest() {
+		val List<Asiento> listaAReservar = #[asiento1,asiento2,asiento3]						
+		asientoService.reservarUnConjuntoDeAsientosParaUsuario(listaAReservar, usuarioLuis)
+		val List<Asiento> listaAReservarDestinoBahia = #[asiento4,asiento5]						
+		asientoService.reservarUnConjuntoDeAsientosParaUsuario(listaAReservarDestinoBahia, usuarioLuis)
+		val List<Asiento> listaAReservarDestinoBariloche = #[asiento6,asiento7]						
+		asientoService.reservarUnConjuntoDeAsientosParaUsuario(listaAReservarDestinoBariloche, usuarioLuis)
 		socialService.agregarPersona(usuarioPepe)
 		socialService.agregarPersona(usuarioLuis)
 		service.addPerfil(usuarioPepe)
@@ -325,9 +383,9 @@ class PerfilServiceTest {
 		service.addVisibility(usuarioLuis, bahiaBlancaDestiny, visibilityPrivado, Visibility.PUBLICO)
 		service.addVisibility(usuarioLuis, barilocheDestiny, visibilityAmigos, Visibility.PUBLICO)
 		var perfilLuis = service.stalkear(usuarioPepe, usuarioLuis)
-		//Assert.assertEquals(perfilLuis.destinations.size, 2)
-		//Assert.assertEquals(perfilLuis.destinations.get(0).nombre, "Mar del plata")
-		//Assert.assertEquals(perfilLuis.destinations.get(1).nombre, "bariloche")
+		Assert.assertEquals(perfilLuis.destinations.size, 2)
+		Assert.assertEquals(perfilLuis.destinations.get(0).nombre, "Mar del plata")
+		Assert.assertEquals(perfilLuis.destinations.get(1).nombre, "bariloche")
 	}
 	
 	
@@ -335,6 +393,29 @@ class PerfilServiceTest {
 	def void cleanDB(){
 		cacheService.deleteTable
 		cacheService.deleteKeyspace
-		home.mongoCollection.drop		
+		home.mongoCollection.drop
+		homeBase.hqlTruncate("asiento")
+        homeBase.hqlTruncate("criterioCompuesto")
+        homeBase.hqlTruncate("ordenVacio")
+        homeBase.hqlTruncate("MenorCosto")
+        homeBase.hqlTruncate("MenorDuracion")
+        homeBase.hqlTruncate("MenorCantidadDeEscalas")
+        homeBase.hqlTruncate("busqueda")
+        homeBase.hqlTruncate("criterioCompuesto")
+        homeBase.hqlTruncate("criterioVacio")
+        homeBase.hqlTruncate("criterioPorAerolinea")
+        homeBase.hqlTruncate("criterioPorCategoriaDeAsiento")
+        homeBase.hqlTruncate("criterioPorFechaDeLlegada")
+        homeBase.hqlTruncate("criterioPorFechaDeSalida")
+        homeBase.hqlTruncate("criterioPorOrigen")
+        homeBase.hqlTruncate("criterioPorDestino")
+        homeBase.hqlTruncate("primera")
+        homeBase.hqlTruncate("turista")
+        homeBase.hqlTruncate("business")
+        homeBase.hqlTruncate("categoria")
+        homeBase.hqlTruncate("criterio")
+        homeBase.hqlTruncate("tramo")
+        homeBase.hqlTruncate("usuario")
+        homeBase.hqlTruncate("vueloOfertado")		
 	}
 }
