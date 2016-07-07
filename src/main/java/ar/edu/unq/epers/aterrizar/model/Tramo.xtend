@@ -14,6 +14,8 @@ class Tramo {
     int id
     var VueloOfertado vuelo
     var List<Asiento> asientos = #[]
+    var List<Compra> compras = #[]
+    var List<Reserva> reservas = #[]
     var String origen
     var String destino
     var Date llegada
@@ -74,4 +76,12 @@ class Tramo {
 
         ]
     }
+    
+    def	agregarCompra(Compra compra) {
+    	this.compras.add(compra)
+	}
+	
+	def sacarReserva(Reserva r) {
+		this.reservas.remove(r)
+	}
 }

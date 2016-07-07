@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class
+            name="ar.edu.unq.epers.aterrizar.model.Reserva" table="reserva" lazy="true">
+        <id column="id" name="id" type="integer">
+            <generator class="identity"/>
+        </id>
+
+
+        <many-to-one cascade="all" column="asiento" name="asiento"
+                     class="ar.edu.unq.epers.aterrizar.model.Asiento" lazy="false"/>
+        <many-to-one cascade="all" column="tramo" name="tramo"
+                     class="ar.edu.unq.epers.aterrizar.model.Tramo" lazy="false" fetch="select"/>
+
+        <property name="username" type="string" lazy="true">
+            <column name="username" length="45" not-null="false" unique="false"/>
+        </property>
+
+    </class>
+</hibernate-mapping>

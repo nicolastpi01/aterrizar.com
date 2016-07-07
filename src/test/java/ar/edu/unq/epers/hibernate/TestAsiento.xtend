@@ -24,8 +24,8 @@ class TestAsiento {
     var AsientoService service
     var BaseHome homeBase
 
-    SessionFactory sessionFactory;
-    Session session = null;
+    SessionFactory sessionFactory
+    Session session = null
     Asiento asiento1
     Asiento asiento2
     Asiento asiento3
@@ -60,8 +60,6 @@ class TestAsiento {
         ]
 
         homeBase = new BaseHome
-
-
     }
 
 
