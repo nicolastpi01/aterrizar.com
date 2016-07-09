@@ -1,6 +1,8 @@
 package ar.edu.unq.epers.aterrizar.home
 
 import org.hibernate.Query
+import java.util.List
+import ar.edu.unq.epers.aterrizar.model.Reserva
 
 class AsientoHome {
 

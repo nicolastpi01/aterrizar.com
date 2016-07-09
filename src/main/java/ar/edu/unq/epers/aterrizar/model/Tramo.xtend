@@ -14,14 +14,13 @@ class Tramo {
     int id
     var VueloOfertado vuelo
     var List<Asiento> asientos = #[]
-    var List<Compra> compras = #[]
     var List<Reserva> reservas = #[]
     var String origen
     var String destino
     var Date llegada
     var Date salida
 
-    new(){
+    new() {
     }
 
 
@@ -41,18 +40,17 @@ class Tramo {
                 nombre = "c 3"
                 categoria = new Primera(1000)
             ]]
-
     }
 
-    def long duracion(){
+    def long duracion() {
         salida.getTime - llegada.getTime
     }
 
-    def agregarAsiento(Asiento asiento){
+    def agregarAsiento(Asiento asiento) {
         asientos.add(asiento)
     }
 
-    def tieneCategoriaDeAsiento(Categoria cat){
+    def tieneCategoriaDeAsiento(Categoria cat) {
         asientos.fold(false) [result, asiento |
             asiento.categoria.getClass == cat.getClass || result
         ]
@@ -77,11 +75,4 @@ class Tramo {
         ]
     }
     
-    def	agregarCompra(Compra compra) {
-    	this.compras.add(compra)
-	}
-	
-	def sacarReserva(Reserva r) {
-		this.reservas.remove(r)
-	}
 }

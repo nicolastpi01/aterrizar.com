@@ -120,7 +120,7 @@ class TestBase {
 
 
     @After
-    def void trunarTodasLasTablasDeLaBase() {
+    def void truncarTodasLasTablasDeLaBase() {
         homeBase.hqlTruncate("asiento")
         homeBase.hqlTruncate("criterioCompuesto")
         homeBase.hqlTruncate("ordenVacio")
@@ -145,8 +145,6 @@ class TestBase {
         homeBase.hqlTruncate("tramo")
         homeBase.hqlTruncate("usuario")
         homeBase.hqlTruncate("vueloOfertado")
-
-
+        
     }
-
 }

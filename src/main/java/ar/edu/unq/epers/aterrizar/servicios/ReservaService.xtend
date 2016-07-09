@@ -4,10 +4,11 @@ import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.model.Reserva
 import ar.edu.unq.epers.aterrizar.home.SessionManager
 import ar.edu.unq.epers.aterrizar.model.Tramo
+import ar.edu.unq.epers.aterrizar.model.Asiento
 
 class ReservaService extends BaseService {
 	
-	
+	/* 
 	def void comprarReservaParaUsuario(Reserva reserva, Usuario user, Tramo tramo) {
         SessionManager.runInSession([
             reserva.comprar(user.nombreDeUsuario, tramo)
@@ -16,11 +17,17 @@ class ReservaService extends BaseService {
             null
         ]);
     }
-    
-    def void reservarReserva(Reserva reserva, Usuario user) {
+    * 
+    */
+     
+    def void hacerReserva(Usuario user, Asiento asiento) {
     	SessionManager.runInSession([
+    		var Reserva reserva = new Reserva
+    		reserva.username = user.nombreDeUsuario
+    		reserva.nombreAsiento = asiento.nombre
             guardar(reserva)
             null
         ]);
     }
+    
 }

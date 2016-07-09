@@ -7,9 +7,7 @@ import ar.edu.unq.epers.aterrizar.servicios.BaseService
 import java.util.List
 import org.hibernate.Query
 
-/**
- * Created by damian on 4/16/16.
- */
+
 class TramoHome extends BaseService {
 
     def List<VueloOfertado> buscarVuelos(String hquery){
@@ -18,7 +16,7 @@ class TramoHome extends BaseService {
         list
     }
 
-    def asientosDisponiblesEnTramo(Tramo t){
+    def asientosDisponiblesEnTramo(Tramo t) {
         var q = "select asientos from Tramo tramo join tramo.asientos as asientos where asientos.reservadoPorUsuario = null"
         var query = SessionManager.getSession().createQuery(q) as Query
 
@@ -34,7 +32,7 @@ class TramoHome extends BaseService {
         var asientosNoNull = query.list as List<Asiento>
         
         var asientos = asientosNoNull.filter[ asiento | asiento.reservadoPorUsuario.nombreDeUsuario == nombreUsuario].toList
-        //asientos.filter[asiento | asiento.reservadoPorUsuario == null].toList
+        
         return asientos
 		
 	}
