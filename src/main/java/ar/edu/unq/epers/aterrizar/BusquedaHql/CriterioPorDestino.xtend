@@ -1,14 +1,10 @@
 package ar.edu.unq.epers.aterrizar.BusquedaHql
 
 
-/**
- * Created by damian on 4/18/16.
- */
-
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-class CriterioPorDestino extends Criterio{
+class CriterioPorDestino extends Criterio {
     String destino
 
     override getHQL() {
@@ -18,7 +14,5 @@ class CriterioPorDestino extends Criterio{
     override whereClause() {
         ''' tramo.origen = '«destino»' '''
     }
-
-
 
 }

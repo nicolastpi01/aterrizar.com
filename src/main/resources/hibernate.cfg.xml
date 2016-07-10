@@ -22,7 +22,6 @@
 
 
         <!--<mapping resource=""></mapping>-->
-        <mapping resource="MapeoModelo/Reserva.hbm.xml"></mapping>
         <mapping resource="MapeoModelo/Usuario.hbm.xml"></mapping>
         <mapping resource="MapeoModelo/Tramo.hbm.xml"></mapping>
         <mapping resource="MapeoModelo/Asiento.hbm.xml"></mapping>
@@ -32,6 +31,8 @@
         <mapping resource="MapeoBusqueda/Busqueda.hbm.xml"></mapping>
         <mapping resource="MapeoBusqueda/Criterio.hbm.xml"></mapping>
         <mapping resource="MapeoBusqueda/Orden.hbm.xml"></mapping>
+        <mapping resource="MapeoModelo/Reserva.hbm.xml"></mapping>
+        <mapping resource="MapeoModelo/Compra.hbm.xml"></mapping>
 
     </session-factory>
 </hibernate-configuration>

@@ -26,7 +26,14 @@
             </key>
             <one-to-many class="ar.edu.unq.epers.aterrizar.model.Reserva"/>
         </bag>
-
+        
+        <bag fetch="select" lazy="false" name="compras" table="compras" cascade="all">
+            <key>
+                <column name="tramo_id"/>
+            </key>
+            <one-to-many class="ar.edu.unq.epers.aterrizar.model.Compra"/>
+        </bag>
+        
         <!-- inverse end -->
 
         <many-to-one cascade="all" column="vuelo" name="vuelo" lazy="false"

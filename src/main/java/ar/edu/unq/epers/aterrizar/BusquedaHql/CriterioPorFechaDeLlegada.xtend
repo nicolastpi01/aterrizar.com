@@ -15,6 +15,4 @@ class CriterioPorFechaDeLlegada extends Criterio {
         ''' trim(tramo.llegada)= '«fechaLlegada»' '''
     }
 
-
-
 }

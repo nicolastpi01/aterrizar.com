@@ -86,6 +86,8 @@ class TestBase {
                 asiento2,
                 asiento3
             ]
+            
+           
         ]
 
 
@@ -121,30 +123,33 @@ class TestBase {
 
     @After
     def void truncarTodasLasTablasDeLaBase() {
-        homeBase.hqlTruncate("asiento")
-        homeBase.hqlTruncate("criterioCompuesto")
-        homeBase.hqlTruncate("ordenVacio")
-        homeBase.hqlTruncate("MenorCosto")
-        homeBase.hqlTruncate("MenorDuracion")
-        homeBase.hqlTruncate("MenorCantidadDeEscalas")
-        homeBase.hqlTruncate("busqueda")
-        homeBase.hqlTruncate("criterioCompuesto")
-        homeBase.hqlTruncate("criterioVacio")
-        homeBase.hqlTruncate("criterioPorAerolinea")
-        homeBase.hqlTruncate("criterioPorCategoriaDeAsiento")
-        homeBase.hqlTruncate("criterioPorFechaDeLlegada")
-        homeBase.hqlTruncate("criterioPorFechaDeSalida")
-        homeBase.hqlTruncate("criterioPorOrigen")
-        homeBase.hqlTruncate("criterioPorDestino")
-
-        homeBase.hqlTruncate("primera")
-        homeBase.hqlTruncate("turista")
-        homeBase.hqlTruncate("business")
-        homeBase.hqlTruncate("categoria")
-        homeBase.hqlTruncate("criterio")
-        homeBase.hqlTruncate("tramo")
-        homeBase.hqlTruncate("usuario")
-        homeBase.hqlTruncate("vueloOfertado")
+    	
+        homeBase.hqlTruncate("MenorCosto")                   
+ 		homeBase.hqlTruncate("MenorCantidadDeEscalas")  
+		homeBase.hqlTruncate("MenorDuracion")                                      	                     
+		homeBase.hqlTruncate("criterioCompuesto")             
+		homeBase.hqlTruncate("criterioPorAerolinea")          
+		homeBase.hqlTruncate("criterioPorCategoriaDeAsiento") 
+		homeBase.hqlTruncate("criterioPorDestino")            
+		homeBase.hqlTruncate("criterioPorFechaDeLlegada")     
+		homeBase.hqlTruncate("criterioPorFechaDeSalida")      
+		homeBase.hqlTruncate("criterioPorOrigen")             
+		homeBase.hqlTruncate("criterioVacio")
+		homeBase.hqlTruncate("criterio")                                      
+		homeBase.hqlTruncate("busqueda")                         
+		homeBase.hqlTruncate("ordenVacio")                    
+		homeBase.hqlTruncate("orden")                       
+		homeBase.hqlTruncate("usuario")
+		homeBase.hqlTruncate("asiento")
+		homeBase.hqlTruncate("primera")                       
+		homeBase.hqlTruncate("business")
+		homeBase.hqlTruncate("turista")                      
+		homeBase.hqlTruncate("categoria")
+		homeBase.hqlTruncate("compra") 
+		homeBase.hqlTruncate("reserva")                       
+		homeBase.hqlTruncate("tramo")               
+		homeBase.hqlTruncate("vueloOfertado")
+		homeBase.hqlTruncate("aerolinea")
         
     }
 }

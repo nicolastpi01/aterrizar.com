@@ -5,9 +5,8 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 class Reserva {
 	int id
-	String nombreAsiento
 	String username
-	
-	new() {}
-		
+	String nombreAsiento
+	String tramoOrigen
+	String tramoDestino
 }

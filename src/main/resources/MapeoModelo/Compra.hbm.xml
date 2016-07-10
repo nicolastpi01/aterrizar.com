@@ -9,14 +9,16 @@
             <generator class="identity"/>
         </id>
 
-
-        <many-to-one cascade="all" column="asiento" name="asiento"
-                     class="ar.edu.unq.epers.aterrizar.model.Asiento" lazy="false"/>
-        <many-to-one cascade="all" column="tramo" name="tramo"
-                     class="ar.edu.unq.epers.aterrizar.model.Tramo" lazy="false" fetch="select"/>
-
         <property name="username" type="string" lazy="true">
             <column name="username" length="45" not-null="false" unique="false"/>
+        </property>
+        
+        <property name="origenTramo" type="string" lazy="true">
+            <column name="origenTramo" length="45" not-null="false" unique="false"/>
+        </property>
+        
+        <property name="destinoTramo" type="string" lazy="true">
+            <column name="destinoTramo" length="45" not-null="false" unique="false"/>
         </property>
 
     </class>

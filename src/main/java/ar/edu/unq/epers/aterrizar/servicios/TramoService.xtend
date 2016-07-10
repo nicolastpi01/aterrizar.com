@@ -8,9 +8,6 @@ import java.util.List
 import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.model.Destiny
 
-/**
- * Created by damian on 4/16/16.
- */
 class TramoService extends BaseService{
 
 
@@ -48,7 +45,5 @@ class TramoService extends BaseService{
         ])
 		
 	}
-
-
 
 }

@@ -15,6 +15,4 @@ class CriterioPorCategoriaDeAsiento extends Criterio {
         ''' cat.class = «categoriaAsiento.class.getSimpleName»'''
     }
 
-
-
 }

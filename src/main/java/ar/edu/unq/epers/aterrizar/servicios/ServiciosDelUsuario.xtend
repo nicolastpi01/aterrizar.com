@@ -8,11 +8,6 @@ import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.persistencia.Repositorio
 import ar.edu.unq.epers.aterrizar.utils.EnviadorDeMails
 
-/**
- * Created by damian on 4/3/16.
- */
-
-//JDBC
 class ServiciosDelUsuario {
 
     var Repositorio repositorio
@@ -63,7 +58,5 @@ class ServiciosDelUsuario {
         usuario.isValidado
 
     }
-
-
 
 }

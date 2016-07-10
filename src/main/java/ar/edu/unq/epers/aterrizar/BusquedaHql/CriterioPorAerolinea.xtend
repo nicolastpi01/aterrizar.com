@@ -4,7 +4,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class CriterioPorAerolinea extends Criterio {
-
     String aerolinea
 
     override getHQL() {
@@ -14,8 +13,5 @@ class CriterioPorAerolinea extends Criterio {
     override whereClause() {
         ''' aerolinea.nombre = '«aerolinea»' '''
     }
-
-
-
 
 }

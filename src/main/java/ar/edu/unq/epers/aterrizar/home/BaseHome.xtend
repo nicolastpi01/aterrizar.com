@@ -1,10 +1,5 @@
 package ar.edu.unq.epers.aterrizar.home
 
-import javax.management.Query
-
-/**
- * Created by damian on 09/05/16.
- */
 class BaseHome {
 
     def void hqlTruncate(String myTable){

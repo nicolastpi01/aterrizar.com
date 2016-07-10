@@ -21,7 +21,6 @@ class TramoHome extends BaseService {
         var query = SessionManager.getSession().createQuery(q) as Query
 
         query.list as List<Asiento>
-
     }
     
     def getTramosConDestino(String nombreUsuario, String destino) {

@@ -9,9 +9,6 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-/**
- * Created by damian on 4/23/16.
- */
 class TestGuardarBusqueda extends TestBaseAerolinea{
 
     @Before

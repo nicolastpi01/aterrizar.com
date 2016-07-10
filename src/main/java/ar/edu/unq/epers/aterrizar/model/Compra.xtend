@@ -6,15 +6,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class Compra {
 	int id
 	String username
-	Asiento asiento
-	Tramo tramo
-	
-	
-	new() {}
-	
-	new(String username, Asiento asiento, Tramo tramo) {
-		this.username = username
-		this.asiento = asiento
-		this.tramo = tramo
-	}
+	String nombreAsiento
+	String origenTramo
+	String destinoTramo
 }

@@ -14,5 +14,4 @@ class CriterioPorOrigen extends Criterio {
         ''' tramo.origen = '«origen»' '''
     }
 
-
 }

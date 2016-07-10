@@ -4,21 +4,27 @@
 
 <hibernate-mapping>
     <class
-            name="ar.edu.unq.epers.aterrizar.model.Reserva" table="reserva" lazy="true">
+            name="ar.edu.unq.epers.aterrizar.model.Reserva" table="reserva">
         <id column="id" name="id" type="integer">
             <generator class="identity"/>
         </id>
 
-
-                     
-
-        <property name="username" type="string" lazy="true">
+		<property name="username" type="string" lazy="true">
             <column name="username" length="45" not-null="false" unique="false"/>
         </property>
         
         <property name="nombreAsiento" type="string" lazy="true">
             <column name="nombreAsiento" length="45" not-null="false" unique="false"/>
         </property>
+        
+        <property name="tramoOrigen" type="string" lazy="true">
+            <column name="tramoOrigen" length="45" not-null="false" unique="false"/>
+        </property>
+        
+        <property name="tramoDestino" type="string" lazy="true">
+            <column name="tramoDestino" length="45" not-null="false" unique="false"/>
+        </property>
+        
 
     </class>
 </hibernate-mapping>

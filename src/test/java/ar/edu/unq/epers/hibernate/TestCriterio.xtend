@@ -9,15 +9,13 @@ import org.junit.Test
 import org.junit.After
 import ar.edu.unq.epers.aterrizar.home.BaseHome
 
-/**
- * Created by damian on 4/18/16.
- */
-class TestCriterio extends TestBaseAerolinea{
+
+class TestCriterio extends TestBaseAerolinea {
 
     var BaseHome homeBase = new BaseHome()
 
     @Before
-    override setUp(){
+    override setUp() {
         super.setUp
     }
 
@@ -150,7 +148,5 @@ class TestCriterio extends TestBaseAerolinea{
         Assert.assertEquals(vuelos.size, 1)
 
     }
-
-
 
 }

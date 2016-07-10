@@ -10,9 +10,6 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-/**
- * Created by damian on 4/22/16.
- */
 class TestOrden extends TestBaseAerolinea {
 
     @Before
