@@ -118,9 +118,9 @@ class ReservaTest {
 	@Test
 	def void comprarReservaTest() {
 		service.guardar(tramo)
-		service.comprarReserva(reserva0, usuario0)
-		var comprasUsuario0 = serviceCompra.todasLasComprasDeUsuario(usuario0)
-		Assert.assertEquals(comprasUsuario0.size, 1)
+		var compraUsuario0 = service.comprarReserva(reserva0, usuario0)
+		var comprasUsuario0Aux = service.buscar(compraUsuario0, compraUsuario0.id)
+		Assert.assertEquals(comprasUsuario0Aux.username, "usuario0")
 	}
 	
 	@After

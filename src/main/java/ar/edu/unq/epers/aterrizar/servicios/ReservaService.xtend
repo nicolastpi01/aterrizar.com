@@ -8,6 +8,8 @@ import ar.edu.unq.epers.aterrizar.model.Reserva
 import org.hibernate.Query
 import java.util.List
 import ar.edu.unq.epers.aterrizar.home.ReservaHome
+import ar.edu.unq.epers.aterrizar.model.Compra
+import ar.edu.unq.epers.aterrizar.exceptions.ImposibleComprarReservaException
 
 class ReservaService extends BaseService {
 	
@@ -33,10 +35,21 @@ class ReservaService extends BaseService {
     
     def comprarReserva(Reserva r, Usuario u) {
     	val reservaAux = buscar(r, r.id)
-    	SessionManager.runInSession([
-        new ReservaHome().comprarReserva(reservaAux, u)
-        	null
-    ])
+    	
+    	if(esReservaValida(reservaAux) && reservaAux.username == u.nombreDeUsuario) {
+    		
+    		var compra = new Compra => [
+            username = reservaAux.username
+            nombreAsiento = reservaAux.nombreAsiento
+            origenTramo = reservaAux.tramoOrigen
+            destinoTramo = reservaAux.tramoDestino
+            
+            ]
+            guardar(compra)
+            eliminarReserva(reservaAux)
+            return compra
+    	}
+    	else throw new ImposibleComprarReservaException
     }
     
     def eliminarReserva(Reserva r) {
