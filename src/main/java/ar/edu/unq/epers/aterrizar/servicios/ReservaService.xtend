@@ -29,5 +29,20 @@ class ReservaService extends BaseService {
     	SessionManager.runInSession([
         return new ReservaHome().esReservaValida(r)
     ])
+    }
+    
+    def comprarReserva(Reserva r, Usuario u) {
+    	val reservaAux = buscar(r, r.id)
+    	SessionManager.runInSession([
+        new ReservaHome().comprarReserva(reservaAux, u)
+        	null
+    ])
+    }
+    
+    def eliminarReserva(Reserva r) {
+    	SessionManager.runInSession([
+        new ReservaHome().eliminarReserva(r)
+        	null
+    ])
     }   
 }

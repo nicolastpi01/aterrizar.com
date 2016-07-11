@@ -9,4 +9,6 @@ class Compra {
 	String nombreAsiento
 	String origenTramo
 	String destinoTramo
+	
+	
 }

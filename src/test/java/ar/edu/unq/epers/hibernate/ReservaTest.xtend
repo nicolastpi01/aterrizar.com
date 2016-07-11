@@ -14,6 +14,7 @@ import org.hibernate.SessionFactory
 import org.hibernate.Session
 import ar.edu.unq.epers.aterrizar.home.SessionManager
 import ar.edu.unq.epers.aterrizar.model.Usuario
+import ar.edu.unq.epers.aterrizar.servicios.CompraService
 
 class ReservaTest {
 	
@@ -23,14 +24,14 @@ class ReservaTest {
 	Reserva reserva2
 	BaseHome baseHome
 	Tramo tramo
-	//SessionFactory sessionFactory
-    //Session session = null
     Usuario usuario0
+    CompraService serviceCompra
 	
 	
 	@Before
 	def void setUp() {
 		service = new ReservaService
+		serviceCompra = new CompraService
 		baseHome = new BaseHome
 		SessionManager::getSessionFactory().openSession()
 		
@@ -114,10 +115,19 @@ class ReservaTest {
 		Assert.assertTrue(service.esReservaValida(reserva0))
 	}
 	
+	@Test
+	def void comprarReservaTest() {
+		service.guardar(tramo)
+		service.comprarReserva(reserva0, usuario0)
+		var comprasUsuario0 = serviceCompra.todasLasComprasDeUsuario(usuario0)
+		Assert.assertEquals(comprasUsuario0.size, 1)
+	}
+	
 	@After
     def void limpiar() {
         baseHome.hqlTruncate('reserva')
         baseHome.hqlTruncate('tramo')
+        baseHome.hqlTruncate('compra')
        
     }
 	

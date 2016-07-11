@@ -13,6 +13,10 @@
             <column name="username" length="45" not-null="false" unique="false"/>
         </property>
         
+        <property name="nombreAsiento" type="string" lazy="true">
+            <column name="nombreAsiento" length="45" not-null="false" unique="false"/>
+        </property>
+        
         <property name="origenTramo" type="string" lazy="true">
             <column name="origenTramo" length="45" not-null="false" unique="false"/>
         </property>
