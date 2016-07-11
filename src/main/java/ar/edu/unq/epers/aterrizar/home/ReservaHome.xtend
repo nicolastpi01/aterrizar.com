@@ -5,8 +5,13 @@ import java.util.List
 import ar.edu.unq.epers.aterrizar.model.Reserva
 import ar.edu.unq.epers.aterrizar.model.Usuario
 
-
 class ReservaHome {
+	
+	def todasLasReservas() {
+		var q = "from Reserva"
+        var query = SessionManager.getSession().createQuery(q) as Query
+        return query.list as List<Reserva>
+	}
 	
 	def todasReservasValidas() {
     var q = "from Reserva"
@@ -17,7 +22,7 @@ class ReservaHome {
     }
     
     def todasReservasValidasDeUsuario(Usuario usuario) {
-    var q = "select reservas from Tramo tramo join tramo.reservas as reservas where reservas.username = :username"
+    var q = "select reservas from Tramo tramo join tramo.reservas as reservas where reservas.user.nombreDeUsuario = :username"
         var query = SessionManager.getSession().createQuery(q) as Query
         query.setString("username", usuario.nombreDeUsuario)
         var reservasDeUsuario = query.list as List<Reserva>
@@ -36,7 +41,7 @@ class ReservaHome {
     }
     
     def eliminarReserva(Reserva r) {
-    	
+        SessionManager.getSession().delete(r)
     }
     
     

@@ -12,13 +12,11 @@
         <property column="duracion" generated="never" lazy="false" length="45" name="duracion" type="long"/>
 
 
-
-        <bag fetch="select" lazy="false" name="tramos" table="u" cascade="all">
+        <bag fetch="select" lazy="false" name="tramos" table="tramos" cascade="all">
             <key>
-                <column name="vuelo_tramo_id" not-null="false"/>
+                <column name="vuelo_id"/>
             </key>
-
-            <one-to-many  class="ar.edu.unq.epers.aterrizar.model.Tramo"/>
+            <one-to-many class="ar.edu.unq.epers.aterrizar.model.Tramo"/>
         </bag>
 
     </class>

@@ -29,7 +29,7 @@ class CompraTest {
     Destiny destinoBrasil
     Destiny destinoParaguay
 	
-	
+	/* 
 	@Before
 	def void setUp() {
 		service = new CompraService
@@ -189,4 +189,6 @@ class CompraTest {
         baseHome.hqlTruncate('tramo')
        
     }
+    * 
+    */
 }

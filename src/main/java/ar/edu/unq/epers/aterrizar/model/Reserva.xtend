@@ -6,8 +6,8 @@ import java.sql.Date
 @Accessors
 class Reserva {
 	int id
-	String username
-	String nombreAsiento
+	Usuario user
+	Asiento asiento
 	String tramoOrigen
 	String tramoDestino
 	Date fechaReserva
@@ -18,7 +18,7 @@ class Reserva {
 	}
 	
 	def esValida(String username) {
-		this.username == username && !this.estaVencida
+		this.user.nombreDeUsuario == username && !this.estaVencida
 	}
 	
 	def estaVencida() {

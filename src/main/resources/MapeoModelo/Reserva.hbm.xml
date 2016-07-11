@@ -9,13 +9,11 @@
             <generator class="identity"/>
         </id>
 
-		<property name="username" type="string" lazy="true">
-            <column name="username" length="45" not-null="false" unique="false"/>
-        </property>
+		<many-to-one cascade="all" column="user" name="user"
+                     class="ar.edu.unq.epers.aterrizar.model.Usuario" lazy="false"/>
         
-        <property name="nombreAsiento" type="string" lazy="true">
-            <column name="nombreAsiento" length="45" not-null="false" unique="false"/>
-        </property>
+        <many-to-one cascade="all" column="asiento" name="asiento"
+                     class="ar.edu.unq.epers.aterrizar.model.Asiento" lazy="false"/>
         
         <property name="tramoOrigen" type="string" lazy="true">
             <column name="tramoOrigen" length="45" not-null="false" unique="false"/>

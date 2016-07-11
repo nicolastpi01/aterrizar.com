@@ -5,8 +5,8 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 class Compra {
 	int id
-	String username
-	String nombreAsiento
+	Usuario user
+	Asiento asiento
 	String origenTramo
 	String destinoTramo
 	
