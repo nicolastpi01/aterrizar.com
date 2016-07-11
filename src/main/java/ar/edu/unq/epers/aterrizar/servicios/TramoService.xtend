@@ -29,7 +29,7 @@ class TramoService extends BaseService{
     }
 
 
-    def asientosDisponibles(Tramo tramo){
+    def asientosDisponibles(Tramo tramo) {
 
         SessionManager.runInSession([
             new TramoHome().asientosDisponiblesEnTramo(tramo)

@@ -5,28 +5,29 @@ import ar.edu.unq.epers.aterrizar.model.Asiento
 import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.home.SessionManager
 import ar.edu.unq.epers.aterrizar.model.Reserva
+import org.hibernate.Query
+import java.util.List
+import ar.edu.unq.epers.aterrizar.home.ReservaHome
 
 class ReservaService extends BaseService {
 	
-	def void hacerReserva(Usuario user, Asiento asiento, Tramo tramo) {
+     
+    def List<Reserva> todasReservasValidas() {
+        SessionManager.runInSession([
+        return new ReservaHome().todasReservasValidas()
+    ])
+    }
+    
+    def List<Reserva> todasReservasValidasDeUsuario(Usuario u) {
+        SessionManager.runInSession([
+        return new ReservaHome().todasReservasValidasDeUsuario(u)
+    ])
+    }
+    
+    
+    def esReservaValida(Reserva r) {
     	SessionManager.runInSession([
-    		var reserva = new Reserva
-    		reserva.username = user.nombreDeUsuario
-    		reserva.nombreAsiento = asiento.nombre
-    		reserva.tramoOrigen = tramo.origen
-    		reserva.tramoDestino = tramo.destino
-    		//tramo.agregarReserva(reserva)
-    		//guardar(tramo)
-            guardar(reserva)
-            null
-        ])
-    }
-    
-    def void reservasValidas(Tramo t) {
-    	
-    }
-    
-    def esReservaValida(Reserva r, Tramo t) {
-    	
-    }
+        return new ReservaHome().esReservaValida(r)
+    ])
+    }   
 }

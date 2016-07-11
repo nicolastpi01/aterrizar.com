@@ -27,8 +27,8 @@ class TestBase {
     var AsientoService serviceAsiento
     var BaseService servicioBase = new BaseService
 
-    SessionFactory sessionFactory;
-    Session session = null;
+    SessionFactory sessionFactory
+    Session session = null
     Asiento asiento1
     Asiento asiento2
     Asiento asiento3

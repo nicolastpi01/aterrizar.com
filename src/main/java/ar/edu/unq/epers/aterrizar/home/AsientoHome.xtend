@@ -14,7 +14,7 @@ class AsientoHome {
 
     }
 
-    def borrarAsientos(){
+    def borrarAsientos() {
         this.borrarCategorias()
         var q = "delete from Asiento "
 
@@ -26,7 +26,5 @@ class AsientoHome {
         var q = "delete from Categoria "
         SessionManager.getSession().createQuery(q) as Query
     }
-
-
 
 }

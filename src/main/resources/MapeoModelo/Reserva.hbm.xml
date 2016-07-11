@@ -25,6 +25,8 @@
             <column name="tramoDestino" length="45" not-null="false" unique="false"/>
         </property>
         
+        <property column="fechaReserva" generated="never" lazy="false" length="45" name="fechaReserva" type="date"/>
+        
 
     </class>
 </hibernate-mapping>

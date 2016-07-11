@@ -23,9 +23,6 @@ class TestAsiento {
     var Usuario user2
     var AsientoService service
     var BaseHome homeBase
-
-    SessionFactory sessionFactory
-    Session session = null
     Asiento asiento1
     Asiento asiento2
     Asiento asiento3
@@ -74,7 +71,7 @@ class TestAsiento {
 
     @Test
     def void guardoUnAsientoEnLaDB(){
-        //        Assert.assertEquals(service.todosLosAsientos.length, 0)
+       
         service.guardar(asiento1)
         service.guardar(asiento2)
         service.guardar(asiento3)
