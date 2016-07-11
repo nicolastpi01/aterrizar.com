@@ -164,8 +164,7 @@ class ReservaTest {
 		service.guardar(reserva0)
 		Assert.assertEquals(service.todasLasReservas.size, 1)
 		service.eliminarReserva(reserva0)
-		Assert.assertEquals(service.todasLasReservas.size, 0)
-		
+		Assert.assertEquals(service.todasLasReservas.size, 0)	
 	}
 	
 	
