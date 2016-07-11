@@ -17,9 +17,9 @@ class ReservaService extends BaseService {
     ])
     }
      
-    def List<Reserva> todasReservasValidas() {
+    def List<Reserva> todasLasReservasValidas() {
         SessionManager.runInSession([
-        return new ReservaHome().todasReservasValidas()
+        return new ReservaHome().todasLasReservasValidas()
     ])
     }
     

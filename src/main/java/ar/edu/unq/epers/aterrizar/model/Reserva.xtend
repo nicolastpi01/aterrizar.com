@@ -1,7 +1,7 @@
 package ar.edu.unq.epers.aterrizar.model
 
 import org.eclipse.xtend.lib.annotations.Accessors
-import java.sql.Date
+import java.util.Date
 
 @Accessors
 class Reserva {
@@ -14,15 +14,18 @@ class Reserva {
 	
 	
 	new() {
-		this.fechaReserva = new Date(0)
+		this.fechaReserva = new Date()
 	}
 	
-	def esValida(String username) {
-		this.user.nombreDeUsuario == username && !this.estaVencida
+	def esValidaEnTiempo() {
+		this.minutosEntreFechaActualYFechaReserva <= 5
 	}
 	
-	def estaVencida() {
-		false
-	} 
+	def private minutosEntreFechaActualYFechaReserva() {
+		val hoy = new Date()
+		var diferenciaMinutos = (hoy.getTime() - fechaReserva.getTime()) / MILLSECS_PER_DAY 
+		return diferenciaMinutos
+	}
+	 
 	
 }

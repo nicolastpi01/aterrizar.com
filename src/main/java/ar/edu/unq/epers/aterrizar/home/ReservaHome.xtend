@@ -13,7 +13,7 @@ class ReservaHome {
         return query.list as List<Reserva>
 	}
 	
-	def todasReservasValidas() {
+	def todasLasReservasValidas() {
     var q = "from Reserva"
         var query = SessionManager.getSession().createQuery(q) as Query
         var reservasAux = query.list as List<Reserva>

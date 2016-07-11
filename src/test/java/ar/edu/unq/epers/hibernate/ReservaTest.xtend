@@ -8,6 +8,7 @@ import ar.edu.unq.epers.aterrizar.model.Reserva
 import ar.edu.unq.epers.aterrizar.home.BaseHome
 import org.junit.After
 import java.sql.Date
+
 import ar.edu.unq.epers.aterrizar.model.Tramo
 import ar.edu.unq.epers.aterrizar.model.Asiento
 import org.hibernate.SessionFactory
@@ -91,6 +92,7 @@ class ReservaTest {
             tramoOrigen = "Brasil"
             tramoDestino = "Paraguay"
            
+           
         ]
         
         reserva2 = new Reserva => [
@@ -98,6 +100,7 @@ class ReservaTest {
             asiento = asiento2
             tramoOrigen = "Paraguay"
             tramoDestino = "Mexico"
+          
             
         ]
         
@@ -132,7 +135,7 @@ class ReservaTest {
 	@Test
 	def void reservasValidasTest() {
 		service.guardar(tramo)
-		var reservasValidas = service.todasReservasValidas
+		var reservasValidas = service.todasLasReservasValidas
 		Assert.assertEquals(reservasValidas.size, 3)
 	}
 	
