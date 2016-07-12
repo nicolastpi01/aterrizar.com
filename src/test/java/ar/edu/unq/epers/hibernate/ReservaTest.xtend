@@ -24,6 +24,7 @@ class ReservaTest {
 	Reserva reserva0
 	Reserva reserva1
 	Reserva reserva2
+	Reserva reservaInvalida
 	BaseHome baseHome
 	Tramo tramo
     Usuario usuario0
@@ -101,7 +102,15 @@ class ReservaTest {
             tramoOrigen = "Paraguay"
             tramoDestino = "Mexico"
           
-            
+        ]
+        
+        reservaInvalida = new Reserva => [
+            user = usuario0
+            asiento = asiento2
+            tramoOrigen = "Paraguay"
+            tramoDestino = "Mexico"
+            fechaReserva = new java.util.Date(2016, 03, 11)
+          
         ]
         
         tramo = new Tramo => [
@@ -131,6 +140,33 @@ class ReservaTest {
 		Assert.assertEquals(reserva1.user.nombreDeUsuario, "usuario1")
 		Assert.assertEquals(reserva2.user.nombreDeUsuario, "usuario2")
 	}
+	 
+	@Test
+	def void esValidaEnTiempoTest() {
+        Assert.assertTrue(reserva0.esValidaEnTiempo)
+        Assert.assertTrue(reserva1.esValidaEnTiempo)
+        Assert.assertTrue(reserva2.esValidaEnTiempo)
+        
+        var reservaInvalida = new Reserva => [
+            fechaReserva = new java.util.Date(2016, 03, 11)
+        ]
+        
+        var reservaInvalida2 = new Reserva => [
+            fechaReserva = new java.util.Date(2016, 06, 11, 10, 33)
+        ]
+        
+        var reservaInvalida3 = new Reserva => [
+            fechaReserva = new java.util.Date(2016, 06, 11, 00, 06)
+        ]
+         
+        var reservaValidaYaQueEsDeHoyHace3Min = new Reserva => [
+            fechaReserva = new java.util.Date(2016, 06, 11, 00, 00)
+        ]
+                
+        	Assert.assertFalse(reservaInvalida.esValidaEnTiempo)
+        	Assert.assertFalse(reservaInvalida2.esValidaEnTiempo)
+        	Assert.assertFalse(reservaInvalida3.esValidaEnTiempo)
+	}
 	
 	@Test
 	def void reservasValidasTest() {
@@ -140,7 +176,7 @@ class ReservaTest {
 	}
 	
 	@Test
-	def void todasLasReservasDeUsuarioTest() {	
+	def void todasLasReservasValidasDeUsuarioTest() {	
 		service.guardar(tramo)
 		var reservasDeUsuario = service.todasReservasValidasDeUsuario(usuario0)
 		Assert.assertEquals(reservasDeUsuario.size, 1)
@@ -151,6 +187,7 @@ class ReservaTest {
 	def void esReservaValidaTest() {
 		service.guardar(tramo)
 		Assert.assertTrue(service.esReservaValida(reserva0))
+		Assert.assertFalse(service.esReservaValida(reservaInvalida))
 	}
 	
 	@Test
@@ -170,7 +207,7 @@ class ReservaTest {
 		Assert.assertEquals(service.todasLasReservas.size, 0)	
 	}
 	
-	
+	 
 	@After
     def void limpiar() {
         baseHome.hqlTruncate('reserva')

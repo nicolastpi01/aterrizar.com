@@ -13,6 +13,8 @@ import org.junit.Test
 import org.junit.Assert
 import org.junit.After
 import ar.edu.unq.epers.aterrizar.model.Destiny
+import ar.edu.unq.epers.aterrizar.model.Asiento
+import ar.edu.unq.epers.aterrizar.model.Primera
 
 class CompraTest {
 	CompraService service
@@ -23,13 +25,17 @@ class CompraTest {
 	Tramo tramo
     Usuario usuario0
     Usuario usuario1
+    Usuario usuario2
     Compra compra0
     Compra compra1
     Compra compra2
     Destiny destinoBrasil
     Destiny destinoParaguay
+    Asiento asiento0
+    Asiento asiento1
+    Asiento asiento2
 	
-	/* 
+	 
 	@Before
 	def void setUp() {
 		service = new CompraService
@@ -50,46 +56,68 @@ class CompraTest {
             nacimiento = new Date(2015,10,1)
         ]
         
+        usuario2 = new Usuario => [
+            nombreDeUsuario = "usuario2"
+            nombreYApellido = "usuario2 apellido"
+            email = "abc1@123.com"
+            nacimiento = new Date(2015,10,1)
+        ]
+        
+        asiento0 = new Asiento => [
+                    nombre = "a0"
+                    categoria = new Primera(1000)
+                ]
+                
+        asiento1 = new Asiento => [
+                    nombre = "a1"
+                    categoria = new Primera(1000)
+                ]
+                
+        asiento2 = new Asiento => [
+                    nombre = "a2"
+                    categoria = new Primera(1000)
+                ]
+        
         compra0 = new Compra => [
-            username = "usuario0"
-            nombreAsiento = "asiento0"
+            user = usuario0
+            asiento = asiento0
             origenTramo = "Buenos Aires"
             destinoTramo = "Brasil"
         ]
         
         compra1 = new Compra => [
-            username = "usuario1"
-            nombreAsiento = "asiento1"
+            user = usuario1
+            asiento = asiento1
             origenTramo = "Brasil"
             destinoTramo = "Paraguay"
         ]
         
         compra2 = new Compra => [
-            username = "usuario2"
-            nombreAsiento = "asiento2"
+            user = usuario2
+            asiento = asiento2
             origenTramo = "Paraguay"
             destinoTramo = "Chile"
         ]
 		
 		reserva0 = new Reserva => [
-            username = "usuario0"
-            nombreAsiento = "asiento0"
+            user = usuario0
+            asiento = asiento0
             tramoOrigen = "Buenos Aires"
             tramoDestino = "Brasil"
          
         ]
         
         reserva1 = new Reserva => [
-            username = "usuario1"
-            nombreAsiento = "asiento1"
+            user = usuario1
+            asiento = asiento1
             tramoOrigen = "Brasil"
             tramoDestino = "Paraguay"
            
         ]
         
         reserva2 = new Reserva => [
-            username = "usuario2"
-            nombreAsiento = "asiento2"
+            user = usuario2
+            asiento = asiento2
             tramoOrigen = "Paraguay"
             tramoDestino = "Mexico"
             
@@ -123,12 +151,12 @@ class CompraTest {
 		var compra0Aux = service.buscar(compra0, compra0.id)
 		var compra1Aux = service.buscar(compra1, compra1.id)
 		var compra2Aux = service.buscar(compra2, compra2.id)
-		Assert.assertEquals(compra0Aux.username, "usuario0")
-		Assert.assertEquals(compra0Aux.nombreAsiento, "asiento0")
+		Assert.assertEquals(compra0Aux.user.nombreDeUsuario, "usuario0")
+		Assert.assertEquals(compra0Aux.asiento.nombre, "asiento0")
 		Assert.assertEquals(compra0Aux.origenTramo, "Buenos Aires")
 		Assert.assertEquals(compra0Aux.destinoTramo, "Brasil")
-		Assert.assertEquals(compra1Aux.username, "usuario1")
-		Assert.assertEquals(compra2Aux.username, "usuario2")
+		Assert.assertEquals(compra1Aux.user.nombreDeUsuario, "usuario1")
+		Assert.assertEquals(compra2Aux.user.nombreDeUsuario, "usuario2")
 	
 	}
 	
@@ -189,6 +217,5 @@ class CompraTest {
         baseHome.hqlTruncate('tramo')
        
     }
-    * 
-    */
+    
 }

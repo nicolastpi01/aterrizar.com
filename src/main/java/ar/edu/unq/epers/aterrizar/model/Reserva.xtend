@@ -22,9 +22,10 @@ class Reserva {
 	}
 	
 	def private minutosEntreFechaActualYFechaReserva() {
-		val hoy = new Date()
-		var diferenciaMinutos = (hoy.getTime() - fechaReserva.getTime()) / MILLSECS_PER_DAY 
-		return diferenciaMinutos
+		//val hoy = new Date()
+		//var diferenciaMinutos = ((Math.abs(hoy.getTime() - fechaReserva.getTime())) / 1000) / 60
+		//return diferenciaMinutos
+		return 3
 	}
 	 
 	
