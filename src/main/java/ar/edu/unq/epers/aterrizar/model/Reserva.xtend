@@ -16,17 +16,6 @@ class Reserva {
 	new() {
 		this.fechaReserva = new Date()
 	}
-	
-	def esValidaEnTiempo() {
-		this.minutosEntreFechaActualYFechaReserva <= 5
-	}
-	
-	def private minutosEntreFechaActualYFechaReserva() {
-		//val hoy = new Date()
-		//var diferenciaMinutos = ((Math.abs(hoy.getTime() - fechaReserva.getTime())) / 1000) / 60
-		//return diferenciaMinutos
-		return 3
-	}
 	 
 	
 }

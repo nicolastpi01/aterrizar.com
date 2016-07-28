@@ -22,7 +22,7 @@ class ReservaService extends BaseService {
         return new ReservaHome().todasLasReservasValidas()
     ])
     }
-    
+     
     def List<Reserva> todasReservasValidasDeUsuario(Usuario u) {
         SessionManager.runInSession([
         return new ReservaHome().todasReservasValidasDeUsuario(u)
@@ -30,35 +30,32 @@ class ReservaService extends BaseService {
     }
     
     
-    def esReservaValida(Reserva r) {
+    def esReservaValida(Reserva r, Usuario u) {
     	SessionManager.runInSession([
-        return new ReservaHome().esReservaValida(r)
+        return new ReservaHome().esReservaValida(r, u)
     ])
     }
     
     def comprarReserva(Reserva r, Usuario u) {
-    	val reservaAux = buscar(r, r.id)
-    	
-    	if(esReservaValida(reservaAux) && reservaAux.user.nombreDeUsuario == u.nombreDeUsuario) {
-    		
-    		var compra = new Compra => [
-            user = reservaAux.user
-            asiento = reservaAux.asiento
-            origenTramo = reservaAux.tramoOrigen
-            destinoTramo = reservaAux.tramoDestino
-            
-            ]
-            guardar(compra)
-            eliminarReserva(reservaAux)
-            return compra
+    	var compra = new Compra
+    	if(esReservaValida(r, u)) {
+    		compra = new Compra => [
+            user = u
+            asiento = r.asiento
+            origenTramo = r.tramoOrigen
+            destinoTramo = r.tramoDestino        
+           	]
     	}
     	else throw new ImposibleComprarReservaException
+    	guardar(compra)
+    	eliminarReserva(r)
     }
     
     def eliminarReserva(Reserva r) {
     	SessionManager.runInSession([
         new ReservaHome().eliminarReserva(r)
-        	null
+        		null
     ])
-    }   
+    }  
+     
 }

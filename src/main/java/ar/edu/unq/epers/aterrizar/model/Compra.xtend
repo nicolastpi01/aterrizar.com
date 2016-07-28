@@ -11,4 +11,7 @@ class Compra {
 	String destinoTramo
 	
 	
+	new() {}
+	
+	
 }

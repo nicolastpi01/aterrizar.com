@@ -159,7 +159,7 @@ class CompraTest {
 		Assert.assertEquals(compra2Aux.user.nombreDeUsuario, "usuario2")
 	
 	}
-	
+	/* 
 	@Test
 	def void todasLasComprasTest() {
 		service.guardar(tramo)
@@ -217,5 +217,5 @@ class CompraTest {
         baseHome.hqlTruncate('tramo')
        
     }
-    
+    */
 }

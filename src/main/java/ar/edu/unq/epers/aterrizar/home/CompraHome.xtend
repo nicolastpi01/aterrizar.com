@@ -16,7 +16,7 @@ class CompraHome {
 	}
 	
 	def todasLasComprasDeUsuario(Usuario usuario) {
-    var q = "select compras from Tramo tramo join tramo.compras as compras where compras.username = :username"
+    var q = "select compras from Tramo tramo join tramo.compras as compras where compras.user.nombreDeUsuario = :username "
         var query = SessionManager.getSession().createQuery(q) as Query
         query.setString("username", usuario.nombreDeUsuario)
         return query.list as List<Compra>

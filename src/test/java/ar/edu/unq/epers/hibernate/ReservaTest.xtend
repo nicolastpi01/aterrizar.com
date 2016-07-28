@@ -7,8 +7,6 @@ import org.junit.Assert
 import ar.edu.unq.epers.aterrizar.model.Reserva
 import ar.edu.unq.epers.aterrizar.home.BaseHome
 import org.junit.After
-import java.sql.Date
-
 import ar.edu.unq.epers.aterrizar.model.Tramo
 import ar.edu.unq.epers.aterrizar.model.Asiento
 import org.hibernate.SessionFactory
@@ -17,6 +15,8 @@ import ar.edu.unq.epers.aterrizar.home.SessionManager
 import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.servicios.CompraService
 import ar.edu.unq.epers.aterrizar.model.Primera
+import java.sql.Date
+import java.util.Calendar
 
 class ReservaTest {
 	
@@ -25,6 +25,10 @@ class ReservaTest {
 	Reserva reserva1
 	Reserva reserva2
 	Reserva reservaInvalida
+	Reserva reservaInvalida2
+	Reserva reservaInvalida3
+	Reserva reservaValida
+	Reserva reservaValida2
 	BaseHome baseHome
 	Tramo tramo
     Usuario usuario0
@@ -92,8 +96,7 @@ class ReservaTest {
             asiento = asiento1
             tramoOrigen = "Brasil"
             tramoDestino = "Paraguay"
-           
-           
+             
         ]
         
         reserva2 = new Reserva => [
@@ -113,12 +116,60 @@ class ReservaTest {
           
         ]
         
+        reservaInvalida2 = new Reserva => [
+            user = usuario0
+            asiento = asiento2
+            tramoOrigen = "Mexico"
+            tramoDestino = "EEUU"
+            var calendar = Calendar.getInstance()
+			calendar.setTime(new java.util.Date()) /* today */
+			calendar.add(Calendar.MINUTE, -10)
+            fechaReserva = calendar.getTime
+          
+        ]
+        
+        reservaValida = new Reserva => [
+            user = usuario0
+            asiento = asiento2
+            tramoOrigen = "Mexico"
+            tramoDestino = "EEUU"
+            var calendar = Calendar.getInstance()
+			calendar.setTime(new java.util.Date()) /* today */
+			calendar.add(Calendar.MINUTE, -3)
+            fechaReserva = calendar.getTime
+          
+        ]
+        
+        reservaValida2 = new Reserva => [
+            user = usuario0
+            asiento = asiento2
+            tramoOrigen = "Mexico"
+            tramoDestino = "EEUU"
+            var calendar = Calendar.getInstance()
+			calendar.setTime(new java.util.Date()) /* today */
+			calendar.add(Calendar.MINUTE, -4)
+            fechaReserva = calendar.getTime
+          
+        ]
+        
+        reservaInvalida3 = new Reserva => [
+            user = usuario0
+            asiento = asiento2
+            tramoOrigen = "Mexico"
+            tramoDestino = "EEUU"
+            var calendar = Calendar.getInstance()
+			calendar.setTime(new java.util.Date()) /* today */
+			calendar.add(Calendar.MINUTE, -7)
+            fechaReserva = calendar.getTime
+          
+        ]
+        
         tramo = new Tramo => [
             origen = "Buenos Aires"
             destino = "Brasil"
             llegada = new Date(2000)
             salida = new Date(1500)
-            reservas = #[reserva0, reserva1, reserva2]
+            reservas = #[reserva0, reserva1, reserva2, reservaInvalida, reservaInvalida2, reservaInvalida3, reservaValida, reservaValida2]
             
         ]
 	}
@@ -140,83 +191,57 @@ class ReservaTest {
 		Assert.assertEquals(reserva1.user.nombreDeUsuario, "usuario1")
 		Assert.assertEquals(reserva2.user.nombreDeUsuario, "usuario2")
 	}
-	 
-	@Test
-	def void esValidaEnTiempoTest() {
-        Assert.assertTrue(reserva0.esValidaEnTiempo)
-        Assert.assertTrue(reserva1.esValidaEnTiempo)
-        Assert.assertTrue(reserva2.esValidaEnTiempo)
-        
-        var reservaInvalida = new Reserva => [
-            fechaReserva = new java.util.Date(2016, 03, 11)
-        ]
-        
-        var reservaInvalida2 = new Reserva => [
-            fechaReserva = new java.util.Date(2016, 06, 11, 10, 33)
-        ]
-        
-        var reservaInvalida3 = new Reserva => [
-            fechaReserva = new java.util.Date(2016, 06, 11, 00, 06)
-        ]
-         
-        var reservaValidaYaQueEsDeHoyHace3Min = new Reserva => [
-            fechaReserva = new java.util.Date(2016, 06, 11, 00, 00)
-        ]
-                
-        	Assert.assertFalse(reservaInvalida.esValidaEnTiempo)
-        	Assert.assertFalse(reservaInvalida2.esValidaEnTiempo)
-        	Assert.assertFalse(reservaInvalida3.esValidaEnTiempo)
-	}
 	
 	@Test
 	def void reservasValidasTest() {
 		service.guardar(tramo)
 		var reservasValidas = service.todasLasReservasValidas
-		Assert.assertEquals(reservasValidas.size, 3)
+		Assert.assertEquals(reservasValidas.size, 5)
 	}
+	
 	
 	@Test
 	def void todasLasReservasValidasDeUsuarioTest() {	
 		service.guardar(tramo)
-		var reservasDeUsuario = service.todasReservasValidasDeUsuario(usuario0)
-		Assert.assertEquals(reservasDeUsuario.size, 1)
-		Assert.assertEquals(reservasDeUsuario.get(0).user.nombreDeUsuario, "usuario0")
+		var reservas = service.todasReservasValidasDeUsuario(usuario0)
+		Assert.assertEquals(reservas.size, 3)
+		Assert.assertEquals(reservas.get(0).user.nombreDeUsuario, "usuario0")
 	}
-	
+	 
 	@Test
 	def void esReservaValidaTest() {
 		service.guardar(tramo)
-		Assert.assertTrue(service.esReservaValida(reserva0))
-		Assert.assertFalse(service.esReservaValida(reservaInvalida))
+		Assert.assertTrue(service.esReservaValida(reserva0, usuario0))
+		Assert.assertFalse(service.esReservaValida(reservaInvalida, usuario0))
 	}
+	
 	
 	@Test
 	def void comprarReservaTest() {
 		service.guardar(tramo)
-		var compraUsuario0 = service.comprarReserva(reserva0, usuario0)
-		var comprasUsuario0Aux = service.buscar(compraUsuario0, compraUsuario0.id)
-		Assert.assertEquals(comprasUsuario0Aux.user.nombreDeUsuario, "usuario0")
-		Assert.assertEquals(comprasUsuario0Aux.origenTramo, "Buenos Aires")
+		service.comprarReserva(reserva0, usuario0)
+		Assert.assertEquals(serviceCompra.todasLasCompras.size, 1)
+		
 	}
 	
 	@Test
-	def void eliminarReserva() {
+	def void eliminarReservaTest() {
 		service.guardar(reserva0)
 		Assert.assertEquals(service.todasLasReservas.size, 1)
 		service.eliminarReserva(reserva0)
 		Assert.assertEquals(service.todasLasReservas.size, 0)	
 	}
 	
-	 
 	@After
     def void limpiar() {
-        baseHome.hqlTruncate('reserva')
-        baseHome.hqlTruncate('usuario')
-        baseHome.hqlTruncate('tramo')
-        baseHome.hqlTruncate('compra')
-        baseHome.hqlTruncate('asiento')
        
+       	baseHome.hqlTruncate('compra')
+       	baseHome.hqlTruncate('reserva')
+       	baseHome.hqlTruncate('tramo')
+        baseHome.hqlTruncate('asiento')
+        baseHome.hqlTruncate('usuario')
+        
+        
     }
     
-	
 }

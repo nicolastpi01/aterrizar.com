@@ -3,6 +3,9 @@ package ar.edu.unq.epers.aterrizar.home
 import org.hibernate.Query
 import java.util.List
 import ar.edu.unq.epers.aterrizar.model.Reserva
+import java.util.Calendar
+import java.util.Date
+import java.sql.Timestamp
 import ar.edu.unq.epers.aterrizar.model.Usuario
 
 class ReservaHome {
@@ -14,34 +17,62 @@ class ReservaHome {
 	}
 	
 	def todasLasReservasValidas() {
-    var q = "select reservas from Tramo tramo join tramo.reservas as reservas  "
+	var chequeoFin = Calendar.getInstance()
+	chequeoFin.setTime(new Date()) /* today */
+	var fechaChequeoFin = new Timestamp(chequeoFin.getTime().getTime())
+	var chequeoInicio = Calendar.getInstance()
+	chequeoInicio.setTime(new Date()) /* today */
+	chequeoInicio.add(Calendar.MINUTE, -5) 
+	var fechaChequeoInicio= new Timestamp(chequeoInicio.getTime().getTime())
+    var q = "select reservas from Tramo tramo join tramo.reservas as reservas where reservas.fechaReserva >=  :fechaChequeoInicio AND reservas.fechaReserva <= :fechaChequeoFin "
         var query = SessionManager.getSession().createQuery(q) as Query
+		query.setParameter("fechaChequeoInicio", fechaChequeoInicio)
+		query.setParameter("fechaChequeoFin", fechaChequeoFin)
         var reservas = query.list as List<Reserva>
         	return reservas	
     }
     
+    
+     
     def todasReservasValidasDeUsuario(Usuario usuario) {
-    var q = "select reservas from Tramo tramo join tramo.reservas as reservas where reservas.user.nombreDeUsuario = :username"
+    var chequeoFin = Calendar.getInstance()
+	chequeoFin.setTime(new Date()) /* today */
+	var fechaChequeoFin = new Timestamp(chequeoFin.getTime().getTime())
+	var chequeoInicio = Calendar.getInstance()
+	chequeoInicio.setTime(new Date()) /* today */
+	chequeoInicio.add(Calendar.MINUTE, -5) 
+	var fechaChequeoInicio= new Timestamp(chequeoInicio.getTime().getTime())
+    var q = "select reservas from Tramo tramo join tramo.reservas as reservas where reservas.user.nombreDeUsuario = :username AND reservas.fechaReserva >=  :fechaChequeoInicio AND reservas.fechaReserva <= :fechaChequeoFin"
         var query = SessionManager.getSession().createQuery(q) as Query
         query.setString("username", usuario.nombreDeUsuario)
-        var reservasDeUsuario = query.list as List<Reserva>
-        var reservas = reservasDeUsuario.filter[ reserva | reserva.esValidaEnTiempo].toList
+        query.setParameter("fechaChequeoInicio", fechaChequeoInicio)
+		query.setParameter("fechaChequeoFin", fechaChequeoFin)
+        var reservas = query.list as List<Reserva>
         	return reservas
         	
     }
     
-    def esReservaValida(Reserva reserva) {
-    var q = "select reservas from Tramo tramo join tramo.reservas as reservas where reservas.id = :id"
+    def esReservaValida(Reserva reserva, Usuario usuario) {
+    var chequeoFin = Calendar.getInstance()
+	chequeoFin.setTime(new Date()) /* today */
+	var fechaChequeoFin = new Timestamp(chequeoFin.getTime().getTime())
+	var chequeoInicio = Calendar.getInstance()
+	chequeoInicio.setTime(new Date()) /* today */
+	chequeoInicio.add(Calendar.MINUTE, -5) 
+	var fechaChequeoInicio= new Timestamp(chequeoInicio.getTime().getTime())
+    var q = "select reservas from Tramo tramo join tramo.reservas as reservas where reservas.id = :id AND reservas.user.nombreDeUsuario = :username AND reservas.fechaReserva >=  :fechaChequeoInicio AND reservas.fechaReserva <= :fechaChequeoFin"
         var query = SessionManager.getSession().createQuery(q) as Query
         query.setString("id", reserva.id.toString)
-        var reservaAux = query.list as List<Reserva>
-        	return !reservaAux.get(0).esValidaEnTiempo
+        query.setString("username", usuario.nombreDeUsuario)
+        query.setParameter("fechaChequeoInicio", fechaChequeoInicio)
+		query.setParameter("fechaChequeoFin", fechaChequeoFin)
+        var reservas = query.list as List<Reserva>
+        	return reservas.size == 1
         	
     }
     
     def eliminarReserva(Reserva r) {
         SessionManager.getSession().delete(r)
     }
-    
     
 }
