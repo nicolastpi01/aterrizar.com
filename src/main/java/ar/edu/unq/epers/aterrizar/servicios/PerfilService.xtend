@@ -18,14 +18,13 @@ class PerfilService {
 	Home<Perfil> perfilHome
 	SocialNetworkingService networkService
 	CacheService cacheService
-	TramoService tramoService
-	
+	CompraService compraService
 
-	new(Home<Perfil> MongoHome, SocialNetworkingService networkService, CacheService cacheService, TramoService tramoService) {
+	new(Home<Perfil> MongoHome, SocialNetworkingService networkService, CacheService cacheService, CompraService compraService) {
 		this.perfilHome = MongoHome
 		this.networkService = networkService
 		this.cacheService = cacheService
-		this.tramoService = tramoService
+		this.compraService = compraService
 	}
 	 
 	def private getPerfil(Usuario u) {
@@ -55,7 +54,7 @@ class PerfilService {
 	  
 	def addDestiny(Usuario u, Destiny d, Visibility v) {
 		var perfil = getPerfil(u) 
-		if(tramoService.tieneReservadoAsiento(u, d)) perfil.addDestiny(d)
+		if(compraService.tieneCompraEnDestino(u, d)) perfil.addDestiny(d)
 		else throw new UsuarioNoTieneAsientoEnDestinoException
 		if(cacheService.estaPerfilCache(u, v)) cacheService.borrarPerfilCache(u, v)
 		perfilHome.updatePerfil(perfil, perfil) 			   		

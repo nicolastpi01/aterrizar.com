@@ -28,6 +28,5 @@
         <property column="nacimiento" generated="never" lazy="false"
                   name="nacimiento" type="date"/>
 
-
     </class>
 </hibernate-mapping>

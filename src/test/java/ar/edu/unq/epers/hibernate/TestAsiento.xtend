@@ -2,124 +2,136 @@ package ar.edu.unq.epers.hibernate
 
 import ar.edu.unq.epers.aterrizar.home.SessionManager
 import ar.edu.unq.epers.aterrizar.model.Asiento
-import ar.edu.unq.epers.aterrizar.model.Categoria
 import ar.edu.unq.epers.aterrizar.model.Primera
 import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.servicios.AsientoService
 import java.sql.Date
-import org.hibernate.Session
-import org.hibernate.SessionFactory
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import ar.edu.unq.epers.aterrizar.exceptions.AsientoReservadoException
-import java.util.List
 import ar.edu.unq.epers.aterrizar.home.BaseHome
+import ar.edu.unq.epers.aterrizar.model.Tramo
+import java.util.Calendar
+import java.util.ArrayList
 
 class TestAsiento {
-
-    var Usuario user
-    var Usuario user2
-    var AsientoService service
-    var BaseHome homeBase
-    Asiento asiento1
-    Asiento asiento2
-    Asiento asiento3
-    Categoria unaCategoria
-
-
-    @Before
-    def void setUp(){
-        user = new Usuario => [
-            nombreDeUsuario = "alan75"
-            nombreYApellido = "alan ferreira"
+	AsientoService service
+	BaseHome baseHome
+	Tramo tramo
+    Usuario usuario
+    Asiento asientoNoReservadoDisponible
+    Asiento asientoReservadoNoDisponible0
+    Asiento asientoReservadoNoDisponible1
+    Asiento asientoReservadoNoDisponible2
+    Asiento asientoReservadoDisponible0
+    Asiento asientoReservadoDisponible1
+	
+	
+	@Before
+	def void setUp() {
+		service = new AsientoService
+		baseHome = new BaseHome
+		SessionManager::getSessionFactory().openSession()
+		
+		usuario = new Usuario => [
+            nombreDeUsuario = "usuario"
+            nombreYApellido = "usuario apellido"
             email = "abc@123.com"
             nacimiento = new Date(2015,10,1)
         ]
-        user2 = new Usuario => [
-            nombreDeUsuario = "piter23"
-            nombreYApellido = "piter castro"
-            email = "abcd@123.com"
-            nacimiento = new Date(2015,10,1)
+        
+        asientoNoReservadoDisponible = new Asiento => [
+        	nombre = "asientoNoReservado"
+        	categoria = new Primera(1000)
         ]
-        service = new AsientoService
+                
+        asientoReservadoNoDisponible0 = new Asiento => [
+        	nombre = "asientoInvalido0"
+        	categoria = new Primera(1000)
+        	user = usuario
+        	fechaReserva = new java.util.Date
+        ]
+                
+        
+        asientoReservadoNoDisponible1 = new Asiento => [
+            nombre = "asientoInvalido1"
+        	categoria = new Primera(1000)
+        	user = usuario
+        	var calendar = Calendar.getInstance()
+			calendar.setTime(new java.util.Date())
+			calendar.add(Calendar.MINUTE, -3)
+            fechaReserva = calendar.getTime
+          
+        ]
+        
+        asientoReservadoNoDisponible2 = new Asiento => [
+            nombre = "asientoInvalido2"
+        	categoria = new Primera(1000)
+        	user = usuario
+        	var calendar = Calendar.getInstance()
+			calendar.setTime(new java.util.Date())
+			calendar.add(Calendar.MINUTE, -4)
+            fechaReserva = calendar.getTime
+          
+        ]
+        
+        asientoReservadoDisponible0 = new Asiento => [
+            nombre = "asientoValido0"
+        	categoria = new Primera(1000)
+        	user = usuario
+        	var calendar = Calendar.getInstance()
+			calendar.setTime(new java.util.Date())
+			calendar.add(Calendar.MINUTE, -7)
+            fechaReserva = calendar.getTime
+          
+        ]
+        
+        asientoReservadoDisponible1 = new Asiento => [
+            nombre = "asientoValido1"
+        	categoria = new Primera(1000)
+        	user = usuario
+        	var calendar = Calendar.getInstance()
+			calendar.setTime(new java.util.Date())
+			calendar.add(Calendar.MINUTE, -10)
+            fechaReserva = calendar.getTime
+          
+        ]
+        
+       
+        tramo = new Tramo => [
+            origen = "Buenos Aires"
+            destino = "Brasil"
+            llegada = new Date(2000)
+            salida = new Date(1500)
+            reservas = new ArrayList
+            compras = new ArrayList
+            asientos = new ArrayList
+        ]
+        
+        tramo.agregarAsiento(asientoReservadoNoDisponible0)
+        tramo.agregarAsiento(asientoReservadoNoDisponible1)
+        tramo.agregarAsiento(asientoReservadoNoDisponible2)
+        tramo.agregarAsiento(asientoReservadoDisponible0)
+        tramo.agregarAsiento(asientoReservadoDisponible1)
+        tramo.agregarAsiento(asientoNoReservadoDisponible)
+        
+	}
 
-        unaCategoria = new Primera(1000)
-        asiento1 = new Asiento => [
-            categoria = new Primera(1000)
-        ]
-        asiento2 = new Asiento => [
-            categoria = new Primera(1000)
-        ]
-        asiento3 = new Asiento => [
-            categoria = new Primera(1000)
-        ]
-
-        homeBase = new BaseHome
-    }
-
+	@Test
+	def void asientosDisponiblesTest() {
+		service.guardar(tramo)
+		var asientos = service.asientosDisponibles(tramo)
+		Assert.assertEquals(asientos.size, 3)
+	}
 
     @After
     def void limpiar() {
-        homeBase.hqlTruncate('asiento')
-        homeBase.hqlTruncate('usuario')
+        
+        baseHome.hqlTruncate('asiento')
+        baseHome.hqlTruncate('usuario')
+        baseHome.hqlTruncate('tramo')
 
-    }
-
-
-
-    @Test
-    def void guardoUnAsientoEnLaDB(){
-       
-        service.guardar(asiento1)
-        service.guardar(asiento2)
-        service.guardar(asiento3)
-
-        var Asiento a = service.buscar(asiento1, asiento1.id)
-        Assert.assertEquals(a.categoria.precioBase, asiento1.categoria.precioBase, 0.002)
-        Assert.assertEquals(a.categoria.precio, asiento1.categoria.precio, 0.002)
-
-        Assert.assertEquals(service.todosLosAsientos.length, 3)
-    }
-
-    @Test
-    def void reservarUnAsiento(){
-
-        service.guardar(asiento1)
-        service.reservarAsientoParaUsuario(asiento1, user)
-
-        Assert.assertEquals(service.buscar(asiento1, asiento1.id).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
-    }
-
-    @Test
-    def void reservarUnConjuntoDeAsientos(){
-        Assert.assertEquals(service.todosLosAsientos.length, 0)
-
-        service.guardar(asiento1)
-        service.guardar(asiento2)
-        service.guardar(asiento3)
-
-        val List<Asiento> listaAReservar = #[asiento1,asiento2,asiento3]
-        service.reservarUnConjuntoDeAsientosParaUsuario(listaAReservar, user)
-
-        Assert.assertEquals(service.buscar(asiento1, asiento1.id).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
-        Assert.assertEquals(service.buscar(asiento2, asiento2.id).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
-        Assert.assertEquals(service.buscar(asiento3, asiento3.id).reservadoPorUsuario.nombreDeUsuario, user.nombreDeUsuario)
-
-        Assert.assertEquals(service.todosLosAsientos.length, 3)
-    }
-
-    @Test
-    def void intentarReservarUnAsientoYaReservado(){
-
-        service.guardar(asiento1)
-        service.reservarAsientoParaUsuario(asiento1, user)
-        try {
-            service.reservarAsientoParaUsuario(asiento1, user)
-        } catch(RuntimeException e) {
-            Assert.assertEquals(e.getMessage, "ar.edu.unq.epers.aterrizar.exceptions.AsientoReservadoException: El siento ya está reservado")
-        }
     }
 
 }

@@ -1,13 +1,13 @@
 package ar.edu.unq.epers.aterrizar.BusquedaHql
 
-class CriterioVacio extends Criterio{
+class CriterioVacio extends Criterio {
 
     override getHQL() {
         ""
     }
 
     override whereClause() {
-        "1=1 "
+        "1=1"
     }
 
 }

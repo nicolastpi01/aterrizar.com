@@ -9,7 +9,7 @@ class CriterioPorFechaDeSalida extends Criterio {
 
 
     override getHQL() {
-        " left join vuelo.tramos as tramo "
+        " "
     }
 
     override whereClause() {

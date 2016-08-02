@@ -194,7 +194,7 @@ class PerfilServiceTest {
         servicioBase.guardar(vuelo3)					
 
     }
-	
+	/*
 	@Before
 	def void setUp() {
 		
@@ -249,6 +249,7 @@ class PerfilServiceTest {
 		Assert.assertEquals(perfilPepeCache.username, "pepe")
 	}
 	
+	 
 	@Test
 	def void addDestinyTest() {
 		val List<Asiento> listaAReservar = #[asiento1,asiento2,asiento3]						
@@ -388,9 +389,9 @@ class PerfilServiceTest {
 		Assert.assertEquals(perfilLuis.destinations.get(1).nombre, "bariloche")
 	}
 	
-	
+	*/
 	@After
-	def void cleanDB(){
+	def void cleanDB() {
 		cacheService.deleteTable
 		cacheService.deleteKeyspace
 		home.mongoCollection.drop

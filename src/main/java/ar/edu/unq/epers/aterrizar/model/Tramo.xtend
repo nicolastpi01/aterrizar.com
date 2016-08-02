@@ -1,19 +1,18 @@
 package ar.edu.unq.epers.aterrizar.model
 
-import ar.edu.unq.epers.aterrizar.exceptions.NoHayAsientoConEsaIdException
 import java.sql.Date
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
-
+import java.util.ArrayList
 
 @Accessors
 class Tramo {
 
     int id
     var VueloOfertado vuelo
-    var List<Asiento> asientos = #[]
-    var List<Reserva> reservas = #[]
-    var List<Compra> compras = #[]
+    var List<Asiento> asientos = new ArrayList
+    var List<Reserva> reservas = new ArrayList
+    var List<Compra> compras = new ArrayList
     var String origen
     var String destino
     var Date llegada
@@ -30,40 +29,26 @@ class Tramo {
     }
 
     def long duracion() {
-        salida.getTime - llegada.getTime
+         llegada.getTime - salida.getTime
     }
 
-    def agregarAsiento(Asiento asiento) {
-        asientos.add(asiento)
-    }
 
     def tieneCategoriaDeAsiento(Categoria cat) {
         asientos.fold(false) [result, asiento |
             asiento.categoria.getClass == cat.getClass || result
         ]
     }
-
-    def validarAsiento(Asiento asiento){
-        val valido = asientos.exists[asient | asient.nombre == asiento.nombre]
-        if(!valido) {
-            throw new NoHayAsientoConEsaIdException
-        }
-    }
-
-    def List<Asiento> asientosDisponibles(){
-        asientos.filter[asiento | asiento.reservadoPorUsuario == null].toList
-    }
-
-    def hayUnAsientoDisponible(){
-        asientos.fold(false) [result, asiento |
-
-            asiento.estaReservado || result
-
-        ]
-    }
     
     def agregarReserva(Reserva r) {
     	reservas.add(r)
+    }
+    
+    def agregarCompra(Compra c) {
+    	compras.add(c)
+    }
+    
+    def agregarAsiento(Asiento asiento) {
+        asientos.add(asiento)
     }
     
 }

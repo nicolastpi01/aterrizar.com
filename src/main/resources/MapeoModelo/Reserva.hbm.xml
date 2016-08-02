@@ -14,7 +14,7 @@
         
         <many-to-one cascade="save-update" column="asiento" name="asiento"
                      class="ar.edu.unq.epers.aterrizar.model.Asiento" lazy="false"/>
-        
+                     
         <property name="tramoOrigen" type="string" lazy="true">
             <column name="tramoOrigen" length="45" not-null="false" unique="false"/>
         </property>

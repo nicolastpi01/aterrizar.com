@@ -13,6 +13,7 @@ class NoHayAsientoConEsaIdException extends Exception{}
 class UsuarioNoTieneAsientoEnDestinoException extends Exception{}
 class UsuarioNoTienePermisoParaMGoNMGException extends Exception{}
 class ImposibleComprarReservaException extends Exception{}
+class ImposibleRealizarReservaException extends Exception{}
 
 class AsientoReservadoException extends RuntimeException{
     new(String message){

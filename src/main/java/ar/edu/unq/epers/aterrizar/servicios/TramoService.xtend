@@ -8,14 +8,13 @@ import java.util.List
 import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.model.Destiny
 
-class TramoService extends BaseService{
+class TramoService extends BaseService {
 
-
-    def guardarTramosEnVuelo(VueloOfertado vuelo, Tramo... listaTramos){
+    def guardarTramosEnVuelo(VueloOfertado vuelo, Tramo... listaTramos) {
         guardarVueloConTramos(vuelo, listaTramos.toList)
     }
 
-    def guardarVueloConTramos(VueloOfertado vuelo, List<Tramo> listaTramos){
+    def guardarVueloConTramos(VueloOfertado vuelo, List<Tramo> listaTramos) {
 
         SessionManager.runInSession([
             val tramoHome = new TramoHome()
@@ -23,19 +22,17 @@ class TramoService extends BaseService{
                 vuelo.guardarTramo(tramo)
                 tramoHome.guardar(vuelo)
             ]
-            null
+            	null
         ])
 
     }
 
-
     def asientosDisponibles(Tramo tramo) {
-
         SessionManager.runInSession([
             new TramoHome().asientosDisponiblesEnTramo(tramo)
         ]);
     }
-    
+    /* 
     def tieneReservadoAsiento(Usuario usuario, Destiny destiny) {
 		SessionManager.runInSession([
             val tramoHome = new TramoHome()
@@ -45,5 +42,5 @@ class TramoService extends BaseService{
         ])
 		
 	}
-
+	*/
 }

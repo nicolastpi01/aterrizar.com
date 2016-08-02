@@ -12,14 +12,14 @@ abstract class Criterio {
     def abstract String whereClause()
 
 
-    def and(Criterio criterio){
+    def and(Criterio criterio) {
         new CriterioCompuesto =>[
             operador = new OperadorLogico => [operadorAndOr = "and"]
             criteriosSeleccionados = #[this, criterio]
         ]
     }
 
-    def or(Criterio criterio){
+    def or(Criterio criterio) {
         new CriterioCompuesto =>[
             operador = new OperadorLogico => [operadorAndOr = "or"]
             criteriosSeleccionados = #[this, criterio]

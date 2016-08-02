@@ -5,7 +5,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 
 @Accessors
-class CriterioCompuesto extends Criterio{
+class CriterioCompuesto extends Criterio {
     List<Criterio> criteriosSeleccionados
     OperadorLogico operador
 

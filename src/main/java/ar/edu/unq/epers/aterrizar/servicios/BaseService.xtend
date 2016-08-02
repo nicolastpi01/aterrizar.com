@@ -21,9 +21,11 @@ class BaseService {
 
     }
 
-    def <T> buscar(T objectToSearch, int id){
+    def <T> buscar(T objectToSearch, int id) {
         SessionManager.runInSession([
             SessionManager.getSession().get(objectToSearch.getClass, id) as T
         ])
     }
+    
+   
 }

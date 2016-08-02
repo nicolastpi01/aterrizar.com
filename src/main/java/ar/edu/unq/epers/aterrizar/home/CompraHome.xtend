@@ -14,35 +14,43 @@ class CompraHome {
 		var query = SessionManager.getSession().createQuery(q) as Query
         return query.list as List<Compra>
 	}
-	
-	def todasLasComprasDeUsuario(Usuario usuario) {
-    var q = "select compras from Tramo tramo join tramo.compras as compras where compras.user.nombreDeUsuario = :username "
+	 
+	def todasLasCompras(Usuario usuario, Tramo tramo) {
+    var q = "select compras from Tramo tramo join tramo.compras as compras where tramo.id = :tramoId AND compras.user.nombreDeUsuario = :username "
         var query = SessionManager.getSession().createQuery(q) as Query
         query.setString("username", usuario.nombreDeUsuario)
+        query.setString("tramoId", tramo.id.toString)
         return query.list as List<Compra>
         	
     }
     
-    def todasLasComprasDeTramoConOrigen(String origTramo) {
-    	var q = "select compras from Tramo tramo join tramo.compras as compras where compras.origenTramo = :origenTramo"
-        var query = SessionManager.getSession().createQuery(q) as Query
-        query.setString("origenTramo", origTramo)
-        return query.list as List<Compra>
-    }
     
-    def todasLasComprasDeTramoConDestino(String destTramo) {
-    	var q = "select compras from Tramo tramo join tramo.compras as compras where compras.destinoTramo = :destinoTramo"
+    def todasLasComprasConDestino(Usuario usuario, Tramo tramo, String destTramo) {
+    	var q = "select compras from Tramo tramo join tramo.compras as compras where tramo.id = :tramoId AND compras.destinoTramo = :destinoTramo AND compras.user.nombreDeUsuario = :username "
         var query = SessionManager.getSession().createQuery(q) as Query
         query.setString("destinoTramo", destTramo)
+        query.setString("tramoId", tramo.id.toString)
+        query.setString("username", usuario.nombreDeUsuario)
         return query.list as List<Compra>
     }
     
-    def tieneCompraEnDestino(Usuario u, Destiny d) {
-    	var q = "select compras from Tramo tramo join tramo.compras as compras where compras.destinoTramo = :destinoTramo and compras.username = :username"
+    def todasLasComprasConOrigen(Usuario usuario, Tramo tramo, String origTramo) {
+    	var q = "select compras from Tramo tramo join tramo.compras as compras where compras.origenTramo = :origenTramo AND tramo.id = :tramoId AND compras.user.nombreDeUsuario = :username "
         var query = SessionManager.getSession().createQuery(q) as Query
-        query.setString("destinoTramo", d.nombre)
-        query.setString("username", u.nombreDeUsuario)
-        var comprasAux = query.list as List<Compra>
-        return comprasAux.size > 0
+        query.setString("origenTramo", origTramo)
+        query.setString("tramoId", tramo.id.toString)
+        query.setString("username", usuario.nombreDeUsuario)
+        return query.list as List<Compra>
     }
+    
+    def tieneCompraEnDestino(Usuario usuario, Destiny destino) {
+    	var q = "select compras from Tramo tramo join tramo.compras as compras where compras.destinoTramo = :destinoTramo AND compras.user.nombreDeUsuario = :username "
+        var query = SessionManager.getSession().createQuery(q) as Query
+        query.setString("destinoTramo", destino.nombre) 
+        query.setString("username", usuario.nombreDeUsuario)
+        var compras = query.list as List<Compra>
+        return compras.size > 0
+    }
+     
+    
 }

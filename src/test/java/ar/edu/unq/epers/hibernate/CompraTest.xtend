@@ -2,7 +2,6 @@ package ar.edu.unq.epers.hibernate
 
 import ar.edu.unq.epers.aterrizar.servicios.CompraService
 import ar.edu.unq.epers.aterrizar.model.Compra
-import ar.edu.unq.epers.aterrizar.model.Reserva
 import ar.edu.unq.epers.aterrizar.home.BaseHome
 import ar.edu.unq.epers.aterrizar.model.Tramo
 import ar.edu.unq.epers.aterrizar.model.Usuario
@@ -15,12 +14,10 @@ import org.junit.After
 import ar.edu.unq.epers.aterrizar.model.Destiny
 import ar.edu.unq.epers.aterrizar.model.Asiento
 import ar.edu.unq.epers.aterrizar.model.Primera
+import java.util.ArrayList
 
 class CompraTest {
 	CompraService service
-	Reserva reserva0
-	Reserva reserva1
-	Reserva reserva2
 	BaseHome baseHome
 	Tramo tramo
     Usuario usuario0
@@ -29,11 +26,11 @@ class CompraTest {
     Compra compra0
     Compra compra1
     Compra compra2
-    Destiny destinoBrasil
-    Destiny destinoParaguay
     Asiento asiento0
     Asiento asiento1
     Asiento asiento2
+    Destiny destinoBrasil
+    Destiny destinoParaguay
 	
 	 
 	@Before
@@ -41,6 +38,11 @@ class CompraTest {
 		service = new CompraService
 		baseHome = new BaseHome
 		SessionManager::getSessionFactory().openSession()
+		
+		destinoBrasil = new Destiny
+		destinoBrasil.nombre = "Brasil"
+		destinoParaguay = new Destiny
+		destinoParaguay.nombre = "Paraguay"
 		
 		usuario0 = new Usuario => [
             nombreDeUsuario = "usuario0"
@@ -99,110 +101,71 @@ class CompraTest {
             destinoTramo = "Chile"
         ]
 		
-		reserva0 = new Reserva => [
-            user = usuario0
-            asiento = asiento0
-            tramoOrigen = "Buenos Aires"
-            tramoDestino = "Brasil"
-         
-        ]
-        
-        reserva1 = new Reserva => [
-            user = usuario1
-            asiento = asiento1
-            tramoOrigen = "Brasil"
-            tramoDestino = "Paraguay"
-           
-        ]
-        
-        reserva2 = new Reserva => [
-            user = usuario2
-            asiento = asiento2
-            tramoOrigen = "Paraguay"
-            tramoDestino = "Mexico"
-            
-        ]
         
         tramo = new Tramo => [
             origen = "Buenos Aires"
             destino = "Brasil"
             llegada = new Date(2000)
             salida = new Date(1500)
-            compras = #[compra0, compra1, compra2]
-            
+            compras = new ArrayList   
         ]
         
-        destinoBrasil = new Destiny => [
-        	nombre = "Brasil"
-        ]
+        tramo.agregarCompra(compra0)
+        tramo.agregarCompra(compra1)
+        tramo.agregarCompra(compra2)
         
-        destinoParaguay = new Destiny => [
-        	nombre = "Paraguay"
-        ]
 	}
 	
-	
-	@Test
-	def void guardarCompraTest() {
-		
-		service.guardar(compra0)
-		service.guardar(compra1)
-		service.guardar(compra2)
-		var compra0Aux = service.buscar(compra0, compra0.id)
-		var compra1Aux = service.buscar(compra1, compra1.id)
-		var compra2Aux = service.buscar(compra2, compra2.id)
-		Assert.assertEquals(compra0Aux.user.nombreDeUsuario, "usuario0")
-		Assert.assertEquals(compra0Aux.asiento.nombre, "asiento0")
-		Assert.assertEquals(compra0Aux.origenTramo, "Buenos Aires")
-		Assert.assertEquals(compra0Aux.destinoTramo, "Brasil")
-		Assert.assertEquals(compra1Aux.user.nombreDeUsuario, "usuario1")
-		Assert.assertEquals(compra2Aux.user.nombreDeUsuario, "usuario2")
-	
-	}
-	/* 
+	 
 	@Test
 	def void todasLasComprasTest() {
 		service.guardar(tramo)
 		var compras = service.todasLasCompras()
 		Assert.assertEquals(compras.size, 3)
-		Assert.assertEquals(compras.get(0).username, "usuario0")
-		Assert.assertEquals(compras.get(0).nombreAsiento, "asiento0")
+		Assert.assertEquals(compras.get(0).user.nombreDeUsuario, "usuario0")
+		Assert.assertEquals(compras.get(0).asiento.nombre, "a0")
 		Assert.assertEquals(compras.get(0).origenTramo, "Buenos Aires")
 		Assert.assertEquals(compras.get(0).destinoTramo, "Brasil")
 	}
 	
+	
+	
 	@Test
 	def void todasLasComprasDeUsuarioTest() {
 		service.guardar(tramo)
-		var comprasUsuario0 = service.todasLasComprasDeUsuario(usuario0)
-		Assert.assertEquals(comprasUsuario0.size, 1)
-		Assert.assertEquals(comprasUsuario0.get(0).username, "usuario0")
-		Assert.assertEquals(comprasUsuario0.get(0).nombreAsiento, "asiento0")
-		Assert.assertEquals(comprasUsuario0.get(0).origenTramo, "Buenos Aires")
-		Assert.assertEquals(comprasUsuario0.get(0).destinoTramo, "Brasil")
+		var compras = service.todasLasCompras(usuario0, tramo)
+		Assert.assertEquals(compras.size, 1)
+		Assert.assertEquals(compras.get(0).user.nombreDeUsuario, "usuario0")
+		Assert.assertEquals(compras.get(0).asiento.nombre, "a0")
+		Assert.assertEquals(compras.get(0).origenTramo, "Buenos Aires")
+		Assert.assertEquals(compras.get(0).destinoTramo, "Brasil")
 	}
 	
-	@Test
-	def void todasLasComprasDeTramoConDestinoTest() {
-		service.guardar(tramo)
-		var comprasConDestinoBrasil = service.todasLasComprasDeTramoConDestino("Brasil")
-		Assert.assertEquals(comprasConDestinoBrasil.size, 1)
-		Assert.assertEquals(comprasConDestinoBrasil.get(0).username, "usuario0")
-		Assert.assertEquals(comprasConDestinoBrasil.get(0).nombreAsiento, "asiento0")
-		Assert.assertEquals(comprasConDestinoBrasil.get(0).origenTramo, "Buenos Aires")
-		Assert.assertEquals(comprasConDestinoBrasil.get(0).destinoTramo, "Brasil")
-	}
 	
 	@Test
-	def void todasLasComprasDeTramoConOrigenTest() {
+	def void todasLasComprasConDestinoTest() {
 		service.guardar(tramo)
-		var comprasConOrigenArgentina = service.todasLasComprasDeTramoConOrigen("Buenos Aires")
-		Assert.assertEquals(comprasConOrigenArgentina.size, 1)
-		Assert.assertEquals(comprasConOrigenArgentina.get(0).username, "usuario0")
-		Assert.assertEquals(comprasConOrigenArgentina.get(0).nombreAsiento, "asiento0")
-		Assert.assertEquals(comprasConOrigenArgentina.get(0).origenTramo, "Buenos Aires")
-		Assert.assertEquals(comprasConOrigenArgentina.get(0).destinoTramo, "Brasil")
+		var compras = service.todasLasComprasConDestino(usuario0, tramo, "Brasil")
+		Assert.assertEquals(compras.size, 1)
+		Assert.assertEquals(compras.get(0).user.nombreDeUsuario, "usuario0")
+		Assert.assertEquals(compras.get(0).asiento.nombre, "a0")
+		Assert.assertEquals(compras.get(0).origenTramo, "Buenos Aires")
+		Assert.assertEquals(compras.get(0).destinoTramo, "Brasil")
 	}
+	
+	
+	
+	@Test
+	def void todasLasComprasConOrigenTest() {
+		service.guardar(tramo)
+		var compras = service.todasLasComprasConOrigen(usuario0, tramo, "Buenos Aires")
+		Assert.assertEquals(compras.size, 1)
+		Assert.assertEquals(compras.get(0).user.nombreDeUsuario, "usuario0")
+		Assert.assertEquals(compras.get(0).asiento.nombre, "a0")
+		Assert.assertEquals(compras.get(0).origenTramo, "Buenos Aires")
+		Assert.assertEquals(compras.get(0).destinoTramo, "Brasil")
+	}
+	
 	
 	@Test
 	def void tieneCompraEnDestinoTest() {
@@ -215,7 +178,8 @@ class CompraTest {
     def void limpiar() {
         baseHome.hqlTruncate('compra')
         baseHome.hqlTruncate('tramo')
-       
+        baseHome.hqlTruncate('asiento')
+        baseHome.hqlTruncate('usuario')
     }
-    */
+    
 }

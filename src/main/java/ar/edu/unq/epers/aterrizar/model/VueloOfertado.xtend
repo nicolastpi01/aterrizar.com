@@ -7,61 +7,51 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 class VueloOfertado {
     int id
-    var List<Tramo> tramos
-    var int precioBase
-    var int cantidadTramos
-    var long duracion
+    List<Tramo> tramos
+    int precioBase
+    int cantidadTramos
+    long duracion
 
-    protected new(){
+    protected new() {}
+
+    new(List<Tramo> tramos, int precio) {
+        this.tramos = tramos
+        this.precioBase = precio
+        this.cantidadTramos = tramos.size
+        this.duracion = this.getDuracionTotal
+        this.tramos.forEach[it.vuelo = this]
     }
 
-    new(List<Tramo> tramos2, int precio){
-        tramos = tramos2
-        precioBase = precio
-        cantidadTramos = tramos.size
-        duracion = this.getDuracionTotal()
-        tramos2.forEach[it.vuelo = this]
-    }
 
-    def cantidadDeTramos(){
-        this.tramos.size
-    }
-
-    def getDuracionTotal(){
+    def getDuracionTotal() {
         tramos.fold(0 as long) [res, tramo | tramo.duracion() + res]
     }
 
-    def destino(){
+    def destino() {
         tramos.last.destino
     }
 
-    def guardarTramo(Tramo tramo){
+    def guardarTramo(Tramo tramo) {
         this.tramos.add(tramo)
     }
 
-    def tieneFechaLlegada(Date fechaDeLlegada){
+    def tieneFechaLlegada(Date fechaDeLlegada) {
         tramos.last.llegada == fechaDeLlegada
     }
 
-    def tieneFechaSalida(Date fechaSalida){
+    def tieneFechaSalida(Date fechaSalida) {
         tramos.last.salida == fechaSalida
     }
-
-    def estaDisponible(){
-        tramos.fold(true) [ result, tramo|
-            tramo.hayUnAsientoDisponible() && result
-        ]
-    }
-
-    def tieneOrigen(String origen){
+	
+    def tieneOrigen(String origen) {
         tramos.last.origen == origen
     }
 
-    def esDirecto(){
+    def esDirecto() {
         tramos.size == 1
     }
 
-    def tieneCategoriaDeAsientoEnCadaTramo(Categoria cat){
+    def tieneCategoriaDeAsientoEnCadaTramo(Categoria cat) {
         tramos.fold(true) [result, tramo |
             tramo.tieneCategoriaDeAsiento(cat) && result
         ]

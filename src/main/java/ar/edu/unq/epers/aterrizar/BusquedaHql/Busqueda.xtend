@@ -9,28 +9,24 @@ class Busqueda {
     Criterio criterio
     Orden orden
 
-
-    def getHQL(){
-        "select distinct vuelo from Aerolinea aerolinea inner join aerolinea.vuelosOfertados as vuelo " +
-                criterio.getHQL +
-                " where " +
-                criterio.whereClause +
-                orden.getOrderStatament
-    }
-
-    new(){
+    new() {
         criterio = new CriterioVacio
         orden = new OrdenVacio
     }
 
-    new(Criterio c){
+    new(Criterio c) {
         criterio = c
         orden = new OrdenVacio
     }
 
-    new(Orden o){
+    new(Orden o) {
         criterio = criterio = new CriterioVacio
         orden = o
+    }
+    
+    new(Orden o, Criterio c) {
+    	this.criterio = c
+    	this.orden = o
     }
 
 }

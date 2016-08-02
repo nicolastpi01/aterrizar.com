@@ -9,34 +9,31 @@ import ar.edu.unq.epers.aterrizar.home.BaseHome
 import org.junit.After
 import ar.edu.unq.epers.aterrizar.model.Tramo
 import ar.edu.unq.epers.aterrizar.model.Asiento
-import org.hibernate.SessionFactory
-import org.hibernate.Session
 import ar.edu.unq.epers.aterrizar.home.SessionManager
 import ar.edu.unq.epers.aterrizar.model.Usuario
 import ar.edu.unq.epers.aterrizar.servicios.CompraService
 import ar.edu.unq.epers.aterrizar.model.Primera
 import java.sql.Date
 import java.util.Calendar
+import java.util.ArrayList
 
 class ReservaTest {
 	
 	ReservaService service
-	Reserva reserva0
-	Reserva reserva1
-	Reserva reserva2
-	Reserva reservaInvalida
-	Reserva reservaInvalida2
-	Reserva reservaInvalida3
+	Reserva reservaBuenosAiresBrasil
 	Reserva reservaValida
 	Reserva reservaValida2
+	Reserva reservaInvalida
+	Reserva reservaInvalida2
 	BaseHome baseHome
 	Tramo tramo
+	Tramo tramoParaHacerReserva
     Usuario usuario0
     Usuario usuario1
     Usuario usuario2
     Asiento asiento0
     Asiento asiento1
-    Asiento asiento2
+    Asiento asientoReservable
     CompraService serviceCompra
 	
 	
@@ -77,13 +74,14 @@ class ReservaTest {
                     nombre = "a1"
                     categoria = new Primera(1000)
                 ]
+        
+        asientoReservable = new Asiento => [
+        			nombre = "reservable"
+        			categoria = new Primera(1000)
+      			]
                 
-        asiento2 = new Asiento => [
-                    nombre = "a2"
-                    categoria = new Primera(1000)
-                ]
 		
-		reserva0 = new Reserva => [
+		reservaBuenosAiresBrasil = new Reserva => [
             user = usuario0
             asiento = asiento0
             tramoOrigen = "Buenos Aires"
@@ -91,144 +89,170 @@ class ReservaTest {
          
         ]
         
-        reserva1 = new Reserva => [
-            user = usuario1
-            asiento = asiento1
-            tramoOrigen = "Brasil"
-            tramoDestino = "Paraguay"
-             
-        ]
-        
-        reserva2 = new Reserva => [
-            user = usuario2
-            asiento = asiento2
-            tramoOrigen = "Paraguay"
-            tramoDestino = "Mexico"
-          
-        ]
-        
         reservaInvalida = new Reserva => [
             user = usuario0
-            asiento = asiento2
-            tramoOrigen = "Paraguay"
-            tramoDestino = "Mexico"
-            fechaReserva = new java.util.Date(2016, 03, 11)
+            asiento = asiento0
+            tramoOrigen = "Mexico"
+            tramoDestino = "EEUU"
+            var calendar = Calendar.getInstance()
+			calendar.setTime(new java.util.Date())
+			calendar.add(Calendar.MINUTE, -10)
+            fechaReserva = calendar.getTime
           
         ]
         
         reservaInvalida2 = new Reserva => [
             user = usuario0
-            asiento = asiento2
+            asiento = asiento0
             tramoOrigen = "Mexico"
             tramoDestino = "EEUU"
             var calendar = Calendar.getInstance()
-			calendar.setTime(new java.util.Date()) /* today */
-			calendar.add(Calendar.MINUTE, -10)
+			calendar.setTime(new java.util.Date())
+			calendar.add(Calendar.MINUTE, -7)
             fechaReserva = calendar.getTime
           
         ]
         
         reservaValida = new Reserva => [
             user = usuario0
-            asiento = asiento2
+            asiento = asiento0
             tramoOrigen = "Mexico"
             tramoDestino = "EEUU"
             var calendar = Calendar.getInstance()
-			calendar.setTime(new java.util.Date()) /* today */
+			calendar.setTime(new java.util.Date()) 
 			calendar.add(Calendar.MINUTE, -3)
             fechaReserva = calendar.getTime
           
         ]
         
         reservaValida2 = new Reserva => [
-            user = usuario0
-            asiento = asiento2
+            user = usuario1
+            asiento = asiento0
             tramoOrigen = "Mexico"
             tramoDestino = "EEUU"
             var calendar = Calendar.getInstance()
-			calendar.setTime(new java.util.Date()) /* today */
+			calendar.setTime(new java.util.Date()) 
 			calendar.add(Calendar.MINUTE, -4)
             fechaReserva = calendar.getTime
           
         ]
         
-        reservaInvalida3 = new Reserva => [
-            user = usuario0
-            asiento = asiento2
-            tramoOrigen = "Mexico"
-            tramoDestino = "EEUU"
-            var calendar = Calendar.getInstance()
-			calendar.setTime(new java.util.Date()) /* today */
-			calendar.add(Calendar.MINUTE, -7)
-            fechaReserva = calendar.getTime
-          
-        ]
         
         tramo = new Tramo => [
             origen = "Buenos Aires"
             destino = "Brasil"
             llegada = new Date(2000)
             salida = new Date(1500)
-            reservas = #[reserva0, reserva1, reserva2, reservaInvalida, reservaInvalida2, reservaInvalida3, reservaValida, reservaValida2]
-            
+            reservas = new ArrayList
+            compras = new ArrayList
+        ]
+        
+        tramo.agregarReserva(reservaBuenosAiresBrasil)
+        tramo.agregarReserva(reservaInvalida)
+        tramo.agregarReserva(reservaInvalida2)
+        tramo.agregarReserva(reservaValida)
+        tramo.agregarReserva(reservaValida2)
+        
+        tramoParaHacerReserva = new Tramo => [
+        	origen = "Cataluñia"
+        	destino = "Madrid"
+        	llegada = new Date(2000)
+            salida = new Date(1500)
+            reservas = new ArrayList
         ]
 	}
 	
 	
 	@Test
-	def void hacerReservaTest() {
-		
-		service.guardar(reserva0)
-		service.guardar(reserva1)
-		service.guardar(reserva2)
-		var reserva0 = service.buscar(reserva0, reserva0.id)
-		var reserva1 = service.buscar(reserva1, reserva1.id)
-		var reserva2 = service.buscar(reserva2, reserva2.id)
-		Assert.assertEquals(reserva0.user.nombreDeUsuario, "usuario0")
-		Assert.assertEquals(reserva0.asiento.nombre, "a0")
-		Assert.assertEquals(reserva0.tramoOrigen, "Buenos Aires")
-		Assert.assertEquals(reserva0.tramoDestino, "Brasil")
-		Assert.assertEquals(reserva1.user.nombreDeUsuario, "usuario1")
-		Assert.assertEquals(reserva2.user.nombreDeUsuario, "usuario2")
+	def void hacerReservaTest() {	
+		service.guardar(tramoParaHacerReserva)
+		service.hacerReserva(tramoParaHacerReserva, usuario0, asiento0)
+		var reservas = service.todasLasReservas 
+		Assert.assertEquals(reservas.size, 1)
+		Assert.assertEquals(reservas.get(0).asiento.nombre, "a0")
+		Assert.assertEquals(reservas.get(0).user.nombreDeUsuario, "usuario0")
+		Assert.assertEquals(reservas.get(0).tramoOrigen, "Cataluñia")
+		Assert.assertEquals(reservas.get(0).tramoDestino, "Madrid")
+		Assert.assertEquals(reservas.get(0).asiento.user.nombreDeUsuario, "usuario0")
+		Assert.assertEquals(reservas.get(0).asiento.fechaReserva.class, java.sql.Timestamp)
+	
 	}
+	
+	@Test(expected = Exception) 
+	def void hacerReservaExceptionTest() {
+		service.guardar(tramoParaHacerReserva)
+		service.hacerReserva(tramoParaHacerReserva, usuario0, asiento0)
+		service.hacerReserva(tramoParaHacerReserva, usuario0, asiento0)
+	}
+	
+	@Test(expected = Exception) 
+	def void hacerReservaOtroUsuarioExceptionTest() {
+		service.guardar(tramoParaHacerReserva)
+		service.hacerReserva(tramoParaHacerReserva, usuario0, asiento0)
+		service.hacerReserva(tramoParaHacerReserva, usuario1, asiento0)
+	}
+	
+	@Test
+	def void hacerReservasTest() {
+		service.guardar(tramoParaHacerReserva)
+		service.hacerReserva(tramoParaHacerReserva, usuario0, asiento0)
+		service.hacerReserva(tramoParaHacerReserva, usuario2, asiento1)
+		var asientos = new ArrayList
+		asientos.add(asiento0)
+		asientos.add(asiento1)
+		asientos.add(asientoReservable)
+		service.hacerReservas(tramoParaHacerReserva, usuario1, asientos)
+		var reservas = service.todasReservasValidasDeUsuario(usuario1) 
+		Assert.assertEquals(reservas.size, 1)
+	}
+	
 	
 	@Test
 	def void reservasValidasTest() {
 		service.guardar(tramo)
 		var reservasValidas = service.todasLasReservasValidas
-		Assert.assertEquals(reservasValidas.size, 5)
+		Assert.assertEquals(reservasValidas.size, 3)
 	}
 	
-	
+	 
 	@Test
 	def void todasLasReservasValidasDeUsuarioTest() {	
 		service.guardar(tramo)
 		var reservas = service.todasReservasValidasDeUsuario(usuario0)
-		Assert.assertEquals(reservas.size, 3)
+		Assert.assertEquals(reservas.size, 2)
 		Assert.assertEquals(reservas.get(0).user.nombreDeUsuario, "usuario0")
 	}
+	
 	 
 	@Test
 	def void esReservaValidaTest() {
 		service.guardar(tramo)
-		Assert.assertTrue(service.esReservaValida(reserva0, usuario0))
-		Assert.assertFalse(service.esReservaValida(reservaInvalida, usuario0))
+		Assert.assertTrue(service.esReservaValida(reservaBuenosAiresBrasil, usuario0, tramo, asiento0))
+		Assert.assertFalse(service.esReservaValida(reservaInvalida, usuario0, tramo, asiento0))
 	}
 	
 	
 	@Test
 	def void comprarReservaTest() {
 		service.guardar(tramo)
-		service.comprarReserva(reserva0, usuario0)
-		Assert.assertEquals(serviceCompra.todasLasCompras.size, 1)
+		service.comprarReserva(reservaBuenosAiresBrasil, usuario0, tramo, asiento0)
+		var compras = serviceCompra.todasLasCompras
+		Assert.assertEquals(compras.size, 1)
+		Assert.assertEquals(compras.get(0).user.nombreDeUsuario, "usuario0")
+		Assert.assertEquals(compras.get(0).asiento.nombre, "a0")
+		Assert.assertEquals(compras.get(0).origenTramo, "Buenos Aires")
+		Assert.assertEquals(compras.get(0).destinoTramo, "Brasil")
+		var reservasValidas = service.todasLasReservasValidas // Una reserva valida menos que antes
+		Assert.assertEquals(reservasValidas.size, 2)
 		
 	}
 	
+	
 	@Test
 	def void eliminarReservaTest() {
-		service.guardar(reserva0)
+		service.guardar(reservaBuenosAiresBrasil)
 		Assert.assertEquals(service.todasLasReservas.size, 1)
-		service.eliminarReserva(reserva0)
+		service.eliminarReserva(reservaBuenosAiresBrasil)
 		Assert.assertEquals(service.todasLasReservas.size, 0)	
 	}
 	
@@ -240,8 +264,7 @@ class ReservaTest {
        	baseHome.hqlTruncate('tramo')
         baseHome.hqlTruncate('asiento')
         baseHome.hqlTruncate('usuario')
-        
-        
+          
     }
     
 }
