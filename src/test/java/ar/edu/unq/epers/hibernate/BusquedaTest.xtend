@@ -35,6 +35,7 @@ class BusquedaTest {
 	BusquedaService service
 	BaseHome baseHome
 	Usuario usuario
+	Usuario otroUsuario
 	Aerolinea aerolineaAustral
 	VueloOfertado vueloDisponible
 	VueloOfertado vueloDisponible2
@@ -119,6 +120,13 @@ class BusquedaTest {
             nacimiento = new Date(2015,10,1)
         ]
         
+        otroUsuario = new Usuario => [
+            nombreDeUsuario = "otroUsuario"
+            nombreYApellido = "usuario otro"
+            email = "abc@123.com"
+            nacimiento = new Date(2015,10,1)
+        ]
+        
         asientoNoReservadoDisponible = new Asiento => [
         	nombre = "asientoNoReservado"
         	categoria = new Primera(1000)
@@ -127,7 +135,7 @@ class BusquedaTest {
         asientoReservadoNoDisponible0 = new Asiento => [
         	nombre = "asientoInvalido0"
         	categoria = new Primera(1000)
-        	user = usuario
+        	user = otroUsuario
         	fechaReserva = new java.util.Date
         ]
                 
@@ -135,7 +143,7 @@ class BusquedaTest {
         asientoReservadoNoDisponible1 = new Asiento => [
             nombre = "asientoInvalido1"
         	categoria = new Primera(1000)
-        	user = usuario
+        	user = otroUsuario
         	var calendar = Calendar.getInstance()
 			calendar.setTime(new java.util.Date())
 			calendar.add(Calendar.MINUTE, -3)
@@ -146,7 +154,7 @@ class BusquedaTest {
         asientoReservadoNoDisponible2 = new Asiento => [
             nombre = "asientoInvalido2"
         	categoria = new Primera(1000)
-        	user = usuario
+        	user = otroUsuario
         	var calendar = Calendar.getInstance()
 			calendar.setTime(new java.util.Date())
 			calendar.add(Calendar.MINUTE, -4)
@@ -171,7 +179,7 @@ class BusquedaTest {
         	user = usuario
         	var calendar = Calendar.getInstance()
 			calendar.setTime(new java.util.Date())
-			calendar.add(Calendar.MINUTE, -10)
+			calendar.add(Calendar.MINUTE, -3)
             fechaReserva = calendar.getTime
           
         ]
@@ -262,56 +270,56 @@ class BusquedaTest {
     @Test
     def void buscarVuelosDisponiblesPorAerolinea() {
     	service.guardar(aerolineaAustral)
-    	var vuelos = service.buscarVuelosDisponibles(busquedaPorAerolinea)
+    	var vuelos = service.buscarVuelosDisponibles(busquedaPorAerolinea, usuario)
     	Assert.assertEquals(vuelos.size, 2)
     }
-    
+     
     @Test
     def void buscarVuelosDisponiblesPorCategoriaDeAsiento() {
     	service.guardar(aerolineaAustral)
-    	var vuelos = service.buscarVuelosDisponibles(busquedaPorCategoriaDeAsiento)
+    	var vuelos = service.buscarVuelosDisponibles(busquedaPorCategoriaDeAsiento, usuario)
     	Assert.assertEquals(vuelos.size, 2)
     }
     
     @Test
     def void buscarVuelosDisponiblesPorFechaDeSalida() {
     	service.guardar(aerolineaAustral)
-    	var vuelos = service.buscarVuelosDisponibles(busquedaPorFechaDeSalida)
+    	var vuelos = service.buscarVuelosDisponibles(busquedaPorFechaDeSalida, usuario)
     	Assert.assertEquals(vuelos.size, 1)
     }
     
     @Test
     def void buscarVuelosDisponiblesPorFechaDeLlegada() {
     	service.guardar(aerolineaAustral)
-    	var vuelos = service.buscarVuelosDisponibles(busquedaPorFechaDeLlegada)
+    	var vuelos = service.buscarVuelosDisponibles(busquedaPorFechaDeLlegada, usuario)
     	Assert.assertEquals(vuelos.size, 1)
     }
     
     @Test
     def void buscarVuelosDisponiblesPorDestino() {
     	service.guardar(aerolineaAustral)
-    	var vuelos = service.buscarVuelosDisponibles(busquedaPorDestino)
+    	var vuelos = service.buscarVuelosDisponibles(busquedaPorDestino, usuario)
     	Assert.assertEquals(vuelos.size, 1)
     }
     
     @Test
     def void buscarVuelosDisponiblesPorCriterioCompuestoAND() {
     	service.guardar(aerolineaAustral)
-    	var vuelos = service.buscarVuelosDisponibles(busquedaPorCriterioDestinoANDCategoriaDeAsiento)
+    	var vuelos = service.buscarVuelosDisponibles(busquedaPorCriterioDestinoANDCategoriaDeAsiento, usuario)
     	Assert.assertEquals(vuelos.size, 1)
     }
      
     @Test
     def void buscarVuelosDisponiblesPorCriterioCompuestoOR() {
     	service.guardar(aerolineaAustral)
-    	var vuelos = service.buscarVuelosDisponibles(busquedaPorCriterioDestinoORCategoriaDeAsiento)
+    	var vuelos = service.buscarVuelosDisponibles(busquedaPorCriterioDestinoORCategoriaDeAsiento, usuario)
     	Assert.assertEquals(vuelos.size, 2)
     }
     
     @Test
     def void buscarVuelosDisponiblesPorCategoriaDeAsientoOrdenadoPorMenorEscalas() {
     	service.guardar(aerolineaAustral)
-    	var vuelos = service.buscarVuelosDisponibles(busquedaPorCategoriaDeAsientoOrdenadoPorMenorEscalas)
+    	var vuelos = service.buscarVuelosDisponibles(busquedaPorCategoriaDeAsientoOrdenadoPorMenorEscalas, usuario)
     	Assert.assertEquals(vuelos.size, 2)
     	Assert.assertEquals(vuelos.get(0).cantidadTramos, 1)
     	Assert.assertEquals(vuelos.get(1).cantidadTramos, 2)
@@ -320,7 +328,7 @@ class BusquedaTest {
     @Test
     def void buscarVuelosDisponiblesPorCategoriaDeAsientoOrdenadoPorMenorCosto() {
     	service.guardar(aerolineaAustral)
-    	var vuelos = service.buscarVuelosDisponibles(busquedaPorCategoriaDeAsientoOrdenadoPorMenorCosto)
+    	var vuelos = service.buscarVuelosDisponibles(busquedaPorCategoriaDeAsientoOrdenadoPorMenorCosto, usuario)
     	Assert.assertEquals(vuelos.size, 2)
     	Assert.assertEquals(vuelos.get(0).precioBase, 4500)
     	Assert.assertEquals(vuelos.get(1).precioBase, 5000)
@@ -329,7 +337,7 @@ class BusquedaTest {
     @Test
     def void buscarVuelosDisponiblesPorCategoriaDeAsientoOrdenadoPorMenorDuracion() {
     	service.guardar(aerolineaAustral)
-    	var vuelos = service.buscarVuelosDisponibles(busquedaPorCategoriaDeAsientoOrdenadoPorMenorDuracion)
+    	var vuelos = service.buscarVuelosDisponibles(busquedaPorCategoriaDeAsientoOrdenadoPorMenorDuracion, usuario)
     	Assert.assertEquals(vuelos.size, 2)
     	Assert.assertEquals(vuelos.get(0).cantidadTramos, 1)
     	Assert.assertEquals(vuelos.get(1).cantidadTramos, 2)

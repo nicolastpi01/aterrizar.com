@@ -128,8 +128,6 @@ class CompraTest {
 		Assert.assertEquals(compras.get(0).destinoTramo, "Brasil")
 	}
 	
-	
-	
 	@Test
 	def void todasLasComprasDeUsuarioTest() {
 		service.guardar(tramo)

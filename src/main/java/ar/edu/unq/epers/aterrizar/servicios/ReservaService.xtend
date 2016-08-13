@@ -86,11 +86,16 @@ class ReservaService extends BaseService {
     	a.user = null
     	guardar(a)
     	guardar(t)
-    	//eliminar(r)
     	eliminarReserva(r)
     }
     
-    def eliminarReserva(Reserva r) {
+    def comprarReservas(List<Reserva> reservas, Usuario u, Tramo t, Asiento a) {
+    	for(Reserva r : reservas) {
+    		if(esReservaValida(r, u, t, a)) comprarReserva(r, u, t, a)
+    	}
+    }
+    
+    def private eliminarReserva(Reserva r) {
     	SessionManager.runInSession([
         new ReservaHome().eliminarReserva(r)
         		null

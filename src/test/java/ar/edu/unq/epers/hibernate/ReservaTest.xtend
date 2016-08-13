@@ -213,8 +213,7 @@ class ReservaTest {
 		var reservasValidas = service.todasLasReservasValidas
 		Assert.assertEquals(reservasValidas.size, 3)
 	}
-	
-	 
+		 
 	@Test
 	def void todasLasReservasValidasDeUsuarioTest() {	
 		service.guardar(tramo)
@@ -244,17 +243,24 @@ class ReservaTest {
 		Assert.assertEquals(compras.get(0).destinoTramo, "Brasil")
 		var reservasValidas = service.todasLasReservasValidas // Una reserva valida menos que antes
 		Assert.assertEquals(reservasValidas.size, 2)
+		Assert.assertEquals(asiento0.user, null)
 		
 	}
 	
-	
 	@Test
-	def void eliminarReservaTest() {
-		service.guardar(reservaBuenosAiresBrasil)
-		Assert.assertEquals(service.todasLasReservas.size, 1)
-		service.eliminarReserva(reservaBuenosAiresBrasil)
-		Assert.assertEquals(service.todasLasReservas.size, 0)	
+	def void comprarReservasTest() {
+		service.guardar(tramoParaHacerReserva)
+		var asientos = new ArrayList
+		asientos.add(asiento0)
+		asientos.add(asiento1)
+		asientos.add(asientoReservable)
+		service.hacerReservas(tramoParaHacerReserva, usuario1, asientos)
+		var reservas = service.todasReservasValidasDeUsuario(usuario1)
+		service.comprarReservas(reservas, usuario1, tramoParaHacerReserva, asiento0)
+		var compras = serviceCompra.todasLasCompras
+		Assert.assertEquals(compras.size, 1)
 	}
+	
 	
 	@After
     def void limpiar() {
