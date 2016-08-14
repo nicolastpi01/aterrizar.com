@@ -52,5 +52,4 @@ class CompraHome {
         return compras.size > 0
     }
      
-    
 }

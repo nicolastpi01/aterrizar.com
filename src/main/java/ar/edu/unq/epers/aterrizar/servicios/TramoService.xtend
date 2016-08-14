@@ -10,37 +10,10 @@ import ar.edu.unq.epers.aterrizar.model.Destiny
 
 class TramoService extends BaseService {
 
-    def guardarTramosEnVuelo(VueloOfertado vuelo, Tramo... listaTramos) {
-        guardarVueloConTramos(vuelo, listaTramos.toList)
-    }
-
-    def guardarVueloConTramos(VueloOfertado vuelo, List<Tramo> listaTramos) {
-
-        SessionManager.runInSession([
-            val tramoHome = new TramoHome()
-            listaTramos.forEach[tramo|
-                vuelo.guardarTramo(tramo)
-                tramoHome.guardar(vuelo)
-            ]
-            	null
-        ])
-
-    }
-
     def asientosDisponibles(Tramo tramo) {
         SessionManager.runInSession([
             new TramoHome().asientosDisponiblesEnTramo(tramo)
         ]);
     }
-    /* 
-    def tieneReservadoAsiento(Usuario usuario, Destiny destiny) {
-		SessionManager.runInSession([
-            val tramoHome = new TramoHome()
-            var listaAsientos = tramoHome.getTramosConDestino(usuario.nombreDeUsuario, destiny.nombre)
-            listaAsientos.size > 0
-            
-        ])
-		
-	}
-	*/
+    
 }

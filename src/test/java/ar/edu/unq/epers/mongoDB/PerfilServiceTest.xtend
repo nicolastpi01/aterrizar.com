@@ -367,7 +367,7 @@ class PerfilServiceTest {
 		service.addVisibility(usuarioPepe, bahiaBlancaDestiny, visibilityAmigos, Visibility.PUBLICO)
 		var perfilPepe = service.stalkear(usuarioLuis, usuarioPepe)
 		Assert.assertEquals(perfilPepe.destinations.size, 1)
-		Assert.assertEquals(perfilPepe.destinations.get(0).nombre, "Bahia Blanca")
+		Assert.assertEquals(perfilPepe.destinations.get(0).nombre, "bahia blanca")
 	}
 	
 	@After
@@ -380,6 +380,5 @@ class PerfilServiceTest {
        	baseHome.hqlTruncate('tramo')
         baseHome.hqlTruncate('asiento')
         baseHome.hqlTruncate('usuario')		
-	}
-	
+	}	
 }

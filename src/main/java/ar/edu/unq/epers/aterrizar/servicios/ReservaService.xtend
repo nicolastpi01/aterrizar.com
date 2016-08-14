@@ -14,7 +14,6 @@ import java.util.Date
 
 class ReservaService extends BaseService {
 	
-	
 	def List<Reserva> todasLasReservas() {
         SessionManager.runInSession([
         return new ReservaHome().todasLasReservas()

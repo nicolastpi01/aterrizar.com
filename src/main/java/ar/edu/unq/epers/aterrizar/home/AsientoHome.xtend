@@ -9,6 +9,7 @@ import java.util.Date
 import java.sql.Timestamp
 
 class AsientoHome {
+	FechaParaReservaValida fechaParaReservaValida = new FechaParaReservaValida
 
     def List<Asiento> todosLosAsientos() {
         var q = "from Asiento"
@@ -28,13 +29,9 @@ class AsientoHome {
     }
     
     def List<Asiento> asientosDisponibles(Tramo tramo) {
-	var chequeoInicio = Calendar.getInstance()
-	chequeoInicio.setTime(new Date()) /* today */
-	chequeoInicio.add(Calendar.MINUTE, -5) 
-	var fechaChequeoInicio= new Timestamp(chequeoInicio.getTime().getTime())
     var q = "select asientos from Tramo tramo join tramo.asientos as asientos where tramo.id = :tramoId AND asientos.fechaReserva < :fechaChequeoInicio OR asientos.user IS NULL) "
         var query = SessionManager.getSession().createQuery(q) as Query
-		query.setParameter("fechaChequeoInicio", fechaChequeoInicio)
+		query.setParameter("fechaChequeoInicio", fechaParaReservaValida.fechaChequeoInicio)
 		query.setString("tramoId", tramo.id.toString)
         var asientos = query.list as List<Asiento>
         	return asientos
