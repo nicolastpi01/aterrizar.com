@@ -243,8 +243,7 @@ class ReservaTest {
 		Assert.assertEquals(compras.get(0).destinoTramo, "Brasil")
 		var reservasValidas = service.todasLasReservasValidas // Una reserva valida menos que antes
 		Assert.assertEquals(reservasValidas.size, 2)
-		Assert.assertEquals(asiento0.user, null)
-		
+		Assert.assertEquals(asiento0.user, null)	
 	}
 	
 	
